@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
+    - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
+    totalSpriteSurfaceArea: 1753
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
+  - {fileID: 21300000, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
+  - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
+  - {fileID: 21300000, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
+  - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
+  - {fileID: 21300000, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
+  - {fileID: 21300000, guid: fdbb6b8b57174c514beb64c010db38e8, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - hud_gauge_frame
+  - projectile_fireball_spritesheet
+  - hud_gauge_fill
+  - enemy_tiger_spritesheet
+  - bg_sky
+  - hud_gauge_separator
+  - dragon_spritesheet
+  - bg_cloud
+  m_RenderDataMap: {}
+  m_Tag: Sprite Atlas
+  m_IsVariant: 0
