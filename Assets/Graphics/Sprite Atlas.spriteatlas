@@ -39,22 +39,22 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
-  - {fileID: 21300000, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
+  - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
+  - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
-  - {fileID: 21300000, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
-  - {fileID: 21300000, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
+  - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
   - {fileID: 21300000, guid: fdbb6b8b57174c514beb64c010db38e8, type: 3}
   m_PackedSpriteNamesToIndex:
-  - hud_gauge_frame
-  - projectile_fireball_spritesheet
+  - hud_gauge_frame_0
+  - projectile_fireball_spritesheet_0
   - hud_gauge_fill
-  - enemy_tiger_spritesheet
+  - enemy_tiger_spritesheet_0
   - bg_sky
   - hud_gauge_separator
-  - dragon_spritesheet
+  - dragon_spritesheet_0
   - bg_cloud
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
