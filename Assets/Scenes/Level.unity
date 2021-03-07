@@ -1894,7 +1894,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolTransform: {fileID: 0}
   resourcePrefabsPath: Projectiles
-  poolSize: 20
+  initialPoolSize: 20
+  instantiateNewObjectOnStarvation: 1
 --- !u!1 &2017391166
 GameObject:
   m_ObjectHideFlags: 0
