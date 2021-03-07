@@ -10,6 +10,7 @@ public class PlayerMoveController : MonoBehaviour
 {
     /* Parameters data */
     
+    [Tooltip("Move Parameters Data")]
     public MoveParameters moveParameters;
 
     

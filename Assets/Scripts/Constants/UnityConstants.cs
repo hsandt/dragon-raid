@@ -32,6 +32,10 @@ namespace UnityConstants
         /// Name of tag 'GameController'.
         /// </summary>
         public const string GameController = "GameController";
+        /// <summary>
+        /// Name of tag 'ProjectilePool'.
+        /// </summary>
+        public const string ProjectilePool = "ProjectilePool";
     }
 
     public static class SortingLayers
@@ -40,6 +44,26 @@ namespace UnityConstants
         /// ID of sorting layer 'Default'.
         /// </summary>
         public const int Default = 0;
+        /// <summary>
+        /// ID of sorting layer 'Level_Background'.
+        /// </summary>
+        public const int Level_Background = 336128783;
+        /// <summary>
+        /// ID of sorting layer 'Level_Enemy'.
+        /// </summary>
+        public const int Level_Enemy = 1543734271;
+        /// <summary>
+        /// ID of sorting layer 'Level_Dragon'.
+        /// </summary>
+        public const int Level_Dragon = 753183255;
+        /// <summary>
+        /// ID of sorting layer 'Level_Fireball'.
+        /// </summary>
+        public const int Level_Fireball = 93571251;
+        /// <summary>
+        /// ID of sorting layer 'HUD'.
+        /// </summary>
+        public const int HUD = 209541521;
     }
 
     public static class Layers
