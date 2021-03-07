@@ -9,6 +9,6 @@ public class ShootParameters : ScriptableObject
     [Tooltip("Projectile speed (m/s)")]
     public float projectileSpeed = 6f;
     
-    [Tooltip("Fire frequency (/s)")]
-    public float fireFrequency = 2f;
+    [Tooltip("Time required between two Fires (inverse of fire frequency) (s)")]
+    public float fireCooldownDuration = 0.5f;
 }

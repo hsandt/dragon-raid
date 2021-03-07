@@ -1820,7 +1820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef5ec42341b482398550968e3c25582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootParameters: {fileID: 0}
+  shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
 --- !u!114 &1963658449
 MonoBehaviour:
   m_ObjectHideFlags: 0

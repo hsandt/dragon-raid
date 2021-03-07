@@ -38,7 +38,7 @@ public class Shoot : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_ShootIntention.fire)
+        if (ControlUtil.ConsumeBool(ref m_ShootIntention.fire))
         {
             // In this shmup, the character always fire toward the right
             Vector2 projectileVelocity = shootParameters.projectileSpeed * Vector2.right;
