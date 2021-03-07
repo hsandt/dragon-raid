@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 using CommonsHelper;
 
@@ -21,10 +22,10 @@ public class PlayerMoveController : MonoBehaviour
     {
         m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
     }
-
-    private void FixedUpdate()
+    
+    /// PlayerInput action message callback for Move
+    private void OnMove(InputValue value)
     {
-        // for testing: just go right at max speed
-        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * Vector2.right;
+        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * value.Get<Vector2>();
     }
 }
