@@ -4,6 +4,7 @@ using UnityEngine;
 
 using CommonsHelper;
 
+/// System for Rigidbody2D and MoveIntention: handles move
 public class Move : MonoBehaviour
 {
     /* Sibling components */

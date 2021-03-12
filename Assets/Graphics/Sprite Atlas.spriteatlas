@@ -31,9 +31,11 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
+    - {fileID: 102900000, guid: ed72451bbf14e85a2b3f03f23c1228a2, type: 3}
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
-    totalSpriteSurfaceArea: 1753
+    - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
+    - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
+    totalSpriteSurfaceArea: 1803
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -43,6 +45,7 @@ SpriteAtlas:
   - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  - {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
   - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
@@ -52,6 +55,7 @@ SpriteAtlas:
   - projectile_fireball_spritesheet_0
   - hud_gauge_fill
   - enemy_tiger_spritesheet_0
+  - projectile_enemy_fireball_spritesheet_0
   - bg_sky
   - hud_gauge_separator
   - dragon_spritesheet_0

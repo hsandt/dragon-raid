@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91abe10e8f3ac78479c484efeb67e89d, type: 3}
-  m_Name: BuildData
+  m_Script: {fileID: 11500000, guid: ff95a7af78884d07a8810087841cf5c7, type: 3}
+  m_Name: ProjectileParameters_EnemyFireball
   m_EditorClassIdentifier: 
-  appName: Dragon Raid
-  majorVersion: 0
-  minorVersion: 1
-  stageVersion: 1
+  damage: 1
