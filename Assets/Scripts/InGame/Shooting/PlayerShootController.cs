@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 using CommonsHelper;
 
-/// Controller for Shoot on Player character
+/// System for ShootIntention on Player character: handles control
 public class PlayerShootController : MonoBehaviour
 {
     /* Parameters data */

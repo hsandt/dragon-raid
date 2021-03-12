@@ -210,9 +210,10 @@ GameObject:
   - component: {fileID: 430824565}
   - component: {fileID: 430824564}
   - component: {fileID: 430824568}
+  - component: {fileID: 430824570}
   - component: {fileID: 430824567}
   - component: {fileID: 430824569}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tiger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,8 +255,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &430824565
-CircleCollider2D:
+--- !u!61 &430824565
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -267,9 +268,19 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.03125003}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.53846157}
+    oldSize: {x: 1.5, y: 0.8125}
+    newSize: {x: 2.5, y: 1.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Size: {x: 1.5, y: 0.8125}
+  m_EdgeRadius: 0
 --- !u!212 &430824566
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -345,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f61475183c40dfdb5e2079117d986e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 2
 --- !u!114 &430824569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +370,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: {x: 0, y: 0}
+--- !u!114 &430824570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430824562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd7b5af6729b7fafb79625c6a565103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &500391800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,6 +1620,7 @@ GameObject:
   - component: {fileID: 1963658439}
   - component: {fileID: 1963658447}
   - component: {fileID: 1963658444}
+  - component: {fileID: 1963658451}
   - component: {fileID: 1963658443}
   - component: {fileID: 1963658446}
   - component: {fileID: 1963658445}
@@ -1603,7 +1628,7 @@ GameObject:
   - component: {fileID: 1963658450}
   - component: {fileID: 1963658449}
   - component: {fileID: 1963658448}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1752,6 +1777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f61475183c40dfdb5e2079117d986e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 10
 --- !u!114 &1963658445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1849,6 +1875,18 @@ MonoBehaviour:
   shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
   shootAnchor: {fileID: 1287478019}
   defaultProjectileName: Fireball
+--- !u!114 &1963658451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963658437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd7b5af6729b7fafb79625c6a565103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2005674146
 GameObject:
   m_ObjectHideFlags: 0

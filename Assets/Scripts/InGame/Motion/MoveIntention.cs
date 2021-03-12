@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Pure data component, ECS-style
+/// Move Intention data component
 public class MoveIntention : MonoBehaviour
 {
     /// Intended move velocity

@@ -5,8 +5,15 @@ using UnityEngine;
 using CommonsHelper;
 using CommonsPattern;
 
+/// System for Rigidbody2D on projectiles: handles pooling and impact
 public class Projectile : MonoBehaviour, IPooledObject
 {
+    /* Parameters data */
+    
+    [Tooltip("Projectile Parameters Data")]
+    public ProjectileParameters projectileParameters;
+    
+    
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
@@ -34,6 +41,18 @@ public class Projectile : MonoBehaviour, IPooledObject
     }
     
     
+    /* Collision methods */
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var targetHealthSystem = other.GetComponent<HealthSystem>();
+        if (targetHealthSystem != null)
+        {
+            Impact(targetHealthSystem);
+        }
+    }
+    
+    
     /* Own methods */
 
     public void Spawn(Vector2 position, Vector2 velocity)
@@ -42,5 +61,12 @@ public class Projectile : MonoBehaviour, IPooledObject
 
         m_Rigidbody2D.position = position;
         m_Rigidbody2D.velocity = velocity;
+    }
+
+    /// Impact on target: damage it and self-destruct
+    private void Impact(HealthSystem targetHealthSystem)
+    {
+        targetHealthSystem.Damage(projectileParameters.damage);
+        Release();
     }
 }

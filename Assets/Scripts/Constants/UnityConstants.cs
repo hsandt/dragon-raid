@@ -88,6 +88,22 @@ namespace UnityConstants
         /// Index of layer 'UI'.
         /// </summary>
         public const int UI = 5;
+        /// <summary>
+        /// Index of layer 'PlayerCharacter'.
+        /// </summary>
+        public const int PlayerCharacter = 6;
+        /// <summary>
+        /// Index of layer 'PlayerProjectile'.
+        /// </summary>
+        public const int PlayerProjectile = 7;
+        /// <summary>
+        /// Index of layer 'Enemy'.
+        /// </summary>
+        public const int Enemy = 9;
+        /// <summary>
+        /// Index of layer 'EnemyProjectile'.
+        /// </summary>
+        public const int EnemyProjectile = 10;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -109,6 +125,22 @@ namespace UnityConstants
         /// Bitmask of layer 'UI'.
         /// </summary>
         public const int UIMask = 1 << 5;
+        /// <summary>
+        /// Bitmask of layer 'PlayerCharacter'.
+        /// </summary>
+        public const int PlayerCharacterMask = 1 << 6;
+        /// <summary>
+        /// Bitmask of layer 'PlayerProjectile'.
+        /// </summary>
+        public const int PlayerProjectileMask = 1 << 7;
+        /// <summary>
+        /// Bitmask of layer 'Enemy'.
+        /// </summary>
+        public const int EnemyMask = 1 << 9;
+        /// <summary>
+        /// Bitmask of layer 'EnemyProjectile'.
+        /// </summary>
+        public const int EnemyProjectileMask = 1 << 10;
     }
 
     public static class Scenes

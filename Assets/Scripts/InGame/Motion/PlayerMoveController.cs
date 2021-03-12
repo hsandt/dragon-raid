@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 using CommonsHelper;
 
-/// Controller for Move on Player character
+/// System for MoveIntention on Player character: handles control
 public class PlayerMoveController : MonoBehaviour
 {
     /* Parameters data */
