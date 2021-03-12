@@ -1655,7 +1655,6 @@ GameObject:
   - component: {fileID: 1963658446}
   - component: {fileID: 1963658445}
   - component: {fileID: 1963658442}
-  - component: {fileID: 1963658450}
   - component: {fileID: 1963658449}
   - component: {fileID: 1963658448}
   m_Layer: 6
@@ -1890,21 +1889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire: 0
---- !u!114 &1963658450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1963658437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e26c27dde7c9649ec8640beba6167465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
-  shootAnchor: {fileID: 1287478019}
-  defaultProjectileName: Fireball
 --- !u!114 &1963658451
 MonoBehaviour:
   m_ObjectHideFlags: 0
