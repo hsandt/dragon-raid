@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 using CommonsHelper;
 
-/// System for ShootIntention on Player character: handles control
-public class PlayerShootController : MonoBehaviour
+/// System for ShootIntention on Enemy character: handles control
+public class EnemyShootController : MonoBehaviour
 {
     /* Sibling components */
     
@@ -19,9 +18,9 @@ public class PlayerShootController : MonoBehaviour
         m_ShootIntention.holdFire = false;
     }
 
-    /// PlayerInput action message callback for Shoot
-    private void OnFire(InputValue value)
+    private void FixedUpdate()
     {
-        m_ShootIntention.holdFire = value.isPressed;
+        // for now, simple logic: enemy shoots as much as they can
+        m_ShootIntention.holdFire = true;
     }
 }

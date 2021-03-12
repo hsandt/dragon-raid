@@ -213,6 +213,9 @@ GameObject:
   - component: {fileID: 430824570}
   - component: {fileID: 430824567}
   - component: {fileID: 430824569}
+  - component: {fileID: 430824572}
+  - component: {fileID: 430824571}
+  - component: {fileID: 430824573}
   m_Layer: 9
   m_Name: Tiger
   m_TagString: Untagged
@@ -230,7 +233,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 796195986}
   m_Father: {fileID: 683363028}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,6 +388,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: e1cc1bbd52417e9569d7e3ad94fd8a0b, type: 2}
+--- !u!114 &430824571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430824562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b256ca88301640e6bce0d0feb650dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdFire: 0
+--- !u!114 &430824572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430824562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26c27dde7c9649ec8640beba6167465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootParameters: {fileID: 11400000, guid: 38b9a2c72aa30dcb8b38bbb98d206152, type: 2}
+  shootAnchor: {fileID: 796195986}
+  defaultProjectileName: EnemyFireball
+--- !u!114 &430824573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430824562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47b40dfb43145a2b7f05fd30e9aa0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &500391800
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +1005,36 @@ MonoBehaviour:
   fillRectTransform: {fileID: 1251353273}
   valueTextWidget: {fileID: 0}
   trackedHealthSystem: {fileID: 0}
+--- !u!1 &796195985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796195986}
+  m_Layer: 0
+  m_Name: ShootAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &796195986
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796195985}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -1.0625, y: 0.0625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 430824563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &866907043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1939,7 +2013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef5ec42341b482398550968e3c25582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
 --- !u!114 &1963658449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,7 +2025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b256ca88301640e6bce0d0feb650dada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fire: 0
+  holdFire: 0
 --- !u!114 &1963658451
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,18 +30,41 @@ public class Shoot : MonoBehaviour
     private ShootIntention m_ShootIntention;
     
     
+    /* State */
+    
+    /// Time before next Fire is allowed
+    private float m_FireCooldownTime;
+    
+    
     private void Awake()
     {
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
     }
+    
+    private void Start()
+    {
+        m_FireCooldownTime = 0f;
+    }
 
     private void FixedUpdate()
     {
-        if (ControlUtil.ConsumeBool(ref m_ShootIntention.fire))
+        // cool down
+        if (m_FireCooldownTime > 0f)
         {
-            // In this shmup, the character always fire toward the right
-            Vector2 projectileVelocity = shootParameters.projectileSpeed * Vector2.right;
+            m_FireCooldownTime = Mathf.Max(0f, m_FireCooldownTime - Time.deltaTime);
+        }
+        
+        // do not put this in else case of countdown above, in case we've just ended cooldown this frame
+        if (m_ShootIntention.holdFire && m_FireCooldownTime <= 0f)
+        {
+            // actually fire
+        
+            // set cooldown time to prevent firing immediately again
+            m_FireCooldownTime = shootParameters.fireCooldownDuration;
+            
+            // Shot Anchor must be rotated so the right (X) axis points toward the character
+            Vector2 projectileVelocity = shootParameters.projectileSpeed * shootAnchor.right;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }
     }
