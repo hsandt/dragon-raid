@@ -23,6 +23,12 @@ public class HealthSystem : MonoBehaviour
         if (m_Health.value <= 0)
         {
             m_Health.value = 0;
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
