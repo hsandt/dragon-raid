@@ -5,6 +5,6 @@ using UnityEngine;
 /// Move Intention data component
 public class MoveIntention : MonoBehaviour
 {
-    /// Intended move velocity
+    [Tooltip("Intended move velocity")]
     public Vector2 moveVelocity;
 }

@@ -2,9 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using CommonsHelper;
+
 /// Health data component
 public class Health : MonoBehaviour
 {
-    /// Traditional integer health value
+    [Header("Parameters")]
+    
+    [ReadOnlyField, Tooltip("Max health value")]
+    public int maxValue;
+    
+    
+    [Header("State")]
+    
+    [ReadOnlyField, Tooltip("Health value")]
     public int value;
 }

@@ -6,28 +6,28 @@ using CommonsHelper;
 
 public class Shoot : MonoBehaviour
 {
-    /* Parameters data */
+    [Header("Parameters data")]
     
     [Tooltip("Shoot Parameters Data")]
     public ShootParameters shootParameters;
 
     
-    /* Child references */
+    [Header("Child references")]
 
     [Tooltip("Transform to spawn projectiles from")]
     public Transform shootAnchor;
+    
+    
+    [Header("Parameters")]
+
+    [SerializeField, Tooltip("Default projectile name (must match resource prefab)")]
+    private string defaultProjectileName = "Fireball";
     
     
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
     private ShootIntention m_ShootIntention;
-    
-    
-    /* Parameters */
-
-    [SerializeField, Tooltip("Default projectile name (must match resource prefab)")]
-    private string defaultProjectileName = "Fireball";
     
     
     private void Awake()

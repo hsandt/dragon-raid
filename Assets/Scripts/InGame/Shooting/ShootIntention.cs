@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Pure data component, ECS-style
+using CommonsHelper;
+
+/// Shoot intention data component
 public class ShootIntention : MonoBehaviour
 {
-    /// Intended fire flag (must be consumed)
+    [ReadOnlyField, Tooltip("Intended fire flag (must be consumed)")] 
     public bool fire;
 }
