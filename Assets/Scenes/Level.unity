@@ -2037,6 +2037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9139c1436a9a893669ee307a6c5681b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skySpriteRenderer: {fileID: 2017391168}
   parallaxLayerRigidbodies:
   - {fileID: 596803216}
   - {fileID: 1888109098}
