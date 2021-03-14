@@ -104,6 +104,10 @@ namespace UnityConstants
         /// Index of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectile = 10;
+        /// <summary>
+        /// Index of layer 'InvisibleWall'.
+        /// </summary>
+        public const int InvisibleWall = 16;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -141,6 +145,10 @@ namespace UnityConstants
         /// Bitmask of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectileMask = 1 << 10;
+        /// <summary>
+        /// Bitmask of layer 'InvisibleWall'.
+        /// </summary>
+        public const int InvisibleWallMask = 1 << 16;
     }
 
     public static class Scenes

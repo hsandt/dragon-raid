@@ -12,7 +12,7 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerCharacter
+  - PlayerCharacterHurtBox
   - PlayerProjectile
   - 
   - Enemy
@@ -21,8 +21,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - PlayerCharacterMoveBox
+  - InvisibleWall
   - 
   - 
   - 
