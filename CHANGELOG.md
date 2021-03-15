@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Level: screen boundaries prevent Dragon from leaving screen
+- Background: clouds now move on 3 scrolling parallax layers
+
+## [0.1.1] - 2021-02-21
+
+### Added
+
+- Input: Move Dragon with D-pad, Left stick, WASD or keyboard arrows
+- Shoot: Press Space/Right Trigger/Mouse Left Button to spawn fireballs
+- Health: Characters have health and projectiles damage them on impact. When health reaches 0, character dies.
+- HUD: Top-left gauge represents player health
+
 ## [0.1.0] - 2021-02-21
 
 ### Added
