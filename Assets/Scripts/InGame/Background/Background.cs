@@ -45,12 +45,11 @@ public class Background : MonoBehaviour
         // Construct array of pairs too
         leftAndRightParallaxLayerRigidbodies = new Pair<Rigidbody2D, Rigidbody2D>[parallaxLayerRigidbodies.Length];
         
+        // Create a duplicate for this parallax layer so we can have it loop continuously by swapping 
+        // the left and right copies when the left one has completely exited the screen to the left.
+        // We iterate forward so the rendering layer order is the same as the original: farthest, then closest layers.
         for (int i = 0; i < parallaxLayerRigidbodies.Length; ++i)
         {
-            // Create a duplicate for this parallax layer so we can have it loop continuously by swapping 
-            // the left and right copies when the left one has completely exited the screen to the left.
-            // We iterate forward so the rendering layer order is the same as the original: farthest, then closest layers.
-            
             // Place the duplicate under Background, just on the right of the original, i.e. 1 screen width to the right
             // of the original (which is at the origin). Note that for more variety we may want to avoid
             // looping over one screen width. If so, just make wider parallax layers and chain them with
@@ -59,7 +58,7 @@ public class Background : MonoBehaviour
             m_DuplicateParallaxLayerRigidbodies[i] = Instantiate(parallaxLayerRigidbodies[i], duplicatePosition,
                 Quaternion.identity, transform);
 
-            // original parallax layer starts on the left, duplicate on the right
+            // Also initialize reference pair: original parallax layer starts on the left, duplicate on the right
             leftAndRightParallaxLayerRigidbodies[i].First = parallaxLayerRigidbodies[i];
             leftAndRightParallaxLayerRigidbodies[i].Second = m_DuplicateParallaxLayerRigidbodies[i];
         }
@@ -89,16 +88,16 @@ public class Background : MonoBehaviour
 
             if (rightParallaxLayerRigidbody2D.position.x <= 0f)
             {
-                // the duplicate parallax layer stops covering the right part of the screen, warp the original layer
-                // there to loop
-                // there may be a small accumulation of floating errors, it's hard to tell
-                // if you notice the two layers getting far from each other, or overlapping each other
-                // after a long play time, prefer a solution that sets position relatively to the other layer
-                leftParallaxLayerRigidbody2D.position += 2 * skySpriteRenderer.size.x * Vector2.right;
+                // the left parallax layer stops covering the right part of the screen, warp the original layer
+                // just to the right of the right layer for perfect looping
+                float warpedPositionX = rightParallaxLayerRigidbody2D.position.x + skySpriteRenderer.size.x;
+                
+                // position y is always 0
+                leftParallaxLayerRigidbody2D.position = warpedPositionX * Vector2.right;
                 
                 // swap both roles now, we start another scrolling loop for this layer level
-                Rigidbody2D tempParallaxLayerRigidbody = leftAndRightParallaxLayerRigidbodies[i].First;
-                leftAndRightParallaxLayerRigidbodies[i].First = leftAndRightParallaxLayerRigidbodies[i].Second;
+                Rigidbody2D tempParallaxLayerRigidbody = leftParallaxLayerRigidbody2D;
+                leftAndRightParallaxLayerRigidbodies[i].First = rightParallaxLayerRigidbody2D;
                 leftAndRightParallaxLayerRigidbodies[i].Second = tempParallaxLayerRigidbody;
             }
         }
