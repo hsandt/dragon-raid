@@ -12,7 +12,10 @@ public class HealthSystem : MonoBehaviour
     [Tooltip("Health Parameters Data")]
     public HealthParameters healthParameters;
 
-    
+    [Tooltip("Health Visual Parameters Data")]
+    public HealthVisualParameters healthVisualParameters;
+
+
     /* Dynamic external references */
     
     /// List of health gauges observing health data
@@ -22,6 +25,7 @@ public class HealthSystem : MonoBehaviour
     /* Sibling components */
     
     private Health m_Health;
+    private Brighten m_Brighten;
 
     
     private void Awake()
@@ -33,6 +37,9 @@ public class HealthSystem : MonoBehaviour
         // we exceptionally don't need to call NotifyValueChangeToObservers,
         // but only because we know that GaugeHealth only registers on Start
         // and this game object starts activated, so Awake will be called before
+        
+        m_Brighten = this.GetComponentOrFail<Brighten>();
+        Debug.AssertFormat(healthVisualParameters, this, "No Health Visual Parameters found on {0}", this);
     }
 
     public float GetValue()
@@ -53,6 +60,11 @@ public class HealthSystem : MonoBehaviour
         {
             m_Health.value = 0;
             Die();
+        }
+        else
+        {
+            // if entity survived, play damage feedback
+            m_Brighten.SetBrightnessForDuration(healthVisualParameters.damagedBrightness, healthVisualParameters.damagedBrightnessDuration);
         }
 
         NotifyValueChangeToObservers();

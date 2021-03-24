@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Health parameters
+/// Health parameters for Health System
 [CreateAssetMenu(fileName = "HealthParameters", menuName = "Data/HealthParameters")]
 public class HealthParameters : ScriptableObject
 {

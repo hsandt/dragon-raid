@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 430824572}
   - component: {fileID: 430824571}
   - component: {fileID: 430824573}
+  - component: {fileID: 430824574}
   m_Layer: 9
   m_Name: Tiger
   m_TagString: Untagged
@@ -701,6 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: e1cc1bbd52417e9569d7e3ad94fd8a0b, type: 2}
+  healthVisualParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
 --- !u!114 &430824571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +741,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a47b40dfb43145a2b7f05fd30e9aa0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &430824574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430824562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &500391800
@@ -3540,6 +3554,7 @@ GameObject:
   - component: {fileID: 1963658442}
   - component: {fileID: 1963658449}
   - component: {fileID: 1963658448}
+  - component: {fileID: 1963658440}
   m_Layer: 15
   m_Name: Dragon
   m_TagString: Player
@@ -3584,6 +3599,18 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1963658440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963658437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &1963658441
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3796,6 +3823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: 0a7ee98eb9b76d7079d8af32f8fce83b, type: 2}
+  healthVisualParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
 --- !u!1 &1990461933
 GameObject:
   m_ObjectHideFlags: 0
