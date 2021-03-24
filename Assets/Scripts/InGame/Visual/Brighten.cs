@@ -6,6 +6,11 @@ using CommonsHelper;
 
 public class Brighten : MonoBehaviour
 {
+    /* Property hashes */
+    
+    private readonly int brightnessPropertyID = Shader.PropertyToID("Brightness");
+    
+    
     /* Sibling components */
 
     private SpriteRenderer m_SpriteRenderer;
@@ -43,8 +48,7 @@ public class Brighten : MonoBehaviour
     /// Refresh sprite material brightness based on current brightness value
     private void RefreshSpriteBrightness()
     {
-        // TODO: store Shader.PropertyToID
-        m_SpriteRenderer.material.SetFloat("Brightness", m_Brightness);
+        m_SpriteRenderer.material.SetFloat(brightnessPropertyID, m_Brightness);
     }
     
     /// Set sprite material brightness
