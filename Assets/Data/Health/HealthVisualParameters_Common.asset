@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5a25ee8cbec8e198de52452c9f8227, type: 3}
   m_Name: HealthVisualParameters_Common
   m_EditorClassIdentifier: 
-  damagedBrightness: 0.8
+  damagedBrightness: 0.2
   damagedBrightnessDuration: 0.1
