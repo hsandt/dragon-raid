@@ -35,7 +35,7 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
     - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
     - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
-    totalSpriteSurfaceArea: 2225
+    totalSpriteSurfaceArea: 2549
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -52,6 +52,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
   - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
   - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
+  - {fileID: -4561309920375870554, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: -5361527223419541628, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 4592483917916239982, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 3971639578494278912, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   m_PackedSpriteNamesToIndex:
   - hud_gauge_frame_0
   - projectile_fireball_spritesheet_0
@@ -64,6 +68,10 @@ SpriteAtlas:
   - hud_gauge_separator
   - dragon_spritesheet_0
   - bg_cloud_big
+  - projectile_fireball_death_spritesheet_1
+  - projectile_fireball_death_spritesheet_0
+  - projectile_fireball_death_spritesheet_3
+  - projectile_fireball_death_spritesheet_2
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

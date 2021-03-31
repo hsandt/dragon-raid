@@ -36,6 +36,10 @@ namespace UnityConstants
         /// Name of tag 'ProjectilePool'.
         /// </summary>
         public const string ProjectilePool = "ProjectilePool";
+        /// <summary>
+        /// Name of tag 'FXPool'.
+        /// </summary>
+        public const string FXPool = "FXPool";
     }
 
     public static class SortingLayers
@@ -89,9 +93,9 @@ namespace UnityConstants
         /// </summary>
         public const int UI = 5;
         /// <summary>
-        /// Index of layer 'PlayerCharacter'.
+        /// Index of layer 'PlayerCharacterHurtBox'.
         /// </summary>
-        public const int PlayerCharacter = 6;
+        public const int PlayerCharacterHurtBox = 6;
         /// <summary>
         /// Index of layer 'PlayerProjectile'.
         /// </summary>
@@ -104,6 +108,10 @@ namespace UnityConstants
         /// Index of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectile = 10;
+        /// <summary>
+        /// Index of layer 'PlayerCharacterMoveBox'.
+        /// </summary>
+        public const int PlayerCharacterMoveBox = 15;
         /// <summary>
         /// Index of layer 'InvisibleWall'.
         /// </summary>
@@ -130,9 +138,9 @@ namespace UnityConstants
         /// </summary>
         public const int UIMask = 1 << 5;
         /// <summary>
-        /// Bitmask of layer 'PlayerCharacter'.
+        /// Bitmask of layer 'PlayerCharacterHurtBox'.
         /// </summary>
-        public const int PlayerCharacterMask = 1 << 6;
+        public const int PlayerCharacterHurtBoxMask = 1 << 6;
         /// <summary>
         /// Bitmask of layer 'PlayerProjectile'.
         /// </summary>
@@ -145,6 +153,10 @@ namespace UnityConstants
         /// Bitmask of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectileMask = 1 << 10;
+        /// <summary>
+        /// Bitmask of layer 'PlayerCharacterMoveBox'.
+        /// </summary>
+        public const int PlayerCharacterMoveBoxMask = 1 << 15;
         /// <summary>
         /// Bitmask of layer 'InvisibleWall'.
         /// </summary>

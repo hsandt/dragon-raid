@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5044091037476376185}
   - component: {fileID: 5044091037476376164}
-  - component: {fileID: 5044091037476376187}
-  - component: {fileID: 5044091037476376186}
-  - component: {fileID: 5044091037476376165}
-  m_Layer: 10
-  m_Name: EnemyFireball
+  - component: {fileID: 3802340669940905429}
+  - component: {fileID: 352727672311534094}
+  m_Layer: 0
+  m_Name: FireballDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5044091037476376184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4375, y: -0.375, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,8 +72,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 93571251
   m_SortingLayer: 4
-  m_SortingOrder: 10
-  m_Sprite: {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: -5361527223419541628, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,44 +84,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &5044091037476376187
-CircleCollider2D:
+--- !u!95 &3802340669940905429
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5044091037476376184}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.2
---- !u!50 &5044091037476376186
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5044091037476376184}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &5044091037476376165
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: a6eb45db95fe75ef79309ecd028a5ce0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &352727672311534094
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,8 +112,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5044091037476376184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45fb2c623fde616d5b28127a44a91cc0, type: 3}
+  m_Script: {fileID: 11500000, guid: 735ca402c2ed42ea9902064ec023ca05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileParameters: {fileID: 11400000, guid: ac4c1a7c9a566a5d7bd6dd836b284fe3, type: 2}
-  projectileVisualParameters: {fileID: 11400000, guid: cd4255a77a176a939b182fdda3dc918f, type: 2}

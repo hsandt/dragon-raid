@@ -13,6 +13,9 @@ public class Projectile : MonoBehaviour, IPooledObject
     [Tooltip("Projectile Parameters Data")]
     public ProjectileParameters projectileParameters;
     
+    [Tooltip("Projectile Visual Parameters Data")]
+    public ProjectileVisualParameters projectileVisualParameters;
+    
     
     /* Sibling components */
     
@@ -73,5 +76,8 @@ public class Projectile : MonoBehaviour, IPooledObject
     {
         targetHealthSystem.Damage(projectileParameters.damage);
         Release();
+        
+        // death FX appears centered on projectile's last position
+        FXPoolManager.Instance.SpawnFX(projectileVisualParameters.fxName, transform.position);
     }
 }
