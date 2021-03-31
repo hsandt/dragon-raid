@@ -45,10 +45,15 @@ public class Projectile : MonoBehaviour, IPooledObject
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var targetHealthSystem = other.GetComponent<HealthSystem>();
-        if (targetHealthSystem != null)
+        // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
+        // This is to allow projectile to find the parent owning the HealthSystem.
+        if (other.attachedRigidbody != null)
         {
-            Impact(targetHealthSystem);
+            var targetHealthSystem = other.attachedRigidbody.GetComponent<HealthSystem>();
+            if (targetHealthSystem != null)
+            {
+                Impact(targetHealthSystem);
+            }
         }
     }
     
