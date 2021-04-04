@@ -26,7 +26,6 @@ public class Shoot : MonoBehaviour
     
     /* Sibling components */
     
-    private Rigidbody2D m_Rigidbody2D;
     private ShootIntention m_ShootIntention;
     
     
@@ -38,7 +37,6 @@ public class Shoot : MonoBehaviour
     
     private void Awake()
     {
-        m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
     }
     

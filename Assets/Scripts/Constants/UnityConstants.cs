@@ -40,6 +40,14 @@ namespace UnityConstants
         /// Name of tag 'FXPool'.
         /// </summary>
         public const string FXPool = "FXPool";
+        /// <summary>
+        /// Name of tag 'CharacterPool'.
+        /// </summary>
+        public const string CharacterPool = "CharacterPool";
+        /// <summary>
+        /// Name of tag 'PlayerSpawnPosition'.
+        /// </summary>
+        public const string PlayerSpawnPosition = "PlayerSpawnPosition";
     }
 
     public static class SortingLayers

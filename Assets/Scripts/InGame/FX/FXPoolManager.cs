@@ -18,13 +18,14 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     }
 
     /// Spawn FX whose prefab is named `resourceName`
-    public FX SpawnFX(string resourceName, Vector2 position) {
-        FX projectile = GetObject(resourceName);
+    public FX SpawnFX(string resourceName, Vector2 position)
+    {
+        FX fx = GetObject(resourceName);
         
-        if (projectile != null)
+        if (fx != null)
         {
-            projectile.Spawn(position);
-            return projectile;
+            fx.Spawn(position);
+            return fx;
         }
         
         // pool starvation (error is already logged inside GetObject)

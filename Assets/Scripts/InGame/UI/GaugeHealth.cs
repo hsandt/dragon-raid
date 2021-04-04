@@ -4,33 +4,31 @@ using UnityEngine;
 
 public class GaugeHealth : Gauge
 {
-    [Tooltip("Tracked health system: set it in editor or via script as early as possible (before GaugeHealth.Start)")]
-    public HealthSystem trackedHealthSystem;
+    /// Tracked health system
+    private HealthSystem m_TrackedHealthSystem;
 
-    private void Start()
+    public void RegisterHealthSystem(HealthSystem trackedHealthSystem)
     {
-        if (trackedHealthSystem != null)
-        {
-            trackedHealthSystem.RegisterObserver(this);
-        }
+        m_TrackedHealthSystem = trackedHealthSystem;
+        m_TrackedHealthSystem.RegisterObserver(this);
         RefreshGauge();
     }
 
     private void OnDestroy()
     {
-        if (trackedHealthSystem != null)
+        if (m_TrackedHealthSystem != null)
         {
-            trackedHealthSystem.UnregisterObserver(this);
+            m_TrackedHealthSystem.UnregisterObserver(this);
         }
     }
 
     protected override float GetRatio()
     {
-        return trackedHealthSystem.GetRatio();
+        return m_TrackedHealthSystem.GetRatio();
     }
     
     protected override string GetValueAsString()
     {
-        return trackedHealthSystem.GetValue().ToString("0");
+        return m_TrackedHealthSystem.GetValue().ToString("0");
     }
 }

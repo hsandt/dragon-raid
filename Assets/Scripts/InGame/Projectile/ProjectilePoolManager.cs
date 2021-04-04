@@ -18,7 +18,8 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     }
 
     /// Spawn projectile whose prefab is named `resourceName`
-    public Projectile SpawnProjectile(string resourceName, Vector2 position, Vector2 velocity) {
+    public Projectile SpawnProjectile(string resourceName, Vector2 position, Vector2 velocity)
+    {
         Projectile projectile = GetObject(resourceName);
         
         if (projectile != null)
