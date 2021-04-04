@@ -8,21 +8,17 @@ using CommonsPattern;
 
 public class InGameManager : SingletonManager<InGameManager>
 {
-    protected override void Init()
-    {
-        base.Init();
-
-
-    }
-
+    /// Cached player spawn transform
+    private Transform playerSpawnTransform;
+    
     private void Start()
     {
         // Find player character spawn position
-        Transform playerSpawnTr = Locator.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
-        if (playerSpawnTr != null)
+        playerSpawnTransform = Locator.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+        if (playerSpawnTransform != null)
         {
             // Spawn character as a pooled object (in a pool of 1 object)
-            CharacterMaster characterMaster = DragonPoolManager.Instance.SpawnCharacter(playerSpawnTr.position);
+            CharacterMaster characterMaster = DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
             
             // Assign HUD's player health gauge to player health system
             var healthSystem = characterMaster.GetComponentOrFail<HealthSystem>();
@@ -38,6 +34,15 @@ public class InGameManager : SingletonManager<InGameManager>
 
     public void RestartLevel()
     {
-        Debug.Log("restart!");
+        // Despawn and respawn the player character
+        // In theory, we could respawn a different one, although set up exactly the same way as the original
+        // In practice, the Dragon Pool has only 1 object, so we know we're gonna get the same back
+        DragonPoolManager.Instance.ReleaseCharacter();
+        if (playerSpawnTransform != null)
+        {
+            // Respawn character
+            // It will also Setup the character and refresh the HUD
+            DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
+        }
     }
 }

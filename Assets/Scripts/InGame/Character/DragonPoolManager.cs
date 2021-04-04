@@ -31,4 +31,10 @@ public class DragonPoolManager : PoolManager<CharacterMaster, DragonPoolManager>
         // pool starvation (error is already logged inside GetObject)
         return null;
     }
+    
+    public void ReleaseCharacter()
+    {
+        // there is only 1 Dragon, but our code supports multiplayer for the future
+        ReleaseAllObjects();
+    }
 }
