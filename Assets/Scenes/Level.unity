@@ -2706,13 +2706,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1459133158}
+  - component: {fileID: 1459133159}
   m_Layer: 0
   m_Name: _Workshop
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1459133158
 Transform:
   m_ObjectHideFlags: 0
@@ -2730,6 +2731,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459133159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459133157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc7772dda4e4b4408962a47cab87eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DeactivateInEditor: 1
+  m_DeactivateInPlayer: 1
 --- !u!1 &1619282554
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,6 +4427,10 @@ PrefabInstance:
     - target: {fileID: 4277205838411756308, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
       propertyPath: m_Name
       value: Dragon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4277205838411756308, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4277205838411756311, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
       propertyPath: m_RootOrder
