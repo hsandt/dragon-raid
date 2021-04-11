@@ -263,13 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bed8ab4b04b345b6a6a26e72d01f9213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slaveBehaviours:
-  - {fileID: 4277205838411756290}
-  - {fileID: 4277205838411756314}
-  - {fileID: 4277205838411756316}
-  - {fileID: 4277205838411756315}
-  - {fileID: 4277205838411756289}
-  - {fileID: 4277205838411756313}
+  slaveBehaviours: []
   slaveParticles: []
 --- !u!114 &4277205838411756317
 MonoBehaviour:
