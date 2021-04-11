@@ -11,7 +11,7 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     {
         if (poolTransform == null)
         {
-            poolTransform = Locator.FindWithTag(Tags.ProjectilePool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(Tags.ProjectilePool)?.transform;
         }
 
         base.Init();

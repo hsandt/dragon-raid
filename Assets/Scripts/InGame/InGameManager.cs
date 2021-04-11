@@ -14,7 +14,7 @@ public class InGameManager : SingletonManager<InGameManager>
     private void Start()
     {
         // Find player character spawn position
-        playerSpawnTransform = Locator.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+        playerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
         if (playerSpawnTransform != null)
         {
             // Spawn character as a pooled object (in a pool of 1 object)
@@ -30,6 +30,8 @@ public class InGameManager : SingletonManager<InGameManager>
             Debug.LogError("[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
         }
 #endif
+        
+        SpawnAllEnemies();
     }
 
     public void RestartLevel()
@@ -37,12 +39,26 @@ public class InGameManager : SingletonManager<InGameManager>
         // Despawn and respawn the player character
         // In theory, we could respawn a different one, although set up exactly the same way as the original
         // In practice, the Dragon Pool has only 1 object, so we know we're gonna get the same back
-        DragonPoolManager.Instance.ReleaseCharacter();
+        DragonPoolManager.Instance.ReleaseAllObjects();
         if (playerSpawnTransform != null)
         {
             // Respawn character
             // It will also Setup the character and refresh the HUD
             DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
+        }
+        
+        // Despawn and respawn all enemies
+        EnemyPoolManager.Instance.ReleaseAllObjects();
+        SpawnAllEnemies();
+    }
+
+    private void SpawnAllEnemies()
+    {
+        // normally we should only spawn enemies coming into the screen, but for now just spawn all of them immediately
+        var enemySpawns = FindObjectsOfType<EnemySpawn>();
+        foreach (EnemySpawn enemySpawn in enemySpawns)
+        {
+            EnemyPoolManager.Instance.SpawnCharacter(enemySpawn.enemyName, enemySpawn.transform.position);
         }
     }
 }

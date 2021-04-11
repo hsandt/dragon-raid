@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityConstants;
 using CommonsPattern;
 
-/// Pool manager for Dragon (Player Character)
-/// The only reason to use a pool despite having a single character of this type,
-/// is to have an API ready to spawn and despawn without ever destroying the object
-public class DragonPoolManager : PoolManager<CharacterMaster, DragonPoolManager>
+/// Pool manager for all enemy characters
+public class EnemyPoolManager : MultiPoolManager<CharacterMaster, EnemyPoolManager>
 {
     protected override void Init()
     {
@@ -21,9 +19,9 @@ public class DragonPoolManager : PoolManager<CharacterMaster, DragonPoolManager>
     }
 
     /// Spawn character at position
-    public CharacterMaster SpawnCharacter(Vector2 position)
+    public CharacterMaster SpawnCharacter(string enemyName, Vector2 position)
     {
-        CharacterMaster character = GetObject();
+        CharacterMaster character = GetObject(enemyName);
         
         if (character != null)
         {

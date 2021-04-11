@@ -11,7 +11,7 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     {
         if (poolTransform == null)
         {
-            poolTransform = Locator.FindWithTag(Tags.FXPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(Tags.FXPool)?.transform;
         }
 
         base.Init();

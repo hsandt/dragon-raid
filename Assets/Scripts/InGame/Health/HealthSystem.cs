@@ -23,13 +23,16 @@ public class HealthSystem : MonoBehaviour
     
     
     /* Sibling components */
-    
+
+    private CharacterMaster m_CharacterMaster;
     private Health m_Health;
     private Brighten m_Brighten;
 
     
     private void Awake()
     {
+        m_CharacterMaster = this.GetComponentOrFail<CharacterMaster>();
+
         m_Health = this.GetComponentOrFail<Health>();
         m_Health.maxValue = healthParameters.maxHealth;
         m_Health.value = m_Health.maxValue;
@@ -72,7 +75,7 @@ public class HealthSystem : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        m_CharacterMaster.Release();
     }
     
     
