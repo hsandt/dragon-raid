@@ -67,6 +67,15 @@ public class Projectile : MonoBehaviour, IPooledObject
     {
         gameObject.SetActive(true);
 
+        // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
+        // due to pixel perfect camera, use this code to synchronize the sub-pixel at which they are spawned base on
+        // current Time
+        /*
+        float offsetX = velocity.x * Time.time; 
+        offsetX = offsetX % (1f/16f);
+        position.x = Mathf.Round(position.x * 16f) / 16f + offsetX;
+        */
+        
         m_Rigidbody2D.position = position;
         m_Rigidbody2D.velocity = velocity;
     }
