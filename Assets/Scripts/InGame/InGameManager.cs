@@ -8,19 +8,36 @@ using CommonsPattern;
 
 public class InGameManager : SingletonManager<InGameManager>
 {
+    /* Cached scene references */
+    
     /// Cached player spawn transform
     private Transform playerSpawnTransform;
+    
     
     private void Start()
     {
         // Find player character spawn position
         playerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+
+        // Setup level
+        SetupLevel();
+    }
+
+    private void SetupLevel()
+    {
+        SpawnPlayerCharacter();
+        SpawnAllEnemies();
+    }
+    
+    private void SpawnPlayerCharacter()
+    {
+        // Spawn Player Character
         if (playerSpawnTransform != null)
         {
             // Spawn character as a pooled object (in a pool of 1 object)
             CharacterMaster characterMaster = DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
             
-            // Assign HUD's player health gauge to player health system
+            // Assign HUD's player health gauge to player health system (on Restart, it only refreshes the gauge)
             var healthSystem = characterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
         }
@@ -30,38 +47,34 @@ public class InGameManager : SingletonManager<InGameManager>
             Debug.LogError("[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
         }
 #endif
-        
-        SpawnAllEnemies();
-    }
-
-    public void RestartLevel()
-    {
-        // Despawn and respawn the player character
-        // In theory, we could respawn a different one, although set up exactly the same way as the original
-        // In practice, the Dragon Pool has only 1 object, so we know we're gonna get the same back
-        DragonPoolManager.Instance.ReleaseAllObjects();
-        if (playerSpawnTransform != null)
-        {
-            // Respawn character
-            // It will also Setup the character and refresh the HUD
-            DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
-        }
-        
-        // Despawn and respawn all enemies
-        EnemyPoolManager.Instance.ReleaseAllObjects();
-        SpawnAllEnemies();
-        
-        // Clean up all projectiles
-        ProjectilePoolManager.Instance.ReleaseAllObjects();
     }
 
     private void SpawnAllEnemies()
     {
         // normally we should only spawn enemies coming into the screen, but for now just spawn all of them immediately
         var enemySpawns = FindObjectsOfType<EnemySpawn>();
-        foreach (EnemySpawn enemySpawn in enemySpawns)
+        foreach (var enemySpawn in enemySpawns)
         {
             EnemyPoolManager.Instance.SpawnCharacter(enemySpawn.enemyName, enemySpawn.transform.position);
         }
+    }
+
+    private void ClearLevel()
+    {
+        // Despawn the player character
+        // We use the generic Pool API to release all objects, but it really only releases 1 here
+        DragonPoolManager.Instance.ReleaseAllObjects();
+
+        // Despawn all enemies
+        EnemyPoolManager.Instance.ReleaseAllObjects();
+        
+        // Clean up all projectiles
+        ProjectilePoolManager.Instance.ReleaseAllObjects();
+    }
+
+    public void RestartLevel()
+    {
+        ClearLevel();
+        SetupLevel();
     }
 }

@@ -9,6 +9,7 @@ public class GaugeHealth : Gauge
 
     public void RegisterHealthSystem(HealthSystem trackedHealthSystem)
     {
+        // Note: on Restart, the 2 next lines do nothing
         m_TrackedHealthSystem = trackedHealthSystem;
         m_TrackedHealthSystem.RegisterObserver(this);
         RefreshGauge();

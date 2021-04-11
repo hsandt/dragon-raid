@@ -15,6 +15,22 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     private void Awake()
     {
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
+
+        AddSiblingSlaveBehaviours();
+    }
+
+    protected virtual void AddSiblingSlaveBehaviours()
+    {
+        // slave behaviours common to all characters
+        slaveBehaviours.Add(this.GetComponentOrFail<HealthSystem>());
+        slaveBehaviours.Add(this.GetComponentOrFail<Move>());
+        slaveBehaviours.Add(this.GetComponentOrFail<Shoot>());
+        slaveBehaviours.Add(this.GetComponentOrFail<Brighten>());
+    }
+    
+    private void Start()
+    {
+        Setup();
     }
     
     
@@ -37,11 +53,6 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     
     
     /* Own methods */
-
-    private void Start()
-    {
-        Setup();
-    }
 
     public void Spawn(Vector2 position)
     {

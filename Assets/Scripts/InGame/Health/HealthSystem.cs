@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for Health data component: handles any changes
-public class HealthSystem : MonoBehaviour
+public class HealthSystem : ClearableBehaviour
 {
     [Header("Parameters data")]
     
@@ -35,14 +36,14 @@ public class HealthSystem : MonoBehaviour
 
         m_Health = this.GetComponentOrFail<Health>();
         m_Health.maxValue = healthParameters.maxHealth;
-        m_Health.value = m_Health.maxValue;
-        
-        // we exceptionally don't need to call NotifyValueChangeToObservers,
-        // but only because we know that GaugeHealth only registers on Start
-        // and this game object starts activated, so Awake will be called before
         
         m_Brighten = this.GetComponentOrFail<Brighten>();
         Debug.AssertFormat(healthVisualParameters, this, "No Health Visual Parameters found on {0}", this);
+    }
+
+    public override void Setup()
+    {
+        m_Health.value = m_Health.maxValue;
     }
 
     public float GetValue()

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
-public class Shoot : MonoBehaviour
+public class Shoot : ClearableBehaviour
 {
     [Header("Parameters data")]
     
@@ -39,8 +40,8 @@ public class Shoot : MonoBehaviour
     {
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
     }
-    
-    private void Start()
+
+    public override void Setup()
     {
         m_FireCooldownTime = 0f;
     }

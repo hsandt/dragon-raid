@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for MoveIntention on Player character: handles control
-public class PlayerMoveController : MonoBehaviour
+public class PlayerMoveController : ClearableBehaviour
 {
     /* Parameters data */
     
@@ -23,7 +24,12 @@ public class PlayerMoveController : MonoBehaviour
     {
         m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
     }
-    
+
+    public override void Setup()
+    {
+        m_MoveIntention.moveVelocity = Vector2.zero;
+    }
+
     /// PlayerInput action message callback for Move
     private void OnMove(InputValue value)
     {

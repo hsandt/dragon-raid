@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for ShootIntention on Player character: handles control
-public class PlayerShootController : MonoBehaviour
+public class PlayerShootController : ClearableBehaviour
 {
     /* Sibling components */
     
@@ -16,6 +17,10 @@ public class PlayerShootController : MonoBehaviour
     private void Awake()
     {
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
+    }
+
+    public override void Setup()
+    {
         m_ShootIntention.holdFire = false;
     }
 

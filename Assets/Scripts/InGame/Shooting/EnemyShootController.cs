@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for ShootIntention on Enemy character: handles control
-public class EnemyShootController : MonoBehaviour
+public class EnemyShootController : ClearableBehaviour
 {
     /* Sibling components */
     
@@ -15,6 +16,10 @@ public class EnemyShootController : MonoBehaviour
     private void Awake()
     {
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
+    }
+    
+    public override void Setup()
+    {
         m_ShootIntention.holdFire = false;
     }
 

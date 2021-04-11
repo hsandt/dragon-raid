@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for Rigidbody2D and MoveIntention: handles move
-public class Move : MonoBehaviour
+public class Move : ClearableBehaviour
 {
     /* Sibling components */
     
@@ -16,6 +17,11 @@ public class Move : MonoBehaviour
     {
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
+    }
+
+    public override void Setup()
+    {
+        m_Rigidbody2D.velocity = Vector2.zero;
     }
 
     private void FixedUpdate()

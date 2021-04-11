@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
-public class Brighten : MonoBehaviour
+public class Brighten : ClearableBehaviour
 {
     /* Property hashes */
     
@@ -29,11 +30,9 @@ public class Brighten : MonoBehaviour
     {
         m_SpriteRenderer = this.GetComponentOrFail<SpriteRenderer>();
         m_BrightnessEndTimer = new Timer(callback: ResetBrightness);
-        
-        Setup();
     }
 
-    private void Setup()
+    public override void Setup()
     {
         // initialise brightness in state and on sprite (do not use SetBrightness which does an old/new comparison)
         m_Brightness = 0f;
