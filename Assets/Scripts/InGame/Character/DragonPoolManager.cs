@@ -20,7 +20,6 @@ public class DragonPoolManager : PoolManager<CharacterMaster, DragonPoolManager>
         base.Init();
     }
     
-    
 
     /// Spawn character at position
     public CharacterMaster SpawnCharacter(Vector2 position)
