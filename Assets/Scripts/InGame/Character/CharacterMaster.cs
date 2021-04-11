@@ -25,6 +25,7 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
         slaveBehaviours.Add(this.GetComponentOrFail<HealthSystem>());
         slaveBehaviours.Add(this.GetComponentOrFail<Move>());
         slaveBehaviours.Add(this.GetComponentOrFail<Shoot>());
+        slaveBehaviours.Add(this.GetComponentOrFail<BaseShootController>());
         slaveBehaviours.Add(this.GetComponentOrFail<Brighten>());
     }
     
