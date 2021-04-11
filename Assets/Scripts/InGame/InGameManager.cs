@@ -50,6 +50,9 @@ public class InGameManager : SingletonManager<InGameManager>
         // Despawn and respawn all enemies
         EnemyPoolManager.Instance.ReleaseAllObjects();
         SpawnAllEnemies();
+        
+        // Clean up all projectiles
+        ProjectilePoolManager.Instance.ReleaseAllObjects();
     }
 
     private void SpawnAllEnemies()
