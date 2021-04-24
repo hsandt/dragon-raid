@@ -4,6 +4,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+using CommonsHelper;
+
 [CustomEditor(typeof(EnemyWave))]
 public class EnemyWaveEditor : Editor
 {
@@ -29,5 +31,27 @@ public class EnemyWaveEditor : Editor
         m_RootElement.Add(labelFromUXML);
 
         return m_RootElement;
+    }
+    
+    private void OnSceneGUI()
+    {
+        var script = (EnemyWave) target;
+
+        // we're modifying indirect members of the script, so changes are not trivial and need Undo Record
+        Undo.RecordObject(script, "Changed Enemy Wave Data");
+
+        foreach (EnemySpawnData enemySpawnData in script.EnemySpawnDataArray)
+        {
+            using (var check = new EditorGUI.ChangeCheckScope())
+            {
+                Handles.Label(enemySpawnData.spawnPosition.ToVector3(0f), enemySpawnData.enemyName);
+                HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, Color.magenta, Vector2.one / 16f, Handles.CircleHandleCap);
+
+                if (check.changed)
+                {
+                    // add any post-change processing here
+                }
+            }
+        }
     }
 }
