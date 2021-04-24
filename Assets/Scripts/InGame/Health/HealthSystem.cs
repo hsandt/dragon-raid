@@ -77,6 +77,9 @@ public class HealthSystem : ClearableBehaviour
     private void Die()
     {
         m_CharacterMaster.Release();
+        
+        // play death FX
+        FXPoolManager.Instance.SpawnFX("EnemyDeath", transform.position);
     }
     
     
