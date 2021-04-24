@@ -26,7 +26,6 @@ public class InGameManager : SingletonManager<InGameManager>
     private void SetupLevel()
     {
         SpawnPlayerCharacter();
-        SpawnAllEnemies();
     }
     
     private void SpawnPlayerCharacter()
@@ -47,16 +46,6 @@ public class InGameManager : SingletonManager<InGameManager>
             Debug.LogError("[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
         }
 #endif
-    }
-
-    private void SpawnAllEnemies()
-    {
-        // normally we should only spawn enemies coming into the screen, but for now just spawn all of them immediately
-        var enemySpawns = FindObjectsOfType<EnemySpawn>();
-        foreach (var enemySpawn in enemySpawns)
-        {
-            EnemyPoolManager.Instance.SpawnCharacter(enemySpawn.enemyName, enemySpawn.transform.position);
-        }
     }
 
     private void ClearLevel()

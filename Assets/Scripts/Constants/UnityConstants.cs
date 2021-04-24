@@ -48,14 +48,14 @@ namespace UnityConstants
         /// Name of tag 'PlayerSpawnPosition'.
         /// </summary>
         public const string PlayerSpawnPosition = "PlayerSpawnPosition";
+        /// <summary>
+        /// Name of tag 'EnemyWaves'.
+        /// </summary>
+        public const string EnemyWaves = "EnemyWaves";
     }
 
     public static class SortingLayers
     {
-        /// <summary>
-        /// ID of sorting layer 'Default'.
-        /// </summary>
-        public const int Default = 0;
         /// <summary>
         /// ID of sorting layer 'Level_Background'.
         /// </summary>
@@ -72,6 +72,10 @@ namespace UnityConstants
         /// ID of sorting layer 'Level_Fireball'.
         /// </summary>
         public const int Level_Fireball = 93571251;
+        /// <summary>
+        /// ID of sorting layer 'Default'.
+        /// </summary>
+        public const int Default = 0;
         /// <summary>
         /// ID of sorting layer 'HUD'.
         /// </summary>
@@ -124,6 +128,14 @@ namespace UnityConstants
         /// Index of layer 'InvisibleWall'.
         /// </summary>
         public const int InvisibleWall = 16;
+        /// <summary>
+        /// Index of layer 'DeadZone_Projectile'.
+        /// </summary>
+        public const int DeadZone_Projectile = 20;
+        /// <summary>
+        /// Index of layer 'DeadZone_Enemy'.
+        /// </summary>
+        public const int DeadZone_Enemy = 21;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -169,6 +181,14 @@ namespace UnityConstants
         /// Bitmask of layer 'InvisibleWall'.
         /// </summary>
         public const int InvisibleWallMask = 1 << 16;
+        /// <summary>
+        /// Bitmask of layer 'DeadZone_Projectile'.
+        /// </summary>
+        public const int DeadZone_ProjectileMask = 1 << 20;
+        /// <summary>
+        /// Bitmask of layer 'DeadZone_Enemy'.
+        /// </summary>
+        public const int DeadZone_EnemyMask = 1 << 21;
     }
 
     public static class Scenes
