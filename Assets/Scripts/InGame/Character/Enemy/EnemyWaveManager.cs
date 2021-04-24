@@ -12,12 +12,15 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
 {
     /* Cached scene references */
     
-    /// List of enemy waves found in the scene and not triggered yet
-    private List<EnemyWave> m_EnemyWaves;
+    /// Array of enemy waves found in the scene
+    private EnemyWave[] m_AllEnemyWaves;
 
     
     /* State */
 
+    /// List of enemy waves found in the scene and not triggered yet
+    private List<EnemyWave> m_RemainingEnemyWaves;
+    
     /// Time elapsed since level start
     private float m_TimeSinceLevelStart;
     
@@ -25,7 +28,15 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
     protected override void Init()
     {
         GameObject enemyWavesParent = LocatorManager.Instance.FindWithTag(Tags.EnemyWaves);
-        m_EnemyWaves = enemyWavesParent.GetComponentsInChildren<EnemyWave>().ToList();
+        m_AllEnemyWaves = enemyWavesParent.GetComponentsInChildren<EnemyWave>();
+
+        Setup();
+    }
+
+    public void Setup()
+    {
+        m_RemainingEnemyWaves = m_AllEnemyWaves.ToList();
+        m_TimeSinceLevelStart = 0f;
     }
 
     private void FixedUpdate()
@@ -33,14 +44,14 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
         m_TimeSinceLevelStart += Time.deltaTime;
         
         // do reverse iteration so we can remove waves by index safely
-        for (int i = m_EnemyWaves.Count - 1; i >= 0; i--)
+        for (int i = m_RemainingEnemyWaves.Count - 1; i >= 0; i--)
         {
-            EnemyWave enemyWave = m_EnemyWaves[i];
+            EnemyWave enemyWave = m_RemainingEnemyWaves[i];
             
             if (m_TimeSinceLevelStart >= enemyWave.StartTime)
             {
                 TriggerEnemyWave(enemyWave);
-                m_EnemyWaves.RemoveAt(i);
+                m_RemainingEnemyWaves.RemoveAt(i);
             }
         }
     }

@@ -26,6 +26,7 @@ public class InGameManager : SingletonManager<InGameManager>
     private void SetupLevel()
     {
         SpawnPlayerCharacter();
+        EnemyWaveManager.Instance.Setup();
     }
     
     private void SpawnPlayerCharacter()
