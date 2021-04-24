@@ -32,10 +32,11 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: ed72451bbf14e85a2b3f03f23c1228a2, type: 3}
+    - {fileID: 102900000, guid: c1a7517537426c220badee4ad1ec11a7, type: 3}
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
     - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
     - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
-    totalSpriteSurfaceArea: 8057
+    totalSpriteSurfaceArea: 8082
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -73,6 +74,7 @@ SpriteAtlas:
   - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 5796462597814593602, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 1579823946253585403, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 21300000, guid: d00b9efe55c591799a0582d09be20a65, type: 3}
   m_PackedSpriteNamesToIndex:
   - hud_gauge_frame_0
   - projectile_fireball_spritesheet_0
@@ -106,6 +108,7 @@ SpriteAtlas:
   - projectile_fireball_death_spritesheet_6
   - projectile_fireball_death_spritesheet_9
   - projectile_fireball_death_spritesheet_8
+  - fx_particle_medium_orange
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0
