@@ -4,6 +4,7 @@ using UnityEngine;
 
 using CommonsHelper;
 
+/// FX component for objects with Particle System (auto-Release when stopped)
 public class FXWithParticleSystem : FX
 {
     /* Sibling components */

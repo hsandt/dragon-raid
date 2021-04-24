@@ -5,7 +5,7 @@ using UnityEngine;
 using CommonsHelper;
 using CommonsPattern;
 
-/// System for Rigidbody2D on projectiles: handles pooling and impact
+/// FX component for objects able to call Release by themselves (e.g. animated sprite with animation event at the end)
 public class FX : MonoBehaviour, IPooledObject
 {
     /* IPooledObject interface */
