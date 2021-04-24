@@ -2053,7 +2053,9 @@ MonoBehaviour:
   startTime: 1
   enemySpawnDataArray:
   - enemyName: Tiger
-    spawnPosition: {x: 10, y: 0}
+    spawnPosition: {x: 8.598055, y: 1.2354791}
+  - enemyName: Tiger
+    spawnPosition: {x: 4.8243427, y: -0.7962665}
 --- !u!1 &856213526
 GameObject:
   m_ObjectHideFlags: 0
