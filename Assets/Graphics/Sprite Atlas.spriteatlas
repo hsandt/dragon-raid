@@ -45,6 +45,7 @@ SpriteAtlas:
   - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
   - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
+  - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
   - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
   - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
@@ -79,6 +80,7 @@ SpriteAtlas:
   - hud_gauge_frame_0
   - projectile_fireball_spritesheet_0
   - hud_gauge_fill
+  - enemy_bird_spritesheet
   - enemy_tiger_spritesheet_0
   - bg_cloud_medium
   - bg_cloud_small
