@@ -11,13 +11,19 @@ public class InGameManager : SingletonManager<InGameManager>
     /* Cached scene references */
     
     /// Cached player spawn transform
-    private Transform playerSpawnTransform;
+    private Transform m_PlayerSpawnTransform;
+
+    /// Player Character Master component, reference stored after spawn
+    private CharacterMaster m_playerCharacterMaster;
+    
+    /// Player Character Master component, reference stored after spawn (getter)
+    public CharacterMaster PlayerCharacterMaster => m_playerCharacterMaster;
     
     
     private void Start()
     {
         // Find player character spawn position
-        playerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+        m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
 
         // Setup level
         SetupLevel();
@@ -32,13 +38,13 @@ public class InGameManager : SingletonManager<InGameManager>
     private void SpawnPlayerCharacter()
     {
         // Spawn Player Character
-        if (playerSpawnTransform != null)
+        if (m_PlayerSpawnTransform != null)
         {
             // Spawn character as a pooled object (in a pool of 1 object)
-            CharacterMaster characterMaster = DragonPoolManager.Instance.SpawnCharacter(playerSpawnTransform.position);
+            m_playerCharacterMaster = DragonPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
             
             // Assign HUD's player health gauge to player health system (on Restart, it only refreshes the gauge)
-            var healthSystem = characterMaster.GetComponentOrFail<HealthSystem>();
+            var healthSystem = m_playerCharacterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
         }
 #if UNITY_EDITOR
@@ -52,6 +58,10 @@ public class InGameManager : SingletonManager<InGameManager>
     private void ClearLevel()
     {
         // Despawn the player character
+        
+        // First clean up reference to avoid relying on Unity's "destroyed null"
+        m_playerCharacterMaster = null;
+        
         // We use the generic Pool API to release all objects, but it really only releases 1 here
         DragonPoolManager.Instance.ReleaseAllObjects();
 

@@ -63,7 +63,7 @@ public class Shoot : ClearableBehaviour
             m_FireCooldownTime = shootParameters.fireCooldownDuration;
             
             // Shot Anchor must be rotated so the right (X) axis points toward the character
-            Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection;
+            Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }
     }
