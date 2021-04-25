@@ -11,12 +11,19 @@ using CommonsHelper;
 [CustomEditor(typeof(EnemyWave))]
 public class EnemyWaveEditor : Editor
 {
+    /* Parameters */
+    
+    /// Position snapping distance. Set to 1px for pixel perfect placement.
+    private float snapValue = 1f / 16f;
+    
     /// Color used for spawn point debug and enemy label
     private readonly Color spawnPointColor = new Color(0.78f, 0.02f, 0.24f);
     
     /// Style used for all Handles labels
     private static readonly GUIStyle labelStyle = new GUIStyle();
 
+    /* State */
+    
     /// Root element
     private VisualElement m_RootElement;
 
@@ -84,7 +91,8 @@ public class EnemyWaveEditor : Editor
     {
         var script = (EnemyWave) target;
 
-        // we're modifying indirect members of the script, so changes are not trivial and need Undo Record
+        // we're modifying indirect (deep) members of the script, and besides applying custom rounding,
+        // so changes are not trivial and need Undo Record Object
         Undo.RecordObject(script, "Changed Enemy Wave Data");
 
         foreach (EnemySpawnData enemySpawnData in script.EnemySpawnDataArray)
@@ -96,9 +104,19 @@ public class EnemyWaveEditor : Editor
 
                 if (check.changed)
                 {
-                    // add any post-change processing here
+                    Vector3 roundedPosition = enemySpawnData.spawnPosition;
+                    roundedPosition.x = Round(roundedPosition.x);
+                    roundedPosition.y = Round(roundedPosition.y);
+                    roundedPosition.z = Round(roundedPosition.z);
+                    enemySpawnData.spawnPosition = roundedPosition;
                 }
             }
         }
+    }
+    
+    // Borrowed from AutoSnap.cs
+    private float Round(float input)
+    {
+        return snapValue * Mathf.Round(input / snapValue);
     }
 }
