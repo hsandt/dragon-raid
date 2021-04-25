@@ -14,7 +14,10 @@ public class EnemyWaveEditor : Editor
     /* Parameters */
     
     /// Position snapping distance. Set to 1px for pixel perfect placement.
-    private float snapValue = 1f / 16f;
+    private float autoSnapValue = 1f / 16f;
+    
+    /// Position snapping distance when holding Ctrl. Bigger than auto-snap, used for broad placement.
+    private float manualSnapValue = 1f;
     
     /// Color used for spawn point debug and enemy label
     private readonly Color spawnPointColor = new Color(0.78f, 0.02f, 0.24f);
@@ -94,7 +97,7 @@ public class EnemyWaveEditor : Editor
         {
             using (var check = new EditorGUI.ChangeCheckScope())
             {
-                HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, spawnPointColor, Vector2.one / 16f, CrossedCircleHandleCap, 2f);
+                HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, spawnPointColor, manualSnapValue * Vector2.one, CrossedCircleHandleCap, 2f);
 
                 if (check.changed)
                 {
@@ -115,6 +118,6 @@ public class EnemyWaveEditor : Editor
     // Borrowed from AutoSnap.cs
     private float Round(float input)
     {
-        return snapValue * Mathf.Round(input / snapValue);
+        return autoSnapValue * Mathf.Round(input / autoSnapValue);
     }
 }
