@@ -19,8 +19,6 @@ public class EnemyWaveEditor : Editor
     /// Color used for spawn point debug and enemy label
     private readonly Color spawnPointColor = new Color(0.78f, 0.02f, 0.24f);
     
-    /// Style used for all Handles labels
-    private static readonly GUIStyle labelStyle = new GUIStyle();
 
     /* State */
     
@@ -29,9 +27,6 @@ public class EnemyWaveEditor : Editor
 
     private void OnEnable()
     {
-        labelStyle.fontSize = 20;
-        labelStyle.normal.textColor = spawnPointColor;
-        
         // Each editor window contains a root VisualElement object
         m_RootElement = new VisualElement();
         
@@ -99,7 +94,6 @@ public class EnemyWaveEditor : Editor
         {
             using (var check = new EditorGUI.ChangeCheckScope())
             {
-                Handles.Label(new Vector3(enemySpawnData.spawnPosition.x - 0.32f, enemySpawnData.spawnPosition.y - 0.26f, 0f), enemySpawnData.enemyName, labelStyle);
                 HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, spawnPointColor, Vector2.one / 16f, CrossedCircleHandleCap, 2f);
 
                 if (check.changed)
@@ -110,6 +104,10 @@ public class EnemyWaveEditor : Editor
                     roundedPosition.z = Round(roundedPosition.z);
                     enemySpawnData.spawnPosition = roundedPosition;
                 }
+                
+                // Scale offset with handle size so it remains constant on screen
+                float handleSize = HandleUtility.GetHandleSize(enemySpawnData.spawnPosition);
+                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 0.3225f * handleSize, enemySpawnData.spawnPosition.y - 0.25f * handleSize, 0f), enemySpawnData.enemyName, 2f, true, spawnPointColor);
             }
         }
     }
