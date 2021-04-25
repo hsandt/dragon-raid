@@ -9,4 +9,7 @@ public class ShootIntention : MonoBehaviour
 {
     [ReadOnlyField, Tooltip("Does the character want to keep firing? (cooldown still applies, causing periodical fire)")] 
     public bool holdFire;
+    
+    [ReadOnlyField, Tooltip("Shooting direction. Can be always the same, or target a specific object.")] 
+    public Vector2 fireDirection;
 }

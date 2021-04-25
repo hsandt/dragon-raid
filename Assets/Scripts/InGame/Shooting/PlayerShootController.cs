@@ -10,5 +10,6 @@ public class PlayerShootController : BaseShootController
     private void OnFire(InputValue value)
     {
         m_ShootIntention.holdFire = value.isPressed;
+        m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;
     }
 }

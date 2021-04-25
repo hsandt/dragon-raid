@@ -9,5 +9,6 @@ public class EnemyShootController : BaseShootController
     {
         // for now, simple logic: enemy shoots as much as they can
         m_ShootIntention.holdFire = true;
+        m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;
     }
 }
