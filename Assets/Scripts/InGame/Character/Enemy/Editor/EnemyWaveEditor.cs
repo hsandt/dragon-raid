@@ -108,10 +108,19 @@ public class EnemyWaveEditor : Editor
                     enemySpawnData.spawnPosition = roundedPosition;
                 }
 
+                
                 // Scale offset with handle size so it remains constant on screen
-                float handleSize = HandleUtility.GetHandleSize(enemySpawnData.spawnPosition);
+                float handleSize = HandlesUtil.Get2DPixelSize();
+                
                 string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
-                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 0.3225f * handleSize, enemySpawnData.spawnPosition.y - 0.25f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
+                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
+                    
+                Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
+                if (previewTexture != null)
+                {
+                    Vector3 position = new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize, enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
+                    Handles.Label(position, previewTexture);
+                }
             }
         }
     }

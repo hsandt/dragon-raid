@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: EnemyData_Bird
   m_EditorClassIdentifier: 
   enemyName: Bird
+  editorSpawnPreviewTexture: {fileID: 2800000, guid: 6f118683942e20711a48e5a655059416, type: 3}
