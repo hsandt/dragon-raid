@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -56,32 +58,25 @@ public class EnemyWaveEditor : Editor
                 HandleUtility.AddControl(controlID, HandleUtility.DistanceToRectangle(position, rotation, size));
                 break;
             case EventType.Repaint:
-                StartCapDraw(position, rotation, size);
-                Vector3 normal = rotation * new Vector3(0.0f, 0.0f, 1f);
-                Handles.DrawWireDisc(position, normal, size);
-                Handles.DrawLine(position + size * Vector3.left, position + size * Vector3.right);
-                Handles.DrawLine(position + size * Vector3.up, position + size * Vector3.down);
+                // Reflection code for Handles.StartCapDraw(position, rotation, size);
+                var handlesEntries = Type.GetType("UnityEditor.Handles,UnityEditor.dll");
+                if (handlesEntries != null)
+                {
+                    var startCapDrawMethod = handlesEntries.GetMethod("StartCapDraw", BindingFlags.Static | BindingFlags.NonPublic);
+                    if (startCapDrawMethod != null)
+                    {
+                        startCapDrawMethod.Invoke(null, new object[]{position, rotation, size});
+                        
+                        // End of reflection, do the rest of what Handles.CircleHandleCap does normally
+                        Vector3 normal = rotation * new Vector3(0.0f, 0.0f, 1f);
+                        Handles.DrawWireDisc(position, normal, size);
+                        
+                        // Add custom code here to draw the cross inside the circle
+                        Handles.DrawLine(position + size * Vector3.left, position + size * Vector3.right);
+                        Handles.DrawLine(position + size * Vector3.up, position + size * Vector3.down);
+                    }
+                }
                 break;
-        }
-    }
-    
-    // hack to access Unity internals by copy-pasting them... will not update with Unity updates, so maybe prefer Reflection
-    internal static Matrix4x4 StartCapDraw(Vector3 position, Quaternion rotation, float size)
-    {
-        Shader.SetGlobalColor("_HandleColor", realHandleColor);
-        Shader.SetGlobalFloat("_HandleSize", size);
-        Matrix4x4 matrix4x4 = Handles.matrix * Matrix4x4.TRS(position, rotation, Vector3.one);
-        Shader.SetGlobalMatrix("_ObjectToWorld", matrix4x4);
-        HandleUtility.handleMaterial.SetFloat("_HandleZTest", (float) Handles.zTest);
-        HandleUtility.handleMaterial.SetPass(0);
-        return matrix4x4;
-    }
-    
-    internal static Color realHandleColor
-    {
-        get
-        {
-            return Handles.color * new Color(1f, 1f, 1f, 0.5f) + (Handles.lighting ? new Color(0.0f, 0.0f, 0.0f, 0.5f) : new Color(0.0f, 0.0f, 0.0f, 0.0f));
         }
     }
     
