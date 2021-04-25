@@ -2076,7 +2076,7 @@ GameObject:
   - component: {fileID: 841773059}
   - component: {fileID: 841773060}
   m_Layer: 0
-  m_Name: EnemyWave.01
+  m_Name: EnemyWave.03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2094,7 +2094,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1789300926}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &841773060
 MonoBehaviour:
@@ -2108,7 +2108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c58241d7640646a994c900c9e22518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 1
+  startTime: 10
   enemySpawnDataArray:
   - enemyName: Tiger
     spawnPosition: {x: 11.25, y: 3.8125}
@@ -3389,7 +3389,7 @@ GameObject:
   - component: {fileID: 1446045888}
   - component: {fileID: 1446045889}
   m_Layer: 0
-  m_Name: EnemyWave.03
+  m_Name: EnemyWave.01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3407,7 +3407,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1789300926}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1446045889
 MonoBehaviour:
@@ -3424,15 +3424,15 @@ MonoBehaviour:
   startTime: 0
   enemySpawnDataArray:
   - enemyName: Bird
-    spawnPosition: {x: 15.5, y: 4.1875}
+    spawnPosition: {x: 11.1875, y: 3.9375}
   - enemyName: Bird
-    spawnPosition: {x: 13.5, y: 2.375}
+    spawnPosition: {x: 12.5, y: 3.9375}
   - enemyName: Bird
-    spawnPosition: {x: 11.5625, y: -0.1875}
+    spawnPosition: {x: 12.5625, y: 2.375}
   - enemyName: Bird
-    spawnPosition: {x: 13.25, y: -2.1875}
+    spawnPosition: {x: 13.875, y: 2.1875}
   - enemyName: Bird
-    spawnPosition: {x: 15.5, y: -4.6875}
+    spawnPosition: {x: 15.1875, y: 1.625}
 --- !u!1 &1459133157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,9 +4204,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 841773059}
-  - {fileID: 750276825}
   - {fileID: 1446045888}
+  - {fileID: 750276825}
+  - {fileID: 841773059}
   m_Father: {fileID: 683363028}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
