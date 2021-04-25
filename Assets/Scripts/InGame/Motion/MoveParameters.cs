@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Move parameters
-[CreateAssetMenu(fileName = "MoveParameters", menuName = "Data/MoveParameters")]
+[CreateAssetMenu(fileName = "MoveParameters", menuName = "Data/Move Parameters")]
 public class MoveParameters : ScriptableObject
 {
     [Tooltip("Maximum speed (m/s)")]

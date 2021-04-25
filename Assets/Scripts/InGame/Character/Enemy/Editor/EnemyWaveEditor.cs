@@ -107,10 +107,11 @@ public class EnemyWaveEditor : Editor
                     roundedPosition.z = Round(roundedPosition.z);
                     enemySpawnData.spawnPosition = roundedPosition;
                 }
-                
+
                 // Scale offset with handle size so it remains constant on screen
                 float handleSize = HandleUtility.GetHandleSize(enemySpawnData.spawnPosition);
-                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 0.3225f * handleSize, enemySpawnData.spawnPosition.y - 0.25f * handleSize, 0f), enemySpawnData.enemyName, 2f, true, spawnPointColor);
+                string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
+                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 0.3225f * handleSize, enemySpawnData.spawnPosition.y - 0.25f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
             }
         }
     }

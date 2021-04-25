@@ -60,7 +60,14 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
     {
         foreach (var enemySpawnData in enemyWave.EnemySpawnDataArray)
         {
-            EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyName, enemySpawnData.spawnPosition);
+            if (enemySpawnData.enemyData)
+            {
+                EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition);
+            }
+            else
+            {
+                Debug.LogErrorFormat(enemyWave, "Missing EnemyData on {0}", enemyWave);
+            }
         }
     }
 }
