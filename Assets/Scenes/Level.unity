@@ -1867,7 +1867,7 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 11.875, y: 1.9375}
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
-    spawnPosition: {x: 11.625, y: -0.5}
+    spawnPosition: {x: 11.5, y: -0.5}
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 13.5, y: -3.375}
 --- !u!1 &752468591

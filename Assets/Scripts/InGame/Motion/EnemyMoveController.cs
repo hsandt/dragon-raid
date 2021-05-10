@@ -14,10 +14,14 @@ public class EnemyMoveController : BaseMoveController
     [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same)")]
     private Vector2 moveDirection = Vector2.left;
 
+#if UNITY_EDITOR
+    public Vector2 MoveDirection { get { return moveDirection; } set { moveDirection = value; } }
+#endif
+    
     
     private void FixedUpdate()
     {
         // linear motion
-        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * moveDirection;
+        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * moveDirection.normalized;
     }
 }

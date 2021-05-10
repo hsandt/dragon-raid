@@ -15,14 +15,15 @@ public class EnemyShootController : BaseShootController
         
     private void FixedUpdate()
     {
-        // for now, simple logic: enemy shoots as much as they can
         m_ShootIntention.holdFire = true;
         if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.FollowShootAnchor)
         {
+            // Shoot strait using shoot anchor's 2D forward
             m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;
         }
         else
         {
+            // Shoot at the player character (fire direction will be normalized before shooting)
             Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
             m_ShootIntention.fireDirection = (Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position);
         }
