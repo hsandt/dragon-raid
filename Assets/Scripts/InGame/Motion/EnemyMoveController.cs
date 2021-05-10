@@ -9,9 +9,15 @@ using CommonsPattern;
 /// System for MoveIntention on Player character: handles control
 public class EnemyMoveController : BaseMoveController
 {
+    [Header("Parameters")]
+    
+    [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same)")]
+    private Vector2 moveDirection = Vector2.left;
+
+    
     private void FixedUpdate()
     {
-        // for now, simple logic: enemy moves as much as they can
-        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * Vector2.left;
+        // linear motion
+        m_MoveIntention.moveVelocity = moveParameters.maxSpeed * moveDirection;
     }
 }

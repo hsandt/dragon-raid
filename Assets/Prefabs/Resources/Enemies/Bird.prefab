@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveParameters: {fileID: 11400000, guid: d4542270cdd75bdacb9a383df4a897f7, type: 2}
+  moveDirection: {x: -1, y: 0.5}
 --- !u!114 &1991456190773342604
 MonoBehaviour:
   m_ObjectHideFlags: 0
