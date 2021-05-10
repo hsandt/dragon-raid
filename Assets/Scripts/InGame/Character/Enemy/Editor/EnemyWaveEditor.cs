@@ -12,15 +12,15 @@ using CommonsHelper;
 public class EnemyWaveEditor : Editor
 {
     /* Parameters */
-    
+
     /// Position snapping distance. Set to 1px for pixel perfect placement.
-    private float autoSnapValue = 1f / 16f;
-    
+    private const float autoSnapValue = 1f / 16f;
+
     /// Position snapping distance when holding Ctrl. Bigger than auto-snap, used for broad placement.
-    private float manualSnapValue = 1f;
-    
+    private const float manualSnapValue = 1f;
+
     /// Color used for spawn point debug and enemy label
-    private readonly Color spawnPointColor = new Color(0.78f, 0.02f, 0.24f);
+    private readonly Color spawnPointColor = new Color(0.78f, 0.21f, 0.42f);
     
 
     /* State */
@@ -52,39 +52,6 @@ public class EnemyWaveEditor : Editor
         return m_RootElement;
     }
     
-    // Adapted from Handles.CircleHandleCap
-    // Draws a circle with a cross inside so we can see the target position precisely
-    public static void CrossedCircleHandleCap(int controlID, Vector3 position, Quaternion rotation, float size, EventType eventType)
-    {
-        switch (eventType)
-        {
-            case EventType.MouseMove:
-            case EventType.Layout:
-                HandleUtility.AddControl(controlID, HandleUtility.DistanceToRectangle(position, rotation, size));
-                break;
-            case EventType.Repaint:
-                // Reflection code for Handles.StartCapDraw(position, rotation, size);
-                var handlesEntries = Type.GetType("UnityEditor.Handles,UnityEditor.dll");
-                if (handlesEntries != null)
-                {
-                    var startCapDrawMethod = handlesEntries.GetMethod("StartCapDraw", BindingFlags.Static | BindingFlags.NonPublic);
-                    if (startCapDrawMethod != null)
-                    {
-                        startCapDrawMethod.Invoke(null, new object[]{position, rotation, size});
-                        
-                        // End of reflection, do the rest of what Handles.CircleHandleCap does normally
-                        Vector3 normal = rotation * new Vector3(0.0f, 0.0f, 1f);
-                        Handles.DrawWireDisc(position, normal, size);
-                        
-                        // Add custom code here to draw the cross inside the circle
-                        Handles.DrawLine(position + size * Vector3.left, position + size * Vector3.right);
-                        Handles.DrawLine(position + size * Vector3.up, position + size * Vector3.down);
-                    }
-                }
-                break;
-        }
-    }
-    
     private void OnSceneGUI()
     {
         var script = (EnemyWave) target;
@@ -97,7 +64,7 @@ public class EnemyWaveEditor : Editor
         {
             using (var check = new EditorGUI.ChangeCheckScope())
             {
-                HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, spawnPointColor, manualSnapValue * Vector2.one, CrossedCircleHandleCap, 2f);
+                HandlesUtil.DrawFreeMoveHandle(ref enemySpawnData.spawnPosition, spawnPointColor, manualSnapValue * Vector2.one, HandlesUtil.CrossedCircleHandleCap, 2f);
 
                 if (check.changed)
                 {
@@ -107,20 +74,19 @@ public class EnemyWaveEditor : Editor
                     roundedPosition.z = Round(roundedPosition.z);
                     enemySpawnData.spawnPosition = roundedPosition;
                 }
-
+            }
+            
+            // Scale offset with handle size so it remains constant on screen
+            float handleSize = HandlesUtil.Get2DPixelSize();
+            
+            string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
+            HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
                 
-                // Scale offset with handle size so it remains constant on screen
-                float handleSize = HandlesUtil.Get2DPixelSize();
-                
-                string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
-                HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
-                    
-                Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
-                if (previewTexture != null)
-                {
-                    Vector3 position = new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize, enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
-                    Handles.Label(position, previewTexture);
-                }
+            Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
+            if (previewTexture != null)
+            {
+                Vector3 position = new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize, enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
+                Handles.Label(position, previewTexture);
             }
         }
     }
