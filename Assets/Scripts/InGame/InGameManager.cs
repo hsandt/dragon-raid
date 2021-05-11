@@ -13,6 +13,9 @@ public class InGameManager : SingletonManager<InGameManager>
     /// Cached player spawn transform
     private Transform m_PlayerSpawnTransform;
 
+    /// Cached level data, retrieved from the level identifier of the current scene
+    private LevelData m_LevelData;
+
     /// Player Character Master component, reference stored after spawn
     private CharacterMaster m_playerCharacterMaster;
     
@@ -24,7 +27,15 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         // Find player character spawn position
         m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
-
+#if UNITY_EDITOR
+        Debug.AssertFormat(m_PlayerSpawnTransform != null, this, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
+#endif
+        
+        m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
+#if UNITY_EDITOR
+        Debug.AssertFormat(m_LevelData != null, this, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data");
+#endif
+        
         // Setup level
         SetupLevel();
     }
@@ -33,6 +44,11 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         SpawnPlayerCharacter();
         EnemyWaveManager.Instance.Setup();
+        
+        if (m_LevelData != null)
+        {
+            AudioManager.Instance.PlayBgm(m_LevelData.bgm);        
+        }
     }
     
     private void SpawnPlayerCharacter()
@@ -47,20 +63,15 @@ public class InGameManager : SingletonManager<InGameManager>
             var healthSystem = m_playerCharacterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
         }
-#if UNITY_EDITOR
-        else
-        {
-            Debug.LogError("[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
-        }
-#endif
     }
 
     private void ClearLevel()
     {
         // Despawn the player character
         
-        // First clean up reference to avoid relying on Unity's "destroyed null"
+        // First clean up references to avoid relying on Unity's "destroyed null"
         m_playerCharacterMaster = null;
+        m_LevelData = null;
         
         // We use the generic Pool API to release all objects, but it really only releases 1 here
         DragonPoolManager.Instance.ReleaseAllObjects();

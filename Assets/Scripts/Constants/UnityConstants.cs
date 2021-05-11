@@ -52,6 +52,10 @@ namespace UnityConstants
         /// Name of tag 'EnemyWaves'.
         /// </summary>
         public const string EnemyWaves = "EnemyWaves";
+        /// <summary>
+        /// Name of tag 'LevelIdentifier'.
+        /// </summary>
+        public const string LevelIdentifier = "LevelIdentifier";
     }
 
     public static class SortingLayers

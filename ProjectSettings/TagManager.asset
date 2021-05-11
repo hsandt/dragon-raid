@@ -9,6 +9,7 @@ TagManager:
   - CharacterPool
   - PlayerSpawnPosition
   - EnemyWaves
+  - LevelIdentifier
   layers:
   - Default
   - TransparentFX
