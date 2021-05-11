@@ -3424,15 +3424,15 @@ MonoBehaviour:
   startTime: 0
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 11.1875, y: 3.9375}
+    spawnPosition: {x: 12.1875, y: 1.4375}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 12.5, y: 3.9375}
+    spawnPosition: {x: 13.5, y: 1.4375}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 12.5625, y: 2.375}
+    spawnPosition: {x: 13.5625, y: -0.125}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 13.875, y: 2.1875}
+    spawnPosition: {x: 14.875, y: -0.3125}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 15.1875, y: 1.625}
+    spawnPosition: {x: 16.1875, y: -0.875}
 --- !u!1 &1459133157
 GameObject:
   m_ObjectHideFlags: 0
