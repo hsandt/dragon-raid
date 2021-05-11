@@ -70,6 +70,11 @@ public class SfxrGenerator : EditorWindow {
 			return soundContainer;
 		}
 	}
+	
+	// ADDED by hsandt for debouncing and avoiding Fatal Error on Play spam
+	private bool isWaitingForPreviewDebounce = false;
+	private float lastSoundChangeTimeStamp = 0f;
+	private const float debounceDuration = 0.1f;
 
 	// ================================================================================================================
 	// PUBLIC INTERFACE -----------------------------------------------------------------------------------------------
@@ -115,11 +120,23 @@ public class SfxrGenerator : EditorWindow {
 		
 		// Play sound if necessary
 		if (soundChanged) {
+			// ADDED by hsandt for debouncing and avoiding Fatal Error on Play spam
+			isWaitingForPreviewDebounce = true;
+			lastSoundChangeTimeStamp = Time.realtimeSinceStartup;
+		}
+	}
+
+	// ADDED by hsandt for debouncing and avoiding Fatal Error on Play spam
+	// (actually moved PlaySound code here instead of soundChanged conditional block above)
+	private void Update()
+	{
+		if (isWaitingForPreviewDebounce && Time.realtimeSinceStartup >= lastSoundChangeTimeStamp + debounceDuration) {
+			isWaitingForPreviewDebounce = false;
+			
 			synth.parameters.SetSettingsString(soundParameters.GetSettingsString());
 			PlaySound();
 			CreateWavePreview();
 		}
-
 	}
 
 	public void PlaySound() {
