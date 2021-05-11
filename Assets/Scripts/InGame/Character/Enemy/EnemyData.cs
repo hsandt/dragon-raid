@@ -1,9 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Shoot parameters specific to Enemies
+/// Enemy data
+/// Even when name is enough, it makes it more convenient to select as serialized reference than inputting
+/// the enemy name manually in a string field. It also avoids breaking if name changes later.
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/Enemy Data")]
 public class EnemyData : ScriptableObject
 {
