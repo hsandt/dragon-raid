@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ANIM_OVRD_CTRL_FX_FireballImpact
+  m_Name: ANIM_OVRD_CTRL_FX_FireballDeath
   m_Controller: {fileID: 9100000, guid: 645c8ad964d1409f9beaffca9e31366f, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 3cbe6d046f61c57028dc4ab8f8ebcbec, type: 2}

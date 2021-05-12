@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour, IPooledObject
     public ProjectileParameters projectileParameters;
     
     [Tooltip("Projectile Visual Parameters Data")]
-    public ProjectileVisualParameters projectileVisualParameters;
+    public ProjectileAestheticParameters ProjectileAestheticParameters;
     
     
     /* Sibling components */
@@ -23,6 +23,11 @@ public class Projectile : MonoBehaviour, IPooledObject
     
     private void Awake()
     {
+#if UNITY_EDITOR
+        Debug.AssertFormat(ProjectileAestheticParameters, this,
+            "[Projectile] Projectile Aesthetic Parameters not set on projectile {0}", this);
+#endif
+
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
     }
 
@@ -85,8 +90,17 @@ public class Projectile : MonoBehaviour, IPooledObject
     {
         targetHealthSystem.Damage(projectileParameters.damage);
         Release();
-        
-        // death FX appears centered on projectile's last position
-        FXPoolManager.Instance.SpawnFX(projectileVisualParameters.fxName, transform.position);
+
+        if (ProjectileAestheticParameters != null)
+        {
+            // Visual: impact FX appears centered on projectile's last position
+            FXPoolManager.Instance.SpawnFX(ProjectileAestheticParameters.fxName, transform.position);
+            
+            // Audio: play impact SFX
+            if (ProjectileAestheticParameters.sfxImpact != null)
+            {
+                AudioManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxImpact);
+            }
+        }
     }
 }

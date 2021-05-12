@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 304d59725385470bb551224059c4c160, type: 3}
-  m_Name: ProjectileVisualParameters_Fireball
+  m_Name: ProjectileAestheticParameters_Fireball
   m_EditorClassIdentifier: 
   fxName: FireballImpact
+  sfxImpact: {fileID: 8300000, guid: 61274a8e5d1c4f9a29919103c4ac866f, type: 3}
