@@ -83,6 +83,12 @@ public class Projectile : MonoBehaviour, IPooledObject
         
         m_Rigidbody2D.position = position;
         m_Rigidbody2D.velocity = velocity;
+        
+        if (ProjectileAestheticParameters != null && ProjectileAestheticParameters.sfxSpawn != null)
+        {
+            // Audio: play spawn SFX
+            AudioManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxSpawn);
+        }
     }
 
     /// Impact on target: damage it and self-destruct
@@ -96,9 +102,9 @@ public class Projectile : MonoBehaviour, IPooledObject
             // Visual: impact FX appears centered on projectile's last position
             FXPoolManager.Instance.SpawnFX(ProjectileAestheticParameters.fxName, transform.position);
             
-            // Audio: play impact SFX
             if (ProjectileAestheticParameters.sfxImpact != null)
             {
+                // Audio: play impact SFX
                 AudioManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxImpact);
             }
         }
