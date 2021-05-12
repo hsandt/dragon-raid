@@ -27,14 +27,12 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         // Find player character spawn position
         m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
-#if UNITY_EDITOR
-        Debug.AssertFormat(m_PlayerSpawnTransform != null, this, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
-#endif
+        Debug.AssertFormat(m_PlayerSpawnTransform != null, this,
+            "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
         
         m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
-#if UNITY_EDITOR
-        Debug.AssertFormat(m_LevelData != null, this, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data");
-#endif
+        Debug.AssertFormat(m_LevelData != null, this,
+            "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data");
         
         // Setup level
         SetupLevel();

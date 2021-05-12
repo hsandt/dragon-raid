@@ -23,10 +23,8 @@ public class Projectile : MonoBehaviour, IPooledObject
     
     private void Awake()
     {
-#if UNITY_EDITOR
         Debug.AssertFormat(ProjectileAestheticParameters, this,
             "[Projectile] Projectile Aesthetic Parameters not set on projectile {0}", this);
-#endif
 
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
     }
