@@ -74,7 +74,7 @@ public class SfxrGenerator : EditorWindow {
 	// ADDED by hsandt for debouncing and avoiding Fatal Error on Play spam
 	private bool isWaitingForPreviewDebounce = false;
 	private float lastSoundChangeTimeStamp = 0f;
-	private const float debounceDuration = 0.1f;
+	private const float debounceDuration = 0.2f;
 
 	// ================================================================================================================
 	// PUBLIC INTERFACE -----------------------------------------------------------------------------------------------
