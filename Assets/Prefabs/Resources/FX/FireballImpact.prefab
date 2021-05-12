@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3802340669940905429}
   - component: {fileID: 352727672311534094}
   m_Layer: 0
-  m_Name: FireballDeath
+  m_Name: FireballImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304d59725385470bb551224059c4c160, type: 3}
   m_Name: ProjectileVisualParameters_EnemyFireball
   m_EditorClassIdentifier: 
-  fxName: FireballDeath
+  fxName: FireballImpact

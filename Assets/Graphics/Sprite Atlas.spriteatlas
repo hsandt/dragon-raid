@@ -54,27 +54,27 @@ SpriteAtlas:
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
   - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
   - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
-  - {fileID: 3459474658204554586, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
-  - {fileID: -7622532561685878819, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   - {fileID: -4830872509790701028, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   - {fileID: 8571754651483645374, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
-  - {fileID: 8136729202242274974, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 5958264666565956762, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: -3786093973488514517, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 6462790393593252489, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 3459474658204554586, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: -7622532561685878819, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 4658233769407990989, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 5691119552608332904, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: -5000116297605096390, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 4658233769407990989, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: -4561309920375870554, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: -5361527223419541628, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 4592483917916239982, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 3971639578494278912, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: 1383787530715693586, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
-  - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -3786093973488514517, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 6462790393593252489, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 8136729202242274974, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 5958264666565956762, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 5796462597814593602, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 1579823946253585403, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 4592483917916239982, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 3971639578494278912, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -4561309920375870554, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -5361527223419541628, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 1383787530715693586, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 21300000, guid: d00b9efe55c591799a0582d09be20a65, type: 3}
   m_PackedSpriteNamesToIndex:
   - hud_gauge_frame_0
@@ -89,27 +89,27 @@ SpriteAtlas:
   - hud_gauge_separator
   - dragon_spritesheet_0
   - bg_cloud_big
-  - projectile_fireball_death_spritesheet_classic_0
-  - projectile_fireball_death_spritesheet_classic_1
-  - projectile_fireball_death_spritesheet_classic_2
-  - projectile_fireball_death_spritesheet_classic_3
-  - projectile_fireball_death_spritesheet_10
-  - projectile_fireball_death_spritesheet_11
-  - projectile_fireball_death_spritesheet_12
-  - projectile_fireball_death_spritesheet_13
-  - projectile_fireball_death_spritesheet_14
-  - projectile_fireball_death_spritesheet_15
-  - projectile_fireball_death_spritesheet_16
-  - projectile_fireball_death_spritesheet_1
-  - projectile_fireball_death_spritesheet_0
-  - projectile_fireball_death_spritesheet_3
-  - projectile_fireball_death_spritesheet_2
-  - projectile_fireball_death_spritesheet_5
-  - projectile_fireball_death_spritesheet_4
-  - projectile_fireball_death_spritesheet_7
-  - projectile_fireball_death_spritesheet_6
-  - projectile_fireball_death_spritesheet_9
-  - projectile_fireball_death_spritesheet_8
+  - projectile_fireball_impact_spritesheet_classic_2
+  - projectile_fireball_impact_spritesheet_classic_3
+  - projectile_fireball_impact_spritesheet_classic_0
+  - projectile_fireball_impact_spritesheet_classic_1
+  - projectile_fireball_impact_spritesheet_16
+  - projectile_fireball_impact_spritesheet_14
+  - projectile_fireball_impact_spritesheet_15
+  - projectile_fireball_impact_spritesheet_12
+  - projectile_fireball_impact_spritesheet_13
+  - projectile_fireball_impact_spritesheet_10
+  - projectile_fireball_impact_spritesheet_11
+  - projectile_fireball_impact_spritesheet_9
+  - projectile_fireball_impact_spritesheet_8
+  - projectile_fireball_impact_spritesheet_3
+  - projectile_fireball_impact_spritesheet_2
+  - projectile_fireball_impact_spritesheet_1
+  - projectile_fireball_impact_spritesheet_0
+  - projectile_fireball_impact_spritesheet_7
+  - projectile_fireball_impact_spritesheet_6
+  - projectile_fireball_impact_spritesheet_5
+  - projectile_fireball_impact_spritesheet_4
   - fx_particle_medium_orange
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas

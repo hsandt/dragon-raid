@@ -3027,7 +3027,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5044091037476376184, guid: de38ee7e0113f4e0cae62aef93d69748, type: 3}
       propertyPath: m_Name
-      value: FireballDeath
+      value: FireballImpact
       objectReference: {fileID: 0}
     - target: {fileID: 5044091037476376185, guid: de38ee7e0113f4e0cae62aef93d69748, type: 3}
       propertyPath: m_RootOrder

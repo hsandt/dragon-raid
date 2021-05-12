@@ -4,28 +4,28 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -5361527223419541628
-    second: projectile_fireball_death_spritesheet_0
+    second: projectile_fireball_impact_spritesheet_0
   - first:
       213: -4561309920375870554
-    second: projectile_fireball_death_spritesheet_1
+    second: projectile_fireball_impact_spritesheet_1
   - first:
       213: 3971639578494278912
-    second: projectile_fireball_death_spritesheet_2
+    second: projectile_fireball_impact_spritesheet_2
   - first:
       213: 4592483917916239982
-    second: projectile_fireball_death_spritesheet_3
+    second: projectile_fireball_impact_spritesheet_3
   - first:
       213: 3459474658204554586
-    second: projectile_fireball_death_spritesheet_classic_0
+    second: projectile_fireball_impact_spritesheet_classic_0
   - first:
       213: -7622532561685878819
-    second: projectile_fireball_death_spritesheet_classic_1
+    second: projectile_fireball_impact_spritesheet_classic_1
   - first:
       213: -4830872509790701028
-    second: projectile_fireball_death_spritesheet_classic_2
+    second: projectile_fireball_impact_spritesheet_classic_2
   - first:
       213: 8571754651483645374
-    second: projectile_fireball_death_spritesheet_classic_3
+    second: projectile_fireball_impact_spritesheet_classic_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -57,8 +57,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -127,7 +127,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: projectile_fireball_death_spritesheet_classic_0
+      name: projectile_fireball_impact_spritesheet_classic_0
       rect:
         serializedVersion: 2
         x: 0
@@ -148,7 +148,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: projectile_fireball_death_spritesheet_classic_1
+      name: projectile_fireball_impact_spritesheet_classic_1
       rect:
         serializedVersion: 2
         x: 9
@@ -169,7 +169,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: projectile_fireball_death_spritesheet_classic_2
+      name: projectile_fireball_impact_spritesheet_classic_2
       rect:
         serializedVersion: 2
         x: 18
@@ -190,7 +190,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: projectile_fireball_death_spritesheet_classic_3
+      name: projectile_fireball_impact_spritesheet_classic_3
       rect:
         serializedVersion: 2
         x: 27
