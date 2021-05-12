@@ -4,15 +4,12 @@ using UnityEngine;
 
 using CommonsPattern;
 
-public class AudioManager : SingletonManager<AudioManager>
+public class MusicManager : SingletonManager<MusicManager>
 {
     [Header("Children references")]
     
     [Tooltip("Audio Source for BGM")]
     public AudioSource bgmAudioSource;
-
-    [Tooltip("Audio Source for SFX")]
-    public AudioSource sfxAudioSource;
 
 
     public void PlayBgm(AudioClip bgm)
@@ -22,12 +19,5 @@ public class AudioManager : SingletonManager<AudioManager>
             bgmAudioSource.clip = bgm;
             bgmAudioSource.Play();
         }
-    }
-
-    public void PlaySfx(AudioClip sfx)
-    {
-        // stop any previous SFX (otherwise they can overlap)
-        sfxAudioSource.Stop();
-        sfxAudioSource.PlayOneShot(sfx);
     }
 }

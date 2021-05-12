@@ -87,7 +87,7 @@ public class Projectile : MonoBehaviour, IPooledObject
         if (ProjectileAestheticParameters != null && ProjectileAestheticParameters.sfxSpawn != null)
         {
             // Audio: play spawn SFX
-            AudioManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxSpawn);
+            SfxPoolManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxSpawn);
         }
     }
 
@@ -105,7 +105,7 @@ public class Projectile : MonoBehaviour, IPooledObject
             if (ProjectileAestheticParameters.sfxImpact != null)
             {
                 // Audio: play impact SFX
-                AudioManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxImpact);
+                SfxPoolManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxImpact);
             }
         }
     }

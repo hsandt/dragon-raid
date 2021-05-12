@@ -47,7 +47,7 @@ public class InGameManager : SingletonManager<InGameManager>
         
         if (m_LevelData != null)
         {
-            AudioManager.Instance.PlayBgm(m_LevelData.bgm);        
+            MusicManager.Instance.PlayBgm(m_LevelData.bgm);        
         }
     }
     
