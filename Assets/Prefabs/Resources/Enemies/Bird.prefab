@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: cb73248aabe0d3e3d9b6e30673e72e48, type: 2}
-  healthVisualParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
+  healthAestheticParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
 --- !u!114 &1991456190773342597
 MonoBehaviour:
   m_ObjectHideFlags: 0

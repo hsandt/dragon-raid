@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: e1cc1bbd52417e9569d7e3ad94fd8a0b, type: 2}
-  healthVisualParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
+  healthAestheticParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
 --- !u!114 &581364396840778210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveParameters: {fileID: 11400000, guid: 7ef1ba0e5cfe93dc985bf27450137083, type: 2}
+  moveDirection: {x: -1, y: 0}
 --- !u!114 &581364396840778217
 MonoBehaviour:
   m_ObjectHideFlags: 0

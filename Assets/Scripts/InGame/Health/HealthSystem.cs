@@ -13,8 +13,8 @@ public class HealthSystem : ClearableBehaviour
     [Tooltip("Health Parameters Data")]
     public HealthParameters healthParameters;
 
-    [Tooltip("Health Visual Parameters Data")]
-    public HealthVisualParameters healthVisualParameters;
+    [Tooltip("Health Aesthetic Parameters Data")]
+    public HealthAestheticParameters healthAestheticParameters;
 
 
     /* Dynamic external references */
@@ -38,7 +38,7 @@ public class HealthSystem : ClearableBehaviour
         m_Health.maxValue = healthParameters.maxHealth;
         
         m_Brighten = this.GetComponentOrFail<Brighten>();
-        Debug.AssertFormat(healthVisualParameters, this, "No Health Visual Parameters found on {0}", this);
+        Debug.AssertFormat(healthAestheticParameters, this, "No Health Aesthetic Parameters found on {0}", this);
     }
 
     public override void Setup()
@@ -68,7 +68,7 @@ public class HealthSystem : ClearableBehaviour
         else
         {
             // if entity survived, play damage feedback
-            m_Brighten.SetBrightnessForDuration(healthVisualParameters.damagedBrightness, healthVisualParameters.damagedBrightnessDuration);
+            m_Brighten.SetBrightnessForDuration(healthAestheticParameters.damagedBrightness, healthAestheticParameters.damagedBrightnessDuration);
         }
 
         NotifyValueChangeToObservers();
