@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - ProjectilePool
+  - FXPool
+  - CharacterPool
+  - PlayerSpawnPosition
+  - EnemyWaves
+  - LevelIdentifier
   layers:
   - Default
   - TransparentFX
@@ -12,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerCharacter
+  - PlayerCharacterHurtBox
   - PlayerProjectile
   - 
   - Enemy
@@ -21,13 +26,13 @@ TagManager:
   - 
   - 
   - 
+  - PlayerCharacterMoveBox
+  - InvisibleWall
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - DeadZone_Projectile
+  - DeadZone_Enemy
   - 
   - 
   - 
@@ -39,9 +44,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Level_Background
     uniqueID: 336128783
     locked: 0
@@ -53,6 +55,9 @@ TagManager:
     locked: 0
   - name: Level_Fireball
     uniqueID: 93571251
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: HUD
     uniqueID: 209541521

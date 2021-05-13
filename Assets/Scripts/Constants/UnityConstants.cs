@@ -36,14 +36,30 @@ namespace UnityConstants
         /// Name of tag 'ProjectilePool'.
         /// </summary>
         public const string ProjectilePool = "ProjectilePool";
+        /// <summary>
+        /// Name of tag 'FXPool'.
+        /// </summary>
+        public const string FXPool = "FXPool";
+        /// <summary>
+        /// Name of tag 'CharacterPool'.
+        /// </summary>
+        public const string CharacterPool = "CharacterPool";
+        /// <summary>
+        /// Name of tag 'PlayerSpawnPosition'.
+        /// </summary>
+        public const string PlayerSpawnPosition = "PlayerSpawnPosition";
+        /// <summary>
+        /// Name of tag 'EnemyWaves'.
+        /// </summary>
+        public const string EnemyWaves = "EnemyWaves";
+        /// <summary>
+        /// Name of tag 'LevelIdentifier'.
+        /// </summary>
+        public const string LevelIdentifier = "LevelIdentifier";
     }
 
     public static class SortingLayers
     {
-        /// <summary>
-        /// ID of sorting layer 'Default'.
-        /// </summary>
-        public const int Default = 0;
         /// <summary>
         /// ID of sorting layer 'Level_Background'.
         /// </summary>
@@ -60,6 +76,10 @@ namespace UnityConstants
         /// ID of sorting layer 'Level_Fireball'.
         /// </summary>
         public const int Level_Fireball = 93571251;
+        /// <summary>
+        /// ID of sorting layer 'Default'.
+        /// </summary>
+        public const int Default = 0;
         /// <summary>
         /// ID of sorting layer 'HUD'.
         /// </summary>
@@ -89,9 +109,9 @@ namespace UnityConstants
         /// </summary>
         public const int UI = 5;
         /// <summary>
-        /// Index of layer 'PlayerCharacter'.
+        /// Index of layer 'PlayerCharacterHurtBox'.
         /// </summary>
-        public const int PlayerCharacter = 6;
+        public const int PlayerCharacterHurtBox = 6;
         /// <summary>
         /// Index of layer 'PlayerProjectile'.
         /// </summary>
@@ -104,6 +124,22 @@ namespace UnityConstants
         /// Index of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectile = 10;
+        /// <summary>
+        /// Index of layer 'PlayerCharacterMoveBox'.
+        /// </summary>
+        public const int PlayerCharacterMoveBox = 15;
+        /// <summary>
+        /// Index of layer 'InvisibleWall'.
+        /// </summary>
+        public const int InvisibleWall = 16;
+        /// <summary>
+        /// Index of layer 'DeadZone_Projectile'.
+        /// </summary>
+        public const int DeadZone_Projectile = 20;
+        /// <summary>
+        /// Index of layer 'DeadZone_Enemy'.
+        /// </summary>
+        public const int DeadZone_Enemy = 21;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -126,9 +162,9 @@ namespace UnityConstants
         /// </summary>
         public const int UIMask = 1 << 5;
         /// <summary>
-        /// Bitmask of layer 'PlayerCharacter'.
+        /// Bitmask of layer 'PlayerCharacterHurtBox'.
         /// </summary>
-        public const int PlayerCharacterMask = 1 << 6;
+        public const int PlayerCharacterHurtBoxMask = 1 << 6;
         /// <summary>
         /// Bitmask of layer 'PlayerProjectile'.
         /// </summary>
@@ -141,6 +177,22 @@ namespace UnityConstants
         /// Bitmask of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectileMask = 1 << 10;
+        /// <summary>
+        /// Bitmask of layer 'PlayerCharacterMoveBox'.
+        /// </summary>
+        public const int PlayerCharacterMoveBoxMask = 1 << 15;
+        /// <summary>
+        /// Bitmask of layer 'InvisibleWall'.
+        /// </summary>
+        public const int InvisibleWallMask = 1 << 16;
+        /// <summary>
+        /// Bitmask of layer 'DeadZone_Projectile'.
+        /// </summary>
+        public const int DeadZone_ProjectileMask = 1 << 20;
+        /// <summary>
+        /// Bitmask of layer 'DeadZone_Enemy'.
+        /// </summary>
+        public const int DeadZone_EnemyMask = 1 << 21;
     }
 
     public static class Scenes

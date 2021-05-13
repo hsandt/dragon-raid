@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
-public class Shoot : MonoBehaviour
+public class Shoot : ClearableBehaviour
 {
     [Header("Parameters data")]
     
@@ -26,7 +27,6 @@ public class Shoot : MonoBehaviour
     
     /* Sibling components */
     
-    private Rigidbody2D m_Rigidbody2D;
     private ShootIntention m_ShootIntention;
     
     
@@ -38,11 +38,10 @@ public class Shoot : MonoBehaviour
     
     private void Awake()
     {
-        m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
     }
-    
-    private void Start()
+
+    public override void Setup()
     {
         m_FireCooldownTime = 0f;
     }
@@ -64,7 +63,7 @@ public class Shoot : MonoBehaviour
             m_FireCooldownTime = shootParameters.fireCooldownDuration;
             
             // Shot Anchor must be rotated so the right (X) axis points toward the character
-            Vector2 projectileVelocity = shootParameters.projectileSpeed * shootAnchor.right;
+            Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }
     }

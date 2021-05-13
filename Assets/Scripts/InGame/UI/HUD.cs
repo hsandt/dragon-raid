@@ -5,7 +5,7 @@ using UnityEngine;
 using CommonsPattern;
 using UnityConstants;
 
-public class HUD : MonoBehaviour
+public class HUD : SingletonManager<HUD>
 {
 	[Header("Child references")]
 
@@ -13,12 +13,8 @@ public class HUD : MonoBehaviour
 	public GaugeHealth gaugeHealthPlayer;
 	
 	
-    private void Awake()
+    public void AssignGaugeHealthPlayerTo(HealthSystem healthSystem)
     {
-        GameObject playerCharacter = Locator.FindWithTag(Tags.Player);
-		if (playerCharacter != null)
-		{
-			gaugeHealthPlayer.trackedHealthSystem = playerCharacter.GetComponent<HealthSystem>();
-		}
+	    gaugeHealthPlayer.RegisterHealthSystem(healthSystem);
     }
 }

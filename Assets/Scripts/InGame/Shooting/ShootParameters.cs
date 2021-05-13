@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Shoot parameters
-[CreateAssetMenu(fileName = "ShootParameters", menuName = "Data/ShootParameters")]
+[CreateAssetMenu(fileName = "ShootParameters", menuName = "Data/Shoot Parameters")]
 public class ShootParameters : ScriptableObject
 {
     [Tooltip("Projectile speed (m/s)")]

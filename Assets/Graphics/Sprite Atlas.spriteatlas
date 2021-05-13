@@ -28,14 +28,15 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: ed72451bbf14e85a2b3f03f23c1228a2, type: 3}
+    - {fileID: 102900000, guid: c1a7517537426c220badee4ad1ec11a7, type: 3}
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
     - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
     - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
-    totalSpriteSurfaceArea: 1803
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -44,22 +45,72 @@ SpriteAtlas:
   - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
   - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
+  - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
+  - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
   - {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
   - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
-  - {fileID: 21300000, guid: fdbb6b8b57174c514beb64c010db38e8, type: 3}
+  - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
+  - {fileID: -4830872509790701028, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 8571754651483645374, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 3459474658204554586, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: -7622532561685878819, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
+  - {fileID: 4658233769407990989, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 5691119552608332904, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -5000116297605096390, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -3786093973488514517, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 6462790393593252489, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 8136729202242274974, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 5958264666565956762, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 5796462597814593602, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 1579823946253585403, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 4592483917916239982, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 3971639578494278912, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -4561309920375870554, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -5361527223419541628, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 1383787530715693586, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 21300000, guid: d00b9efe55c591799a0582d09be20a65, type: 3}
   m_PackedSpriteNamesToIndex:
   - hud_gauge_frame_0
   - projectile_fireball_spritesheet_0
   - hud_gauge_fill
+  - enemy_bird_spritesheet
   - enemy_tiger_spritesheet_0
+  - bg_cloud_medium
+  - bg_cloud_small
   - projectile_enemy_fireball_spritesheet_0
   - bg_sky
   - hud_gauge_separator
   - dragon_spritesheet_0
-  - bg_cloud
+  - bg_cloud_big
+  - projectile_fireball_impact_spritesheet_classic_2
+  - projectile_fireball_impact_spritesheet_classic_3
+  - projectile_fireball_impact_spritesheet_classic_0
+  - projectile_fireball_impact_spritesheet_classic_1
+  - projectile_fireball_impact_spritesheet_16
+  - projectile_fireball_impact_spritesheet_14
+  - projectile_fireball_impact_spritesheet_15
+  - projectile_fireball_impact_spritesheet_12
+  - projectile_fireball_impact_spritesheet_13
+  - projectile_fireball_impact_spritesheet_10
+  - projectile_fireball_impact_spritesheet_11
+  - projectile_fireball_impact_spritesheet_9
+  - projectile_fireball_impact_spritesheet_8
+  - projectile_fireball_impact_spritesheet_3
+  - projectile_fireball_impact_spritesheet_2
+  - projectile_fireball_impact_spritesheet_1
+  - projectile_fireball_impact_spritesheet_0
+  - projectile_fireball_impact_spritesheet_7
+  - projectile_fireball_impact_spritesheet_6
+  - projectile_fireball_impact_spritesheet_5
+  - projectile_fireball_impact_spritesheet_4
+  - fx_particle_medium_orange
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

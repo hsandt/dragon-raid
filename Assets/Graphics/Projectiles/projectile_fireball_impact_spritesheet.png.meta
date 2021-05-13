@@ -1,0 +1,579 @@
+fileFormatVersion: 2
+guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8471502605227178374
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_0
+  - first:
+      213: -1397494773201129481
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_1
+  - first:
+      213: 7200989996881650341
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_2
+  - first:
+      213: -8151988912375234106
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_3
+  - first:
+      213: -894130723329493501
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_4
+  - first:
+      213: 682345684209725917
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_5
+  - first:
+      213: 7825523345631210720
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_6
+  - first:
+      213: -6373499104465705474
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_7
+  - first:
+      213: -755040963357754227
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_8
+  - first:
+      213: 3985714527423283618
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_9
+  - first:
+      213: 485397641774545020
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_10
+  - first:
+      213: 1525116087311156253
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_11
+  - first:
+      213: 7239185283004823348
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_12
+  - first:
+      213: -6123052204548721108
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_13
+  - first:
+      213: -7110883143433627763
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_14
+  - first:
+      213: -1032551227470785519
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_15
+  - first:
+      213: 420953801802759880
+    second: projectile_fireball_impact_spritesheet_pixel_fx_designer_seed_212_frames_3_16
+  - first:
+      213: -5361527223419541628
+    second: projectile_fireball_impact_spritesheet_0
+  - first:
+      213: -4561309920375870554
+    second: projectile_fireball_impact_spritesheet_1
+  - first:
+      213: 3971639578494278912
+    second: projectile_fireball_impact_spritesheet_2
+  - first:
+      213: 4592483917916239982
+    second: projectile_fireball_impact_spritesheet_3
+  - first:
+      213: 6626436987915088659
+    second: projectile_fireball_impact_spritesheet_4
+  - first:
+      213: -2092013694427051649
+    second: projectile_fireball_impact_spritesheet_5
+  - first:
+      213: -3315804106667708785
+    second: projectile_fireball_impact_spritesheet_6
+  - first:
+      213: 1383787530715693586
+    second: projectile_fireball_impact_spritesheet_7
+  - first:
+      213: 1579823946253585403
+    second: projectile_fireball_impact_spritesheet_8
+  - first:
+      213: 5796462597814593602
+    second: projectile_fireball_impact_spritesheet_9
+  - first:
+      213: 8136729202242274974
+    second: projectile_fireball_impact_spritesheet_10
+  - first:
+      213: 5958264666565956762
+    second: projectile_fireball_impact_spritesheet_11
+  - first:
+      213: -3786093973488514517
+    second: projectile_fireball_impact_spritesheet_12
+  - first:
+      213: 6462790393593252489
+    second: projectile_fireball_impact_spritesheet_13
+  - first:
+      213: 5691119552608332904
+    second: projectile_fireball_impact_spritesheet_14
+  - first:
+      213: -5000116297605096390
+    second: projectile_fireball_impact_spritesheet_15
+  - first:
+      213: 4658233769407990989
+    second: projectile_fireball_impact_spritesheet_16
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 487ed7a95670895b0800000000000000
+      internalID: -5361527223419541628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 72
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6abe7855bc8f2b0c0800000000000000
+      internalID: -4561309920375870554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 72
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00d980c67291e1730800000000000000
+      internalID: 3971639578494278912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 72
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6877149ac7cbbf30800000000000000
+      internalID: 4592483917916239982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31330370555d5fb50800000000000000
+      internalID: 6626436987915088659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 54
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f794c6ef0aca7f2e0800000000000000
+      internalID: -2092013694427051649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 54
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8e2a4d9bb5ebf1d0800000000000000
+      internalID: -3315804106667708785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 54
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2128ce47d63343310800000000000000
+      internalID: 1383787530715693586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 54
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfbc9144289ace510800000000000000
+      internalID: 1579823946253585403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 54
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 248a390950c217050800000000000000
+      internalID: 5796462597814593602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 36
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e96c23569187be070800000000000000
+      internalID: 8136729202242274974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 36
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a94dc60652200b250800000000000000
+      internalID: 5958264666565956762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 36
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2a48f73797157bc0800000000000000
+      internalID: -3786093973488514517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 36
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98acee32f9170b950800000000000000
+      internalID: 6462790393593252489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 36
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86cef7b841beafe40800000000000000
+      internalID: 5691119552608332904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 18
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3c5b9518b40c9ab0800000000000000
+      internalID: -5000116297605096390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_fireball_impact_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 18
+        width: 18
+        height: 18
+      alignment: 9
+      pivot: {x: 0.22222222, y: 0.3888889}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dccca42deee55a040800000000000000
+      internalID: 4658233769407990989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

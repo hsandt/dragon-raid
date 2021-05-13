@@ -4,29 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// System for MoveIntention on Player character: handles control
-public class PlayerMoveController : MonoBehaviour
+public class PlayerMoveController : BaseMoveController
 {
-    /* Parameters data */
-    
-    [Tooltip("Move Parameters Data")]
-    public MoveParameters moveParameters;
-
-    
-    /* Sibling components */
-    
-    private MoveIntention m_MoveIntention;
-    
-    
-    private void Awake()
-    {
-        m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
-    }
-    
     /// PlayerInput action message callback for Move
     private void OnMove(InputValue value)
     {
+        // Binary Cardinal Processor makes sure that move input is -1/0/+1 on each axis
         m_MoveIntention.moveVelocity = moveParameters.maxSpeed * value.Get<Vector2>();
     }
 }
