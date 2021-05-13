@@ -78,8 +78,14 @@ public class HealthSystem : ClearableBehaviour
     {
         m_CharacterMaster.Release();
         
-        // play death FX
+        // Visual: play death FX
         FXPoolManager.Instance.SpawnFX("EnemyDeath", transform.position);
+        
+        if (healthAestheticParameters != null && healthAestheticParameters.sfxDeath != null)
+        {
+            // Audio: play death SFX
+            SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
+        }
     }
     
     

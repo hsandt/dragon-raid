@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagedBrightness: 0.2
   damagedBrightnessDuration: 0.1
+  sfxDeath: {fileID: 8300000, guid: 61274a8e5d1c4f9a29919103c4ac866f, type: 3}

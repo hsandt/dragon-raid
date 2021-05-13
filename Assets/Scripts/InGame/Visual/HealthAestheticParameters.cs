@@ -13,4 +13,7 @@ public class HealthAestheticParameters : ScriptableObject
     [Tooltip("Duration of brightness effect when entity is damaged (s)")]
     [Range(0f, 0.2f)]
     public float damagedBrightnessDuration = 0.1f;
+    
+    [Tooltip("SFX played on death")]
+    public AudioClip sfxDeath;
 }
