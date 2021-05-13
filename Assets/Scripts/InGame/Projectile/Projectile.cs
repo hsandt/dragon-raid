@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour, IPooledObject
     public ProjectileParameters projectileParameters;
     
     [Tooltip("Projectile Visual Parameters Data")]
-    public ProjectileAestheticParameters ProjectileAestheticParameters;
+    public ProjectileAestheticParameters projectileAestheticParameters;
     
     
     /* Sibling components */
@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour, IPooledObject
     
     private void Awake()
     {
-        Debug.AssertFormat(ProjectileAestheticParameters, this,
+        Debug.AssertFormat(projectileAestheticParameters, this,
             "[Projectile] Projectile Aesthetic Parameters not set on projectile {0}", this);
 
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
@@ -82,10 +82,10 @@ public class Projectile : MonoBehaviour, IPooledObject
         m_Rigidbody2D.position = position;
         m_Rigidbody2D.velocity = velocity;
         
-        if (ProjectileAestheticParameters != null && ProjectileAestheticParameters.sfxSpawn != null)
+        if (projectileAestheticParameters != null && projectileAestheticParameters.sfxSpawn != null)
         {
             // Audio: play spawn SFX
-            SfxPoolManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxSpawn);
+            SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxSpawn);
         }
     }
 
@@ -95,15 +95,15 @@ public class Projectile : MonoBehaviour, IPooledObject
         targetHealthSystem.Damage(projectileParameters.damage);
         Release();
 
-        if (ProjectileAestheticParameters != null)
+        if (projectileAestheticParameters != null)
         {
             // Visual: impact FX appears centered on projectile's last position
-            FXPoolManager.Instance.SpawnFX(ProjectileAestheticParameters.fxName, transform.position);
+            FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
             
-            if (ProjectileAestheticParameters.sfxImpact != null)
+            if (projectileAestheticParameters.sfxImpact != null)
             {
                 // Audio: play impact SFX
-                SfxPoolManager.Instance.PlaySfx(ProjectileAestheticParameters.sfxImpact);
+                SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
             }
         }
     }

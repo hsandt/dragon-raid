@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileParameters: {fileID: 11400000, guid: ac4c1a7c9a566a5d7bd6dd836b284fe3, type: 2}
-  ProjectileAestheticParameters: {fileID: 11400000, guid: cd4255a77a176a939b182fdda3dc918f, type: 2}
+  projectileAestheticParameters: {fileID: 11400000, guid: cd4255a77a176a939b182fdda3dc918f, type: 2}
