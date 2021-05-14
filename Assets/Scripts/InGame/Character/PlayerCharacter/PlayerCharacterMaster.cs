@@ -12,6 +12,6 @@ public class PlayerCharacterMaster : CharacterMaster
     {
         base.AddSiblingSlaveBehaviours();
         
-        slaveBehaviours.Add(this.GetComponentOrFail<PlayerMoveController>());
+        slaveBehaviours.Add(this.GetComponentOrFail<PlayerMoveController_Flying>());
     }
 }

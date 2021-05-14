@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 581364396840778223}
   - component: {fileID: 581364396840778210}
   - component: {fileID: 581364396840778220}
-  - component: {fileID: 4523960690037901182}
+  - component: {fileID: 6983942165260005580}
   - component: {fileID: 581364396840778217}
   - component: {fileID: 581364396840778222}
   - component: {fileID: 581364396840778216}
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveVelocity: {x: 0, y: 0}
---- !u!114 &4523960690037901182
+--- !u!114 &6983942165260005580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,11 +250,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 581364396840778215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da83c7e311434133b00f36e10cd6729a, type: 3}
+  m_Script: {fileID: 11500000, guid: 829a415e37e4c39c598eceb3ad559c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveParameters: {fileID: 11400000, guid: 7ef1ba0e5cfe93dc985bf27450137083, type: 2}
-  moveDirection: {x: -1, y: 0}
+  moveParametersGrounded: {fileID: 11400000, guid: 836602cff7472ebdba435a901264597f, type: 2}
 --- !u!114 &581364396840778217
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,12 +9,6 @@ using CommonsPattern;
 /// Base system class for MoveIntention on Player or Enemy character: handles control
 public abstract class BaseMoveController : ClearableBehaviour
 {
-    /* Parameters data */
-    
-    [Tooltip("Move Parameters Data")]
-    public MoveParameters moveParameters;
-
-    
     /* Sibling components */
     
     protected MoveIntention m_MoveIntention;
@@ -23,7 +17,12 @@ public abstract class BaseMoveController : ClearableBehaviour
     private void Awake()
     {
         m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
+
+        Init();
     }
+
+    /// Override this method to customize Awake behavior while preserving base logic
+    protected virtual void Init() {}
 
     public override void Setup()
     {

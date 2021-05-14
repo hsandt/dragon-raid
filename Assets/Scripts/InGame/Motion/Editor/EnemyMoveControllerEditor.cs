@@ -5,12 +5,12 @@ using UnityEngine;
 
 using CommonsHelper;
 
-[CustomEditor(typeof(EnemyMoveController))]
+[CustomEditor(typeof(EnemyMoveController_Flying))]
 public class EnemyMoveControllerEditor : Editor
 {
     public void OnSceneGUI()
     {
-        var script = (EnemyMoveController) target;
+        var script = (EnemyMoveController_Flying) target;
             
         Vector2 startPosition = (Vector2)script.transform.position;
         Vector2 endPosition = startPosition + script.MoveDirection;
