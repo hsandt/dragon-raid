@@ -20,22 +20,22 @@ TagManager:
   - PlayerCharacterHurtBox
   - PlayerProjectile
   - 
-  - Enemy
+  - EnemyHurtBox
   - EnemyProjectile
   - 
   - 
   - 
   - 
   - PlayerCharacterMoveBox
+  - EnemyMoveBox
+  - 
   - InvisibleWall
-  - 
-  - 
   - 
   - DeadZone_Projectile
   - DeadZone_Enemy
   - 
   - 
-  - 
+  - SolidEnvironment
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Level_Background
     uniqueID: 336128783
+    locked: 0
+  - name: Level_Environment
+    uniqueID: 2996483815
     locked: 0
   - name: Level_Enemy
     uniqueID: 1543734271
