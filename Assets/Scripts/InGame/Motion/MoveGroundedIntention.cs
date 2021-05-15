@@ -10,6 +10,6 @@ public class MoveGroundedIntention : MonoBehaviour
     [ReadOnlyField, Tooltip("Intended move ground speed (positive right)")]
     public float groundSpeed;
     
-    [ReadOnlyField, Tooltip("True when character wants to jump (consumed)")]
-    public bool jump;
+    [ReadOnlyField, Tooltip("Positive when character wants to jump, set to target jump speed (consumed)")]
+    public float jumpSpeedImpulse;
 }

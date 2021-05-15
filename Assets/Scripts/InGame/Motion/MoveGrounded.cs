@@ -8,12 +8,6 @@ using CommonsPattern;
 /// System for Rigidbody2D and MoveGroundedIntention: handles move on ground
 public class MoveGrounded : ClearableBehaviour
 {
-    [Header("Parameters data")]
-
-    [Tooltip("Move Grounded Parameters Data")]
-    public MoveGroundedParameters moveGroundedParameters;
-
-    
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
@@ -43,9 +37,11 @@ public class MoveGrounded : ClearableBehaviour
         // Set velocity Y when ordered to jump (we don't check if we are grounded, as we assume
         // character starts grounded and only tries to jump once)
         
-        if (ControlUtil.ConsumeBool(ref m_MoveGroundedIntention.jump))
+        if (m_MoveGroundedIntention.jumpSpeedImpulse > 0f)
         {
-            newVelocity.y = moveGroundedParameters.maxJumpSpeed;
+            // Set velocity Y by consuming jump speed impulse intention
+            newVelocity.y = m_MoveGroundedIntention.jumpSpeedImpulse;
+            m_MoveGroundedIntention.jumpSpeedImpulse = 0f;
         }
         
         m_Rigidbody2D.velocity = newVelocity;
