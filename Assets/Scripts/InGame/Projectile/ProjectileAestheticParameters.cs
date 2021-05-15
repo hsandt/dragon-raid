@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Projectile Aesthetic parameters for Projectile
+/// Aesthetic parameters for Projectile
 [CreateAssetMenu(fileName = "ProjectileAestheticParameters", menuName = "Data/Projectile Aesthetic Parameters")]
 public class ProjectileAestheticParameters : ScriptableObject
 {

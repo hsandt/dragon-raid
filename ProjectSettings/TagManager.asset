@@ -19,11 +19,11 @@ TagManager:
   - UI
   - PlayerCharacterHurtBox
   - PlayerProjectile
-  - 
+  - PlayerMeleeHitBox
   - EnemyHurtBox
   - EnemyProjectile
-  - 
-  - 
+  - EnemyBodyHitBox
+  - EnemyMeleeHitBox
   - 
   - 
   - PlayerCharacterMoveBox

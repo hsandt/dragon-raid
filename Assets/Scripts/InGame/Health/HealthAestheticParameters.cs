@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Health Aesthetic parameters for Health System
+/// Aesthetic parameters for Health System
 [CreateAssetMenu(fileName = "HealthAestheticParameters", menuName = "Data/Health Aesthetic Parameters")]
 public class HealthAestheticParameters : ScriptableObject
 {

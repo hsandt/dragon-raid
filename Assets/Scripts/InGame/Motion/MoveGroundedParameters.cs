@@ -11,7 +11,4 @@ public class MoveGroundedParameters : ScriptableObject
     
     [Tooltip("Maximum jump speed on Y axis (m/s). Also used to deduce max jump height.")]
     public float maxJumpSpeed = 12f;
-    
-    [Tooltip("Distance under which player character is considered near along X axis")]
-    public float playerCharacterDetectionDistanceX = 5f;
 }

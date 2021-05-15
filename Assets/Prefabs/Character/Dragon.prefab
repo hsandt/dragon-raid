@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4277205836989588868}
   - component: {fileID: 4277205836989588871}
   m_Layer: 6
-  m_Name: Hurtbox
+  m_Name: HurtBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4277205838411756311
 Transform:
   m_ObjectHideFlags: 0

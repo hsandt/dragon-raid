@@ -46,23 +46,41 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             if (InGameManager.Instance.PlayerCharacterMaster != null)
             {
                 Vector2 targetPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-                if (IsPlayerCharacterNearOnX(targetPosition))
+                if (IsPlayerCharacterCloseEnoughToCheckJump(targetPosition) && ShouldJump(targetPosition, out float jumpSpeedImpulse))
                 {
-                    OrderJump(targetPosition);
+                    OrderJump(jumpSpeedImpulse);
                 }
             }
         }
     }
 
-    /// Return true is player character is less than [playerCharacterDetectionDistanceX] away from this enemy along X
-    private bool IsPlayerCharacterNearOnX(Vector2 targetPosition)
+    /// Return true is enemy is approaching target, in a range relevant to start computing whether
+    /// they can jump and reach target or not. This acts as a pre-check for ShouldJump, which is more expensive.
+    private bool IsPlayerCharacterCloseEnoughToCheckJump(Vector2 targetPosition)
     {
-        float playerCharacterX = targetPosition.x;
-        return Mathf.Abs(playerCharacterX - transform.position.x) < moveGroundedParameters.playerCharacterDetectionDistanceX;
+        float xToTarget = targetPosition.x - transform.position.x;
+        if (xToTarget != 0f && Mathf.Sign(xToTarget) == Mathf.Sign(moveGroundedParameters.maxGroundSpeed))
+        {
+            // remember that convention is that maxGroundSpeed > 0 for enemies moving to the left
+            // target is on the right of enemy (if enemy moves to the left), or on the left (if moves to the right),
+            // so enemy can never reach target (we don't count of their body hitbox being lengthy either, so they
+            // don't try hitting the target with their back)
+            return false;
+        }
+        
+        float gravity = -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
+        // Enemy moves at ground speed, so they must jump from the correct distance on X to reach target,
+        // and that distance depends on the jump height, which depends on the target position. So we can only calculate
+        // it exactly later. But for the pre-check, just take the maximum jump speed (i.e. that can reach max height)
+        // possible, so you get an upper bound on the distance on X from target from which it is relevant to start
+        // checking if we should jump now.
+        float maxDistanceXToJump = moveGroundedParameters.maxGroundSpeed * moveGroundedParameters.maxJumpSpeed / gravity;
+        return Mathf.Abs(xToTarget) < maxDistanceXToJump;
     }
 
-    /// Order character to jump
-    private void OrderJump(Vector2 targetPosition)
+    /// Return true if enemy thinks they can reach the target by jumping now
+    /// Set jump speed impulse required to reach target along Y
+    private bool ShouldJump(Vector2 targetPosition, out float jumpSpeedImpulse)
     {
         // Calculate jump speed required to reach the target
         float requiredJumpSpeed = CalculateJumpSpeedNeededToReachHeight(targetPosition.y - transform.position.y);
@@ -71,12 +89,36 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         if (requiredJumpSpeed > 0f)
         {
             // If required jump speed is greater than max speed allowed, jump at max speed
-            float jumpSpeedImpulse = Mathf.Min(moveGroundedParameters.maxJumpSpeed, requiredJumpSpeed);
-            m_MoveGroundedIntention.jumpSpeedImpulse = jumpSpeedImpulse;
+            jumpSpeedImpulse = Mathf.Min(moveGroundedParameters.maxJumpSpeed, requiredJumpSpeed);
             
-            // don't try to jump again while jumping, nor after landing back
-            m_HasTriedToJump = true;
+            // now we can recalculate the distance on X from which we should jump as in IsPlayerCharacterCloseEnoughToCheckJump,
+            // but with the exact jump speed this time (if we clamped jump speed above, it's actually the distance
+            // to reach the jump's apogee, and a fictive target at that point; target may move down and still get hit
+            // after all)
+            float gravity = -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
+            float firstDistanceXToJump = moveGroundedParameters.maxGroundSpeed * requiredJumpSpeed / gravity;
+
+            // we tolerate any lateness from the moment we reached the ideal distance to jump onto target
+            // as long as we didn't move past the target on X (IsPlayerCharacterCloseEnoughToCheckJump already
+            // does that check)
+            float xToTarget = targetPosition.x - transform.position.x;
+            if (Mathf.Abs(xToTarget) <= firstDistanceXToJump)
+            {
+                return true;
+            }
         }
+
+        jumpSpeedImpulse = 0f;
+        return false;
+    }
+
+    /// Order character to jump
+    private void OrderJump(float jumpSpeedImpulse)
+    {
+        m_MoveGroundedIntention.jumpSpeedImpulse = jumpSpeedImpulse;
+        
+        // don't try to jump again while jumping, nor after landing back
+        m_HasTriedToJump = true;
     }
 
     /// Return the jump speed needed to reach height relative to current Y
