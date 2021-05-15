@@ -7,6 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Base system class for MoveGroundedIntention on Player or Enemy character: handles control
+/// SEO for concrete child classes: before MoveGrounded
 public abstract class BaseMoveGroundedController : ClearableBehaviour
 {
     [Header("Parameters data")]

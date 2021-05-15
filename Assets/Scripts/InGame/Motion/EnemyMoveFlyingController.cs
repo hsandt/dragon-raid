@@ -7,6 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// System for MoveFlyingIntention on Enemy: handles control
+/// SEO: before MoveFlying
 public class EnemyMoveFlyingController : BaseMoveFlyingController
 {
     [Header("Individual parameters")]

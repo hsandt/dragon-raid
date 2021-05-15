@@ -7,6 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Base system class for MoveFlyingIntention on Player or Enemy character: handles control
+/// SEO for concrete child classes: before MoveFlying
 public abstract class BaseMoveFlyingController : ClearableBehaviour
 {
     [Header("Parameters data")]

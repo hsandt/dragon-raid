@@ -6,6 +6,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Base system class for ShootIntention on Player or Enemy character: handles control
+/// SEO for concrete child classes: before Shoot
 public abstract class BaseShootController : ClearableBehaviour
 {
     /* Sibling components */

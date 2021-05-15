@@ -11,12 +11,12 @@ public class MoveFlying : ClearableBehaviour
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
-    private MoveFlyingIntention m_MoveIntention;
+    private MoveFlyingIntention m_MoveFlyingIntention;
     
     private void Awake()
     {
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
-        m_MoveIntention = this.GetComponentOrFail<MoveFlyingIntention>();
+        m_MoveFlyingIntention = this.GetComponentOrFail<MoveFlyingIntention>();
     }
 
     public override void Setup()
@@ -26,6 +26,6 @@ public class MoveFlying : ClearableBehaviour
 
     private void FixedUpdate()
     {
-        m_Rigidbody2D.velocity = m_MoveIntention.moveVelocity;
+        m_Rigidbody2D.velocity = m_MoveFlyingIntention.moveVelocity;
     }
 }

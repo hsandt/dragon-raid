@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using CommonsHelper;
 using CommonsPattern;
 
-/// System for MoveIntention on grounded Enemy: handles control
+/// System for MoveGroundedIntention on grounded Enemy: handles control
 /// SEO: before MoveGrounded
 public class EnemyMoveGroundedController : BaseMoveGroundedController
 { 

@@ -7,6 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// System for MoveFlyingIntention on Player character: handles control
+/// SEO: before MoveFlying
 public class PlayerMoveFlyingController : BaseMoveFlyingController
 {
     /// PlayerInput action message callback for Move
