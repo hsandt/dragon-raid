@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c58241d7640646a994c900c9e22518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 0
+  startTime: 5
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 10.9375, y: -4.9375}
@@ -2147,11 +2147,15 @@ MonoBehaviour:
   startTime: 10
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 11.9375, y: -3.0625}
+    spawnPosition: {x: 12.375, y: -2.5625}
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
-    spawnPosition: {x: 10.9375, y: -5}
+    spawnPosition: {x: 11, y: -4.8125}
+  - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
+    spawnPosition: {x: 16.0625, y: -4.8125}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
-    spawnPosition: {x: 13.625, y: -3.6875}
+    spawnPosition: {x: 14.3125, y: -3.3125}
+  - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
+    spawnPosition: {x: 10.625, y: -1.5625}
 --- !u!1 &856213526
 GameObject:
   m_ObjectHideFlags: 0
