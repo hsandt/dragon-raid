@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf071015fed349ba920d48d53a092391, type: 3}
   m_Name: MoveGroundedParameters_Tiger
   m_EditorClassIdentifier: 
-  maxGroundSpeed: 4
+  maxGroundSpeed: 6
   maxJumpSpeed: 15
   playerCharacterDetectionDistanceX: 5

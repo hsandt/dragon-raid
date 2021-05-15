@@ -48,9 +48,6 @@ GameObject:
   - component: {fileID: 8240065594277490314}
   - component: {fileID: 6348143050354410151}
   - component: {fileID: 6983942165260005580}
-  - component: {fileID: 581364396840778217}
-  - component: {fileID: 581364396840778222}
-  - component: {fileID: 581364396840778216}
   - component: {fileID: 581364396840778219}
   - component: {fileID: 8864464776807001610}
   m_Layer: 16
@@ -257,48 +254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveGroundedParameters: {fileID: 11400000, guid: 836602cff7472ebdba435a901264597f, type: 2}
---- !u!114 &581364396840778217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581364396840778215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e26c27dde7c9649ec8640beba6167465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootParameters: {fileID: 11400000, guid: 38b9a2c72aa30dcb8b38bbb98d206152, type: 2}
-  shootAnchor: {fileID: 581364395923855623}
-  defaultProjectileName: EnemyFireball
---- !u!114 &581364396840778222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581364396840778215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b256ca88301640e6bce0d0feb650dada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdFire: 0
-  fireDirection: {x: 0, y: 0}
---- !u!114 &581364396840778216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581364396840778215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a47b40dfb43145a2b7f05fd30e9aa0bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyShootParameters: {fileID: 11400000, guid: 0e402c963ce7b0eedb3334ac7a5656bb, type: 2}
 --- !u!114 &581364396840778219
 MonoBehaviour:
   m_ObjectHideFlags: 0
