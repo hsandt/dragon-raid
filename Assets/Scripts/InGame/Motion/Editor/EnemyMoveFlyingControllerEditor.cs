@@ -6,7 +6,7 @@ using UnityEngine;
 using CommonsHelper;
 
 [CustomEditor(typeof(EnemyMoveFlyingController))]
-public class EnemyMoveControllerEditor : Editor
+public class EnemyMoveFlyingControllerEditor : Editor
 {
     public void OnSceneGUI()
     {

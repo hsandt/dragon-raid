@@ -20,6 +20,14 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
     /// True if character has tried to jump once
     private bool m_HasTriedToJump;
 
+#if UNITY_EDITOR
+    /* Debug */
+
+    /// Last AI behaviour chosen by this controller
+    private string m_DebugLastAIBehaviourResult = "None";
+    public string DebugLastAIBehaviourResult => m_DebugLastAIBehaviourResult;
+#endif
+
     
     protected override void Init()
     {
@@ -37,6 +45,10 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
 
     private void FixedUpdate()
     {
+        #if UNITY_EDITOR
+        m_DebugLastAIBehaviourResult = "None";
+        #endif
+        
         // no slopes for now, so moving on ground just means linear motion to the left
         m_MoveGroundedIntention.groundSpeed = -moveGroundedParameters.maxGroundSpeed;
 
@@ -46,12 +58,37 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             if (InGameManager.Instance.PlayerCharacterMaster != null)
             {
                 Vector2 targetPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-                if (IsPlayerCharacterCloseEnoughToCheckJump(targetPosition) && ShouldJump(targetPosition, out float jumpSpeedImpulse))
+                if (IsPlayerCharacterCloseEnoughToCheckJump(targetPosition))
                 {
-                    OrderJump(jumpSpeedImpulse);
+                    if (ShouldJump(targetPosition, out float jumpSpeedImpulse))
+                    {
+                        OrderJump(jumpSpeedImpulse);
+                        
+                        #if UNITY_EDITOR
+                        m_DebugLastAIBehaviourResult = "Jump";
+                        #endif
+                    }
+                    #if UNITY_EDITOR
+                    else
+                    {
+                        m_DebugLastAIBehaviourResult = "Not close enough for small jump";
+                    }
+                    #endif
                 }
+                #if UNITY_EDITOR
+                else
+                {
+                    m_DebugLastAIBehaviourResult = "Not close enough";
+                }
+                #endif
             }
         }
+        #if UNITY_EDITOR
+        else
+        {
+            m_DebugLastAIBehaviourResult = "Already jumped";
+        }
+        #endif
     }
     
     private float GetGravity()
@@ -136,5 +173,9 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         
         // don't try to jump again while jumping, nor after landing back
         m_HasTriedToJump = true;
+        
+#if UNITY_EDITOR
+        m_DebugLastAIBehaviourResult = "Jump";
+#endif
     }
 }
