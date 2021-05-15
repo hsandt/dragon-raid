@@ -53,6 +53,25 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             }
         }
     }
+    
+    private float GetGravity()
+    {
+        return -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
+    }
+    
+    /// Return the jump speed needed to reach height relative to current Y
+    /// considering gravity * gravity scale
+    private float CalculateJumpSpeedNeededToReachHeight(float height)
+    {
+        float gravity = GetGravity();
+        if (gravity > 0 && height > 0)
+        {
+            // V_y0 = sqrt(2 * g * height)
+            return Mathf.Sqrt(2 * gravity * height);
+        }
+
+        return 0f;
+    }
 
     /// Return true is enemy is approaching target, in a range relevant to start computing whether
     /// they can jump and reach target or not. This acts as a pre-check for ShouldJump, which is more expensive.
@@ -68,13 +87,12 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             return false;
         }
         
-        float gravity = -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
         // Enemy moves at ground speed, so they must jump from the correct distance on X to reach target,
         // and that distance depends on the jump height, which depends on the target position. So we can only calculate
         // it exactly later. But for the pre-check, just take the maximum jump speed (i.e. that can reach max height)
         // possible, so you get an upper bound on the distance on X from target from which it is relevant to start
         // checking if we should jump now.
-        float maxDistanceXToJump = moveGroundedParameters.maxGroundSpeed * moveGroundedParameters.maxJumpSpeed / gravity;
+        float maxDistanceXToJump = moveGroundedParameters.maxGroundSpeed * moveGroundedParameters.maxJumpSpeed / GetGravity();
         return Mathf.Abs(xToTarget) < maxDistanceXToJump;
     }
 
@@ -95,8 +113,7 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             // but with the exact jump speed this time (if we clamped jump speed above, it's actually the distance
             // to reach the jump's apogee, and a fictive target at that point; target may move down and still get hit
             // after all)
-            float gravity = -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
-            float firstDistanceXToJump = moveGroundedParameters.maxGroundSpeed * requiredJumpSpeed / gravity;
+            float firstDistanceXToJump = moveGroundedParameters.maxGroundSpeed * requiredJumpSpeed / GetGravity();
 
             // we tolerate any lateness from the moment we reached the ideal distance to jump onto target
             // as long as we didn't move past the target on X (IsPlayerCharacterCloseEnoughToCheckJump already
@@ -119,19 +136,5 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         
         // don't try to jump again while jumping, nor after landing back
         m_HasTriedToJump = true;
-    }
-
-    /// Return the jump speed needed to reach height relative to current Y
-    /// considering gravity * gravity scale
-    private float CalculateJumpSpeedNeededToReachHeight(float height)
-    {
-        float gravity = -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
-        if (gravity > 0 && height > 0)
-        {
-            // V_y0 = sqrt(2 * g * height)
-            return Mathf.Sqrt(2 * gravity * height);
-        }
-
-        return 0f;
     }
 }
