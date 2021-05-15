@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using CommonsHelper;
 using CommonsPattern;
 
+/// Add this component to any object that must be cleaned up after leaving the Living Zone.
+/// It requires some IPooledObject component for pooled release.
 public class LivingZoneTracker : ClearableBehaviour
 {
     /* Sibling components */

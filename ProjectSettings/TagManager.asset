@@ -31,8 +31,8 @@ TagManager:
   - 
   - InvisibleWall
   - 
-  - DeadZone_Projectile
-  - DeadZone_Enemy
+  - 
+  - 
   - LivingZone
   - 
   - SolidEnvironment
