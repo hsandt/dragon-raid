@@ -21,22 +21,17 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
 
     protected virtual void AddSiblingSlaveBehaviours()
     {
-        // slave behaviours common to all characters
-        slaveBehaviours.Add(this.GetComponentOrFail<HealthSystem>());
-        slaveBehaviours.Add(this.GetComponentOrFail<Move>());
-        slaveBehaviours.Add(this.GetComponentOrFail<Brighten>());
-        
-        // optional components
-        var shoot = GetComponent<Shoot>();
-        if (shoot != null)
+        // All the slave behaviours are ClearableBehaviour, so for easy extensibility
+        // just register them all. Still keep this method virtual in case Player/Enemy character
+        // must also restart specific, non-clearable behaviours (i.e. Unity native behaviour components)
+        var clearableBehaviours = GetComponents<ClearableBehaviour>();
+        foreach (var clearableBehaviour in clearableBehaviours)
         {
-            slaveBehaviours.Add(shoot);
-        }
-        
-        var shootController = GetComponent<BaseShootController>();
-        if (shootController != null)
-        {
-            slaveBehaviours.Add(shootController);
+            // to avoid infinite recursion on Setup/Clear, do not register te Master script itself as its own Slave!
+            if (clearableBehaviour != this)
+            {
+                slaveBehaviours.Add(clearableBehaviour);
+            }
         }
     }
     

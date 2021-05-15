@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6070987587110774590}
   - component: {fileID: 5044091037476376186}
   - component: {fileID: 5044091037476376165}
+  - component: {fileID: 3545011676405438348}
   m_Layer: 7
   m_Name: Fireball
   m_TagString: Untagged
@@ -146,4 +147,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileParameters: {fileID: 11400000, guid: 29b9084ee446a7667bcfc5b279ccd46b, type: 2}
-  ProjectileAestheticParameters: {fileID: 11400000, guid: 662b8be1b00d7c6a2aa8742418fdaa46, type: 2}
+  projectileAestheticParameters: {fileID: 11400000, guid: 662b8be1b00d7c6a2aa8742418fdaa46, type: 2}
+--- !u!114 &3545011676405438348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044091037476376184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

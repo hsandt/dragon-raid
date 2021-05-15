@@ -5,6 +5,7 @@ using UnityEngine;
 using CommonsPattern;
 
 /// System for ShootIntention on Enemy character: handles control
+/// SEO: before Shoot
 public class EnemyShootController : BaseShootController
 {
     [Header("Parameters data")]
