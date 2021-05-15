@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70242e138d02b17aca9480e24388e9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveParametersFlying: {fileID: 11400000, guid: 42e77963589ee021b897a8514b094310, type: 2}
+  MoveFlyingParameters: {fileID: 11400000, guid: 42e77963589ee021b897a8514b094310, type: 2}
 --- !u!114 &4277205838411756315
 MonoBehaviour:
   m_ObjectHideFlags: 0

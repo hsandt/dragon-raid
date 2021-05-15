@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da83c7e311434133b00f36e10cd6729a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveParameters: {fileID: 11400000, guid: 7ef1ba0e5cfe93dc985bf27450137083, type: 2}
+  MoveFlyingParameters: {fileID: 11400000, guid: 7ef1ba0e5cfe93dc985bf27450137083, type: 2}
   moveDirection: {x: -1, y: 0}
 --- !u!114 &581364396840778217
 MonoBehaviour:

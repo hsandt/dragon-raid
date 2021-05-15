@@ -6,15 +6,9 @@ using UnityEngine.InputSystem;
 using CommonsHelper;
 using CommonsPattern;
 
-/// System for MoveIntention on Enemy: handles control
-public class EnemyMoveController_Flying : BaseMoveController
+/// System for MoveFlyingIntention on Enemy: handles control
+public class EnemyMoveFlyingController : BaseMoveFlyingController
 {
-    [Header("Parameters data")]
-
-    [Tooltip("Move Parameters Data")]
-    public MoveParameters_Flying moveParametersFlying;
-
-
     [Header("Individual parameters")]
     
     [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same)")]
@@ -28,6 +22,6 @@ public class EnemyMoveController_Flying : BaseMoveController
     private void FixedUpdate()
     {
         // linear motion
-        m_MoveIntention.moveVelocity = moveParametersFlying.maxSpeed * moveDirection.normalized;
+        m_MoveFlyingIntention.moveVelocity = MoveFlyingParameters.maxSpeed * moveDirection.normalized;
     }
 }

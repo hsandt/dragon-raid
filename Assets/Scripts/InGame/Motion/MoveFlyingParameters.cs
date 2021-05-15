@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Move parameters for flying enemies
-[CreateAssetMenu(fileName = "MoveParameters_Flying", menuName = "Data/Move Parameters - Flying")]
-public class MoveParameters_Flying : ScriptableObject
+[CreateAssetMenu(fileName = "MoveFlyingParameters", menuName = "Data/Move Flying Parameters")]
+public class MoveFlyingParameters : ScriptableObject
 {
     [Tooltip("Maximum speed (m/s)")]
     public float maxSpeed = 4f;

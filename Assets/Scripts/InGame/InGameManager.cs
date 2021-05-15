@@ -55,7 +55,7 @@ public class InGameManager : SingletonManager<InGameManager>
         if (m_PlayerSpawnTransform != null)
         {
             // Spawn character as a pooled object (in a pool of 1 object)
-            m_playerCharacterMaster = DragonPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
+            m_playerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
             
             // Assign HUD's player health gauge to player health system (on Restart, it only refreshes the gauge)
             var healthSystem = m_playerCharacterMaster.GetComponentOrFail<HealthSystem>();
@@ -72,7 +72,7 @@ public class InGameManager : SingletonManager<InGameManager>
         m_LevelData = null;
         
         // We use the generic Pool API to release all objects, but it really only releases 1 here
-        DragonPoolManager.Instance.ReleaseAllObjects();
+        PlayerCharacterPoolManager.Instance.ReleaseAllObjects();
 
         // Despawn all enemies
         EnemyPoolManager.Instance.ReleaseAllObjects();

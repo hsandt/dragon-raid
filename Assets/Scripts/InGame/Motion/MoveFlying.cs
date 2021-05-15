@@ -5,18 +5,18 @@ using UnityEngine;
 using CommonsHelper;
 using CommonsPattern;
 
-/// System for Rigidbody2D and MoveIntention: handles move
-public class Move : ClearableBehaviour
+/// System for Rigidbody2D and MoveFlyingIntention: handles move
+public class MoveFlying : ClearableBehaviour
 {
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
-    private MoveIntention m_MoveIntention;
+    private MoveFlyingIntention m_MoveIntention;
     
     private void Awake()
     {
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
-        m_MoveIntention = this.GetComponentOrFail<MoveIntention>();
+        m_MoveIntention = this.GetComponentOrFail<MoveFlyingIntention>();
     }
 
     public override void Setup()

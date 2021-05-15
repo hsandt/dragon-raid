@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityConstants;
 using CommonsPattern;
 
-/// Pool manager for Dragon (Player Character)
+/// Pool manager for Player Character (Dragon)
 /// The only reason to use a pool despite having a single character of this type,
 /// is to have an API ready to spawn and despawn without ever destroying the object
-public class DragonPoolManager : PoolManager<CharacterMaster, DragonPoolManager>
+public class PlayerCharacterPoolManager : PoolManager<CharacterMaster, PlayerCharacterPoolManager>
 {
     protected override void Init()
     {
