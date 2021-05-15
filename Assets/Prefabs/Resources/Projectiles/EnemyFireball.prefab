@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5044091037476376187}
   - component: {fileID: 5044091037476376186}
   - component: {fileID: 5044091037476376165}
+  - component: {fileID: 4146445330834281364}
   m_Layer: 10
   m_Name: EnemyFireball
   m_TagString: Untagged
@@ -137,3 +138,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileParameters: {fileID: 11400000, guid: ac4c1a7c9a566a5d7bd6dd836b284fe3, type: 2}
   projectileAestheticParameters: {fileID: 11400000, guid: cd4255a77a176a939b182fdda3dc918f, type: 2}
+--- !u!114 &4146445330834281364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044091037476376184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
