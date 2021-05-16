@@ -8,8 +8,8 @@ TagManager:
   - FXPool
   - CharacterPool
   - PlayerSpawnPosition
-  - EnemyWaves
   - LevelIdentifier
+  - SpatialEvents
   layers:
   - Default
   - TransparentFX

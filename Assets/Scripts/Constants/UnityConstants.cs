@@ -49,13 +49,13 @@ namespace UnityConstants
         /// </summary>
         public const string PlayerSpawnPosition = "PlayerSpawnPosition";
         /// <summary>
-        /// Name of tag 'EnemyWaves'.
-        /// </summary>
-        public const string EnemyWaves = "EnemyWaves";
-        /// <summary>
         /// Name of tag 'LevelIdentifier'.
         /// </summary>
         public const string LevelIdentifier = "LevelIdentifier";
+        /// <summary>
+        /// Name of tag 'SpatialEvents'.
+        /// </summary>
+        public const string SpatialEvents = "SpatialEvents";
     }
 
     public static class SortingLayers
@@ -64,6 +64,10 @@ namespace UnityConstants
         /// ID of sorting layer 'Level_Background'.
         /// </summary>
         public const int Level_Background = 336128783;
+        /// <summary>
+        /// ID of sorting layer 'Level_Environment'.
+        /// </summary>
+        public const int Level_Environment = -1298483481;
         /// <summary>
         /// ID of sorting layer 'Level_Enemy'.
         /// </summary>
@@ -117,29 +121,45 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerProjectile = 7;
         /// <summary>
-        /// Index of layer 'Enemy'.
+        /// Index of layer 'PlayerMeleeHitBox'.
         /// </summary>
-        public const int Enemy = 9;
+        public const int PlayerMeleeHitBox = 8;
+        /// <summary>
+        /// Index of layer 'EnemyHurtBox'.
+        /// </summary>
+        public const int EnemyHurtBox = 9;
         /// <summary>
         /// Index of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectile = 10;
         /// <summary>
+        /// Index of layer 'EnemyBodyHitBox'.
+        /// </summary>
+        public const int EnemyBodyHitBox = 11;
+        /// <summary>
+        /// Index of layer 'EnemyMeleeHitBox'.
+        /// </summary>
+        public const int EnemyMeleeHitBox = 12;
+        /// <summary>
         /// Index of layer 'PlayerCharacterMoveBox'.
         /// </summary>
         public const int PlayerCharacterMoveBox = 15;
         /// <summary>
+        /// Index of layer 'EnemyMoveBox'.
+        /// </summary>
+        public const int EnemyMoveBox = 16;
+        /// <summary>
         /// Index of layer 'InvisibleWall'.
         /// </summary>
-        public const int InvisibleWall = 16;
+        public const int InvisibleWall = 18;
         /// <summary>
-        /// Index of layer 'DeadZone_Projectile'.
+        /// Index of layer 'LivingZone'.
         /// </summary>
-        public const int DeadZone_Projectile = 20;
+        public const int LivingZone = 22;
         /// <summary>
-        /// Index of layer 'DeadZone_Enemy'.
+        /// Index of layer 'SolidEnvironment'.
         /// </summary>
-        public const int DeadZone_Enemy = 21;
+        public const int SolidEnvironment = 24;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -170,29 +190,45 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerProjectileMask = 1 << 7;
         /// <summary>
-        /// Bitmask of layer 'Enemy'.
+        /// Bitmask of layer 'PlayerMeleeHitBox'.
         /// </summary>
-        public const int EnemyMask = 1 << 9;
+        public const int PlayerMeleeHitBoxMask = 1 << 8;
+        /// <summary>
+        /// Bitmask of layer 'EnemyHurtBox'.
+        /// </summary>
+        public const int EnemyHurtBoxMask = 1 << 9;
         /// <summary>
         /// Bitmask of layer 'EnemyProjectile'.
         /// </summary>
         public const int EnemyProjectileMask = 1 << 10;
         /// <summary>
+        /// Bitmask of layer 'EnemyBodyHitBox'.
+        /// </summary>
+        public const int EnemyBodyHitBoxMask = 1 << 11;
+        /// <summary>
+        /// Bitmask of layer 'EnemyMeleeHitBox'.
+        /// </summary>
+        public const int EnemyMeleeHitBoxMask = 1 << 12;
+        /// <summary>
         /// Bitmask of layer 'PlayerCharacterMoveBox'.
         /// </summary>
         public const int PlayerCharacterMoveBoxMask = 1 << 15;
         /// <summary>
+        /// Bitmask of layer 'EnemyMoveBox'.
+        /// </summary>
+        public const int EnemyMoveBoxMask = 1 << 16;
+        /// <summary>
         /// Bitmask of layer 'InvisibleWall'.
         /// </summary>
-        public const int InvisibleWallMask = 1 << 16;
+        public const int InvisibleWallMask = 1 << 18;
         /// <summary>
-        /// Bitmask of layer 'DeadZone_Projectile'.
+        /// Bitmask of layer 'LivingZone'.
         /// </summary>
-        public const int DeadZone_ProjectileMask = 1 << 20;
+        public const int LivingZoneMask = 1 << 22;
         /// <summary>
-        /// Bitmask of layer 'DeadZone_Enemy'.
+        /// Bitmask of layer 'SolidEnvironment'.
         /// </summary>
-        public const int DeadZone_EnemyMask = 1 << 21;
+        public const int SolidEnvironmentMask = 1 << 24;
     }
 
     public static class Scenes
@@ -202,15 +238,15 @@ namespace UnityConstants
         /// </summary>
         public const int Title = 0;
         /// <summary>
-        /// ID of scene 'Level'.
+        /// ID of scene 'Level_00'.
         /// </summary>
-        public const int Level = 1;
+        public const int Level_00 = 1;
     }
 
     public enum ScenesEnum
     {
         Title = 0,
-        Level = 1,
+        Level_00 = 1,
     }
 
     public static class Axes

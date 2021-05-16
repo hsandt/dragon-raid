@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DevMenu : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Scene references")]
     
     [Tooltip("Exit button")]
     public Button buttonExit;

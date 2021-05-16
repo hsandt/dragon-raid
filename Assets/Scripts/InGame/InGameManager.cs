@@ -35,6 +35,9 @@ public class InGameManager : SingletonManager<InGameManager>
     
     /* State */
 
+    /// Time elapsed since level start
+    private float m_TimeSinceLevelStart;
+    
     /// True iff level finish sequence is playing
     private bool m_IsFinishingLevel;
 
@@ -62,9 +65,11 @@ public class InGameManager : SingletonManager<InGameManager>
     private void SetupLevel()
     {
         m_IsFinishingLevel = false;
+
+        ScrollingManager.Instance.Setup();
         
         SpawnPlayerCharacter();
-        EnemyWaveManager.Instance.Setup();
+        SpatialEventManager.Instance.Setup();
         
         if (m_LevelData != null)
         {
@@ -91,8 +96,10 @@ public class InGameManager : SingletonManager<InGameManager>
         // Despawn the player character
         
         // First clean up references to avoid relying on Unity's "destroyed null"
+        // Do not clear cached scene references m_PlayerSpawnTransform and m_LevelData yet,
+        // those can only be destroyed when loading a new scene (assuming InGameManager is flagged DontDestroyOnLoad
+        // so it preserves the destroyed reference), so we'll handle this in FinishLevel
         m_PlayerCharacterMaster = null;
-        m_LevelData = null;
         
         // We use the generic Pool API to release all objects, but it really only releases 1 here
         PlayerCharacterPoolManager.Instance.ReleaseAllObjects();
@@ -120,12 +127,27 @@ public class InGameManager : SingletonManager<InGameManager>
         if (!m_IsFinishingLevel)
         {
             m_IsFinishingLevel = true;
+            
+            // Disable all other singleton managers that have an update to avoid weird things happening during the
+            // Finish Level sequence.
+            // For scrolling, it depends on the aesthetics you want (continue scrolling midground and background
+            // during Finish Level sequence?)
+            ScrollingManager.Instance.enabled = false;
+            SpatialEventManager.Instance.enabled = false;
+
+            // If InGameManager is flagged DontDestroyOnLoad, it will be kept in next level (if any),
+            // and it wil lbe cleaner to clean the cached scene references first.
+            // But we'll also need to set those again after loading the new scene.
+            // Make sure to store current level index first.
+            int currentLevelIndex = m_LevelData.levelIndex;
+            m_PlayerSpawnTransform = null;
+            m_LevelData = null;
 
             // first, do a brutal sync load
-            if (m_LevelData.levelIndex < levelDataList.levelDataArray.Length - 1)
+            if (currentLevelIndex < levelDataList.levelDataArray.Length - 1)
             {
                 // we are not in the last level yet, proceed to next level
-                int nextLevelIndex = m_LevelData.levelIndex + 1;
+                int nextLevelIndex = currentLevelIndex + 1;
                 LevelData nextLevelData = levelDataList.levelDataArray[nextLevelIndex];
                 if (nextLevelData != null)
                 {
