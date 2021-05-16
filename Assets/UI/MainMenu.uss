@@ -1,0 +1,12 @@
+.button {
+    -unity-font: resource('BitPotion Full Extended/BitPotionExt_Dynamic');
+    font-size: 20px;
+    padding-top: 0;
+    padding-bottom: 1px;
+    -unity-text-align: upper-center;
+    background-color: rgba(255, 255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+}

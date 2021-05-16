@@ -43,6 +43,7 @@ public class EnemyWaveEditor : Editor
 
     public override VisualElement CreateInspectorGUI()
     {
+        // Draw default inspector
         Editor editor = CreateEditor(target);
         IMGUIContainer inspectorIMGUI = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
         m_RootElement.Add(inspectorIMGUI);
