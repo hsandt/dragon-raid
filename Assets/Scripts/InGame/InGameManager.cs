@@ -14,6 +14,9 @@ public class InGameManager : SingletonManager<InGameManager>
     [Tooltip("Level Data List asset")]
     public LevelDataList levelDataList;
     
+    [Tooltip("Health Shared Parameters asset")]
+    public HealthSharedParameters healthSharedParameters;
+    
     
     /* Cached scene references */
     
@@ -44,6 +47,9 @@ public class InGameManager : SingletonManager<InGameManager>
     protected override void Init()
     {
         base.Init();
+        
+        Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
+        Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
 
         // Find player character spawn position
         m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;

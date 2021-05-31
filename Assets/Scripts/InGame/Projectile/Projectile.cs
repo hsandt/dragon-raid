@@ -92,18 +92,27 @@ public class Projectile : MonoBehaviour, IPooledObject
     /// Impact on target: damage it and self-destruct
     private void Impact(HealthSystem targetHealthSystem)
     {
-        targetHealthSystem.Damage(projectileParameters.damage);
-        Release();
+        bool didDamage = targetHealthSystem.TryOneShotDamage(projectileParameters.damage);
 
-        if (projectileAestheticParameters != null)
+        if (didDamage)
         {
-            // Visual: impact FX appears centered on projectile's last position
-            FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
-            
-            if (projectileAestheticParameters.sfxImpact != null)
+            // Our current convention is that projectiles that cannot hit the target goes throught it
+            // This corresponds to the character being intangible as in traditional shmup post-respawn
+            // safety mechanic. In some cases, it may look better to make them block the projectiles
+            // (true invincibility), but in this case we'll have to distinguish the types of invincibility
+            // (with some enum member) like Smash.
+            Release();
+    
+            if (projectileAestheticParameters != null)
             {
-                // Audio: play impact SFX
-                SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
+                // Visual: impact FX appears centered on projectile's last position
+                FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
+                
+                if (projectileAestheticParameters.sfxImpact != null)
+                {
+                    // Audio: play impact SFX
+                    SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
+                }
             }
         }
     }

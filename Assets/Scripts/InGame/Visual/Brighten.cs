@@ -17,13 +17,16 @@ public class Brighten : ClearableBehaviour
     private SpriteRenderer m_SpriteRenderer;
 
 
+    /* Custom components */
+    
+    /// Timer counting down toward end of brightness effect
+    private Timer m_BrightnessEndTimer;
+
+    
     /* State */
 
     /// Current brightness to apply to sprite material
     private float m_Brightness;
-    
-    /// Timer counting down toward end of brightness effect
-    private Timer m_BrightnessEndTimer;
 
 
     private void Awake()
@@ -51,7 +54,7 @@ public class Brighten : ClearableBehaviour
     }
     
     /// Set sprite material brightness
-    private void SetBrightness(float brightness)
+    public void SetBrightness(float brightness)
     {
         if (m_Brightness != brightness)
         {
@@ -61,7 +64,7 @@ public class Brighten : ClearableBehaviour
     }
     
     /// Reset brightness to 0 (original color)
-    private void ResetBrightness()
+    public void ResetBrightness()
     {
         SetBrightness(0f);
     }

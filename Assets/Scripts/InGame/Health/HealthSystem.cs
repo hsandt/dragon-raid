@@ -16,7 +16,12 @@ public class HealthSystem : ClearableBehaviour
     [Tooltip("Health Aesthetic Parameters Data")]
     public HealthAestheticParameters healthAestheticParameters;
 
+    
+    /* Cached asset references */
 
+    private HealthSharedParameters m_healthSharedParameters;
+
+    
     /* Dynamic external references */
     
     /// List of health gauges observing health data
@@ -30,8 +35,24 @@ public class HealthSystem : ClearableBehaviour
     private Brighten m_Brighten;
 
     
+    /* Custom components */
+    
+    /// Timer counting down toward end of invincibility
+    private Timer m_InvincibilityTimer;
+
+    /// Is the character invincible?
+    public bool IsInvincible => m_InvincibilityTimer.HasTimeLeft;
+    
+    
     private void Awake()
     {
+        // Cached asset references
+        
+        m_healthSharedParameters = InGameManager.Instance.healthSharedParameters;
+        
+        
+        // Components
+        
         m_CharacterMaster = this.GetComponentOrFail<CharacterMaster>();
 
         m_Health = this.GetComponentOrFail<Health>();
@@ -39,11 +60,21 @@ public class HealthSystem : ClearableBehaviour
         
         m_Brighten = this.GetComponentOrFail<Brighten>();
         Debug.AssertFormat(healthAestheticParameters, this, "No Health Aesthetic Parameters found on {0}", this);
+        
+        m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
     }
 
     public override void Setup()
     {
         m_Health.value = m_Health.maxValue;
+        // no need to setup m_Brighten, it is another slave managed by Character Master
+        
+        m_InvincibilityTimer.Stop();
+    }
+
+    private void FixedUpdate()
+    {
+        m_InvincibilityTimer.CountDown(Time.deltaTime);
     }
 
     public float GetValue()
@@ -56,7 +87,10 @@ public class HealthSystem : ClearableBehaviour
         return (float) m_Health.value / m_Health.maxValue;
     }
 
-    public void Damage(int value)
+    /// Low-level function to deal damage, check death and update observers
+    /// This is private as you should always check for invincibility and apply visual feedbackk
+    /// via the Try...Damage methods
+    private void Damage(int value)
     {
         m_Health.value -= value;
         
@@ -65,13 +99,54 @@ public class HealthSystem : ClearableBehaviour
             m_Health.value = 0;
             Die();
         }
-        else
-        {
-            // if entity survived, play damage feedback
-            m_Brighten.SetBrightnessForDuration(healthAestheticParameters.damagedBrightness, healthAestheticParameters.damagedBrightnessDuration);
-        }
 
         NotifyValueChangeToObservers();
+    }
+
+    /// Apply one-shot damage and return whether it worked or not
+    public bool TryOneShotDamage(int value)
+    {
+        if (IsInvincible)
+        {
+            return false;
+        }
+
+        Damage(value);
+        
+        if (m_Health.value > 0)
+        {
+            // Entity survived, so play damage feedback
+            m_Brighten.SetBrightnessForDuration(m_healthSharedParameters.damagedBrightness, m_healthSharedParameters.damagedBrightnessDuration);
+        }
+
+        return true;
+    }
+
+    /// Apply periodic damage and return whether it worked or not
+    public bool TryPeriodicDamage(int value)
+    {
+        if (IsInvincible)
+        {
+            return false;
+        }
+        
+        Damage(value);
+        
+        if (m_Health.value > 0)
+        {
+            // Entity survived, so start invincibility phase
+            // Indeed, this is periodic damage (like body attacks) so if the character stays
+            // under a certain area they'll keep getting hit, and without the invincibility
+            // timer they would get hit every frame and die too fast.
+            // Note that this can lead to odd behaviors like surviving longer by staying in a
+            // danger zone because it helps you not getting hit by many projectiles.
+            m_InvincibilityTimer.SetTime(m_healthSharedParameters.postBodyAttackInvincibilityDuration);
+            
+            // Set the brightness without timer: the invincibility timer will take care of resetting it
+            m_Brighten.SetBrightness(m_healthSharedParameters.damagedBrightness);
+        }
+
+        return true;
     }
 
     private void Die()

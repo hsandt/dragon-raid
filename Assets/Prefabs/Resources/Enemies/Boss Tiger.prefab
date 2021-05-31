@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 3596405474661882066}
   - component: {fileID: 3905643622711979270}
   - component: {fileID: 276545518495955688}
+  - component: {fileID: 1783589149654183042}
   - component: {fileID: 581364396840778219}
   - component: {fileID: 8864464776807001610}
   m_Layer: 16
@@ -299,6 +300,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyShootParameters: {fileID: 11400000, guid: d973c39310ea620978a26e69b6e923f9, type: 2}
+--- !u!114 &1783589149654183042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581364396840778215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f9aea920d4157c0a0e3e0126181f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyAttackParameters: {fileID: 11400000, guid: f150b603b0e6100e2ba3768bc5fd37b6, type: 2}
+  bodyAttackAestheticParameters: {fileID: 11400000, guid: 4e13278be4416c322ab931f8201f28ac, type: 2}
 --- !u!114 &581364396840778219
 MonoBehaviour:
   m_ObjectHideFlags: 0

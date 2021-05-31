@@ -567,6 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDataList: {fileID: 11400000, guid: 2cd249f618b67658c832c28ec89520ec, type: 2}
+  healthSharedParameters: {fileID: 11400000, guid: 2db97219df0cbbb8a885513e025e7cdf, type: 2}
 --- !u!1 &180690727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,7 +1999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &750276825
 Transform:
   m_ObjectHideFlags: 0
@@ -2351,7 +2352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &841773059
 Transform:
   m_ObjectHideFlags: 0
@@ -3810,7 +3811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1446045888
 Transform:
   m_ObjectHideFlags: 0
