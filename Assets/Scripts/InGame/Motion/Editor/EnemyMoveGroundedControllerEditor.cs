@@ -10,8 +10,10 @@ public class EnemyMoveGroundedControllerEditor : Editor
 {
     public void OnSceneGUI()
     {
-        var script = (EnemyMoveGroundedController) target;
-            
-        HandlesUtil.Label2D(script.transform.position + 1f * Vector3.up, script.DebugLastAIBehaviourResult, color: Color.black);
+        if (Application.isPlaying)
+        {
+            var script = (EnemyMoveGroundedController) target;
+            HandlesUtil.Label2D(script.transform.position + 1f * Vector3.up, script.DebugLastAIBehaviourResult, color: Color.black);
+        }
     }
 }
