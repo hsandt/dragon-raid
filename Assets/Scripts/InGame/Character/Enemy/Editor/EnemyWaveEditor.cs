@@ -63,7 +63,7 @@ public class EnemyWaveEditor : Editor
         // Scale offset with handle size so it remains constant on screen
         float handleSize = HandlesUtil.Get2DPixelSize();
 
-        // In order to draw the global handle (that moves all spawn points at the same time), we must determine
+        // In order to draw the batch handle (that moves all spawn points at the same time), we must determine
         // the minimum bounding box containing all the spawn points
         Rect boundingBox = new Rect
         {
@@ -83,12 +83,12 @@ public class EnemyWaveEditor : Editor
 
                 if (check.changed)
                 {
-                    enemySpawnData.spawnPosition = RoundPosition(enemySpawnData.spawnPosition);
+                    enemySpawnData.spawnPosition = VectorUtil.RoundVector2(enemySpawnData.spawnPosition, autoSnapValue);
                 }
             }
             
             // Expand bounding box to contain any (rounded) spawn point not inside it already
-            // Note that we are following 2D psace convention, not UI convention, so +Y is up
+            // Note that we are following 2D space convention, not UI convention, so +Y is up
             boundingBox.min = Vector2.Min(boundingBox.min, enemySpawnData.spawnPosition);
             boundingBox.max = Vector2.Max(boundingBox.max, enemySpawnData.spawnPosition);
             
@@ -124,26 +124,12 @@ public class EnemyWaveEditor : Editor
                     // Move all spawn points the same way we moved the batch handle
                     foreach (EnemySpawnData enemySpawnData in script.EnemySpawnDataArray)
                     {
-                        enemySpawnData.spawnPosition = RoundPosition(enemySpawnData.spawnPosition + handleDelta);
+                        enemySpawnData.spawnPosition = VectorUtil.RoundVector2(enemySpawnData.spawnPosition + handleDelta, autoSnapValue);
                     }
                 }
             }
 
             HandlesUtil.Label2D(new Vector3(batchMoveHandleCurrentPosition.x - 63f * handleSize, batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, batchHandleColor);
         }
-    }
-
-    // Borrowed from AutoSnap.cs
-    private static float Round(float input)
-    {
-        return autoSnapValue * Mathf.Round(input / autoSnapValue);
-    }
-    
-    private static Vector2 RoundPosition(Vector2 position)
-    {
-        Vector2 roundedPosition = position;
-        roundedPosition.x = Round(roundedPosition.x);
-        roundedPosition.y = Round(roundedPosition.y);
-        return roundedPosition;
     }
 }
