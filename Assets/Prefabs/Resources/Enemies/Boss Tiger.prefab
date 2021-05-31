@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c672f1f9393869d887ffc518f788c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundSpeed: 0
+  extraGroundSpeed: 0
   jumpSpeedImpulse: 0
 --- !u!114 &6983942165260005580
 MonoBehaviour:
@@ -332,7 +332,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4094381299979211193}
-  - component: {fileID: 4731138575809429164}
+  - component: {fileID: 2391362422847152814}
   m_Layer: 11
   m_Name: BodyHitbox
   m_TagString: Untagged
@@ -354,8 +354,8 @@ Transform:
   m_Father: {fileID: 581364396840778214}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &4731138575809429164
-BoxCollider2D:
+--- !u!60 &2391362422847152814
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -367,19 +367,32 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.53846157}
-    oldSize: {x: 1.5, y: 0.8125}
-    newSize: {x: 2.5, y: 1.25}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.8125}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: 0.375}
+      - {x: -0.75, y: 0.1875}
+      - {x: -0.6875, y: 0}
+      - {x: -0.375, y: 0}
+      - {x: -0.375, y: -0.4375}
+      - {x: -0.1875, y: -0.4375}
+      - {x: -0.1875, y: -0.125}
+      - {x: 0.125, y: -0.125}
+      - {x: 0.0625, y: -0.4375}
+      - {x: 0.4375, y: -0.4375}
+      - {x: 0.625, y: -0.25}
+      - {x: 0.625, y: -0}
+      - {x: 0.25, y: 0.1875}
+      - {x: -0.1875, y: 0.1875}
 --- !u!1 &7852560481182250299
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +402,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5458099435760143237}
-  - component: {fileID: 270449686181624079}
+  - component: {fileID: 2931543057409311730}
+  - component: {fileID: 8248036438620642897}
   m_Layer: 9
   m_Name: HurtBox
   m_TagString: Untagged
@@ -411,8 +425,8 @@ Transform:
   m_Father: {fileID: 581364396840778214}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &270449686181624079
-BoxCollider2D:
+--- !u!60 &2931543057409311730
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -424,16 +438,43 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.03125}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.53846157}
-    oldSize: {x: 1.5, y: 0.8125}
-    newSize: {x: 2.5, y: 1.25}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.8125}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5, y: 0.375}
+      - {x: -0.75, y: 0.1875}
+      - {x: -0.6875, y: 0}
+      - {x: -0.375, y: 0}
+      - {x: -0.375, y: -0.4375}
+      - {x: -0.1875, y: -0.4375}
+      - {x: -0.1875, y: -0.125}
+      - {x: 0.125, y: -0.125}
+      - {x: 0.0625, y: -0.4375}
+      - {x: 0.4375, y: -0.4375}
+      - {x: 0.625, y: -0.25}
+      - {x: 0.625, y: -0}
+      - {x: 0.25, y: 0.1875}
+      - {x: -0.1875, y: 0.1875}
+--- !u!114 &8248036438620642897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852560481182250299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542b006f5db558441869bc8aa5879c77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysShowCollider: 0
+  drawColor: {r: 0, g: 0, b: 1, a: 1}
