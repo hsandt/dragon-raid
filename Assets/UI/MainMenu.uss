@@ -10,3 +10,15 @@
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
 }
+
+.button:hover {
+    background-color: rgb(220, 252, 255);
+}
+
+.button:focus {
+    background-color: rgb(176, 248, 254);
+}
+
+.button:active {
+    background-color: rgb(97, 159, 255);
+}

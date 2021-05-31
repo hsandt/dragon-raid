@@ -36,6 +36,9 @@ public class MainMenu_UITK : MonoBehaviour
         m_ButtonOptions.clicked += ShowOptions;
         m_ButtonExit.clicked += ExitGame;
         
+        // Currently doesn't work, sent bug report
+        m_ButtonStart.Focus();
+        
         Debug.AssertFormat(levelDataList != null, this, "[MainMenu] Awake: Level Data List not set on {0}", this);
     }
 
