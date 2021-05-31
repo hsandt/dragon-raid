@@ -30,5 +30,6 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     private void FixedUpdate()
     {
         m_SpatialProgress += m_ScrollingSpeed * Time.deltaTime;
+        SpatialEventManager.Instance.OnSpatialProgressChanged();
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Event effect: Finish Level
-/// It has no method, as this acts like a tag (empty component data) in ECS
-public class EventFinishLevel : MonoBehaviour, IEventEffect
+[AddComponentMenu("Game/Event Effect: Finish Level")]
+public class EventEffect_FinishLevel : MonoBehaviour, IEventEffect
 {
     public void Trigger()
     {

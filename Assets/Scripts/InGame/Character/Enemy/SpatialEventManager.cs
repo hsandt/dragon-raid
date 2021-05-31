@@ -59,9 +59,12 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         m_RemainingSpatialEventPairs = m_AllSpatialEventPairs.ToList();
     }
 
-    private void FixedUpdate()
+    public void OnSpatialProgressChanged()
     {
-        // do reverse iteration so we can remove event pairs by index safely
+        // Spatial progress has changed, check for any spatial event trigger condition being fulfilled
+        // (we don't do this in FixedUpdate so we do no work while scrolling is paused)
+        
+        // Do a reverse iteration so we can remove event pairs by index safely
         
         // OPTIMIZATION: when we have many events (esp. waves), this will start getting slow
         // in this case, it's better to enforce convention on level design that all event objects
