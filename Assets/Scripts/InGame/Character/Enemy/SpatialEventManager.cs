@@ -59,7 +59,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         m_RemainingSpatialEventPairs = m_AllSpatialEventPairs.ToList();
     }
 
-    public void OnSpatialProgressChanged()
+    public void OnSpatialProgressChanged(float spatialProgress)
     {
         // Spatial progress has changed, check for any spatial event trigger condition being fulfilled
         // (we don't do this in FixedUpdate so we do no work while scrolling is paused)
@@ -76,7 +76,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
             SpatialEventTrigger eventTrigger = eventPair.First;
             IEventEffect eventEffect = eventPair.Second;
             
-            if (ScrollingManager.Instance.SpatialProgress >= eventTrigger.RequiredSpatialProgress)
+            if (spatialProgress >= eventTrigger.RequiredSpatialProgress)
             {
                 eventEffect.Trigger();
                 m_RemainingSpatialEventPairs.RemoveAt(i);

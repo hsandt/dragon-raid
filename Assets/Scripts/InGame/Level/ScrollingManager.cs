@@ -11,6 +11,9 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     [SerializeField, Tooltip("Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s)")]
     private float m_ScrollingSpeed = 1f;
     
+    /// Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s) (getter)
+    private float ScrollingSpeed => m_ScrollingSpeed;
+    
     /* State */
 
     /// How much level midground (gameplay plane) was scrolled since level start
@@ -30,6 +33,6 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     private void FixedUpdate()
     {
         m_SpatialProgress += m_ScrollingSpeed * Time.deltaTime;
-        SpatialEventManager.Instance.OnSpatialProgressChanged();
+        SpatialEventManager.Instance.OnSpatialProgressChanged(m_SpatialProgress);
     }
 }
