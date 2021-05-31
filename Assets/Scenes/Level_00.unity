@@ -466,7 +466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a09f04b5f1d24aea9a1d88e3316ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ScrollingSpeed: 1
 --- !u!1 &137536541
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSpatialProgress: 5
+  requiredSpatialProgress: 11
 --- !u!1 &369912668
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,7 +1632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSpatialProgress: 6
+  requiredSpatialProgress: 20
 --- !u!1 &683363027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,7 +1998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &750276825
 Transform:
   m_ObjectHideFlags: 0
@@ -2352,7 +2351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &841773059
 Transform:
   m_ObjectHideFlags: 0
@@ -3811,7 +3810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1446045888
 Transform:
   m_ObjectHideFlags: 0

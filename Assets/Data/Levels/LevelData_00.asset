@@ -15,3 +15,4 @@ MonoBehaviour:
   levelIndex: 0
   sceneEnum: 1
   bgm: {fileID: 8300000, guid: 7b1f8c3d4c4546aaa9d8875c176e15c3, type: 3}
+  baseScrollingSpeed: 3

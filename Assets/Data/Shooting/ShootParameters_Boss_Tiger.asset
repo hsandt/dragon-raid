@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShootParameters_Boss_Tiger
   m_EditorClassIdentifier: 
   projectileSpeed: 6
-  fireCooldownDuration: 0.2
+  fireCooldownDuration: 0.5

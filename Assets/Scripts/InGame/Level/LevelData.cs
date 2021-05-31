@@ -16,4 +16,7 @@ public class LevelData : ScriptableObject
     
     [Tooltip("BGM played during level")]
     public AudioClip bgm;
+    
+    [Tooltip("Default scrolling speed during this level")]
+    public float baseScrollingSpeed = 2f;
 }

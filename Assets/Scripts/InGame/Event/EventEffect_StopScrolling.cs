@@ -8,6 +8,6 @@ public class EventEffect_StopScrolling : MonoBehaviour, IEventEffect
 {
     public void Trigger()
     {
-        ScrollingManager.Instance.enabled = false;
+        ScrollingManager.Instance.StopScrolling();
     }
 }

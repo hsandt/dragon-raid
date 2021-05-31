@@ -6,16 +6,13 @@ using CommonsPattern;
 
 public class ScrollingManager : SingletonManager<ScrollingManager>
 {
-    [Header("Parameters")]
+    /* State */
     
-    [SerializeField, Tooltip("Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s)")]
-    private float m_ScrollingSpeed = 1f;
+    /// Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s)
+    private float m_ScrollingSpeed;
     
     /// Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s) (getter)
     public float ScrollingSpeed => m_ScrollingSpeed;
-    
-    
-    /* State */
 
     /// How much level midground (gameplay plane) was scrolled since level start
     /// This is broadly proportional to time spent since level start, but takes into account
@@ -29,16 +26,27 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     /// Setup is managed by InGameManager, so not called on Start
     public void Setup()
     {
-        // Stop Scrolling event can disable this component, therefore it must re-enable itself
-        // on Restart
-        enabled = true;
-        
         m_SpatialProgress = 0f;
+        StartScrolling();
     }
 
     private void FixedUpdate()
     {
-        m_SpatialProgress += m_ScrollingSpeed * Time.deltaTime;
-        SpatialEventManager.Instance.OnSpatialProgressChanged(m_SpatialProgress);
+        if (m_ScrollingSpeed != 0f)
+        {
+            m_SpatialProgress += m_ScrollingSpeed * Time.deltaTime;
+            SpatialEventManager.Instance.OnSpatialProgressChanged(m_SpatialProgress);
+        }
+    }
+
+    public void StartScrolling()
+    {
+        // Always start at base scrolling speed
+        m_ScrollingSpeed = InGameManager.Instance.LevelData.baseScrollingSpeed;
+    }
+    
+    public void StopScrolling()
+    {
+        m_ScrollingSpeed = 0f;
     }
 }

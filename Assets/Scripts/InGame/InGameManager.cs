@@ -130,10 +130,7 @@ public class InGameManager : SingletonManager<InGameManager>
             
             // Disable all other singleton managers that have an update to avoid weird things happening during the
             // Finish Level sequence.
-            // For scrolling, it depends on the aesthetics you want (continue scrolling midground and background
-            // during Finish Level sequence?)
             ScrollingManager.Instance.enabled = false;
-            SpatialEventManager.Instance.enabled = false;
 
             // If InGameManager is flagged DontDestroyOnLoad, it will be kept in next level (if any),
             // and it wil lbe cleaner to clean the cached scene references first.
