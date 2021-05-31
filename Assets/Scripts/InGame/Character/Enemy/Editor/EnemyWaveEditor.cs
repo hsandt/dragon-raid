@@ -25,10 +25,11 @@ public class EnemyWaveEditor : Editor
     private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
     
 
-    /* State */
+    /* Components */
     
     /// Root element
     private VisualElement m_RootElement;
+
 
     private void OnEnable()
     {
