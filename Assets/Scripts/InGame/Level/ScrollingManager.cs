@@ -12,7 +12,8 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     private float m_ScrollingSpeed = 1f;
     
     /// Default speed of scrolling, i.e. how fast spatial progress advances with time (m/s) (getter)
-    private float ScrollingSpeed => m_ScrollingSpeed;
+    public float ScrollingSpeed => m_ScrollingSpeed;
+    
     
     /* State */
 
@@ -24,9 +25,14 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     /// How much level midground (gameplay plane) was scrolled since level start (getter)
     public float SpatialProgress => m_SpatialProgress;
     
+    
     /// Setup is managed by InGameManager, so not called on Start
     public void Setup()
     {
+        // Stop Scrolling event can disable this component, therefore it must re-enable itself
+        // on Restart
+        enabled = true;
+        
         m_SpatialProgress = 0f;
     }
 

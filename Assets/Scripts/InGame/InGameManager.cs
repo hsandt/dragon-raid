@@ -67,14 +67,14 @@ public class InGameManager : SingletonManager<InGameManager>
         m_IsFinishingLevel = false;
 
         ScrollingManager.Instance.Setup();
-        
-        SpawnPlayerCharacter();
         SpatialEventManager.Instance.Setup();
         
         if (m_LevelData != null)
         {
             MusicManager.Instance.PlayBgm(m_LevelData.bgm);        
         }
+        
+        SpawnPlayerCharacter();
     }
     
     private void SpawnPlayerCharacter()

@@ -49,8 +49,10 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         m_DebugLastAIBehaviourResult = "None";
         #endif
         
-        // no slopes for now, so moving on ground just means linear motion to the left
-        m_MoveGroundedIntention.groundSpeed = -moveGroundedParameters.maxGroundSpeed;
+        // No slopes for now, so moving on ground just means linear motion to the left
+        // Note that we only control the extra ground speed. Scrolling naturally moves all
+        // grounded units to the opposite direction, even when they are airborne.
+        m_MoveGroundedIntention.extraGroundSpeed = - moveGroundedParameters.maxGroundSpeed;
 
         // jump as soon as player character is near on X, and hasn't tried to jump yet
         if (!m_HasTriedToJump)

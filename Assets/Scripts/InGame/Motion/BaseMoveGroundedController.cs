@@ -33,7 +33,7 @@ public abstract class BaseMoveGroundedController : ClearableBehaviour
 
     public override void Setup()
     {
-        m_MoveGroundedIntention.groundSpeed = 0f;
+        m_MoveGroundedIntention.extraGroundSpeed = 0f;
         m_MoveGroundedIntention.jumpSpeedImpulse = 0f;
     }
 }
