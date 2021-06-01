@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,9 @@ public class HealthSystem : ClearableBehaviour
     /// List of health gauges observing health data
     private readonly List<GaugeHealth> m_GaugeHealthList = new List<GaugeHealth>();
     
+    /// Optional death event effect
+    private IEventEffect m_OnDeathEventEffect;
+
     
     /* Sibling components */
 
@@ -161,6 +165,8 @@ public class HealthSystem : ClearableBehaviour
             // Audio: play death SFX
             SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
         }
+
+        m_OnDeathEventEffect?.Trigger();
     }
     
     
@@ -188,5 +194,10 @@ public class HealthSystem : ClearableBehaviour
         {
             gaugeHealth.RefreshGauge();
         }
+    }
+
+    public void RegisterOnDeathEventEffect(IEventEffect eventEffect)
+    {
+        m_OnDeathEventEffect = eventEffect;
     }
 }

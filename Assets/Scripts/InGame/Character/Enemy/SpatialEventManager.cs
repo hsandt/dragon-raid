@@ -15,14 +15,14 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
     
     /// List of pairs (spatial event trigger, event effect) found in the scene
     /// This includes all enemy wave events.
-    private readonly List<Pair<SpatialEventTrigger, IEventEffect>> m_AllSpatialEventPairs = new List<Pair<SpatialEventTrigger, IEventEffect>>();
+    private readonly List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_AllSpatialEventPairs = new List<Pair<EventTrigger_SpatialProgress, IEventEffect>>();
 
     
     /* State */
 
     /// List of pairs (spatial event trigger, event effect) found in the scene
     /// and not triggered yet. This includes remaining enemy wave events.
-    private List<Pair<SpatialEventTrigger, IEventEffect>> m_RemainingSpatialEventPairs;
+    private List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_RemainingSpatialEventPairs;
 
     
     protected override void Init()
@@ -31,7 +31,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         // We dropped the ECS-tag-component approach and prefer a classic interface approach with IEventEffect,
         // so we can move handling code to each of the event effect classes
         GameObject spatialEventsParent = LocatorManager.Instance.FindWithTag(Tags.SpatialEvents);
-        var allSpatialEventTriggers = spatialEventsParent.GetComponentsInChildren<SpatialEventTrigger>();
+        var allSpatialEventTriggers = spatialEventsParent.GetComponentsInChildren<EventTrigger_SpatialProgress>();
         
         foreach (var spatialEventTrigger in allSpatialEventTriggers)
         {
@@ -46,7 +46,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
             else
             {
                 Debug.LogWarningFormat(spatialEventTrigger, "No event effect (IEventEffect) component found along " +
-                    "SpatialEventTrigger {0}, it will do nothing even when fulfilled", spatialEventTrigger);
+                    "EventTrigger_SpatialProgress {0}, it will do nothing even when fulfilled", spatialEventTrigger);
             }
             #endif
         }
@@ -73,7 +73,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         for (int i = m_RemainingSpatialEventPairs.Count - 1; i >= 0; i--)
         {
             var eventPair = m_RemainingSpatialEventPairs[i];
-            SpatialEventTrigger eventTrigger = eventPair.First;
+            EventTrigger_SpatialProgress eventTrigger = eventPair.First;
             IEventEffect eventEffect = eventPair.Second;
             
             if (spatialProgress >= eventTrigger.RequiredSpatialProgress)
