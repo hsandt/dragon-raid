@@ -23,7 +23,7 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     {
         // All the slave behaviours are ClearableBehaviour, so for easy extensibility
         // just register them all. Still keep this method virtual in case Player/Enemy character
-        // must also restart specific, non-clearable behaviours (i.e. Unity native behaviour components)
+        // may also restart specific, non-clearable behaviours (i.e. Unity native behaviour components)
         var clearableBehaviours = GetComponents<ClearableBehaviour>();
         foreach (var clearableBehaviour in clearableBehaviours)
         {

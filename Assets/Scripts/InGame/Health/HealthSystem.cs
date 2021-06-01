@@ -50,13 +50,6 @@ public class HealthSystem : ClearableBehaviour
     
     private void Awake()
     {
-        // Cached asset references
-        
-        m_healthSharedParameters = InGameManager.Instance.healthSharedParameters;
-        
-        
-        // Components
-        
         m_CharacterMaster = this.GetComponentOrFail<CharacterMaster>();
 
         m_Health = this.GetComponentOrFail<Health>();
@@ -66,6 +59,16 @@ public class HealthSystem : ClearableBehaviour
         Debug.AssertFormat(healthAestheticParameters, this, "No Health Aesthetic Parameters found on {0}", this);
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
+    }
+
+    private void Start()
+    {
+        // Cached asset references
+
+        // This is done on Start because:
+        // - Awake is too early, InGameManager instance may not be set
+        // - Setup is repeated on spawn (via CharacterMaster)
+        m_healthSharedParameters = InGameManager.Instance.healthSharedParameters;
     }
 
     public override void Setup()
