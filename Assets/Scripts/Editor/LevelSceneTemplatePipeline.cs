@@ -105,6 +105,9 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
                 newLevelDataList.Add(newLevelData);
                 levelDataList.levelDataArray = newLevelDataList.ToArray();
                 
+                // Set it dirty to make sure it's saved on SaveAssets 
+                EditorUtility.SetDirty(levelDataList);
+                
                 // Replace name level data on level identifier with new level index and data
                 levelIdentifier.name = levelIdentifier.name.Replace("00", $"{newLevelIndex:00}");
                 levelIdentifier.levelData = newLevelData;
