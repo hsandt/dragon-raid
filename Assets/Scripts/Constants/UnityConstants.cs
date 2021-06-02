@@ -241,12 +241,17 @@ namespace UnityConstants
         /// ID of scene 'Level_00'.
         /// </summary>
         public const int Level_00 = 1;
+        /// <summary>
+        /// ID of scene 'Level_01'.
+        /// </summary>
+        public const int Level_01 = 2;
     }
 
     public enum ScenesEnum
     {
         Title = 0,
         Level_00 = 1,
+        Level_01 = 2,
     }
 
     public static class Axes
