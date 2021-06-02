@@ -118,9 +118,13 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
                 newBuildSettingsScenes.Add(newBuildSettingsScene);
                 EditorBuildSettings.scenes = newBuildSettingsScenes.ToArray();
                 
-                // Finally, regenerate Unity constants so the new scene gets its enum and Level Data's Scene Enum
+                // Regenerate Unity constants so the new scene gets its enum and Level Data's Scene Enum
                 // shows something
                 UnityConstantsGenerator.Generate();
+                
+                // Finally, save all assets, esp. EditorBuildSettings which contains the new scene,
+                // and the Level Data List which contain the new Level Data
+                AssetDatabase.SaveAssets();
             }
         }
         else
