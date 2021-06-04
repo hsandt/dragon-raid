@@ -7,6 +7,11 @@ using UnityConstants;
 using CommonsPattern;
 using UnityEngine.SceneManagement;
 
+/// In-game manager
+/// SEO:
+/// - after LocatorManager (for this Init)
+/// - before PlayerCharacterPoolManager and EnemyPoolManager (for their Init, which spawn various components
+///   that may rely on InGameManager for asset reference caching on Awake)
 public class InGameManager : SingletonManager<InGameManager>
 {
     [Header("Assets")]

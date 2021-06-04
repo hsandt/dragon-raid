@@ -59,15 +59,9 @@ public class HealthSystem : ClearableBehaviour
         Debug.AssertFormat(healthAestheticParameters, this, "No Health Aesthetic Parameters found on {0}", this);
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
-    }
-
-    private void Start()
-    {
-        // Cached asset references
-
-        // This is done on Start because:
-        // - Awake is too early, InGameManager instance may not be set
-        // - Setup is repeated on spawn (via CharacterMaster)
+        
+        // Relies on InGameManager being ready, thanks to its SEO being before Character Pool Managers who will
+        // Awake this component immediately on pooled object creation in their Init
         m_healthSharedParameters = InGameManager.Instance.healthSharedParameters;
     }
 
