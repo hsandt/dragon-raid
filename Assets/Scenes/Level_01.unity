@@ -2943,7 +2943,7 @@ GameObject:
   - component: {fileID: 2114772814}
   - component: {fileID: 2114772815}
   m_Layer: 0
-  m_Name: 'Event: Boss Death'
+  m_Name: 'Event: Boss Death -> Finish Level'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
