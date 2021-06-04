@@ -53,9 +53,10 @@ public class Projectile : MonoBehaviour, IPooledObject
     {
         // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
         // This is to allow projectile to find the parent owning the HealthSystem.
-        if (other.attachedRigidbody != null)
+        Rigidbody2D targetRigidbody = other.attachedRigidbody;
+        if (targetRigidbody != null)
         {
-            var targetHealthSystem = other.attachedRigidbody.GetComponent<HealthSystem>();
+            var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
             if (targetHealthSystem != null)
             {
                 Impact(targetHealthSystem);

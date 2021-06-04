@@ -5,21 +5,23 @@ using UnityConstants;
 using UnityEngine;
 
 /// System that deals damage to an opponent's Health on melee attack hit
-/// Collision layers: EnemyMeleeHitBox collides with PlayerHurtBox, PlayerMeleeHitBox colliders with EnemyHurtBox 
+/// Collision layers: EnemyMeleeHitBox collides with PlayerHurtBox, PlayerMeleeHitBox colliders with EnemyHurtBox
+/// In practice, we don't rely on those collision settings and hardcode Faction => hittable layers
 public class MeleeAttack : MonoBehaviour
 {
     /// Colliders used internally to store physics 2D query results without allocations
-    private static readonly Collider2D[] resultColliders;
+    /// Array length must be big enough to support maximum potential number of targets from a single Melee Attack
+    private static readonly Collider2D[] resultColliders = new Collider2D[5];
 
     
-    /* Child component references */
+    [Header("Child component references")]
 
     [Tooltip("RectContainer describing the Melee Hit Box")]
     public RectContainer meleeHitBox;
     
 
-    /* Parameters data */
-    
+    [Header("Parameters data")]
+
     [Tooltip("Melee Attack Parameters Data")]
     public MeleeAttackParameters bodyAttackParameters;
     
@@ -27,16 +29,26 @@ public class MeleeAttack : MonoBehaviour
     public MeleeAttackAestheticParameters bodyAttackAestheticParameters;
     
     
-    /* Parameters */
-    
+    [Header("Parameters")]
+
     [SerializeField, Tooltip("Faction the attacker belongs to")]
     private Faction m_AttackerFaction;
+    
+    
+    /* Sibling components */
+    
+    private MeleeAttackIntention m_MeleeAttackIntention;
 
     
     private void Awake()
     {
+        Debug.AssertFormat(meleeHitBox, this,
+            "[MeleeAttack] Melee Hit Box not set on Melee Attack component {0}", this);
+        
         Debug.AssertFormat(bodyAttackParameters, this,
             "[MeleeAttack] Melee Attack Parameters not set on Melee Attack component {0}", this);
+        
+        m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
     }
 
     private int GetOpponentHurtBoxLayerMask(Faction faction)
@@ -50,6 +62,15 @@ public class MeleeAttack : MonoBehaviour
             default:
                 Debug.LogErrorFormat("Unknown faction {0}", faction);
                 return 0;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (ControlUtil.ConsumeBool(ref m_MeleeAttackIntention.startAttack))
+        {
+            // TODO: prevent attack while still attacking
+            StartAttack();
         }
     }
 
@@ -77,29 +98,36 @@ public class MeleeAttack : MonoBehaviour
         for (int i = 0; i < resultsCount; ++i)
         {
             var resultCollider = resultColliders[i];
-            var targetHealthSystem = resultCollider.GetComponent<HealthSystem>();
-            if (targetHealthSystem != null)
+            
+            // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
+            // This is to allow projectile to find the parent owning the HealthSystem.
+            Rigidbody2D targetRigidbody = resultCollider.attachedRigidbody;
+            if (targetRigidbody != null)
             {
-                // Try to damage target found
-                bool didDamage = targetHealthSystem.TryOneShotDamage(bodyAttackParameters.damage);
-
-                if (didDamage)
+                var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
+                if (targetHealthSystem != null)
                 {
-                    if (bodyAttackAestheticParameters != null && bodyAttackAestheticParameters.sfxHit != null)
+                    // Try to damage target found
+                    bool didDamage = targetHealthSystem.TryOneShotDamage(bodyAttackParameters.damage);
+    
+                    if (didDamage)
                     {
-                        // Audio: play hit SFX
-                        SfxPoolManager.Instance.PlaySfx(bodyAttackAestheticParameters.sfxHit);
+                        if (bodyAttackAestheticParameters != null && bodyAttackAestheticParameters.sfxHit != null)
+                        {
+                            // Audio: play hit SFX
+                            SfxPoolManager.Instance.PlaySfx(bodyAttackAestheticParameters.sfxHit);
+                        }
                     }
                 }
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                else
+                {
+                    Debug.LogWarningFormat(resultCollider, "[MeleeAttack] No HealthSystem component found on {0}, " +
+                        "yet it contained {1} which was present on targetable layer mask {2}",
+                        targetRigidbody, resultCollider, targetLayerMask);
+                }
+                #endif
             }
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            else
-            {
-                Debug.LogWarningFormat(resultCollider, "[MeleeAttack] No HealthSystem component found on {0}, " +
-                                                       "yet it was present on targetable layer {1}", resultCollider,
-                    targetLayerMask);
-            }
-            #endif
         }
     }
 }

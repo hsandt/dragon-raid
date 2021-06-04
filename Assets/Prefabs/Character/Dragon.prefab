@@ -1,5 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4179434003085179443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4905120270609669156}
+  - component: {fileID: 8833074355707407557}
+  m_Layer: 8
+  m_Name: MeleeAttackHitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4905120270609669156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179434003085179443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4277205838411756311}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8833074355707407557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179434003085179443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8b4799851ef1240b6e0a8edb88a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rect:
+    serializedVersion: 2
+    x: 0.65894365
+    y: -1.1870391
+    width: 0.6807699
+    height: 1.8952326
+  alwaysShowRect: 0
+  drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4277205836989588869
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +151,9 @@ GameObject:
   - component: {fileID: 4277205838411756288}
   - component: {fileID: 4277205838411756289}
   - component: {fileID: 4277205838411756313}
+  - component: {fileID: 249001918273035722}
+  - component: {fileID: 4756441908657083287}
+  - component: {fileID: 2530074978040947289}
   m_Layer: 15
   m_Name: Dragon
   m_TagString: Player
@@ -120,6 +174,7 @@ Transform:
   m_Children:
   - {fileID: 4277205836989588868}
   - {fileID: 4277205838255629522}
+  - {fileID: 4905120270609669156}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -383,5 +438,46 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &249001918273035722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277205838411756308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb003dc597cd5f619b06a32ff2fba90b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeHitBox: {fileID: 8833074355707407557}
+  bodyAttackParameters: {fileID: 11400000, guid: 551b76c7009765a229e8f318ec4d9de8, type: 2}
+  bodyAttackAestheticParameters: {fileID: 11400000, guid: 57948eea345fea5d4ab67b9941310c43, type: 2}
+  m_AttackerFaction: 0
+--- !u!114 &4756441908657083287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277205838411756308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f96682e7c711cdea9c5d3323eb451f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAttack: 0
+--- !u!114 &2530074978040947289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277205838411756308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4706632c34b09a42db2f2621881c4b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
