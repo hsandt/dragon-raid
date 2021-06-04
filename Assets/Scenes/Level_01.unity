@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSpatialProgress: 12
+  requiredSpatialProgress: 18
 --- !u!1 &500391800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: ecaf627fd4f4435fc93d7b114aa85314, type: 2}
-    spawnPosition: {x: 12.4375, y: -4.6875}
+    spawnPosition: {x: 15.625, y: -4.6875}
 --- !u!114 &2122095741
 MonoBehaviour:
   m_ObjectHideFlags: 0
