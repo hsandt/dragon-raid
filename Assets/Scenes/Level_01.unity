@@ -3034,7 +3034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: ecaf627fd4f4435fc93d7b114aa85314, type: 2}
-    spawnPosition: {x: 4.17, y: -0.27}
+    spawnPosition: {x: 12.4375, y: -4.6875}
 --- !u!114 &2122095741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3796,12 +3796,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Level
       objectReference: {fileID: 0}
+    - target: {fileID: 4477211929871635049, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
@@ -3819,7 +3827,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5612176500669209464, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5612176500669209464, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3933,11 +3941,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6454345698474969097, guid: ac56944e930ccf4a9bd9f35181e43ff9, type: 3}
       propertyPath: m_Name
-      value: Dummy Camera (avoids warning)
+      value: Solid Color Background Camera
       objectReference: {fileID: 0}
     - target: {fileID: 6454345698474969141, guid: ac56944e930ccf4a9bd9f35181e43ff9, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6454345698474969141, guid: ac56944e930ccf4a9bd9f35181e43ff9, type: 3}
       propertyPath: m_LocalPosition.x
