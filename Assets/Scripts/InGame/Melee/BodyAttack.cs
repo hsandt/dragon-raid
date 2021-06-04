@@ -20,7 +20,7 @@ public class BodyAttack : MonoBehaviour
     private void Awake()
     {
         Debug.AssertFormat(bodyAttackParameters, this,
-            "[BodyAttack] Body Attack Parameters not set on body attack component {0}", this);
+            "[BodyAttack] Body Attack Parameters not set on Body Attack component {0}", this);
     }
 
     private void OnTriggerStay2D(Collider2D other)
