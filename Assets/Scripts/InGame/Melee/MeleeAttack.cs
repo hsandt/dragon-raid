@@ -1,14 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using CommonsHelper;
 using UnityConstants;
 using UnityEngine;
+
+using CommonsHelper;
+using CommonsPattern;
 
 /// System that deals damage to an opponent's Health on melee attack hit
 /// Collision layers: EnemyMeleeHitBox collides with PlayerHurtBox, PlayerMeleeHitBox colliders with EnemyHurtBox
 /// In practice, we don't rely on those collision settings and hardcode Faction => hittable layers
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : ClearableBehaviour
 {
+    /// Internal state enum
+    private enum State
+    {
+        /// Not attacking, no animation (another script may be doing another action)
+        Idle,
+        /// Attacking, cannot cancel yet
+        Attacking,
+        /// Attacking and finishing the animation, can cancel any time
+        AttackingCanCancel
+    }
+    
+    // Animator hashes
+    
+    private static readonly int meleeAttackHash = Animator.StringToHash("MeleeAttack");
+    
     /// Colliders used internally to store physics 2D query results without allocations
     /// Array length must be big enough to support maximum potential number of targets from a single Melee Attack
     private static readonly Collider2D[] resultColliders = new Collider2D[5];
@@ -37,9 +54,16 @@ public class MeleeAttack : MonoBehaviour
     
     /* Sibling components */
     
+    private Animator m_Animator;
     private MeleeAttackIntention m_MeleeAttackIntention;
 
     
+    /* State */
+
+    /// Current state
+    private State m_State;
+
+
     private void Awake()
     {
         Debug.AssertFormat(meleeHitBox, this,
@@ -48,10 +72,16 @@ public class MeleeAttack : MonoBehaviour
         Debug.AssertFormat(bodyAttackParameters, this,
             "[MeleeAttack] Melee Attack Parameters not set on Melee Attack component {0}", this);
         
+        m_Animator = this.GetComponentOrFail<Animator>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
     }
 
-    private int GetOpponentHurtBoxLayerMask(Faction faction)
+    public override void Setup()
+    {
+        m_State = State.Idle;
+    }
+
+    private static int GetOpponentHurtBoxLayerMask(Faction faction)
     {
         switch (faction)
         {
@@ -69,28 +99,39 @@ public class MeleeAttack : MonoBehaviour
     {
         if (ControlUtil.ConsumeBool(ref m_MeleeAttackIntention.startAttack))
         {
-            // TODO: prevent attack while still attacking
-            StartAttack();
+            switch (m_State)
+            {
+                case State.Idle:
+                    StartAttack();
+                    break;
+                case State.AttackingCanCancel:
+                    // MeleeAttack animation is already playing, so we musts force restart
+                    // One way is: m_Animator.Play(m_Animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
+                    // A simpler way is to Rebind, then let StartAttack set the trigger that will restart the animation
+                    m_Animator.Rebind();
+                    StartAttack();
+                    break;
+            }
         }
     }
 
     /// Start melee attack with animation and hitbox
-    public void StartAttack()
+    private void StartAttack()
     {
+        m_State = State.Attacking;
+        
         // Animation: play Melee Attack animation
-        // TODO
+        m_Animator.SetTrigger(meleeAttackHash);
         
         if (bodyAttackAestheticParameters != null && bodyAttackAestheticParameters.sfxAttack != null)
         {
             // Audio: play attack SFX
             SfxPoolManager.Instance.PlaySfx(bodyAttackAestheticParameters.sfxAttack);
         }
-        
-        // for now, no lag, attack effect is instant
-        TryDamageOpponentsInHitBox();
     }
 
-    private void TryDamageOpponentsInHitBox()
+    /// Event callback: apply hitbox damage
+    public void ApplyHitBoxDamage()
     {
         int targetLayerMask = GetOpponentHurtBoxLayerMask(m_AttackerFaction);
         int resultsCount = Physics2D.OverlapAreaNonAlloc(meleeHitBox.worldMin, meleeHitBox.worldMax, resultColliders, targetLayerMask);
@@ -129,5 +170,17 @@ public class MeleeAttack : MonoBehaviour
                 #endif
             }
         }
+    }
+
+    /// Animation Event callback: notify script that character can cancel melee attack with another action from now on
+    public void NotifyCanCancel()
+    {
+        m_State = State.AttackingCanCancel;
+    }
+
+    /// Animation Event callback: notify script that character has finished animation without early cancelling
+    public void NotifyAnimationEnd()
+    {
+        m_State = State.Idle;
     }
 }

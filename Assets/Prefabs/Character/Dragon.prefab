@@ -424,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slaveBehaviours: []
+  slaveAnimator: {fileID: 0}
   slaveParticles: []
 --- !u!114 &4277205838411756317
 MonoBehaviour:

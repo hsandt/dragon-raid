@@ -33,6 +33,9 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
                 slaveBehaviours.Add(clearableBehaviour);
             }
         }
+
+        // Not all characters have animators, so don't fail if you don't find one 
+        slaveAnimator = GetComponent<Animator>();
     }
     
     private void Start()
