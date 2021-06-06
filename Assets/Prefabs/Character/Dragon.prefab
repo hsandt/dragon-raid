@@ -128,10 +128,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rect:
     serializedVersion: 2
-    x: 0.65894365
-    y: -1.1870391
-    width: 0.6807699
-    height: 1.8952326
+    x: 0.5625
+    y: -0.875
+    width: 0.9375
+    height: 1.5
   alwaysShowRect: 0
   drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4277205836989588869
