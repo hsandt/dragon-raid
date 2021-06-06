@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityConstants;
 using UnityEngine;
 
+using UnityConstants;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -11,17 +11,6 @@ using CommonsPattern;
 /// In practice, we don't rely on those collision settings and hardcode Faction => hittable layers
 public class MeleeAttack : ClearableBehaviour
 {
-    /// Internal state enum
-    private enum State
-    {
-        /// Not attacking, no animation (another script may be doing another action)
-        Idle,
-        /// Attacking, cannot cancel yet
-        Attacking,
-        /// Attacking and finishing the animation, can cancel any time
-        AttackingCanCancel
-    }
-    
     // Animator hashes
     
     private static readonly int meleeAttackHash = Animator.StringToHash("MeleeAttack");
@@ -61,7 +50,10 @@ public class MeleeAttack : ClearableBehaviour
     /* State */
 
     /// Current state
-    private State m_State;
+    private MeleeAttackState m_State;
+
+    /// Current state (getter)
+    public MeleeAttackState State => m_State;
 
 
     private void Awake()
@@ -78,7 +70,7 @@ public class MeleeAttack : ClearableBehaviour
 
     public override void Setup()
     {
-        m_State = State.Idle;
+        m_State = MeleeAttackState.Idle;
     }
 
     private static int GetOpponentHurtBoxLayerMask(Faction faction)
@@ -101,10 +93,10 @@ public class MeleeAttack : ClearableBehaviour
         {
             switch (m_State)
             {
-                case State.Idle:
+                case MeleeAttackState.Idle:
                     StartAttack();
                     break;
-                case State.AttackingCanCancel:
+                case MeleeAttackState.AttackingCanCancel:
                     // MeleeAttack animation is already playing, so we musts force restart
                     // One way is: m_Animator.Play(m_Animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
                     // A simpler way is to Rebind, then let StartAttack set the trigger that will restart the animation
@@ -118,7 +110,7 @@ public class MeleeAttack : ClearableBehaviour
     /// Start melee attack with animation and hitbox
     private void StartAttack()
     {
-        m_State = State.Attacking;
+        m_State = MeleeAttackState.Attacking;
         
         // Animation: play Melee Attack animation
         m_Animator.SetTrigger(meleeAttackHash);
@@ -175,12 +167,12 @@ public class MeleeAttack : ClearableBehaviour
     /// Animation Event callback: notify script that character can cancel melee attack with another action from now on
     public void NotifyCanCancel()
     {
-        m_State = State.AttackingCanCancel;
+        m_State = MeleeAttackState.AttackingCanCancel;
     }
 
     /// Animation Event callback: notify script that character has finished animation without early cancelling
     public void NotifyAnimationEnd()
     {
-        m_State = State.Idle;
+        m_State = MeleeAttackState.Idle;
     }
 }
