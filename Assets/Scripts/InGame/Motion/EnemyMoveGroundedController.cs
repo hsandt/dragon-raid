@@ -52,8 +52,17 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         // No slopes for now, so moving on ground just means linear motion to the left
         // Note that we only control the extra ground speed. Scrolling naturally moves all
         // grounded units to the opposite direction, even when they are airborne.
-        m_MoveGroundedIntention.extraGroundSpeed = - moveGroundedParameters.maxGroundSpeed;
+        m_MoveGroundedIntention.signedGroundSpeed = - moveGroundedParameters.maxGroundSpeed;
 
+        // Only check for jump if max jump speed is positive
+        if (moveGroundedParameters.maxJumpSpeed > 0f)
+        {
+            CheckShouldJump();
+        }
+    }
+
+    private void CheckShouldJump()
+    {
         // jump as soon as player character is near on X, and hasn't tried to jump yet
         if (!m_HasTriedToJump)
         {
@@ -65,7 +74,7 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
                     if (ShouldJump(targetPosition, out float jumpSpeedImpulse))
                     {
                         OrderJump(jumpSpeedImpulse);
-                        
+
                         #if UNITY_EDITOR
                         m_DebugLastAIBehaviourResult = "Jump";
                         #endif
@@ -92,7 +101,7 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         }
         #endif
     }
-    
+
     private float GetGravity()
     {
         return -Physics2D.gravity.y * m_Rigidbody2D.gravityScale;
@@ -116,10 +125,24 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
     /// they can jump and reach target or not. This acts as a pre-check for ShouldJump, which is more expensive.
     private bool IsPlayerCharacterCloseEnoughToCheckJump(Vector2 targetPosition)
     {
-        float xToTarget = targetPosition.x - transform.position.x;
-        if (xToTarget != 0f && Mathf.Sign(xToTarget) == Mathf.Sign(moveGroundedParameters.maxGroundSpeed))
+        // same calculation as MoveGrounded.FixedUpdate (X positive convention)
+        float totalSpeedX = ScrollingManager.Instance.ComputeTotalSpeedWithScrolling(m_MoveGroundedIntention.signedGroundSpeed);
+
+        // If enemy is not moving on screen, just pretend it has a very small speed toward the left,
+        // so at least it tries to jump when character is very close; else jump range X would be reduced to a dot,
+        // and player character float position is unlikely to ever reach it.
+        // Note that a grounded enemy not moving on screen is rare, but could happen if it's ignoring scrolling speed
+        // for some reason and thus stationary on-screen, like a tank that would move exactly at scrolling speed to
+        // track the player character; or if scrolling stopped and enemy is not moving on ground).
+        if (totalSpeedX == 0f)
         {
-            // remember that convention is that maxGroundSpeed > 0 for enemies moving to the left
+            // with this, sign of totalSpeedX will always make sense
+            totalSpeedX = - 0.1f;
+        }
+
+        float xToTarget = targetPosition.x - transform.position.x;
+        if (xToTarget != 0f && Mathf.Sign(xToTarget) != Mathf.Sign(totalSpeedX))
+        {
             // target is on the right of enemy (if enemy moves to the left), or on the left (if moves to the right),
             // so enemy can never reach target (we don't count of their body hitbox being lengthy either, so they
             // don't try hitting the target with their back)
@@ -175,9 +198,5 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         
         // don't try to jump again while jumping, nor after landing back
         m_HasTriedToJump = true;
-        
-#if UNITY_EDITOR
-        m_DebugLastAIBehaviourResult = "Jump";
-#endif
     }
 }
