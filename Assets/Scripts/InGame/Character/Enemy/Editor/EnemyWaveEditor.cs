@@ -92,15 +92,16 @@ public class EnemyWaveEditor : Editor
             boundingBox.min = Vector2.Min(boundingBox.min, enemySpawnData.spawnPosition);
             boundingBox.max = Vector2.Max(boundingBox.max, enemySpawnData.spawnPosition);
             
-            string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
-            HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
-                
+            // Draw preview texture first, so in case it's too big, the enemy name label will be on top
             Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
             if (previewTexture != null)
             {
                 Vector3 labelPosition = new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize, enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
                 Handles.Label(labelPosition, previewTexture);
             }
+            
+            string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
+            HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
         }
 
         // Ignore infinite bounding box (only happens when EnemySpawnDataArray is empty)
