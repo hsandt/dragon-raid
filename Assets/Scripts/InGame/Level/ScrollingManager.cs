@@ -49,4 +49,9 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     {
         m_ScrollingSpeed = 0f;
     }
+
+    public float ComputeTotalSpeedWithScrolling(float groundSpeed)
+    {
+        return - m_ScrollingSpeed + groundSpeed;
+    }
 }

@@ -34,8 +34,8 @@ public class MoveGrounded : ClearableBehaviour
         // Setting X component of velocity covers both cases
         // Note we have set the motion intention relative to ground, so we always add the reverse ground scrolling
         // speed, even in the air. This way, a grounded unit with an extra ground speed of 0 sticks to scrolling speed. 
-        newVelocity.x = - ScrollingManager.Instance.ScrollingSpeed + m_MoveGroundedIntention.extraGroundSpeed;
-        
+        newVelocity.x = ScrollingManager.Instance.ComputeTotalSpeedWithScrolling(m_MoveGroundedIntention.extraGroundSpeed);
+
         // Set velocity Y when ordered to jump (we don't check if we are grounded, as we assume
         // character starts grounded and only tries to jump once)
         

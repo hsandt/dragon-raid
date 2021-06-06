@@ -18,6 +18,21 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
 
         AddSiblingSlaveBehaviours();
     }
+    
+    // Do not define a Start method to call Setup, as Setup is managed
+    // Instead, each Character PoolManager will Spawn an instance of Character,
+    // and Spawn will call Setup.
+    
+    
+    /* Own methods */
+
+    public void Spawn(Vector2 position)
+    {
+        gameObject.SetActive(true);
+        Setup();
+
+        m_Rigidbody2D.position = position;
+    }
 
     protected virtual void AddSiblingSlaveBehaviours()
     {
@@ -38,11 +53,6 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
         slaveAnimator = GetComponent<Animator>();
     }
     
-    private void Start()
-    {
-        Setup();
-    }
-    
     
     /* IPooledObject interface */
     
@@ -59,16 +69,5 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     {
         Clear();
         gameObject.SetActive(false);
-    }
-    
-    
-    /* Own methods */
-
-    public void Spawn(Vector2 position)
-    {
-        gameObject.SetActive(true);
-        Setup();
-
-        m_Rigidbody2D.position = position;
     }
 }
