@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7022318921393233545}
   - component: {fileID: 1056148976857964357}
-  m_Layer: 15
+  m_Layer: 0
   m_Name: FX MeleeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
