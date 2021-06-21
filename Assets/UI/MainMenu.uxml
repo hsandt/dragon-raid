@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="MainMenu.uss" />
     <ui:VisualElement name="Root" style="margin-top: 4%;">
-        <ui:Label text="Dragon Raid" display-tooltip-when-elided="true" name="Title" style="font-size: 50px; -unity-font: resource(&apos;BitPotion Full Extended/BitPotionExt_Dynamic&apos;); color: rgb(255, 255, 255); -unity-text-align: upper-center; margin-bottom: 10%;" />
+        <ui:Label text="Dragon Raid" display-tooltip-when-elided="true" name="Title" style="font-size: 50px; -unity-font: resource(&apos;BitPotion Full Extended/BitPotionExt_Dynamic&apos;); color: rgb(255, 255, 255); -unity-text-align: upper-center; margin-bottom: 10%; -unity-font-definition: resource(&apos;BitPotion Full Extended/BitPotionExt_Dynamic SDF&apos;);" />
         <ui:VisualElement name="ButtonList" style="margin-left: 35%; margin-right: 35%;">
             <ui:Button text="Start" display-tooltip-when-elided="true" name="ButtonStart" class="button" />
             <ui:Button text="Options" display-tooltip-when-elided="true" name="ButtonOptions" class="button" />

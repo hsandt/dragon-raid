@@ -9,6 +9,7 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    -unity-font-definition: resource('BitPotion Full Extended/BitPotionExt_Dynamic SDF');
 }
 
 .button:hover {
