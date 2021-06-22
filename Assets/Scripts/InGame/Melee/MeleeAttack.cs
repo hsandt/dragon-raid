@@ -106,6 +106,15 @@ public class MeleeAttack : ClearableBehaviour
             }
         }
     }
+    
+    /// AI usage only: return true is this character is facing target, close enough to hit it with a Melee Attack
+    public bool IsCloseEnoughToMeleeAttack(Vector2 targetPosition)
+    {
+        // Be pragmatic: check if the player character center is inside the melee hit box world rect
+        // If this makes the enemy AI too "optimal" and therefore too strong in terms of reactivity, add a bit of margin
+        // (shrink test rectangle compared to hit box)
+        return meleeHitBox.worldRect.Contains(targetPosition);
+    }
 
     /// Start melee attack with animation and hitbox
     private void StartAttack()
@@ -122,7 +131,7 @@ public class MeleeAttack : ClearableBehaviour
         }
     }
 
-    /// Event callback: apply hitbox damage
+    /// Animation Event callback: apply hitbox damage
     public void ApplyHitBoxDamage()
     {
         int targetLayerMask = GetOpponentHurtBoxLayerMask(m_AttackerFaction);

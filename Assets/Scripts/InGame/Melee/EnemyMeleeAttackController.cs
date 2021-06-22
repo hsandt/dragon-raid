@@ -48,7 +48,7 @@ public class EnemyMeleeAttackController : BaseMeleeAttackController
         if (InGameManager.Instance.PlayerCharacterMaster != null)
         {
             Vector2 targetPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-            if (IsCloseEnoughToMeleeAttack(targetPosition))
+            if (m_MeleeAttack.IsCloseEnoughToMeleeAttack(targetPosition))
             {
                 OrderMeleeAttack();
 
@@ -63,15 +63,6 @@ public class EnemyMeleeAttackController : BaseMeleeAttackController
             }
             #endif
         }
-    }
-    
-    /// Return true is enemy is facing target, close enough to hit it with a Melee Attack
-    private bool IsCloseEnoughToMeleeAttack(Vector2 targetPosition)
-    {
-        // Be pragmatic: check if the player character center is inside the melee hit box world rect
-        // If this makes the enemy AI too "optimal" and therefore too strong in terms of reactivity, add a bit of margin
-        // (shrink test rectangle compared to hit box)
-        return m_MeleeAttack.meleeHitBox.worldRect.Contains(targetPosition);
     }
 
     private void OrderMeleeAttack()
