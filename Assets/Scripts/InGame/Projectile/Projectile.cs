@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour, IPooledObject
     [Tooltip("Projectile Parameters Data")]
     public ProjectileParameters projectileParameters;
     
-    [Tooltip("Projectile Visual Parameters Data")]
+    [Tooltip("Projectile Aesthetic Parameters Data")]
     public ProjectileAestheticParameters projectileAestheticParameters;
     
     

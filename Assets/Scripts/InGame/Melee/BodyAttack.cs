@@ -13,7 +13,7 @@ public class BodyAttack : MonoBehaviour
     [Tooltip("Body Attack Parameters Data")]
     public BodyAttackParameters bodyAttackParameters;
     
-    [Tooltip("Body Attack Visual Parameters Data")]
+    [Tooltip("Body Attack Aesthetic Parameters Data")]
     public BodyAttackAestheticParameters bodyAttackAestheticParameters;
     
     

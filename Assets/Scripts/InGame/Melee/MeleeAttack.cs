@@ -31,7 +31,7 @@ public class MeleeAttack : ClearableBehaviour
     [Tooltip("Melee Attack Parameters Data")]
     public MeleeAttackParameters bodyAttackParameters;
     
-    [Tooltip("Melee Attack Visual Parameters Data")]
+    [Tooltip("Melee Attack Aesthetics Parameters Data")]
     public MeleeAttackAestheticParameters bodyAttackAestheticParameters;
     
     
@@ -132,7 +132,7 @@ public class MeleeAttack : ClearableBehaviour
     }
 
     /// Animation Event callback: apply hitbox damage
-    public void ApplyHitBoxDamage()
+    public void MeleeAttackEvent_ApplyHitBoxDamage()
     {
         int targetLayerMask = GetOpponentHurtBoxLayerMask(m_AttackerFaction);
         int resultsCount = Physics2D.OverlapAreaNonAlloc(meleeHitBox.worldMin, meleeHitBox.worldMax, resultColliders, targetLayerMask);
@@ -174,13 +174,13 @@ public class MeleeAttack : ClearableBehaviour
     }
 
     /// Animation Event callback: notify script that character can cancel melee attack with another action from now on
-    public void NotifyCanCancel()
+    public void MeleeAttackEvent_NotifyCanCancel()
     {
         m_State = MeleeAttackState.AttackingCanCancel;
     }
 
     /// Animation Event callback: notify script that character has finished animation without early cancelling
-    public void NotifyAnimationEnd()
+    public void MeleeAttackEvent_NotifyAnimationEnd()
     {
         m_State = MeleeAttackState.Idle;
     }

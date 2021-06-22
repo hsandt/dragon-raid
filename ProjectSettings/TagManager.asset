@@ -56,7 +56,10 @@ TagManager:
   - name: Level_Dragon
     uniqueID: 753183255
     locked: 0
-  - name: Level_Fireball
+  - name: Level_ThrowProjectile
+    uniqueID: 3040915957
+    locked: 0
+  - name: Level_ShootProjectile
     uniqueID: 93571251
     locked: 0
   - name: Default
