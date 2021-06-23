@@ -37,7 +37,7 @@ public class EnemyMeleeAttackController : BaseMeleeAttackController
         // Only attack if not already attacking, or attacking but can cancel
         // In practice, enemies don't really have a Cancel phase (to force them to do heavy attacks and let player
         // estimate when they'll recover), but we check both just in case.
-        if (m_MeleeAttack.State == MeleeAttackState.Idle || m_MeleeAttack.State == MeleeAttackState.AttackingCanCancel)
+        if (m_MeleeAttack.CanStartNewAction())
         {
             CheckShouldAttack();
         }
@@ -62,6 +62,10 @@ public class EnemyMeleeAttackController : BaseMeleeAttackController
                 m_DebugLastAIBehaviourResult = "Not close enough";
             }
             #endif
+        }
+        else
+        {
+            m_DebugLastAIBehaviourResult = "No Player Character";
         }
     }
 

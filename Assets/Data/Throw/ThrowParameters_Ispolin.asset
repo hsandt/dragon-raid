@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d9fac3af32a14469fced8a5d77dfbf, type: 3}
   m_Name: ThrowParameters_Ispolin
   m_EditorClassIdentifier: 
-  projectileSpeed: 6
+  projectileSpeed: 18
+  maxDetectionUpwardAngle: 45
+  maxDetectionDistance: 8

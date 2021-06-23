@@ -56,6 +56,20 @@ public class MeleeAttack : ClearableBehaviour
     public MeleeAttackState State => m_State;
 
 
+    private static int GetOpponentHurtBoxLayerMask(Faction faction)
+    {
+        switch (faction)
+        {
+            case Faction.Player:
+                return Layers.EnemyHurtBoxMask;
+            case Faction.Enemy:
+                return Layers.PlayerCharacterHurtBoxMask;
+            default:
+                Debug.LogErrorFormat("Unknown faction {0}", faction);
+                return 0;
+        }
+    }
+    
     private void Awake()
     {
         Debug.AssertFormat(meleeHitBox, this,
@@ -73,38 +87,29 @@ public class MeleeAttack : ClearableBehaviour
         m_State = MeleeAttackState.Idle;
     }
 
-    private static int GetOpponentHurtBoxLayerMask(Faction faction)
-    {
-        switch (faction)
-        {
-            case Faction.Player:
-                return Layers.EnemyHurtBoxMask;
-            case Faction.Enemy:
-                return Layers.PlayerCharacterHurtBoxMask;
-            default:
-                Debug.LogErrorFormat("Unknown faction {0}", faction);
-                return 0;
-        }
-    }
-
     private void FixedUpdate()
     {
         if (ControlUtil.ConsumeBool(ref m_MeleeAttackIntention.startAttack))
         {
-            switch (m_State)
+            if (CanStartNewAction())
             {
-                case MeleeAttackState.Idle:
-                    StartAttack();
-                    break;
-                case MeleeAttackState.AttackingCanCancel:
-                    // MeleeAttack animation is already playing, so we musts force restart
+                if (m_State == MeleeAttackState.AttackingCanCancel)
+                {
+                    // MeleeAttack animation is already playing, so we must force restart
                     // One way is: m_Animator.Play(m_Animator.GetCurrentAnimatorStateInfo(0).fullPathHash, 0, 0f);
                     // A simpler way is to Rebind, then let StartAttack set the trigger that will restart the animation
                     m_Animator.Rebind();
-                    StartAttack();
-                    break;
+                }
+                
+                StartAttack();
             }
         }
+    }
+
+    /// Return true if character can start a new action from now, whether a Melee Attack or something else 
+    public bool CanStartNewAction()
+    {
+        return m_State == MeleeAttackState.Idle || m_State == MeleeAttackState.AttackingCanCancel;
     }
     
     /// AI usage only: return true is this character is facing target, close enough to hit it with a Melee Attack
