@@ -62,6 +62,7 @@ public class Throw : ClearableBehaviour
 
     private void FixedUpdate()
     {
+        // Check and consume start throw intention (no need to clear throw direction, it won't be used until next throw)
         if (ControlUtil.ConsumeBool(ref m_ThrowIntention.startThrow))
         {
             // Only allow throwing if not already throwing

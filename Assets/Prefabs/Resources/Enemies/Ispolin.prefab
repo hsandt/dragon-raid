@@ -399,7 +399,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ab691c384a4e32e4e9975f5ea7cbad86, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -670,8 +670,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwDetectionOrigin: {fileID: 6709425276297412611}
-  m_MaxDetectionUpwardAngle: 45
-  m_MaxDetectionDistance: 8
 --- !u!1 &7470113669232763144
 GameObject:
   m_ObjectHideFlags: 0

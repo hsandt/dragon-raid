@@ -69,6 +69,7 @@ public class Projectile : MonoBehaviour, IPooledObject
 
     public void Spawn(Vector2 position, Vector2 velocity)
     {
+        // Set active first, or rigidbody setup will be ignored
         gameObject.SetActive(true);
 
         // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
@@ -79,8 +80,15 @@ public class Projectile : MonoBehaviour, IPooledObject
         offsetX = offsetX % (1f/16f);
         position.x = Mathf.Round(position.x * 16f) / 16f + offsetX;
         */
-        
-        m_Rigidbody2D.position = position;
+
+        // Set position directly on Transform rather than on Rigidbody2D
+        // The latter can work, but only when Spawn is called directly from code, or, if called from an Animation Event,
+        // if the Animator Update Mode is set to Animate Physics. Indeed, a Normal mode update will set the rigidbody
+        // position *after* the physics update of the frame, and will not update transform position until the next
+        // frame, effectively showing the projectile at its incorrect old pooled object position for one frame.
+        // We recommend using Animate Physics for Animator that can call physics-related animation events anyway,
+        // but in case it is not, to be safe, we set transform position directly.
+        transform.position = (Vector3) position;
         m_Rigidbody2D.velocity = velocity;
         
         if (projectileAestheticParameters != null && projectileAestheticParameters.sfxSpawn != null)
