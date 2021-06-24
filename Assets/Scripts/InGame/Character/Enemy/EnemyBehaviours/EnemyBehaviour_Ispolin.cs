@@ -154,6 +154,8 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         
         // The method CalculateFiringSolution is basically working, but we decided it was too risky for now,
         // so throw in straight line + small upward offset until we can fix all edge cases and assertions
+        return new Vector2(-1f, 1f);
+        
         Vector2 toTarget = targetPosition - (Vector2) m_Throw.throwAnchor.position;
         if (toTarget.y <= 0f)
         {
