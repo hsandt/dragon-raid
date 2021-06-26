@@ -17,8 +17,10 @@ public class LivingZoneTracker : ClearableBehaviour
     {
         // Currently, all objects tracking living zone are released via pooling
         m_PooledObject = GetComponent<IPooledObject>();
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, this,
             "[LivingZoneTracker] No component of type IPooledObject found on {0}", gameObject);
+        #endif
     }
     
     public void OnExitLivingZone()

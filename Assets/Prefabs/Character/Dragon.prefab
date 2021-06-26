@@ -453,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: 0a7ee98eb9b76d7079d8af32f8fce83b, type: 2}
-  healthAestheticParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
+  healthAestheticParameters: {fileID: 11400000, guid: a34f5f9bff5011c2a808f65327ca6426, type: 2}
 --- !u!114 &4277205838411756314
 MonoBehaviour:
   m_ObjectHideFlags: 0

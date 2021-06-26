@@ -61,7 +61,8 @@ public class MeleeAttack : ClearableBehaviour
         switch (faction)
         {
             case Faction.Player:
-                return Layers.EnemyHurtBoxMask;
+                // Player Melee Attack can destroy both enemies and tangible enemy projectiles
+                return Layers.EnemyHurtBoxMask | Layers.EnemyProjectileTangibleMask;
             case Faction.Enemy:
                 return Layers.PlayerCharacterHurtBoxMask;
             default:

@@ -34,7 +34,7 @@ public class HealthSystem : ClearableBehaviour
     
     /* Sibling components */
 
-    private CharacterMaster m_CharacterMaster;
+    private IPooledObject m_PooledObject;
     private Health m_Health;
     private Brighten m_Brighten;
 
@@ -50,8 +50,13 @@ public class HealthSystem : ClearableBehaviour
     
     private void Awake()
     {
-        m_CharacterMaster = this.GetComponentOrFail<CharacterMaster>();
-
+        // Currently, all objects with a Health system are released via pooling
+        m_PooledObject = GetComponent<IPooledObject>();
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(m_PooledObject != null, this,
+            "[HealthSystem] No component of type IPooledObject found on {0}", gameObject);
+        #endif
+        
         m_Health = this.GetComponentOrFail<Health>();
         m_Health.maxValue = healthParameters.maxHealth;
         
@@ -152,15 +157,23 @@ public class HealthSystem : ClearableBehaviour
 
     private void Die()
     {
-        m_CharacterMaster.Release();
+        m_PooledObject.Release();
         
-        // Visual: play death FX
-        FXPoolManager.Instance.SpawnFX("EnemyDeath", transform.position);
-        
-        if (healthAestheticParameters != null && healthAestheticParameters.sfxDeath != null)
+        if (healthAestheticParameters != null)
         {
-            // Audio: play death SFX
-            SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
+            if (healthAestheticParameters.fxDeath != null)
+            {
+                // Visual: play death FX
+                // Note that we only care about the name because pooling stores resources by name,
+                // but we keep fxDeath as a GameObject field to force designer to select an existing object
+                FXPoolManager.Instance.SpawnFX(healthAestheticParameters.fxDeath.name, transform.position);
+            }
+            
+            if (healthAestheticParameters.sfxDeath != null)
+            {
+                // Audio: play death SFX
+                SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
+            }
         }
 
         m_OnDeathEventEffect?.Trigger();

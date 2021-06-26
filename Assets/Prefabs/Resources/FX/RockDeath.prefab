@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7098839952951443348}
   - component: {fileID: 7066568229175964309}
   m_Layer: 0
-  m_Name: RockImpact
+  m_Name: RockDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,7 +977,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 30
+        scalar: 15
         minScalar: 30
         maxCurve:
           serializedVersion: 2
