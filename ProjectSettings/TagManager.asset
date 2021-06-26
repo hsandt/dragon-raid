@@ -21,10 +21,10 @@ TagManager:
   - PlayerProjectile
   - PlayerMeleeHitBox
   - EnemyHurtBox
-  - EnemyProjectile
+  - EnemyProjectileIntangible
   - EnemyBodyHitBox
   - EnemyMeleeHitBox
-  - 
+  - EnemyProjectileTangible
   - 
   - PlayerCharacterMoveBox
   - EnemyMoveBox

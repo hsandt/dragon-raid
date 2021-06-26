@@ -77,9 +77,13 @@ namespace UnityConstants
         /// </summary>
         public const int Level_Dragon = 753183255;
         /// <summary>
-        /// ID of sorting layer 'Level_Fireball'.
+        /// ID of sorting layer 'Level_ThrowProjectile'.
         /// </summary>
-        public const int Level_Fireball = 93571251;
+        public const int Level_ThrowProjectile = -1254051339;
+        /// <summary>
+        /// ID of sorting layer 'Level_ShootProjectile'.
+        /// </summary>
+        public const int Level_ShootProjectile = 93571251;
         /// <summary>
         /// ID of sorting layer 'Default'.
         /// </summary>
@@ -129,9 +133,9 @@ namespace UnityConstants
         /// </summary>
         public const int EnemyHurtBox = 9;
         /// <summary>
-        /// Index of layer 'EnemyProjectile'.
+        /// Index of layer 'EnemyProjectileIntangible'.
         /// </summary>
-        public const int EnemyProjectile = 10;
+        public const int EnemyProjectileIntangible = 10;
         /// <summary>
         /// Index of layer 'EnemyBodyHitBox'.
         /// </summary>
@@ -140,6 +144,10 @@ namespace UnityConstants
         /// Index of layer 'EnemyMeleeHitBox'.
         /// </summary>
         public const int EnemyMeleeHitBox = 12;
+        /// <summary>
+        /// Index of layer 'EnemyProjectileTangible'.
+        /// </summary>
+        public const int EnemyProjectileTangible = 13;
         /// <summary>
         /// Index of layer 'PlayerCharacterMoveBox'.
         /// </summary>
@@ -198,9 +206,9 @@ namespace UnityConstants
         /// </summary>
         public const int EnemyHurtBoxMask = 1 << 9;
         /// <summary>
-        /// Bitmask of layer 'EnemyProjectile'.
+        /// Bitmask of layer 'EnemyProjectileIntangible'.
         /// </summary>
-        public const int EnemyProjectileMask = 1 << 10;
+        public const int EnemyProjectileIntangibleMask = 1 << 10;
         /// <summary>
         /// Bitmask of layer 'EnemyBodyHitBox'.
         /// </summary>
@@ -209,6 +217,10 @@ namespace UnityConstants
         /// Bitmask of layer 'EnemyMeleeHitBox'.
         /// </summary>
         public const int EnemyMeleeHitBoxMask = 1 << 12;
+        /// <summary>
+        /// Bitmask of layer 'EnemyProjectileTangible'.
+        /// </summary>
+        public const int EnemyProjectileTangibleMask = 1 << 13;
         /// <summary>
         /// Bitmask of layer 'PlayerCharacterMoveBox'.
         /// </summary>

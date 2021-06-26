@@ -625,10 +625,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 206429027}
     m_Modifications:
-    - target: {fileID: 4277205838411756291, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4277205838411756308, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
       propertyPath: m_Name
       value: Dragon
