@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Component data for enemy wave
-/// Combine with EventTrigger_SpatialProgress to trigger a timely wave
-public class EnemyWave : MonoBehaviour, IEventEffect
+/// Combine with EventTrigger_SpatialProgress and EventEffect_StartEnemyWave to trigger a timely wave
+public class EnemyWave : MonoBehaviour
 {
     [Header("Parameters")]
     
@@ -17,32 +17,39 @@ public class EnemyWave : MonoBehaviour, IEventEffect
     
     /* Dynamic external references */
 
-    /// Optional death event effect plugged to every enemy spawned from this wave
-    private IEventEffect m_OnDeathEventEffect;
+    /// Optional wave cleared event effect, triggered when all enemies spawned from this wave have died or exited
+    private IEventEffect m_OnWaveClearedEventEffect;
     
     
-    public void Trigger()
+    /* State */
+    
+    /// Tracked count of enemies spawned during current wave
+    /// When this count is decremented back to 0, the associated Event Effect is triggered.
+    private int m_TrackedEnemiesCount;
+
+    
+    public void Setup()
     {
+        m_TrackedEnemiesCount = 0;
+    }
+    
+    public void StartWave()
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(m_TrackedEnemiesCount == 0, this,
+            "[EnemyWave] StartWave is called but m_TrackedEnemiesCount is {0}, expected 0. " +
+            "Make sure to Setup every wave on Level Restart, and not Starting the same wave again before it is cleared.",
+            m_TrackedEnemiesCount);
+        #endif
+        
         foreach (var enemySpawnData in EnemySpawnDataArray)
         {
             if (enemySpawnData.enemyData)
             {
-                CharacterMaster characterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition);
-
-                if (m_OnDeathEventEffect != null)
+                EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this);
+                if (enemyCharacterMaster != null)
                 {
-                    var healthSystem = characterMaster.GetComponent<HealthSystem>();
-                    if (healthSystem != null)
-                    {
-                        healthSystem.RegisterOnDeathEventEffect(m_OnDeathEventEffect);
-                    }
-                    #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                    else
-                    {
-                        Debug.LogErrorFormat(this, "Enemy character of type '{0}' spawned from {1} has no Health System",
-                            enemySpawnData.enemyData.enemyName, this);
-                    }
-                    #endif
+                    ++m_TrackedEnemiesCount;
                 }
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -54,8 +61,27 @@ public class EnemyWave : MonoBehaviour, IEventEffect
         }
     }
     
-    public void RegisterOnDeathEventEffect(IEventEffect eventEffect)
+    public void RegisterOnWaveClearedEventEffect(IEventEffect eventEffect)
     {
-        m_OnDeathEventEffect = eventEffect;
+        m_OnWaveClearedEventEffect = eventEffect;
+    }
+
+    public void DecrementTrackedEnemiesCount()
+    {
+        if (m_TrackedEnemiesCount > 0)
+        {
+            --m_TrackedEnemiesCount;
+            
+            if (m_TrackedEnemiesCount == 0)
+            {
+                // Last enemy cleared, trigger wave cleared event effect, if any
+                m_OnWaveClearedEventEffect?.Trigger();
+            }
+        }
+        else
+        {
+            Debug.LogErrorFormat(this, "[EnemyWave] m_TrackedEnemiesCount ({0}) is not positive on {1}, cannot decrement",
+                m_TrackedEnemiesCount, this);
+        }
     }
 }

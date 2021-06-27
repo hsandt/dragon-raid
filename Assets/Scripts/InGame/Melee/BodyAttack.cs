@@ -17,11 +17,13 @@ public class BodyAttack : MonoBehaviour
     public BodyAttackAestheticParameters bodyAttackAestheticParameters;
     
     
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void Awake()
     {
         Debug.AssertFormat(bodyAttackParameters, this,
             "[BodyAttack] Body Attack Parameters not set on Body Attack component {0}", this);
     }
+    #endif
 
     private void OnTriggerStay2D(Collider2D other)
     {

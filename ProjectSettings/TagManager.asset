@@ -10,6 +10,7 @@ TagManager:
   - PlayerSpawnPosition
   - LevelIdentifier
   - SpatialEvents
+  - EnemyWaves
   layers:
   - Default
   - TransparentFX

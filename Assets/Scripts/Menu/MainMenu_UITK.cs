@@ -39,7 +39,9 @@ public class MainMenu_UITK : MonoBehaviour
         // Currently doesn't work, sent bug report
         m_ButtonStart.Focus();
         
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(levelDataList != null, this, "[MainMenu] Awake: Level Data List not set on {0}", this);
+        #endif
     }
 
     private void OnDisable()

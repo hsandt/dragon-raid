@@ -56,6 +56,10 @@ namespace UnityConstants
         /// Name of tag 'SpatialEvents'.
         /// </summary>
         public const string SpatialEvents = "SpatialEvents";
+        /// <summary>
+        /// Name of tag 'EnemyWaves'.
+        /// </summary>
+        public const string EnemyWaves = "EnemyWaves";
     }
 
     public static class SortingLayers

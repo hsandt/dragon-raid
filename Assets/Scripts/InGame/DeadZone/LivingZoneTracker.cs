@@ -8,9 +8,14 @@ using CommonsPattern;
 /// It requires some IPooledObject component for pooled release.
 public class LivingZoneTracker : ClearableBehaviour
 {
-    /* Sibling components */
-    
+    /* Sibling components (required) */
+
     private IPooledObject m_PooledObject;
+    
+    
+    /* Sibling components (optional) */
+
+    private EnemyCharacterMaster m_EnemyCharacterMaster;
     
     
     private void Awake()
@@ -21,10 +26,15 @@ public class LivingZoneTracker : ClearableBehaviour
         Debug.AssertFormat(m_PooledObject != null, this,
             "[LivingZoneTracker] No component of type IPooledObject found on {0}", gameObject);
         #endif
+        
+        m_EnemyCharacterMaster = GetComponent<EnemyCharacterMaster>();
     }
     
     public void OnExitLivingZone()
     {
-        m_PooledObject.Release();
+        if (m_EnemyCharacterMaster != null)
+        {
+            m_EnemyCharacterMaster.OnDeathOrExit();
+        }
     }
 }

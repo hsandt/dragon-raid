@@ -52,19 +52,20 @@ public class InGameManager : SingletonManager<InGameManager>
     protected override void Init()
     {
         base.Init();
-        
-        Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
-        Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
 
         // Find player character spawn position
         m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+
+        m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
+        Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
         Debug.AssertFormat(m_PlayerSpawnTransform != null, this,
             "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
-
-        m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()
-            ?.levelData;
         Debug.AssertFormat(m_LevelData != null, this,
             "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data");
+        #endif
     }
     
     private void Start()
@@ -79,6 +80,7 @@ public class InGameManager : SingletonManager<InGameManager>
 
         ScrollingManager.Instance.Setup();
         SpatialEventManager.Instance.Setup();
+        EnemyWaveManager.Instance.Setup();
         
         if (m_LevelData != null)
         {
@@ -160,11 +162,15 @@ public class InGameManager : SingletonManager<InGameManager>
                 if (nextLevelData != null)
                 {
                     int nextLevelSceneBuildIndex = (int)nextLevelData.sceneEnum;
+                    
+                    #if UNITY_EDITOR || DEVELOPMENT_BUILD
                     Debug.AssertFormat(nextLevelSceneBuildIndex == nextLevelIndex + 1, nextLevelData,
                         "[InGameManager] FinishLevel: next level scene build index ({0}) is not next level index + 1 ({1}), " +
                         "where offset 1 represents the Title scene. Did you add another non-level scene before " +
                         "the level scenes, causing ScenesEnum to offset all level scene build indices?",
                         nextLevelSceneBuildIndex, nextLevelIndex + 1);
+                    #endif
+                    
                     SceneManager.LoadScene(nextLevelSceneBuildIndex);
                 }
                 else

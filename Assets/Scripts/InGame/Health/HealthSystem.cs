@@ -32,11 +32,16 @@ public class HealthSystem : ClearableBehaviour
     private IEventEffect m_OnDeathEventEffect;
 
     
-    /* Sibling components */
+    /* Sibling components (required) */
 
     private IPooledObject m_PooledObject;
     private Health m_Health;
     private Brighten m_Brighten;
+    
+    
+    /* Sibling components (optional) */
+
+    private EnemyCharacterMaster m_EnemyCharacterMaster;
 
     
     /* Custom components */
@@ -52,6 +57,7 @@ public class HealthSystem : ClearableBehaviour
     {
         // Currently, all objects with a Health system are released via pooling
         m_PooledObject = GetComponent<IPooledObject>();
+        
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, this,
             "[HealthSystem] No component of type IPooledObject found on {0}", gameObject);
@@ -61,7 +67,8 @@ public class HealthSystem : ClearableBehaviour
         m_Health.maxValue = healthParameters.maxHealth;
         
         m_Brighten = this.GetComponentOrFail<Brighten>();
-        Debug.AssertFormat(healthAestheticParameters, this, "No Health Aesthetic Parameters found on {0}", this);
+
+        m_EnemyCharacterMaster = GetComponent<EnemyCharacterMaster>();
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
         
@@ -163,6 +170,11 @@ public class HealthSystem : ClearableBehaviour
     private void Die()
     {
         m_PooledObject.Release();
+        
+        if (m_EnemyCharacterMaster)
+        {
+            m_EnemyCharacterMaster.OnDeathOrExit();
+        }
         
         if (healthAestheticParameters != null)
         {

@@ -6,7 +6,7 @@ using UnityConstants;
 using CommonsPattern;
 
 /// Pool manager for all enemy characters
-public class EnemyPoolManager : MultiPoolManager<CharacterMaster, EnemyPoolManager>
+public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPoolManager>
 {
     protected override void Init()
     {
@@ -19,14 +19,15 @@ public class EnemyPoolManager : MultiPoolManager<CharacterMaster, EnemyPoolManag
     }
 
     /// Spawn character at position
-    public CharacterMaster SpawnCharacter(string enemyName, Vector2 position)
+    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave)
     {
-        CharacterMaster character = GetObject(enemyName);
+        EnemyCharacterMaster enemyCharacter = GetObject(enemyName);
         
-        if (character != null)
+        if (enemyCharacter != null)
         {
-            character.Spawn(position);
-            return character;
+            enemyCharacter.Spawn(position);
+            enemyCharacter.SetEnemyWave(enemyWave);
+            return enemyCharacter;
         }
         
         // pool starvation (error is already logged inside GetObject)

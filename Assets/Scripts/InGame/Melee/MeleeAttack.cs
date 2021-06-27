@@ -73,11 +73,12 @@ public class MeleeAttack : ClearableBehaviour
     
     private void Awake()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(meleeHitBox, this,
             "[MeleeAttack] Melee Hit Box not set on Melee Attack component {0}", this);
-        
         Debug.AssertFormat(bodyAttackParameters, this,
             "[MeleeAttack] Melee Attack Parameters not set on Melee Attack component {0}", this);
+        #endif
         
         m_Animator = this.GetComponentOrFail<Animator>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();

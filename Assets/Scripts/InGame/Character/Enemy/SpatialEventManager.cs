@@ -8,20 +8,20 @@ using CommonsPattern;
 using UnityConstants;
 
 /// Spatial Event Manager
-/// System for Spatial Event Trigger x Enemy Wave/Event Finish Level
+/// System for Spatial Event Trigger x Event Effect
 public class SpatialEventManager : SingletonManager<SpatialEventManager>
 {
     /* Cached scene references */
     
     /// List of pairs (spatial event trigger, event effect) found in the scene
-    /// This includes all enemy wave events.
+    /// This includes all enemy wave spatial events.
     private readonly List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_AllSpatialEventPairs = new List<Pair<EventTrigger_SpatialProgress, IEventEffect>>();
 
     
     /* State */
 
     /// List of pairs (spatial event trigger, event effect) found in the scene
-    /// and not triggered yet. This includes remaining enemy wave events.
+    /// and still unprocessed (not triggered yet). This includes remaining enemy wave spatial events.
     private List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_RemainingSpatialEventPairs;
 
     
@@ -55,7 +55,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
     /// Setup is managed by InGameManager, so not called on Start
     public void Setup()
     {
-        // Reset all enemy waves
+        // Reset list of unprocessed event pairs
         m_RemainingSpatialEventPairs = m_AllSpatialEventPairs.ToList();
     }
 
@@ -66,8 +66,9 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         
         // Do a reverse iteration so we can remove event pairs by index safely
         
-        // OPTIMIZATION: when we have many events (esp. waves), this will start getting slow
-        // in this case, it's better to enforce convention on level design that all event objects
+        // OPTIMIZATION: when we have many events (esp. waves), this will be slow at the beginning
+        // where we have not removed many event pairs.
+        // In this case, it's better to enforce convention on level design that all event objects
         // are ordered chronologically, so we can only check the next one i.e. the first in the
         // remaining list
         for (int i = m_RemainingSpatialEventPairs.Count - 1; i >= 0; i--)

@@ -31,8 +31,10 @@ public class MainMenu : MonoBehaviour
         buttonStart.onClick.AddListener(StartGame);
         buttonOptions.onClick.AddListener(ShowOptions);
         buttonExit.onClick.AddListener(ExitGame);
-        
+
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(levelDataList != null, this, "[MainMenu] Awake: Level Data List not set on {0}", this);
+        #endif
     }
 
     private void OnDestroy()
