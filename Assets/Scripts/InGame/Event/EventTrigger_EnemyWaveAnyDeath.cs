@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Event Trigger: Enemy Death
+/// Event Trigger: Enemy Wave Any Death
 /// Combine with an Event Effect
-[AddComponentMenu("Game/Event Trigger: Enemy Death")]
-public class EventTrigger_EnemyDeath : MonoBehaviour
+[AddComponentMenu("Game/Event Trigger: Enemy Wave Any Death")]
+public class EventTrigger_EnemyWaveAnyDeath : MonoBehaviour
 {
     [Header("Parameters")]
     

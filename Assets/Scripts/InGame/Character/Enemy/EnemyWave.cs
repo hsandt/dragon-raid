@@ -28,18 +28,22 @@ public class EnemyWave : MonoBehaviour, IEventEffect
             if (enemySpawnData.enemyData)
             {
                 CharacterMaster characterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition);
-                var healthSystem = characterMaster.GetComponent<HealthSystem>();
-                if (healthSystem != null)
+
+                if (m_OnDeathEventEffect != null)
                 {
-                    healthSystem.RegisterOnDeathEventEffect(m_OnDeathEventEffect);
+                    var healthSystem = characterMaster.GetComponent<HealthSystem>();
+                    if (healthSystem != null)
+                    {
+                        healthSystem.RegisterOnDeathEventEffect(m_OnDeathEventEffect);
+                    }
+                    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                    else
+                    {
+                        Debug.LogErrorFormat(this, "Enemy character of type '{0}' spawned from {1} has no Health System",
+                            enemySpawnData.enemyData.enemyName, this);
+                    }
+                    #endif
                 }
-                #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                else
-                {
-                    Debug.LogErrorFormat(this, "Enemy character of type '{0}' spawned from {1} has no Health System",
-                        enemySpawnData.enemyData.enemyName, this);
-                }
-                #endif
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else

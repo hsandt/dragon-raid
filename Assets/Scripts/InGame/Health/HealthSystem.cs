@@ -78,6 +78,11 @@ public class HealthSystem : ClearableBehaviour
         m_InvincibilityTimer.Stop();
     }
 
+    public override void Clear()
+    {
+        m_OnDeathEventEffect = null;
+    }
+
     private void FixedUpdate()
     {
         m_InvincibilityTimer.CountDown(Time.deltaTime);
