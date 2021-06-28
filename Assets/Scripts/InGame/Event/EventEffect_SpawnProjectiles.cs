@@ -13,7 +13,8 @@ public class EventEffect_SpawnProjectiles : MonoBehaviour, IEventEffect
     {
         foreach (ProjectileSpawnSerializedParameters spawnSerializedParameter in spawnSerializedParameters)
         {
-            SpawnProjectile(spawnSerializedParameter.projectilePrefab.name, spawnSerializedParameter.position, spawnSerializedParameter.velocity);
+            Vector2 spawnPosition = (Vector2) transform.position + spawnSerializedParameter.relativePosition;
+            SpawnProjectile(spawnSerializedParameter.projectilePrefab.name, spawnPosition, spawnSerializedParameter.velocity);
         }
 
     }
