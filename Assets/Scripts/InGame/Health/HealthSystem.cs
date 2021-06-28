@@ -29,6 +29,8 @@ public class HealthSystem : ClearableBehaviour
     private readonly List<GaugeHealth> m_GaugeHealthList = new List<GaugeHealth>();
     
     /// Optional death event effect
+    /// A given type of entity always has the same death event effect, set once on EventTrigger_EntityDeath.Awake,
+    /// this is not reset on Clear so it can still be valid after despawn and respawn.
     private IEventEffect m_OnDeathEventEffect;
 
     
@@ -44,7 +46,7 @@ public class HealthSystem : ClearableBehaviour
     private EnemyCharacterMaster m_EnemyCharacterMaster;
 
     
-    /* Custom components */
+    /* State */
     
     /// Timer counting down toward end of invincibility
     private Timer m_InvincibilityTimer;
@@ -83,11 +85,6 @@ public class HealthSystem : ClearableBehaviour
         // no need to setup m_Brighten, it is another slave managed by Character Master
         
         m_InvincibilityTimer.Stop();
-    }
-
-    public override void Clear()
-    {
-        m_OnDeathEventEffect = null;
     }
 
     private void FixedUpdate()
