@@ -6,7 +6,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// System for Rigidbody2D on projectiles: handles pooling and impact
-public class Projectile : MonoBehaviour, IPooledObject
+public class Projectile : MasterBehaviour, IPooledObject
 {
     /* Parameters data */
     
@@ -20,9 +20,12 @@ public class Projectile : MonoBehaviour, IPooledObject
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
+
     
-    private void Awake()
+    protected override void Init()
     {
+        base.Init();
+        
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(projectileAestheticParameters, this,
             "[Projectile] Projectile Aesthetic Parameters not set on projectile {0}", this);
@@ -31,24 +34,7 @@ public class Projectile : MonoBehaviour, IPooledObject
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
     }
 
-    
-    /* IPooledObject interface */
-    
-    public void InitPooled()
-    {
-    }
 
-    public bool IsInUse()
-    {
-        return gameObject.activeSelf;
-    }
-
-    public void Release()
-    {
-        gameObject.SetActive(false);
-    }
-    
-    
     /* Collision methods */
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -73,6 +59,7 @@ public class Projectile : MonoBehaviour, IPooledObject
     {
         // Set active first, or rigidbody setup will be ignored
         gameObject.SetActive(true);
+        Setup();
 
         // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
         // due to pixel perfect camera, use this code to synchronize the sub-pixel at which they are spawned base on
@@ -126,5 +113,23 @@ public class Projectile : MonoBehaviour, IPooledObject
                 }
             }
         }
+    }
+    
+    
+    /* IPooledObject interface */
+    
+    public void InitPooled()
+    {
+    }
+
+    public bool IsInUse()
+    {
+        return gameObject.activeSelf;
+    }
+
+    public void Release()
+    {
+        Clear();
+        gameObject.SetActive(false);
     }
 }

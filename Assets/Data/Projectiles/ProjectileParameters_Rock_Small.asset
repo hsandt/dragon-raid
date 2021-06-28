@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14394f4960c4c1fb7795680109dbfd0, type: 3}
-  m_Name: HealthParameters_Rock
+  m_Script: {fileID: 11500000, guid: ff95a7af78884d07a8810087841cf5c7, type: 3}
+  m_Name: ProjectileParameters_Rock_Small
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  damage: 1

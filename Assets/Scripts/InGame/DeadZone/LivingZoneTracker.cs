@@ -18,6 +18,17 @@ public class LivingZoneTracker : ClearableBehaviour
     private EnemyCharacterMaster m_EnemyCharacterMaster;
     
     
+    /* State */
+
+    /// Flag meant to track whether entity has been Setup but not Cleared
+    /// so we don't process exiting Living Zone during non-ingame-related exit
+    /// such as Restart Releasing => deactivating the pooled object
+    private bool m_IsAlive;
+
+    /// Getter for m_IsAlive
+    public bool IsAlive => m_IsAlive;
+    
+    
     private void Awake()
     {
         // Currently, all objects tracking living zone are released via pooling
@@ -29,12 +40,25 @@ public class LivingZoneTracker : ClearableBehaviour
         
         m_EnemyCharacterMaster = GetComponent<EnemyCharacterMaster>();
     }
-    
+
+    public override void Setup()
+    {
+        m_IsAlive = true;
+    }
+
+    public override void Clear()
+    {
+        m_IsAlive = false;
+    }
+
     public void OnExitLivingZone()
     {
         if (m_EnemyCharacterMaster != null)
         {
             m_EnemyCharacterMaster.OnDeathOrExit();
         }
+
+        // Always Release after other signals as those may need members cleared in Release
+        m_PooledObject.Release();
     }
 }

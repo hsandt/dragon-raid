@@ -169,8 +169,6 @@ public class HealthSystem : ClearableBehaviour
 
     private void Die()
     {
-        m_PooledObject.Release();
-        
         if (m_EnemyCharacterMaster)
         {
             m_EnemyCharacterMaster.OnDeathOrExit();
@@ -194,6 +192,9 @@ public class HealthSystem : ClearableBehaviour
         }
 
         m_OnDeathEventEffect?.Trigger();
+                
+        // Always Release after other signals as those may need members cleared in Release
+        m_PooledObject.Release();
     }
     
     

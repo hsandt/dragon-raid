@@ -11,14 +11,15 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     /* Sibling components */
     
     private Rigidbody2D m_Rigidbody2D;
-    
-    private void Awake()
-    {
-        m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
 
-        AddSiblingSlaveBehaviours();
-    }
     
+    protected override void Init()
+    {
+        base.Init();
+        
+        m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
+    }
+
     // Do not define a Start method to call Setup, as Setup is managed
     // Instead, each Character PoolManager will Spawn an instance of Character,
     // and Spawn will call Setup.
@@ -34,26 +35,7 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
         m_Rigidbody2D.position = position;
     }
 
-    protected virtual void AddSiblingSlaveBehaviours()
-    {
-        // All the slave behaviours are ClearableBehaviour, so for easy extensibility
-        // just register them all. Still keep this method virtual in case Player/Enemy character
-        // may also restart specific, non-clearable behaviours (i.e. Unity native behaviour components)
-        var clearableBehaviours = GetComponents<ClearableBehaviour>();
-        foreach (var clearableBehaviour in clearableBehaviours)
-        {
-            // to avoid infinite recursion on Setup/Clear, do not register te Master script itself as its own Slave!
-            if (clearableBehaviour != this)
-            {
-                slaveBehaviours.Add(clearableBehaviour);
-            }
-        }
 
-        // Not all characters have animators, so don't fail if you don't find one 
-        slaveAnimator = GetComponent<Animator>();
-    }
-    
-    
     /* IPooledObject interface */
     
     public void InitPooled()

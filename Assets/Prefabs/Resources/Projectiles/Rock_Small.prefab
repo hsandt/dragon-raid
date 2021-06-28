@@ -14,11 +14,8 @@ GameObject:
   - component: {fileID: 5044091037476376186}
   - component: {fileID: 5044091037476376165}
   - component: {fileID: 3545011676405438348}
-  - component: {fileID: 1333226154613760418}
-  - component: {fileID: 8939769933501316981}
-  - component: {fileID: 1111891221402768402}
   m_Layer: 13
-  m_Name: Rock
+  m_Name: Rock_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,9 +30,8 @@ Transform:
   m_GameObject: {fileID: 5044091037476376184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.4375, y: -0.375, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2653151614095856644}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,104 +153,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1333226154613760418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5044091037476376184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8939769933501316981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5044091037476376184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f61475183c40dfdb5e2079117d986e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxValue: 0
-  value: 0
---- !u!114 &1111891221402768402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5044091037476376184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd7b5af6729b7fafb79625c6a565103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthParameters: {fileID: 11400000, guid: 71f4cb91b331f03c8b724255f761ef73, type: 2}
-  healthAestheticParameters: {fileID: 11400000, guid: bded07f2e4b022a8bae5e64f4fc2cf55, type: 2}
---- !u!1 &8537443862499666000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2653151614095856644}
-  - component: {fileID: 8052673596206000461}
-  - component: {fileID: 7100346564377881671}
-  m_Layer: 13
-  m_Name: 'Event: Death -> Spawn sub-projectiles'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2653151614095856644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8537443862499666000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5044091037476376185}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8052673596206000461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8537443862499666000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a9fba001a0caabeaeacca8ef00a13a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthSystem: {fileID: 1111891221402768402}
---- !u!114 &7100346564377881671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8537443862499666000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d99d6b106c4fea0a6ef730d98bec14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnSerializedParameters:
-  - projectilePrefab: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
-    position: {x: 1, y: 0}
-    velocity: {x: 0, y: 10}

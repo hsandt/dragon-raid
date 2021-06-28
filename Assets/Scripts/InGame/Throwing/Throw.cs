@@ -27,12 +27,6 @@ public class Throw : ClearableBehaviour
     public Transform throwAnchor;
     
     
-    [Header("Parameters")]
-
-    [SerializeField, Tooltip("Projectile name (must match resource prefab)")]
-    private string projectileName = "Rock";
-    
-    
     /* Sibling components */
     
     private Animator m_Animator;
@@ -86,7 +80,7 @@ public class Throw : ClearableBehaviour
     public void ThrowEvent_SpawnProjectile()
     {
         Vector2 projectileVelocity = throwParameters.projectileSpeed * m_ThrowIntention.throwDirection.normalized;
-        ProjectilePoolManager.Instance.SpawnProjectile(projectileName, throwAnchor.position, projectileVelocity);
+        ProjectilePoolManager.Instance.SpawnProjectile(throwParameters.projectilePrefab.name, throwAnchor.position, projectileVelocity);
         
         if (throwAestheticParameters != null && throwAestheticParameters.sfxSpawnProjectile != null)
         {

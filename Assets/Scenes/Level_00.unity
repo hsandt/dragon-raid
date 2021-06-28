@@ -207,7 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyWave: {fileID: 0}
 --- !u!20 &21554913 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6454345698474969142, guid: ac56944e930ccf4a9bd9f35181e43ff9, type: 3}
@@ -301,7 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyWave: {fileID: 0}
 --- !u!1001 &101493252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -372,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5044091037476376185, guid: 5b16b6e5246b1d7998bbc0113d5c9599, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5044091037476376185, guid: 5b16b6e5246b1d7998bbc0113d5c9599, type: 3}
       propertyPath: m_LocalPosition.x
@@ -560,6 +558,7 @@ Transform:
   - {fileID: 604867680}
   - {fileID: 1173591733}
   - {fileID: 304539424}
+  - {fileID: 440260613}
   - {fileID: 125838369}
   - {fileID: 1571648437}
   - {fileID: 6641420461427119674}
@@ -772,6 +771,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5044091037476376185, guid: 6e14d25e3309625eabc7490493ea9f2c, type: 3}
   m_PrefabInstance: {fileID: 1541069317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &440260613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+  m_PrefabInstance: {fileID: 740506888}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &494664101
 PrefabInstance:
@@ -1385,6 +1389,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &740506888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 206429027}
+    m_Modifications:
+    - target: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_Name
+      value: Rock_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5044091037476376185, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
 --- !u!1001 &792076326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2728,7 +2789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyWave: {fileID: 0}
 --- !u!1 &1465094003
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,7 +2862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyWave: {fileID: 0}
 --- !u!4 &1498889354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7569072719914858643, guid: 088730d855a644240891ac75b436b582, type: 3}
@@ -2957,7 +3016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7098839952951443351, guid: c36594ba9a3dcac00b358878dbef63ad, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7098839952951443351, guid: c36594ba9a3dcac00b358878dbef63ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3537,7 +3596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyWave: {fileID: 0}
 --- !u!4 &1750655645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5670837722112259416, guid: 64f4af4689a931fea8a578138204e4fe, type: 3}
@@ -4436,7 +4494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6798434535682222739, guid: 9bd6f32ea73a1d3cca1d17d027778275, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6798434535682222739, guid: 9bd6f32ea73a1d3cca1d17d027778275, type: 3}
       propertyPath: m_LocalPosition.x

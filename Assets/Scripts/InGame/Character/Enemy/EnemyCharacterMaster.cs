@@ -13,6 +13,14 @@ public class EnemyCharacterMaster : CharacterMaster
     /// Enemy wave that spawned this enemy
     private EnemyWave m_EnemyWave;
 
+
+    public override void Clear()
+    {
+        base.Clear();
+
+        m_EnemyWave = null;
+    }
+
     public void SetEnemyWave(EnemyWave enemyWave)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -20,7 +28,7 @@ public class EnemyCharacterMaster : CharacterMaster
             "it will be replaced with {2}. Make sure to clear reference on Clear.", this, m_EnemyWave, enemyWave);
         #endif
         
-        m_EnemyWave = enemyWave;
+         m_EnemyWave = enemyWave;
     }
 
     /// Notify Enemy Wave of death of living zone exit
@@ -29,6 +37,15 @@ public class EnemyCharacterMaster : CharacterMaster
     /// if we are restarting the level with some IsRestarting flag
     public void OnDeathOrExit()
     {
-        m_EnemyWave.DecrementTrackedEnemiesCount();
+        if (m_EnemyWave)
+        {
+            m_EnemyWave.DecrementTrackedEnemiesCount();
+        }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat(this, "[EnemyCharacterMaster] m_EnemyWave is null on {0}, cannot DecrementTrackedEnemiesCount.", this);
+        }
+        #endif
     }
 }

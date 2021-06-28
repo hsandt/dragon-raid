@@ -27,6 +27,13 @@ public class LivingZone : MonoBehaviour
         // ! on GetComponentOrFail, by disabling collision between MoveBox and LivingZone entirely (all entities must then define
         // ! a child on LivingZoneTracker)
         var tracker = other.GetComponentOrFail<LivingZoneTracker>();
-        tracker.OnExitLivingZone();
+        
+        // Process exiting live zone, but only if the entity is still alive (not in the process of being
+        // released/deactivated as during Restart). Make sure to add a MasterBehaviour script to entities with
+        // a LivingZoneTracker so it can Setup/Clear them appropriately so IsAlive is up-to-date. 
+        if (tracker.IsAlive)
+        {
+            tracker.OnExitLivingZone();
+        }
     }
 }

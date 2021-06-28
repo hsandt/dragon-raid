@@ -8,6 +8,11 @@ public class ThrowParameters : ScriptableObject
 {
     [Header("Action")]
     
+    [Header("Parameters")]
+
+    [Tooltip("Projectile prefab (must be in Resources/{ProjectilePoolManager.Instance.resourcePrefabsPath})")]
+    public GameObject projectilePrefab;
+    
     [Tooltip("Projectile speed (m/s)")]
     public float projectileSpeed = 6f;
 
