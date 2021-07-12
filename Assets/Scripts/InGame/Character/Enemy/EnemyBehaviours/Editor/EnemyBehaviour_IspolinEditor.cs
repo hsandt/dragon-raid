@@ -8,6 +8,8 @@ using CommonsHelper;
 [CustomEditor(typeof(EnemyBehaviour_Ispolin))]
 public class EnemyBehaviour_IspolinEditor : Editor
 {
+    static Editor previousEditor;
+    
     public void OnSceneGUI()
     {
         var script = (EnemyBehaviour_Ispolin) target;
@@ -31,18 +33,15 @@ public class EnemyBehaviour_IspolinEditor : Editor
                     
                     if (check.changed)
                     {
-                        // Known issue: Undo works, but file is not saved, even if you Ctrl+S
-                        // It probably needs a AssetDatabase.SaveAssets() but at the same time, you don't really want to force
-                        // saving until you're done, let alone every frame while dragging the Handle. I need to find a way
-                        // to just mark the asset as dirty.
+                        // Scriptable Object is on a different object, so we need to mark it as dirty manually
+                        EditorUtility.SetDirty(throwParameters);
                         Undo.RecordObject(throwParameters, "Changed Throw Parameters (maxDetectionUpwardAngle)");
                         throwParameters.maxDetectionUpwardAngle = Vector3.Angle(Vector3.left, detectionUpwardAngleHandlePos - detectionOrigin);
                         
-                        // HACK: create Throw custom inspector (we'd rather get the existing one, but not sure how to) and force Repaint so
-                        // the Parameters quick view is refreshed
-                        // Consider showing this on EnemyBehaviour script instead
-                        Editor editor = CreateEditor(throwComponent);
-                        editor.Repaint();
+                        // EditScriptableAttribute does not provide auto-refresh on inlined scriptable object,
+                        // so manually refresh on Handles mode
+                        CreateCachedEditor(throwComponent, null, ref previousEditor);
+                        previousEditor.Repaint();
                     }
                 }
             }

@@ -16,7 +16,6 @@ public class EventEffect_SpawnProjectiles : MonoBehaviour, IEventEffect
             Vector2 spawnPosition = (Vector2) transform.position + spawnSerializedParameter.relativePosition;
             SpawnProjectile(spawnSerializedParameter.projectilePrefab.name, spawnPosition, spawnSerializedParameter.velocity);
         }
-
     }
 
     private void SpawnProjectile(string projectileName, Vector2 position, Vector2 velocity)
