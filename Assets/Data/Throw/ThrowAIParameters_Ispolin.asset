@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d9fac3af32a14469fced8a5d77dfbf, type: 3}
-  m_Name: ThrowParameters_Ispolin
+  m_Script: {fileID: 11500000, guid: 9568f61f74f614b21ad1e3896ec397c9, type: 3}
+  m_Name: ThrowAIParameters_Ispolin
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 5044091037476376184, guid: 5b16b6e5246b1d7998bbc0113d5c9599, type: 3}
-  projectileSpeed: 9
+  maxDetectionUpwardAngle: 54.3884
+  minDetectionDistanceX: 2
+  maxDetectionDistance: 12

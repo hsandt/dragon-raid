@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityExtensions;
 
 using CommonsHelper;
 using CommonsPattern;
@@ -12,6 +13,10 @@ using CommonsPattern;
 [AddComponentMenu("Game/Enemy Behaviour: Ispolin")]
 public class EnemyBehaviour_Ispolin : ClearableBehaviour
 {
+    [Tooltip("Throw AI Parameters Data")]
+    [InspectInline(canEditRemoteTarget = true)]
+    public ThrowAIParameters throwAIParameters;
+    
     [Header("Child references")]
     
     [Tooltip("Position from which we cast the detection upper cone to find Throw target. Should be at eye level.")]
@@ -40,6 +45,10 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         
     private void Awake()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(throwAIParameters, this, "[BodyAttack] Throw AI Parameters not set on Enemy Behaviour: Ispolin component {0}", this);
+        #endif
+        
         m_MeleeAttack = this.GetComponentOrFail<MeleeAttack>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
         m_Throw = this.GetComponentOrFail<Throw>();
@@ -117,7 +126,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         Vector2 toTarget = targetPosition - (Vector2) throwDetectionOrigin.position;
 
         // we are only checking for target on the left, far enough, so we expect negative distance on X
-        if (toTarget.x > - m_Throw.throwParameters.minDetectionDistanceX)
+        if (toTarget.x > - throwAIParameters.minDetectionDistanceX)
         {
             // target is behind, or on front but too close on X
             return false;
@@ -133,14 +142,14 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
             // target is above eye level, detect target up to 45 degrees upward
             // we assume Ispolin is always facing left
             float toTargetAngle = Vector2.Angle(Vector2.left, targetPosition);
-            if (toTargetAngle <= m_Throw.throwParameters.maxDetectionUpwardAngle)
+            if (toTargetAngle <= throwAIParameters.maxDetectionUpwardAngle)
             {
                 canDetectTargetY = true;
             }
         }
 
         // if Y can be detected, also check (sqr) distance to target
-        return canDetectTargetY && toTarget.sqrMagnitude <= m_Throw.throwParameters.maxDetectionDistance * m_Throw.throwParameters.maxDetectionDistance;
+        return canDetectTargetY && toTarget.sqrMagnitude <= throwAIParameters.maxDetectionDistance * throwAIParameters.maxDetectionDistance;
     }
 
     /// Ballistic method that calculates the direction required to hit a target at a given position,
@@ -167,7 +176,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         }
         
         /*
-        bool result = PhysicsPrediction.CalculateFiringSolution(m_Throw.throwAnchor.position, targetPosition, m_Throw.throwParameters.projectileSpeed, Physics2D.gravity, out Vector2 aimDirection);
+        bool result = PhysicsPrediction.CalculateFiringSolution(m_Throw.throwAnchor.position, targetPosition, throwAIParameters.projectileSpeed, Physics2D.gravity, out Vector2 aimDirection);
         if (result)
         {
             return aimDirection;

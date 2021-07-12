@@ -4426,10 +4426,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 206429027}
     m_Modifications:
-    - target: {fileID: 176753677301722687, guid: 9bd6f32ea73a1d3cca1d17d027778275, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6798434535682222738, guid: 9bd6f32ea73a1d3cca1d17d027778275, type: 3}
       propertyPath: m_Name
       value: Ispolin

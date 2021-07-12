@@ -517,6 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7872f9319f44d9daba6449b1cd51b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
   slaveParticles: []
@@ -642,7 +643,6 @@ MonoBehaviour:
   throwParameters: {fileID: 11400000, guid: b03159d4ec2c2f7f38d791896a2af19a, type: 2}
   throwAestheticParameters: {fileID: 11400000, guid: 466cb71698df1d337a456d0b4c9e64ba, type: 2}
   throwAnchor: {fileID: 1473371648314415534}
-  projectileName: Rock
 --- !u!114 &672584464920907064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4d6ec10f1b767c3a5a22bf55e4684c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwAIParameters: {fileID: 11400000, guid: 52859f916133b340b8fedb27a8cbbb65, type: 2}
   throwDetectionOrigin: {fileID: 6709425276297412611}
 --- !u!1 &7470113669232763144
 GameObject:

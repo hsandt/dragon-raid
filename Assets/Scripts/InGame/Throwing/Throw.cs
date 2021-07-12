@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityExtensions;
 
 using CommonsHelper;
 using CommonsPattern;
@@ -16,7 +15,6 @@ public class Throw : ClearableBehaviour
     [Header("Parameters data")]
     
     [Tooltip("Throw Parameters Data")]
-    [InspectInline(canEditRemoteTarget = true)]
     public ThrowParameters throwParameters;
 
     [Tooltip("Throw Aesthetic parameters Data")]
@@ -47,6 +45,10 @@ public class Throw : ClearableBehaviour
     
     private void Awake()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(throwParameters, this, "[BodyAttack] Throw Parameters not set on Throw component {0}", this);
+        #endif
+        
         m_Animator = this.GetComponentOrFail<Animator>();
         m_ThrowIntention = this.GetComponentOrFail<ThrowIntention>();
     }
