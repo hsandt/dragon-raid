@@ -268,6 +268,13 @@
         "com.unity.render-pipelines.core": "11.0.0"
       }
     },
+    "garettbass.unity-extensions.inspect-in-line": {
+      "version": "https://github.com/d4160/UnityExtensions.InspectInline.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "46092085da0b1ae1bf6493f7cf321aa5e58120f5"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
