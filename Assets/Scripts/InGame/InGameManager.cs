@@ -122,6 +122,11 @@ public class InGameManager : SingletonManager<InGameManager>
         
         // Clean up all projectiles
         ProjectilePoolManager.Instance.ReleaseAllObjects();
+        
+        // Clean up all FX
+        FXPoolManager.Instance.ReleaseAllObjects();
+        
+        // Note: we're now restarting Music nor stopping all SFX
     }
 
     public void RestartLevel()
