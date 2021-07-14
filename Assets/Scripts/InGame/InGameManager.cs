@@ -150,45 +150,59 @@ public class InGameManager : SingletonManager<InGameManager>
             // Finish Level sequence.
             ScrollingManager.Instance.enabled = false;
 
-            // If InGameManager is flagged DontDestroyOnLoad, it will be kept in next level (if any),
-            // and it wil lbe cleaner to clean the cached scene references first.
-            // But we'll also need to set those again after loading the new scene.
-            // Make sure to store current level index first.
-            int currentLevelIndex = m_LevelData.levelIndex;
-            m_PlayerSpawnTransform = null;
-            m_LevelData = null;
+            StartCoroutine(FinishLevelAsync());
+        }
+    }
+    
+    private IEnumerator FinishLevelAsync()
+    {
+        // Put the Finish Level sequence here
+        yield return null;
+        
+        // If InGameManager is flagged DontDestroyOnLoad, it will be kept in next level (if any),
+        // and it will be cleaner to clean the cached scene references first.
+        // But we'll also need to set those again after loading the new scene.
+        // Make sure to store current level index first.
+        int currentLevelIndex = m_LevelData.levelIndex;
+        m_PlayerSpawnTransform = null;
+        m_LevelData = null;
+        
+        LoadNextLevelOrGoBackToTitle(currentLevelIndex);
+    }
 
-            // first, do a brutal sync load
-            if (currentLevelIndex < levelDataList.levelDataArray.Length - 1)
+    private void LoadNextLevelOrGoBackToTitle(int currentLevelIndex)
+    {
+        // first, do a brutal sync load
+        if (currentLevelIndex < levelDataList.levelDataArray.Length - 1)
+        {
+            // we are not in the last level yet, proceed to next level
+            int nextLevelIndex = currentLevelIndex + 1;
+            LevelData nextLevelData = levelDataList.levelDataArray[nextLevelIndex];
+            if (nextLevelData != null)
             {
-                // we are not in the last level yet, proceed to next level
-                int nextLevelIndex = currentLevelIndex + 1;
-                LevelData nextLevelData = levelDataList.levelDataArray[nextLevelIndex];
-                if (nextLevelData != null)
-                {
-                    int nextLevelSceneBuildIndex = (int)nextLevelData.sceneEnum;
-                    
-                    #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                    Debug.AssertFormat(nextLevelSceneBuildIndex == nextLevelIndex + 1, nextLevelData,
-                        "[InGameManager] FinishLevel: next level scene build index ({0}) is not next level index + 1 ({1}), " +
-                        "where offset 1 represents the Title scene. Did you add another non-level scene before " +
-                        "the level scenes, causing ScenesEnum to offset all level scene build indices?",
-                        nextLevelSceneBuildIndex, nextLevelIndex + 1);
-                    #endif
-                    
-                    SceneManager.LoadScene(nextLevelSceneBuildIndex);
-                }
-                else
-                {
-                    Debug.LogErrorFormat(levelDataList, "[InGameManager] FinishLevel: missing level data for " +
-                        "next level at index {0} in levelDataList. Falling back to Title scene.", nextLevelIndex);
-                    SceneManager.LoadScene((int)ScenesEnum.Title);
-                }
+                int nextLevelSceneBuildIndex = (int) nextLevelData.sceneEnum;
+
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.AssertFormat(nextLevelSceneBuildIndex == nextLevelIndex + 1, nextLevelData,
+                    "[InGameManager] FinishLevel: next level scene build index ({0}) is not next level index + 1 ({1}), " +
+                    "where offset 1 represents the Title scene. Did you add another non-level scene before " +
+                    "the level scenes, causing ScenesEnum to offset all level scene build indices?",
+                    nextLevelSceneBuildIndex, nextLevelIndex + 1);
+                #endif
+
+                SceneManager.LoadScene(nextLevelSceneBuildIndex);
             }
             else
             {
-                SceneManager.LoadScene((int)ScenesEnum.Title);
+                Debug.LogErrorFormat(levelDataList, "[InGameManager] FinishLevel: missing level data for " +
+                                                    "next level at index {0} in levelDataList. Falling back to Title scene.",
+                    nextLevelIndex);
+                SceneManager.LoadScene((int) ScenesEnum.Title);
             }
+        }
+        else
+        {
+            SceneManager.LoadScene((int) ScenesEnum.Title);
         }
     }
 }
