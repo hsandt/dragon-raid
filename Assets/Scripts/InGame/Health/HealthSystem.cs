@@ -107,15 +107,21 @@ public class HealthSystem : ClearableBehaviour
     /// via the Try...Damage methods
     private void Damage(int value)
     {
-        m_Health.value -= value;
-        
-        if (m_Health.value <= 0)
+        // Only damage if character is not already dead i.e. HP are not already at 0
+        // This will prevent unwanted redundant calls to Die causing weird things like Clear-ing
+        // EnemyCharacterMaster.m_EnemyWave then erroring in OnDeathOrExit because m_EnemyWave == null 
+        if (value > 0)
         {
-            m_Health.value = 0;
-            Die();
+            m_Health.value -= value;
+            
+            if (m_Health.value <= 0)
+            {
+                m_Health.value = 0;
+                Die();
+            }
+    
+            NotifyValueChangeToObservers();
         }
-
-        NotifyValueChangeToObservers();
     }
 
     /// Apply one-shot damage and return whether it worked or not
