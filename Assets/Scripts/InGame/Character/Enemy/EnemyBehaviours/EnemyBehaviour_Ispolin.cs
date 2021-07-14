@@ -165,6 +165,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         // so throw in straight line + small upward offset until we can fix all edge cases and assertions
         return new Vector2(-1f, 1f);
         
+        /*
         Vector2 toTarget = targetPosition - (Vector2) m_Throw.throwAnchor.position;
         if (toTarget.y <= 0f)
         {
@@ -175,7 +176,6 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
             return toTarget + Vector2.up * 2f;
         }
         
-        /*
         bool result = PhysicsPrediction.CalculateFiringSolution(m_Throw.throwAnchor.position, targetPosition, throwAIParameters.projectileSpeed, Physics2D.gravity, out Vector2 aimDirection);
         if (result)
         {
