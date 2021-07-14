@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LevelTMPWidget: {fileID: 260413604816446659}
-  buttonExit: {fileID: 6932827041383119905}
+  buttonMainMenu: {fileID: 6932827041383119905}
 --- !u!1 &260413604816446668
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7181963486562932726, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.81562525
+      value: 0.76875
       objectReference: {fileID: 0}
     - target: {fileID: 7181963486562932726, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_AnchorMin.y
@@ -435,7 +435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7181963486562932726, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -0.000030517578
+      value: -0.000053406
       objectReference: {fileID: 0}
     - target: {fileID: 7181963486562932726, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_SizeDelta.y
@@ -503,19 +503,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7181963486562932727, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_Name
-      value: Button Exit
+      value: Button Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7181963487136868605, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_text
-      value: Exit
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 7181963487136868605, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_fontSize
-      value: 14
+      value: 10.27
       objectReference: {fileID: 0}
     - target: {fileID: 7181963487136868605, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
       propertyPath: m_fontSizeBase
-      value: 14
+      value: 10.27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}

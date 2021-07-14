@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityConstants;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DevMenu : MonoBehaviour
@@ -11,13 +13,13 @@ public class DevMenu : MonoBehaviour
     [Tooltip("Level Text")]
     public TextMeshProUGUI m_LevelTMPWidget;
     
-    [Tooltip("Exit Button")]
-    public Button buttonExit;
+    [Tooltip("Main Menu Button")]
+    public Button buttonMainMenu;
 
 
     private void Awake()
     {
-        buttonExit.onClick.AddListener(ExitGame);
+        buttonMainMenu.onClick.AddListener(GoToMainMenu);
     }
 
     private void Start()
@@ -27,14 +29,14 @@ public class DevMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (buttonExit)
+        if (buttonMainMenu)
         {
-            buttonExit.onClick.RemoveListener(ExitGame);
+            buttonMainMenu.onClick.RemoveListener(GoToMainMenu);
         }
     }
 
-    private void ExitGame()
+    private void GoToMainMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene((int) ScenesEnum.Title);
     }
 }
