@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 using UnityConstants;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Menu
 {
     [Header("Assets")]
     
@@ -16,20 +16,26 @@ public class MainMenu : MonoBehaviour
     
     [Header("Scene references")]
     
-    [Tooltip("Start button")]
-    public Button buttonStart;
+    [Tooltip("Play button")]
+    public Button buttonPlay;
     
     [Tooltip("Options button")]
     public Button buttonOptions;
     
     [Tooltip("Exit button")]
     public Button buttonExit;
+    
+    [Tooltip("Play menu")]
+    public PlayMenu playMenu;
+
+    [Tooltip("Options menu")]
+    public OptionsMenu optionsMenu;
 
 
     private void Awake()
     {
-        buttonStart.onClick.AddListener(StartGame);
-        buttonOptions.onClick.AddListener(ShowOptions);
+        buttonPlay.onClick.AddListener(EnterPlayMenu);
+        buttonOptions.onClick.AddListener(EnterOptionsMenu);
         buttonExit.onClick.AddListener(ExitGame);
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -39,43 +45,38 @@ public class MainMenu : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (buttonStart)
+        if (buttonPlay)
         {
-            buttonStart.onClick.RemoveListener(StartGame);
+            buttonPlay.onClick.RemoveListener(EnterPlayMenu);
         }
         if (buttonOptions)
         {
-            buttonOptions.onClick.RemoveListener(ShowOptions);
+            buttonOptions.onClick.RemoveListener(EnterOptionsMenu);
         }
         if (buttonExit)
         {
             buttonExit.onClick.RemoveListener(ExitGame);
         }
     }
-
-    private void StartGame()
+    
+    public override void Show()
     {
-        if (levelDataList.levelDataArray.Length > 0)
-        {
-            LevelData levelData = levelDataList.levelDataArray[0];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List is empty");
-        }
+        gameObject.SetActive(true);
     }
 
-    private void ShowOptions()
+    public override void Hide()
     {
-        Debug.Log("Show options");
+        gameObject.SetActive(false);
+    }
+
+    private void EnterPlayMenu()
+    {
+        MainMenuManager.Instance.EnterMenu(playMenu);
+    }
+
+    private void EnterOptionsMenu()
+    {
+        MainMenuManager.Instance.EnterMenu(optionsMenu);
     }
 
     private void ExitGame()
