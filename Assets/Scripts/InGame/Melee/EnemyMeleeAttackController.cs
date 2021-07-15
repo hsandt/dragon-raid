@@ -63,10 +63,12 @@ public class EnemyMeleeAttackController : BaseMeleeAttackController
             }
             #endif
         }
+        #if UNITY_EDITOR
         else
         {
             m_DebugLastAIBehaviourResult = "No Player Character";
         }
+        #endif
     }
 
     private void OrderMeleeAttack()
