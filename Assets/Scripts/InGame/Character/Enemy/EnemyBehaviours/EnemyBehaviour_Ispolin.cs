@@ -113,10 +113,12 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
             }
             #endif
         }
+        #if UNITY_EDITOR
         else
         {
             m_DebugLastAIBehaviourResult = "No Player Character";
         }
+        #endif
     }
 
     /// Return true if targetPosition is close enough, and at the right angle, for Ispolin to throw a rock
