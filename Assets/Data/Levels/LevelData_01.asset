@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9f7163b4740dcf6a2c6c60fd0c32a0, type: 3}
   m_Name: LevelData_01
   m_EditorClassIdentifier: 
+  levelIndex: 1
+  sceneEnum: 2
   bgm: {fileID: 8300000, guid: 7b1f8c3d4c4546aaa9d8875c176e15c3, type: 3}
+  baseScrollingSpeed: 3

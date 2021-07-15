@@ -20,7 +20,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 4
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -42,17 +54,27 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: de9c102190b7200b6bebc6d67bffb4bb, type: 3}
   - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
   - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
+  - {fileID: 21300000, guid: 6ac4a9c25032f38ba955da20649835d1, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
   - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  - {fileID: 21300000, guid: 037ce034154013c0d9237de8b5ca31d1, type: 3}
   - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
   - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
+  - {fileID: 21300000, guid: aacc2467bb5735c29bb78e551f227c05, type: 3}
   - {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
+  - {fileID: 21300000, guid: ce2422f83b7640924bb7ad77f1492613, type: 3}
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
+  - {fileID: 4742144298960030944, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
   - {fileID: 7751653534692311088, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
+  - {fileID: -774997426843812338, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
+  - {fileID: 8051300766851689350, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
+  - {fileID: 6669843986732815514, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
+  - {fileID: 8313924796183435041, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
   - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
   - {fileID: -4830872509790701028, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   - {fileID: 8571754651483645374, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
@@ -75,19 +97,30 @@ SpriteAtlas:
   - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 21300000, guid: 6390253e2593432ab8da95acf3411cb4, type: 3}
   - {fileID: 21300000, guid: d00b9efe55c591799a0582d09be20a65, type: 3}
   m_PackedSpriteNamesToIndex:
+  - fx_melee_attack
   - hud_gauge_frame_0
   - projectile_fireball_spritesheet_0
+  - weapon_bat
   - hud_gauge_fill
   - enemy_bird_spritesheet
   - enemy_tiger_spritesheet_0
+  - enemy_ispolin_preview
   - bg_cloud_medium
   - bg_cloud_small
+  - fx_particle_medium
   - projectile_enemy_fireball_spritesheet_0
   - bg_sky
+  - fx_melee_attack_strong
   - hud_gauge_separator
+  - dragon_spritesheet_2
   - dragon_spritesheet_0
+  - dragon_spritesheet_1
+  - enemy_ispolin_spritesheet_0
+  - enemy_ispolin_spritesheet_1
+  - enemy_ispolin_spritesheet_2
   - bg_cloud_big
   - projectile_fireball_impact_spritesheet_classic_2
   - projectile_fireball_impact_spritesheet_classic_3
@@ -110,7 +143,8 @@ SpriteAtlas:
   - projectile_fireball_impact_spritesheet_6
   - projectile_fireball_impact_spritesheet_5
   - projectile_fireball_impact_spritesheet_4
-  - fx_particle_medium_orange
+  - projectile_rock
+  - fx_particle_medium_orange (superseded by white)
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

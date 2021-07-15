@@ -1,0 +1,25 @@
+.button {
+    -unity-font: resource('BitPotion Full Extended/BitPotionExt_Dynamic');
+    font-size: 20px;
+    padding-top: 0;
+    padding-bottom: 1px;
+    -unity-text-align: upper-center;
+    background-color: rgb(255, 255, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    -unity-font-definition: resource('BitPotion Full Extended/BitPotionExt_Dynamic SDF');
+}
+
+.button:hover {
+    background-color: rgb(220, 252, 255);
+}
+
+.button:focus {
+    background-color: rgb(176, 248, 254);
+}
+
+.button:active {
+    background-color: rgb(97, 159, 255);
+}

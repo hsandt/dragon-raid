@@ -17,7 +17,7 @@ public class EnemyShootController : BaseShootController
     private void FixedUpdate()
     {
         m_ShootIntention.holdFire = true;
-        if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.FollowShootAnchor)
+        if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
         {
             // Shoot strait using shoot anchor's 2D forward
             m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;

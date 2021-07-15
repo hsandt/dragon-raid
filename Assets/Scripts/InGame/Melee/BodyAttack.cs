@@ -13,17 +13,19 @@ public class BodyAttack : MonoBehaviour
     [Tooltip("Body Attack Parameters Data")]
     public BodyAttackParameters bodyAttackParameters;
     
-    [Tooltip("Body Attack Visual Parameters Data")]
+    [Tooltip("Body Attack Aesthetic Parameters Data")]
     public BodyAttackAestheticParameters bodyAttackAestheticParameters;
     
     
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void Awake()
     {
         Debug.AssertFormat(bodyAttackParameters, this,
-            "[BodyAttack] Body Attack Parameters not set on body attack component {0}", this);
+            "[BodyAttack] Body Attack Parameters not set on Body Attack component {0}", this);
     }
-    
-    private void OnTriggerEnter2D(Collider2D other)
+    #endif
+
+    private void OnTriggerStay2D(Collider2D other)
     {
         // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
         // This is to allow body attack to find the parent owning the HealthSystem.
@@ -32,20 +34,23 @@ public class BodyAttack : MonoBehaviour
             var targetHealthSystem = other.attachedRigidbody.GetComponent<HealthSystem>();
             if (targetHealthSystem != null)
             {
-                Damage(targetHealthSystem);
+                TryPeriodicDamage(targetHealthSystem);
             }
         }
     }
-    
-    /// Damage target
-    private void Damage(HealthSystem targetHealthSystem)
-    {
-        targetHealthSystem.Damage(bodyAttackParameters.damage);
 
-        if (bodyAttackAestheticParameters != null && bodyAttackAestheticParameters.sfxHit != null)
+    /// Damage target
+    private void TryPeriodicDamage(HealthSystem targetHealthSystem)
+    {
+        bool didDamage = targetHealthSystem.TryPeriodicDamage(bodyAttackParameters.damage);
+
+        if (didDamage)
         {
-            // Audio: play hit SFX
-            SfxPoolManager.Instance.PlaySfx(bodyAttackAestheticParameters.sfxHit);
+            if (bodyAttackAestheticParameters != null && bodyAttackAestheticParameters.sfxHit != null)
+            {
+                // Audio: play hit SFX
+                SfxPoolManager.Instance.PlaySfx(bodyAttackAestheticParameters.sfxHit);
+            }
         }
     }
 }

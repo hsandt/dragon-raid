@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 7751653534692311088
     second: dragon_spritesheet_0
+  - first:
+      213: -774997426843812338
+    second: dragon_spritesheet_1
+  - first:
+      213: 4742144298960030944
+    second: dragon_spritesheet_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -36,8 +42,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -70,7 +76,7 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -82,7 +88,7 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 4
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -111,10 +117,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 20
+        width: 44
+        height: 26
       alignment: 9
-      pivot: {x: 0.55, y: 0.4}
+      pivot: {x: 0.4772727, y: 0.5384616}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -122,6 +128,48 @@ TextureImporter:
       bones: []
       spriteID: 0308c3dd1d7639b60800000000000000
       internalID: 7751653534692311088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragon_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 44
+        height: 26
+      alignment: 9
+      pivot: {x: 0.4772727, y: 0.5384616}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0ef12742f7ae35f0800000000000000
+      internalID: -774997426843812338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dragon_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 0
+        width: 44
+        height: 26
+      alignment: 9
+      pivot: {x: 0.4772727, y: 0.5384616}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec082d6d1b7fc140800000000000000
+      internalID: 4742144298960030944
       vertices: []
       indices: 
       edges: []

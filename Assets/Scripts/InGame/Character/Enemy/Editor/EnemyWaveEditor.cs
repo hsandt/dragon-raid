@@ -25,35 +25,6 @@ public class EnemyWaveEditor : Editor
     private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
     
 
-    /* State */
-    
-    /// Root element
-    private VisualElement m_RootElement;
-
-    private void OnEnable()
-    {
-        // Each editor window contains a root VisualElement object
-        m_RootElement = new VisualElement();
-        
-        // A stylesheet can be added to a VisualElement.
-        // The style will be applied to the VisualElement and all of its children.
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/InGame/Character/Enemy/Editor/EnemyWaveEditor.uss");
-        m_RootElement.styleSheets.Add(styleSheet);
-    }
-
-    public override VisualElement CreateInspectorGUI()
-    {
-        Editor editor = CreateEditor(target);
-        IMGUIContainer inspectorIMGUI = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
-        m_RootElement.Add(inspectorIMGUI);
-
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/InGame/Character/Enemy/Editor/EnemyWaveEditor.uxml");
-        visualTree.CloneTree(m_RootElement);
-
-        return m_RootElement;
-    }
-    
     private void OnSceneGUI()
     {
         var script = (EnemyWave) target;
@@ -61,7 +32,7 @@ public class EnemyWaveEditor : Editor
         // Scale offset with handle size so it remains constant on screen
         float handleSize = HandlesUtil.Get2DPixelSize();
 
-        // In order to draw the global handle (that moves all spawn points at the same time), we must determine
+        // In order to draw the batch handle (that moves all spawn points at the same time), we must determine
         // the minimum bounding box containing all the spawn points
         Rect boundingBox = new Rect
         {
@@ -81,24 +52,25 @@ public class EnemyWaveEditor : Editor
 
                 if (check.changed)
                 {
-                    enemySpawnData.spawnPosition = RoundPosition(enemySpawnData.spawnPosition);
+                    enemySpawnData.spawnPosition = VectorUtil.RoundVector2(enemySpawnData.spawnPosition, autoSnapValue);
                 }
             }
             
             // Expand bounding box to contain any (rounded) spawn point not inside it already
-            // Note that we are following 2D psace convention, not UI convention, so +Y is up
+            // Note that we are following 2D space convention, not UI convention, so +Y is up
             boundingBox.min = Vector2.Min(boundingBox.min, enemySpawnData.spawnPosition);
             boundingBox.max = Vector2.Max(boundingBox.max, enemySpawnData.spawnPosition);
             
-            string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
-            HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
-                
+            // Draw preview texture first, so in case it's too big, the enemy name label will be on top
             Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
             if (previewTexture != null)
             {
                 Vector3 labelPosition = new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize, enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
                 Handles.Label(labelPosition, previewTexture);
             }
+            
+            string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
+            HandlesUtil.Label2D(new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize, enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
         }
 
         // Ignore infinite bounding box (only happens when EnemySpawnDataArray is empty)
@@ -122,26 +94,12 @@ public class EnemyWaveEditor : Editor
                     // Move all spawn points the same way we moved the batch handle
                     foreach (EnemySpawnData enemySpawnData in script.EnemySpawnDataArray)
                     {
-                        enemySpawnData.spawnPosition = RoundPosition(enemySpawnData.spawnPosition + handleDelta);
+                        enemySpawnData.spawnPosition = VectorUtil.RoundVector2(enemySpawnData.spawnPosition + handleDelta, autoSnapValue);
                     }
                 }
             }
 
             HandlesUtil.Label2D(new Vector3(batchMoveHandleCurrentPosition.x - 63f * handleSize, batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, batchHandleColor);
         }
-    }
-
-    // Borrowed from AutoSnap.cs
-    private static float Round(float input)
-    {
-        return autoSnapValue * Mathf.Round(input / autoSnapValue);
-    }
-    
-    private static Vector2 RoundPosition(Vector2 position)
-    {
-        Vector2 roundedPosition = position;
-        roundedPosition.x = Round(roundedPosition.x);
-        roundedPosition.y = Round(roundedPosition.y);
-        return roundedPosition;
     }
 }

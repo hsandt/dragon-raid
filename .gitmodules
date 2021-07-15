@@ -1,12 +1,12 @@
-[submodule "Packages/CommonsEditor"]
-	path = Packages/CommonsEditor
-	url = https://hsandt@bitbucket.org/hsandt/unity-commons-editor.git
-[submodule "Packages/CommonsHelper"]
-	path = Packages/CommonsHelper
-	url = https://hsandt@bitbucket.org/hsandt/unity-commons-helper.git
-[submodule "Packages/CommonsPattern"]
-	path = Packages/CommonsPattern
-	url = https://hsandt@bitbucket.org/hsandt/unity-commons-pattern.git
 [submodule "Packages/CommonsDebug"]
 	path = Packages/CommonsDebug
-	url = https://hsandt@bitbucket.org/hsandt/unity-commons-debug.git
+	url = https://bitbucket.org/hsandt/unity-commons-debug.git
+[submodule "Packages/CommonsEditor"]
+	path = Packages/CommonsEditor
+	url = https://bitbucket.org/hsandt/unity-commons-editor.git
+[submodule "Packages/CommonsHelper"]
+	path = Packages/CommonsHelper
+	url = https://bitbucket.org/hsandt/unity-commons-helper.git
+[submodule "Packages/CommonsPattern"]
+	path = Packages/CommonsPattern
+	url = https://bitbucket.org/hsandt/unity-commons-pattern.git

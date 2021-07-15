@@ -62,7 +62,7 @@ public class Shoot : ClearableBehaviour
             // set cooldown time to prevent firing immediately again
             m_FireCooldownTime = shootParameters.fireCooldownDuration;
             
-            // Shot Anchor must be rotated so the right (X) axis points toward the character
+            // spawn projectile with normalized direction and projectile speed
             Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }

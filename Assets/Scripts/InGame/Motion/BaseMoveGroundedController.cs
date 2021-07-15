@@ -7,6 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Base system class for MoveGroundedIntention on Player or Enemy character: handles control
+/// It manages MoveGroundedIntention and is therefore responsible for its Setup.
 /// SEO for concrete child classes: before MoveGrounded
 public abstract class BaseMoveGroundedController : ClearableBehaviour
 {
@@ -33,7 +34,7 @@ public abstract class BaseMoveGroundedController : ClearableBehaviour
 
     public override void Setup()
     {
-        m_MoveGroundedIntention.groundSpeed = 0f;
+        m_MoveGroundedIntention.signedGroundSpeed = 0f;
         m_MoveGroundedIntention.jumpSpeedImpulse = 0f;
     }
 }

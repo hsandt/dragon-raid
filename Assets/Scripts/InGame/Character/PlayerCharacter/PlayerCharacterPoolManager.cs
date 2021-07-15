@@ -8,7 +8,7 @@ using CommonsPattern;
 /// Pool manager for Player Character (Dragon)
 /// The only reason to use a pool despite having a single character of this type,
 /// is to have an API ready to spawn and despawn without ever destroying the object
-public class PlayerCharacterPoolManager : PoolManager<CharacterMaster, PlayerCharacterPoolManager>
+public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, PlayerCharacterPoolManager>
 {
     protected override void Init()
     {
@@ -22,14 +22,14 @@ public class PlayerCharacterPoolManager : PoolManager<CharacterMaster, PlayerCha
     
 
     /// Spawn character at position
-    public CharacterMaster SpawnCharacter(Vector2 position)
+    public PlayerCharacterMaster SpawnCharacter(Vector2 position)
     {
-        CharacterMaster character = GetObject();
+        PlayerCharacterMaster playerCharacter = GetObject();
         
-        if (character != null)
+        if (playerCharacter != null)
         {
-            character.Spawn(position);
-            return character;
+            playerCharacter.Spawn(position);
+            return playerCharacter;
         }
         
         // pool starvation (error is already logged inside GetObject)

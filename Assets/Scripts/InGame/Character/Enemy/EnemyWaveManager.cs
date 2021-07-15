@@ -1,73 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-using CommonsPattern;
 using UnityConstants;
+using CommonsPattern;
 
 /// Enemy Wave Manager
 /// System for Enemy Wave
+/// The Spatial Event Manager already handles the whole Start Wave logic, so this manager only cares about
+/// calling Setup on Level Restart.
+/// The Spatial Event Manager could also retrieve enemy waves as indirect children of the parent tagged 'SpatialEvents',
+/// but in case we add non-spatial waves later (e.g. a boss that spawns sub-waves dynamically), we prefer tracking them
+/// with a different manager.
 public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
 {
     /* Cached scene references */
     
-    /// Array of enemy waves found in the scene
+    /// List of pairs (spatial event trigger, event effect) found in the scene
+    /// This includes all enemy wave events.
     private EnemyWave[] m_AllEnemyWaves;
 
     
-    /* State */
-
-    /// List of enemy waves found in the scene and not triggered yet
-    private List<EnemyWave> m_RemainingEnemyWaves;
-    
-    /// Time elapsed since level start
-    private float m_TimeSinceLevelStart;
-    
-    
     protected override void Init()
     {
+        // Find all Enemy Wave Triggers in the scene, then find any associated effect
+        // We dropped the ECS-tag-component approach and prefer a classic interface approach with IEventEffect,
+        // so we can move handling code to each of the event effect classes
         GameObject enemyWavesParent = LocatorManager.Instance.FindWithTag(Tags.EnemyWaves);
-        m_AllEnemyWaves = enemyWavesParent.GetComponentsInChildren<EnemyWave>();
-
-        Setup();
-    }
-
-    public void Setup()
-    {
-        m_RemainingEnemyWaves = m_AllEnemyWaves.ToList();
-        m_TimeSinceLevelStart = 0f;
-    }
-
-    private void FixedUpdate()
-    {
-        m_TimeSinceLevelStart += Time.deltaTime;
-        
-        // do reverse iteration so we can remove waves by index safely
-        for (int i = m_RemainingEnemyWaves.Count - 1; i >= 0; i--)
+        if (enemyWavesParent != null)
         {
-            EnemyWave enemyWave = m_RemainingEnemyWaves[i];
-            
-            if (m_TimeSinceLevelStart >= enemyWave.StartTime)
-            {
-                TriggerEnemyWave(enemyWave);
-                m_RemainingEnemyWaves.RemoveAt(i);
-            }
+            m_AllEnemyWaves = enemyWavesParent.GetComponentsInChildren<EnemyWave>();
         }
     }
 
-    private void TriggerEnemyWave(EnemyWave enemyWave)
+    /// Setup is managed by InGameManager, so not called on Start
+    public void Setup()
     {
-        foreach (var enemySpawnData in enemyWave.EnemySpawnDataArray)
+        foreach (EnemyWave enemyWave in m_AllEnemyWaves)
         {
-            if (enemySpawnData.enemyData)
-            {
-                EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition);
-            }
-            else
-            {
-                Debug.LogErrorFormat(enemyWave, "Missing EnemyData on {0}", enemyWave);
-            }
+            enemyWave.Setup();
         }
     }
 }
