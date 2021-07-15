@@ -25,37 +25,6 @@ public class EnemyWaveEditor : Editor
     private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
     
 
-    /* Components */
-    
-    /// Root element
-    private VisualElement m_RootElement;
-
-
-    private void OnEnable()
-    {
-        // Each editor window contains a root VisualElement object
-        m_RootElement = new VisualElement();
-        
-        // A stylesheet can be added to a VisualElement.
-        // The style will be applied to the VisualElement and all of its children.
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/InGame/Character/Enemy/Editor/EnemyWaveEditor.uss");
-        m_RootElement.styleSheets.Add(styleSheet);
-    }
-
-    public override VisualElement CreateInspectorGUI()
-    {
-        // Draw default inspector
-        Editor editor = CreateEditor(target);
-        IMGUIContainer inspectorIMGUI = new IMGUIContainer(() => { editor.OnInspectorGUI(); });
-        m_RootElement.Add(inspectorIMGUI);
-
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/InGame/Character/Enemy/Editor/EnemyWaveEditor.uxml");
-        visualTree.CloneTree(m_RootElement);
-
-        return m_RootElement;
-    }
-    
     private void OnSceneGUI()
     {
         var script = (EnemyWave) target;
