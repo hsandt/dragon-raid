@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelDataList: {fileID: 11400000, guid: 2cd249f618b67658c832c28ec89520ec, type: 2}
+  inGameFlowParameters: {fileID: 11400000, guid: 2057703d19f1ad879a39949296e50ad7, type: 2}
   healthSharedParameters: {fileID: 11400000, guid: 2db97219df0cbbb8a885513e025e7cdf, type: 2}

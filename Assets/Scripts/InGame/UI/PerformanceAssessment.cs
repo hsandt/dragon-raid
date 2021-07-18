@@ -5,14 +5,8 @@ using UnityEngine;
 using CommonsHelper;
 using CommonsPattern;
 
-public class HUD : SingletonManager<HUD>
+public class PerformanceAssessment : SingletonManager<PerformanceAssessment>
 {
-    [Header("Child references")]
-    
-    [Tooltip("Health gauge for player character")]
-    public GaugeHealth gaugeHealthPlayer;
-
-    
     /* Sibling components */
 
     private Canvas m_Canvas;
@@ -33,9 +27,14 @@ public class HUD : SingletonManager<HUD>
             m_Canvas.worldCamera = Camera.main;
         }
     }
-
-    public void AssignGaugeHealthPlayerTo(HealthSystem healthSystem)
+    
+    public void Show()
     {
-        gaugeHealthPlayer.RegisterHealthSystem(healthSystem);
+        gameObject.SetActive(true);
+    }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

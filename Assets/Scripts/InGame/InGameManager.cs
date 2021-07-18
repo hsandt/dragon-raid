@@ -19,7 +19,10 @@ public class InGameManager : SingletonManager<InGameManager>
     [Tooltip("Level Data List asset")]
     public LevelDataList levelDataList;
     
-    [Tooltip("Health Shared Parameters asset")]
+    [Tooltip("In-game Flow Parameters asset")]
+    public InGameFlowParameters inGameFlowParameters;
+    
+    [Tooltip("Health Shared Parameters asset (only used by other scripts)")]
     public HealthSharedParameters healthSharedParameters;
     
     
@@ -60,6 +63,7 @@ public class InGameManager : SingletonManager<InGameManager>
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
+        Debug.Assert(inGameFlowParameters != null, "No In-game Flow Parameters asset set on InGame Manager", this);
         Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
         Debug.AssertFormat(m_PlayerSpawnTransform != null, this,
             "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
@@ -88,6 +92,9 @@ public class InGameManager : SingletonManager<InGameManager>
         }
         
         SpawnPlayerCharacter();
+
+        // Hide performance assessment until we finish the level
+        PerformanceAssessment.Instance.Hide();
     }
     
     private void SpawnPlayerCharacter()
@@ -156,9 +163,18 @@ public class InGameManager : SingletonManager<InGameManager>
     
     private IEnumerator FinishLevelAsync()
     {
-        // Put the Finish Level sequence here
-        yield return null;
+        yield return new WaitForSeconds(inGameFlowParameters.performanceAssessmentDelay);
         
+        // Show performance assessment canvas
+        PerformanceAssessment.Instance.Show();
+        
+        yield return new WaitForSeconds(inGameFlowParameters.loadNextLevelDelay);
+        
+        LoadNextLevelOrGoBackToTitle();
+    }
+
+    private void LoadNextLevelOrGoBackToTitle()
+    {
         // If InGameManager is flagged DontDestroyOnLoad, it will be kept in next level (if any),
         // and it will be cleaner to clean the cached scene references first.
         // But we'll also need to set those again after loading the new scene.
@@ -167,11 +183,6 @@ public class InGameManager : SingletonManager<InGameManager>
         m_PlayerSpawnTransform = null;
         m_LevelData = null;
         
-        LoadNextLevelOrGoBackToTitle(currentLevelIndex);
-    }
-
-    private void LoadNextLevelOrGoBackToTitle(int currentLevelIndex)
-    {
         // first, do a brutal sync load
         if (currentLevelIndex < levelDataList.levelDataArray.Length - 1)
         {
