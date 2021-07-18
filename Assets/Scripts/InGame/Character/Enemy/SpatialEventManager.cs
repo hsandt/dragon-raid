@@ -9,6 +9,7 @@ using UnityConstants;
 
 /// Spatial Event Manager
 /// System for Spatial Event Trigger x Event Effect
+/// SEO: after LocatorManager
 public class SpatialEventManager : SingletonManager<SpatialEventManager>
 {
     /* Cached scene references */

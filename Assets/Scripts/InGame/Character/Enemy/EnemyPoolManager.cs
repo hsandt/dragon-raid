@@ -6,6 +6,7 @@ using UnityConstants;
 using CommonsPattern;
 
 /// Pool manager for all enemy characters
+/// SEO: after LocatorManager
 public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPoolManager>
 {
     protected override void Init()

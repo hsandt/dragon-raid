@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityConstants;
 using CommonsPattern;
 
+/// Projectile Pool Manager
+/// SEO: after LocatorManager
 public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePoolManager>
 {
     protected override void Init()

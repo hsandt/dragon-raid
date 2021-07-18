@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityConstants;
 using CommonsPattern;
 
+/// FX Pool Manager
+/// SEO: after LocatorManager
 public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
 {
     protected override void Init()

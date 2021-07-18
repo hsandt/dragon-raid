@@ -69,6 +69,11 @@ public class MainMenu : Menu
         gameObject.SetActive(false);
     }
 
+    public override bool ShouldShowTitle()
+    {
+        return true;
+    }
+
     private void EnterPlayMenu()
     {
         MainMenuManager.Instance.EnterMenu(playMenu);

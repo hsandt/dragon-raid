@@ -12,6 +12,7 @@ using CommonsPattern;
 /// The Spatial Event Manager could also retrieve enemy waves as indirect children of the parent tagged 'SpatialEvents',
 /// but in case we add non-spatial waves later (e.g. a boss that spawns sub-waves dynamically), we prefer tracking them
 /// with a different manager.
+/// SEO: after LocatorManager
 public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
 {
     /* Cached scene references */

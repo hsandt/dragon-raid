@@ -36,6 +36,11 @@ public class OptionsMenu : Menu
     {
         gameObject.SetActive(false);
     }
+    
+    public override bool ShouldShowTitle()
+    {
+        return true;
+    }
 
     private void GoBack()
     {

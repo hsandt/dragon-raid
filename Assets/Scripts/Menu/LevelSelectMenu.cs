@@ -76,6 +76,11 @@ public class LevelSelectMenu : Menu
         gameObject.SetActive(false);
     }
 
+    public override bool ShouldShowTitle()
+    {
+        return false;
+    }
+
     private void StartLevel(int levelIndex)
     {
         if (levelDataList.levelDataArray.Length > levelIndex)

@@ -19,6 +19,7 @@ public class SplashScreenManager : SingletonManager<SplashScreenManager>
     
     public async Task PlaySplashScreenSequence()
     {
-        await teamLogo.TweenGraphicAlpha(1f, 1f).SetFrom(0f).SetPingPong().Await();
+        float duration = 0.1f;
+        await teamLogo.TweenGraphicAlpha(1f, duration).SetFrom(0f).SetPingPong().Await();
     }
 }

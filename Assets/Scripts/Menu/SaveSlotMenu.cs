@@ -5,41 +5,30 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 using UnityConstants;
+using CommonsPattern;
 
-public class PlayMenu : Menu
+public class SaveSlotMenu : Menu
 {
     [Header("Assets")]
     
     [Tooltip("Level Data List asset")]
     public LevelDataList levelDataList;
     
+    [Tooltip("Save Slot Container Button Prefab")]
+    public GameObject saveSlotContainerButtonPrefab;
     
-    [Header("Scene references")]
     
-    [Tooltip("Story button")]
-    public Button buttonStory;
+    [Header("Child references")]
     
-    [Tooltip("Arcade button")]
-    public Button buttonArcade;
-    
-    [Tooltip("Level Select button")]
-    public Button buttonLevelSelect;
+    [Tooltip("Save Slots parent")]
+    public Transform saveSlotsParent;
     
     [Tooltip("Back button")]
     public Button buttonBack;
 
-    [Tooltip("Save Slot menu")]
-    public SaveSlotMenu saveSlotMenu;
-    
-    [Tooltip("Level Select menu")]
-    public LevelSelectMenu levelSelectMenu;
-
 
     private void Awake()
     {
-        buttonStory.onClick.AddListener(StartStory);
-        buttonArcade.onClick.AddListener(StartArcade);
-        buttonLevelSelect.onClick.AddListener(EnterLevelSelect);
         buttonBack.onClick.AddListener(GoBack);
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -49,18 +38,6 @@ public class PlayMenu : Menu
 
     private void OnDestroy()
     {
-        if (buttonStory)
-        {
-            buttonStory.onClick.RemoveListener(StartGame);
-        }
-        if (buttonArcade)
-        {
-            buttonArcade.onClick.RemoveListener(StartArcade);
-        }
-        if (buttonLevelSelect)
-        {
-            buttonLevelSelect.onClick.RemoveListener(EnterLevelSelect);
-        }
         if (buttonBack)
         {
             buttonBack.onClick.RemoveListener(GoBack);
@@ -70,6 +47,8 @@ public class PlayMenu : Menu
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        UIPoolHelper.LazyInstantiateWidgets(saveSlotContainerButtonPrefab, 3, saveSlotsParent);
     }
 
     public override void Hide()
@@ -79,18 +58,17 @@ public class PlayMenu : Menu
 
     public override bool ShouldShowTitle()
     {
-        return true;
+        return false;
     }
 
     private void StartStory()
     {
-        MainMenuManager.Instance.EnterMenu(saveSlotMenu);
+        StartGame();
     }
 
     private void StartArcade()
     {
-        // For now, no distinction with Story
-        MainMenuManager.Instance.EnterMenu(saveSlotMenu);
+        StartGame();
     }
         
     private void StartGame()
@@ -113,11 +91,6 @@ public class PlayMenu : Menu
         }
     }
 
-    private void EnterLevelSelect()
-    {
-        MainMenuManager.Instance.EnterMenu(levelSelectMenu);
-    }
-    
     private void GoBack()
     {
         MainMenuManager.Instance.GoBackToPreviousMenu();

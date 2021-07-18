@@ -11,7 +11,7 @@ TagManager:
   - LevelIdentifier
   - SpatialEvents
   - EnemyWaves
-  - Menus
+  - CanvasTitleMenu
   layers:
   - Default
   - TransparentFX

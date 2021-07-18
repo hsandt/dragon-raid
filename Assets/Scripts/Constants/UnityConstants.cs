@@ -61,9 +61,9 @@ namespace UnityConstants
         /// </summary>
         public const string EnemyWaves = "EnemyWaves";
         /// <summary>
-        /// Name of tag 'Menus'.
+        /// Name of tag 'CanvasTitleMenu'.
         /// </summary>
-        public const string Menus = "Menus";
+        public const string CanvasTitleMenu = "CanvasTitleMenu";
     }
 
     public static class SortingLayers

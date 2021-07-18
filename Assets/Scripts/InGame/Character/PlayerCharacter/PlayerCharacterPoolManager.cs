@@ -8,6 +8,7 @@ using CommonsPattern;
 /// Pool manager for Player Character (Dragon)
 /// The only reason to use a pool despite having a single character of this type,
 /// is to have an API ready to spawn and despawn without ever destroying the object
+/// SEO: after LocatorManager
 public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, PlayerCharacterPoolManager>
 {
     protected override void Init()
