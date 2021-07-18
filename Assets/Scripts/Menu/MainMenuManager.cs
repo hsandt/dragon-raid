@@ -8,6 +8,17 @@ using CommonsPattern;
 /// Main Menu Manager
 public class MainMenuManager : SingletonManager<MainMenuManager>
 {
+    [Header("Scene references")]
+    
+    [Tooltip("Canvas Main Menu")]
+    public Canvas canvasMainMenu;
+    
+    
+    /* Cached scene references */
+    
+    private MainMenu m_MainMenu;
+    
+    
     /* State */
 
     private readonly Stack<Menu> m_MenuStack = new Stack<Menu>();
@@ -15,26 +26,38 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
     
     private void Start()
     {
-        // Hide all menus, except the main menu
+        // Hide all menus and remember which on was the main menu
         GameObject menuParent = LocatorManager.Instance.FindWithTag(Tags.Menus);
         if (menuParent)
         {
             var menus = menuParent.GetComponentsInChildren<Menu>();
             foreach (Menu menu in menus)
             {
-                if (menu is MainMenu)
+                var mainMenu = menu as MainMenu;
+                if (mainMenu != null)
                 {
-                    // In case MainMenu was disabled (e.g. because we are working on other menus in the scene),
-                    // enter menu (it's important to push it to stack, and play any Show animation)
-                    EnterMenu(menu);
+                    m_MainMenu = mainMenu;
                 }
-                else
-                {
-                    // Do not call Hide() which may contain some animation, immediately deactivate instead
-                    menu.gameObject.SetActive(false);
-                }
+
+                // Do not call Hide() which may contain some animation, immediately deactivate instead
+                menu.gameObject.SetActive(false);
             }
+            
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.AssertFormat(m_MainMenu != null, menuParent, "No Main Menu component found under {0}", menuParent);
+            #endif
         }
+
+        // Hide whole main menu (sub-menus are already hidden, but not Title + Version) until we want to show it
+        canvasMainMenu.enabled = false;
+    }
+
+    /// Show canvas and enter main menu
+    /// Should be called once by TitleManager, when ready
+    public void ShowMainMenu()
+    {
+        canvasMainMenu.enabled = true;
+        EnterMenu(m_MainMenu);
     }
     
     public void EnterMenu(Menu menu)
