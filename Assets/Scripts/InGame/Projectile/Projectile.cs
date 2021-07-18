@@ -8,8 +8,8 @@ using CommonsPattern;
 /// System for Rigidbody2D on projectiles: handles pooling and impact
 public class Projectile : MasterBehaviour, IPooledObject
 {
-    /* Parameters data */
-    
+    [Header("Parameters data")]
+
     [Tooltip("Projectile Parameters Data")]
     public ProjectileParameters projectileParameters;
     

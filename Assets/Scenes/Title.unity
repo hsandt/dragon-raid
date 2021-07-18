@@ -1327,6 +1327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 386d41d694681c3548a80dd4071c8b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splashScreenParameters: {fileID: 11400000, guid: 70da33abd5a2f9ed48f196df73d3d416, type: 2}
   teamLogo: {fileID: 815537985}
 --- !u!1 &745931965
 GameObject:

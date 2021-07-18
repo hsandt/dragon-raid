@@ -8,8 +8,8 @@ using UnityEngine;
 /// Collision layers: EnemyBodyHitBox collides with PlayerHurtBox, so only works for enemy hurting player character 
 public class BodyAttack : MonoBehaviour
 {
-    /* Parameters data */
-    
+    [Header("Parameters data")]
+
     [Tooltip("Body Attack Parameters Data")]
     public BodyAttackParameters bodyAttackParameters;
     

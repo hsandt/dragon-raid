@@ -65,10 +65,8 @@ public class InGameManager : SingletonManager<InGameManager>
         Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
         Debug.Assert(inGameFlowParameters != null, "No In-game Flow Parameters asset set on InGame Manager", this);
         Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
-        Debug.AssertFormat(m_PlayerSpawnTransform != null, this,
-            "[InGameManager] No active object with tag PlayerSpawnPosition found in scene");
-        Debug.AssertFormat(m_LevelData != null, this,
-            "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data");
+        Debug.Assert(m_PlayerSpawnTransform != null, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene", this);
+        Debug.Assert(m_LevelData != null, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data", this);
         #endif
     }
     
