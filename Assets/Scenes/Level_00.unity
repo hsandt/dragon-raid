@@ -4730,6 +4730,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3624779706749049524, guid: 4531dfc49657c3dbcb4200afb344a1bd, type: 3}
+      propertyPath: m_text
+      value: 'Performance
+
+
+        Destruction rate: TODO'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624779706749049526, guid: 4531dfc49657c3dbcb4200afb344a1bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6987132891384083107, guid: 4531dfc49657c3dbcb4200afb344a1bd, type: 3}
       propertyPath: m_Name
       value: Canvas Performance Assessment
@@ -4738,6 +4749,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6987132891384083118, guid: 4531dfc49657c3dbcb4200afb344a1bd, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6987132891384083119, guid: 4531dfc49657c3dbcb4200afb344a1bd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
