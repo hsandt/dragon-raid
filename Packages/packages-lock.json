@@ -275,6 +275,13 @@
       "dependencies": {},
       "hash": "46092085da0b1ae1bf6493f7cf321aa5e58120f5"
     },
+    "nl.elraccoone.tweens": {
+      "version": "https://github.com/jeffreylanters/unity-tweens.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bbdbf20cb73d95f36d3235f5d56fa51f88848388"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
