@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 using CommonsHelper;
 
+// UITK runtime didn't support gamepad/keyboard focus + navigation, so this class wasn't tested for long
+// and now the menu has changed so the members and methods are not relevant anymore.
 public class MainMenu_UITK : MonoBehaviour
 {
     [Header("Assets")]

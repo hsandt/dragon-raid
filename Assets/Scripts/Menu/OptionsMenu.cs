@@ -23,7 +23,7 @@ public class OptionsMenu : Menu
     {
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
     

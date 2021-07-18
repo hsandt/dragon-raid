@@ -753,6 +753,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!115 &334331448
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 5
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: GraphicAlphaTween/Driver
+  m_Namespace: ElRaccoone.Tweens
 --- !u!114 &421568935 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7181963486562932721, guid: 350f7dd640ba9ea73a07d25cca2337f8, type: 3}
@@ -1423,6 +1437,12 @@ GameObject:
   - component: {fileID: 815537986}
   - component: {fileID: 815537988}
   - component: {fileID: 815537987}
+  - component: {fileID: 815537989}
+  - component: {fileID: 815537990}
+  - component: {fileID: 815537991}
+  - component: {fileID: 815537992}
+  - component: {fileID: 815537993}
+  - component: {fileID: 815537994}
   m_Layer: 5
   m_Name: Team Logo Text (TMP)
   m_TagString: Untagged
@@ -1546,6 +1566,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815537985}
   m_CullTransparentMesh: 1
+--- !u!114 &815537989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &815537990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &815537991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &815537992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &815537993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &815537994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815537985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 334331448}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &851047293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2417,6 +2509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3783a9ce7bb7cd190a48cff3f8fe9871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveSlotParameters: {fileID: 11400000, guid: 3c03abf1a62b3a11d97aa4c351d42c47, type: 2}
   levelDataList: {fileID: 11400000, guid: 2cd249f618b67658c832c28ec89520ec, type: 2}
   saveSlotContainerButtonPrefab: {fileID: 8497792713281591761, guid: 84b94b5a12dda6fb1825a4041faa96f2, type: 3}
   saveSlotsParent: {fileID: 986901515}

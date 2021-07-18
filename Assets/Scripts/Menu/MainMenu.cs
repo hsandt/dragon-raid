@@ -47,15 +47,15 @@ public class MainMenu : Menu
     {
         if (buttonPlay)
         {
-            buttonPlay.onClick.RemoveListener(EnterPlayMenu);
+            buttonPlay.onClick.RemoveAllListeners();
         }
         if (buttonOptions)
         {
-            buttonOptions.onClick.RemoveListener(EnterOptionsMenu);
+            buttonOptions.onClick.RemoveAllListeners();
         }
         if (buttonExit)
         {
-            buttonExit.onClick.RemoveListener(ExitGame);
+            buttonExit.onClick.RemoveAllListeners();
         }
     }
     

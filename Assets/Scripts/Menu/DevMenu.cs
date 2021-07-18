@@ -31,7 +31,7 @@ public class DevMenu : MonoBehaviour
     {
         if (buttonMainMenu)
         {
-            buttonMainMenu.onClick.RemoveListener(GoToMainMenu);
+            buttonMainMenu.onClick.RemoveAllListeners();
         }
     }
 

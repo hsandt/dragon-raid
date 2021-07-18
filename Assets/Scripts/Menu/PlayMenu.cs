@@ -51,19 +51,19 @@ public class PlayMenu : Menu
     {
         if (buttonStory)
         {
-            buttonStory.onClick.RemoveListener(StartGame);
+            buttonStory.onClick.RemoveAllListeners();
         }
         if (buttonArcade)
         {
-            buttonArcade.onClick.RemoveListener(StartArcade);
+            buttonArcade.onClick.RemoveAllListeners();
         }
         if (buttonLevelSelect)
         {
-            buttonLevelSelect.onClick.RemoveListener(EnterLevelSelect);
+            buttonLevelSelect.onClick.RemoveAllListeners();
         }
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
     
@@ -91,26 +91,6 @@ public class PlayMenu : Menu
     {
         // For now, no distinction with Story
         MainMenuManager.Instance.EnterMenu(saveSlotMenu);
-    }
-        
-    private void StartGame()
-    {
-        if (levelDataList.levelDataArray.Length > 0)
-        {
-            LevelData levelData = levelDataList.levelDataArray[0];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List is empty");
-        }
     }
 
     private void EnterLevelSelect()

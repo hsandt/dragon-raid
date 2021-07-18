@@ -62,7 +62,7 @@ public class LevelSelectMenu : Menu
     {
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
 
