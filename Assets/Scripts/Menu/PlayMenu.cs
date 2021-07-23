@@ -84,12 +84,13 @@ public class PlayMenu : Menu
 
     private void StartStory()
     {
+        saveSlotMenu.SavedPlayMode = SavedPlayMode.Story;
         MainMenuManager.Instance.EnterMenu(saveSlotMenu);
     }
 
     private void StartArcade()
     {
-        // For now, no distinction with Story
+        saveSlotMenu.SavedPlayMode = SavedPlayMode.Arcade;
         MainMenuManager.Instance.EnterMenu(saveSlotMenu);
     }
 

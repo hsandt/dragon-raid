@@ -189,6 +189,8 @@ public class InGameManager : SingletonManager<InGameManager>
             LevelData nextLevelData = levelDataList.levelDataArray[nextLevelIndex];
             if (nextLevelData != null)
             {
+                // convert scene enum to scene build index and load next level scene
+                
                 int nextLevelSceneBuildIndex = (int) nextLevelData.sceneEnum;
 
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -200,18 +202,16 @@ public class InGameManager : SingletonManager<InGameManager>
                 #endif
 
                 SceneManager.LoadScene(nextLevelSceneBuildIndex);
+                return;
             }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[InGameManager] FinishLevel: missing level data for " +
-                                                    "next level at index {0} in levelDataList. Falling back to Title scene.",
-                    nextLevelIndex);
-                SceneManager.LoadScene((int) ScenesEnum.Title);
-            }
+            
+            Debug.LogErrorFormat(levelDataList, "[InGameManager] FinishLevel: missing level data for " +
+                "next level at index {0} in levelDataList. Falling back to Title scene.",
+                nextLevelIndex);
         }
-        else
-        {
-            SceneManager.LoadScene((int) ScenesEnum.Title);
-        }
+        
+        // last level was finished, or failed to find next level => clear current save and go back to title
+        SessionManager.Instance.ClearAnyCurrentSave();
+        SceneManager.LoadScene((int) ScenesEnum.Title);
     }
 }

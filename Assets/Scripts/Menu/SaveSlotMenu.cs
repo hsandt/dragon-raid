@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-using UnityConstants;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -24,6 +23,9 @@ public class SaveSlotMenu : Menu
     
     [Header("Child references")]
     
+    [Tooltip("Header text")]
+    public TextMeshProUGUI headerText;
+
     [Tooltip("Save Slots parent")]
     public Transform saveSlotsParent;
     
@@ -39,6 +41,18 @@ public class SaveSlotMenu : Menu
     /// Array of save slot container widgets
     private SaveSlotContainerWidget[] saveSlotContainerWidgets;
     
+    
+    /* State */
+
+    /// Saved Play Mode the Save Slot Menu was entered for (Story or Arcade)
+    private SavedPlayMode m_SavedPlayMode;
+    
+    /// Setter for m_SavedPlayMode. Show is an override and we cannot change the signature to take a SavedPlayMode,
+    /// so this allows us to still set the SavedPlayMode from another class.
+    public SavedPlayMode SavedPlayMode
+    {
+        set { m_SavedPlayMode = value; }
+    }
 
     private void Awake()
     {
@@ -46,6 +60,9 @@ public class SaveSlotMenu : Menu
         Debug.AssertFormat(saveSlotParameters != null, this, "[SaveSlotMenu] Awake: Save Slot Parameters not set on {0}", this);
         Debug.AssertFormat(levelDataList != null, this, "[SaveSlotMenu] Awake: Level Data List not set on {0}", this);
         Debug.AssertFormat(saveSlotsParent.IsChildOf(transform), this, "[SaveSlotMenu] Awake: Save Slots Parent is not a child (in the broad sense) of {0}", this);
+        Debug.AssertFormat(headerText != null, this, "[SaveSlotMenu] Awake: Header Text not set on {0}", this);
+        Debug.AssertFormat(saveSlotsParent != null, this, "[SaveSlotMenu] Awake: Save Slots Parent not set on {0}", this);
+        Debug.AssertFormat(buttonBack != null, this, "[SaveSlotMenu] Awake: Button Back not set on {0}", this);
         #endif
         
         saveSlotButtons = new Button[saveSlotParameters.saveSlotsCount];
@@ -66,10 +83,13 @@ public class SaveSlotMenu : Menu
         // object with the script adding the listeners, and therefore they'd be destroyed together with the parent object
         // of course, make sure that saveSlotsParent is really on a child / grandchild / itself (done in Awake's Assert)
     }
-    
+
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        // Display header corresponding to Saved Play Mode
+        headerText.text = (m_SavedPlayMode == SavedPlayMode.Story ? "Story mode" : "Arcade mode");
         
         UIPoolHelper.LazyInstantiateWidgets(saveSlotContainerButtonPrefab, saveSlotParameters.saveSlotsCount, saveSlotsParent);
 
@@ -79,7 +99,9 @@ public class SaveSlotMenu : Menu
             
             // Initialise widget model and view
             saveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
-            saveSlotContainerWidgets[i].InitEmpty();
+            
+            // TODO: actually check existing save and call InitFilled if there is one for this slot
+            saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode);
             
             // Bind button confirm callback (it's a method on the widget script so it can access save data
             // directly without any need to make a lambda capturing this info)

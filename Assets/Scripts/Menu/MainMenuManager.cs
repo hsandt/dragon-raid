@@ -32,7 +32,8 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
     /* State */
 
     private readonly Stack<Menu> m_MenuStack = new Stack<Menu>();
-
+    
+    
     protected override void Init()
     {
         base.Init();
@@ -55,12 +56,21 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
                 return;
             }
         }
+    }
+
+    private void Start()
+    {
+        // Note that we prefer hiding things in Start than in Awake,
+        // because it allows menus to call their own Awake to setup things and assert on bad things,
+        // rather than waiting to be shown
         
-        // Instantly hide whole main menu  until we want to show it. Don't use Hide(), which may contain an animation
+        // Immediately hide whole main menu  until we want to show it. Don't use Hide(), which may contain an animation
         // (sub-menus will be hidden below anything, but not Title + Version)
         canvasTitleMenu.gameObject.SetActive(false);
-        
-        // Hide all menus and remember which was the main menu
+                
+        // Hide all menus and remember which was the main menu (for ShowMainMenu later)
+        // Of course the whole tree is hidden for now, but it will allow us not to have to hide all irrelevant sub-menus
+        // later in ShowMainMenu
         Transform menusParent = canvasTitleMenu.menusParent;
         if (menusParent)
         {
