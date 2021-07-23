@@ -36,15 +36,20 @@ public class SaveSlotMenu : Menu
     /// Array of save slot buttons
     private Button[] saveSlotButtons;
     
+    /// Array of save slot container widgets
+    private SaveSlotContainerWidget[] saveSlotContainerWidgets;
+    
 
     private void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(saveSlotParameters != null, this, "[SaveSlotMenu] Awake: Save Slot Parameters not set on {0}", this);
         Debug.AssertFormat(levelDataList != null, this, "[SaveSlotMenu] Awake: Level Data List not set on {0}", this);
+        Debug.AssertFormat(saveSlotsParent.IsChildOf(transform), this, "[SaveSlotMenu] Awake: Save Slots Parent is not a child (in the broad sense) of {0}", this);
         #endif
         
         saveSlotButtons = new Button[saveSlotParameters.saveSlotsCount];
+        saveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
 
         buttonBack.onClick.AddListener(GoBack);
     }
@@ -59,7 +64,7 @@ public class SaveSlotMenu : Menu
         // don't bother removing listeners from dynamic buttons, as we'd need to check if each of them exists
         // RemoveAllListeners has always been a bonus anyway, since the buttons have always been children of the
         // object with the script adding the listeners, and therefore they'd be destroyed together with the parent object
-        // of course, make sure that saveSlotsParent is really on a child
+        // of course, make sure that saveSlotsParent is really on a child / grandchild / itself (done in Awake's Assert)
     }
     
     public override void Show()
@@ -70,8 +75,16 @@ public class SaveSlotMenu : Menu
 
         for (int i = 0; i < saveSlotParameters.saveSlotsCount; i++)
         {
-            saveSlotButtons[i] = saveSlotsParent.GetChild(i).GetComponentOrFail<Button>();
-            saveSlotButtons[i].onClick.AddListener(StartGame);
+            Transform saveSlotTransform = saveSlotsParent.GetChild(i);
+            
+            // Initialise widget model and view
+            saveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
+            saveSlotContainerWidgets[i].InitEmpty();
+            
+            // Bind button confirm callback (it's a method on the widget script so it can access save data
+            // directly without any need to make a lambda capturing this info)
+            saveSlotButtons[i] = saveSlotTransform.GetComponentOrFail<Button>();
+            saveSlotButtons[i].onClick.AddListener(saveSlotContainerWidgets[i].OnConfirm);
         }
     }
 
@@ -85,26 +98,6 @@ public class SaveSlotMenu : Menu
         return false;
     }
         
-    private void StartGame()
-    {
-        if (levelDataList.levelDataArray.Length > 0)
-        {
-            LevelData levelData = levelDataList.levelDataArray[0];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[SaveSlotMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[SaveSlotMenu] StartGame: Level Data List is empty");
-        }
-    }
-
     private void GoBack()
     {
         MainMenuManager.Instance.GoBackToPreviousMenu();

@@ -8,12 +8,7 @@ using UnityConstants;
 
 public class LevelSelectMenu : Menu
 {
-    [Header("Assets")]
-    
-    [Tooltip("Level Data List asset")]
-    public LevelDataList levelDataList;
-    
-    
+   
     [Header("Scene references")]
     
     [Tooltip("List of Start Level buttons")]
@@ -27,13 +22,13 @@ public class LevelSelectMenu : Menu
     {
         buttonBack.onClick.AddListener(GoBack);
 
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(levelDataList != null, this, "[MainMenu] Awake: Level Data List not set on {0}", this);
-        #endif
+
     }
     
     private void Start()
     {
+        LevelDataList levelDataList = MainMenuManager.Instance.levelDataList;
+        
         for (int i = 0; i < levelDataList.levelDataArray.Length; i++)
         {
             // eventually we'll do lazy pooling i.e. create any missing buttons (copying code from Anima) 
@@ -44,8 +39,8 @@ public class LevelSelectMenu : Menu
                 // and pass lambda
                 // eventually, we'll have a dedicated StartLevelButton with a member int levelIndex
                 // and its own method StartLevel, so we won't need to pass the level index anymore
-                int closureConstantLevelIndex = i;
-                buttonStartLevelList[i].onClick.AddListener(() => StartLevel(closureConstantLevelIndex));
+                int closureLevelIndex = i;
+                buttonStartLevelList[i].onClick.AddListener(() => MainMenuManager.Instance.StartLevel(closureLevelIndex));
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
@@ -81,26 +76,6 @@ public class LevelSelectMenu : Menu
         return false;
     }
 
-    private void StartLevel(int levelIndex)
-    {
-        if (levelDataList.levelDataArray.Length > levelIndex)
-        {
-            LevelData levelData = levelDataList.levelDataArray[levelIndex];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[LevelSelectMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[LevelSelectMenu] StartGame: Level Data List is empty");
-        }
-    }
-    
     private void GoBack()
     {
         MainMenuManager.Instance.GoBackToPreviousMenu();

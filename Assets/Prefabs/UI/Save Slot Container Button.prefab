@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 8497792713281591766}
   - component: {fileID: 8497792713281591767}
   - component: {fileID: 8497792713281591763}
+  - component: {fileID: 6795598883571079892}
   m_Layer: 5
   m_Name: Save Slot Container Button
   m_TagString: Untagged
@@ -245,6 +246,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6795598883571079892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497792713281591761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c12a68d8be9d25bb884654f3264686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelText: {fileID: 8497792714001868507}
 --- !u!1 &8497792714001868485
 GameObject:
   m_ObjectHideFlags: 0

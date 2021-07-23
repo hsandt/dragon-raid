@@ -1,16 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CommonsHelper;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using UnityConstants;
+using CommonsHelper;
 using CommonsPattern;
 
 /// Main Menu Manager
 /// SEO: after LocatorManager
 public class MainMenuManager : SingletonManager<MainMenuManager>
 {
+    [Header("Assets")]
+    
+    [Tooltip("Level Data List asset")]
+    public LevelDataList levelDataList;
+
+    
     [Header("Scene references")]
     
     [Tooltip("Canvas Title Menu")]
@@ -29,6 +36,10 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
     protected override void Init()
     {
         base.Init();
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(levelDataList != null, this, "[MainMenuManager] Awake: Level Data List not set on {0}", this);
+        #endif
         
         // Retrieve Canvas Main Menu is not set
         if (canvasTitleMenu == null)
@@ -49,7 +60,7 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
         // (sub-menus will be hidden below anything, but not Title + Version)
         canvasTitleMenu.gameObject.SetActive(false);
         
-        // Hide all menus and remember which on was the main menu
+        // Hide all menus and remember which was the main menu
         Transform menusParent = canvasTitleMenu.menusParent;
         if (menusParent)
         {
@@ -133,6 +144,31 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
         {
             // if title is already hidden, does nothing
             canvasTitleMenu.HideTitle();
+        }
+    }
+    
+    /// Start level with given levelIndex
+    /// This is a common functionality across Story, Arcade and Level Select so we defined the method in this class
+    public void StartLevel(int levelIndex)
+    {
+        if (levelDataList.levelDataArray.Length > levelIndex)
+        {
+            LevelData levelData = levelDataList.levelDataArray[levelIndex];
+            if (levelData != null)
+            {
+                SceneManager.LoadScene((int)levelData.sceneEnum);
+            }
+            else
+            {
+                Debug.LogErrorFormat(levelDataList, "[MainMenuManager] StartGame: Level Data List entry " +
+                    "for levelIndex {0} is null", levelIndex);
+            }
+        }
+        else
+        {
+            Debug.LogErrorFormat(levelDataList, "[MainMenuManager] StartGame: Level Data List has only {0} entries, " +
+                "cannot get entry for levelIndex {1}",
+                levelDataList.levelDataArray.Length, levelIndex);
         }
     }
 }
