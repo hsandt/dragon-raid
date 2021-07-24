@@ -6,7 +6,7 @@ using UnityEngine;
 public class SessionManager : SingletonManager<SessionManager>
 {
     /* State */
-
+    
     /// Current Player Save for Story mode, or null if not playing Story mode
     private PlayerSaveStory currentPlayerSaveStory;
 
@@ -42,12 +42,9 @@ public class SessionManager : SingletonManager<SessionManager>
         {
             currentPlayerSaveArcade.nextLevelIndex = nextLevelIndex;
         }
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        else
-        {
-            Debug.LogError("[SessionManager] SaveProgressNextLevel: no current player save for Story nor Arcade, nothing to save");
-        }
-        #endif
+        
+        // It's possible that there is no current save at all: when playing on No Save
+        // so no error in the else case.
     }
 
     public void ClearAnyCurrentSave()

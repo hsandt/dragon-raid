@@ -26,6 +26,9 @@ public class SaveSlotMenu : Menu
     [Tooltip("Header text")]
     public TextMeshProUGUI headerText;
 
+    [Tooltip("No Save slot button")]
+    public Button noSaveSlotButton;
+    
     [Tooltip("Save Slots parent")]
     public Transform saveSlotsParent;
     
@@ -68,11 +71,19 @@ public class SaveSlotMenu : Menu
         saveSlotButtons = new Button[saveSlotParameters.saveSlotsCount];
         saveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
 
+        // No Save slot button just starts the first level without setting up any save, for a simple run 
+        noSaveSlotButton.onClick.AddListener(StartFirstLevel);
+        
         buttonBack.onClick.AddListener(GoBack);
     }
 
     private void OnDestroy()
     {
+        if (noSaveSlotButton)
+        {
+            noSaveSlotButton.onClick.RemoveAllListeners();
+        }
+        
         if (buttonBack)
         {
             buttonBack.onClick.RemoveAllListeners();
@@ -120,6 +131,11 @@ public class SaveSlotMenu : Menu
         return false;
     }
         
+    private void StartFirstLevel()
+    {
+        MainMenuManager.Instance.StartLevel(0);
+    }
+    
     private void GoBack()
     {
         MainMenuManager.Instance.GoBackToPreviousMenu();
