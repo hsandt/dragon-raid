@@ -151,6 +151,13 @@ public class InGameManager : SingletonManager<InGameManager>
         {
             m_IsFinishingLevel = true;
             
+            // Immediately save progress so player doesn't lose it if application is shutdown
+            // In the worst case, they'll miss the Performance Assessment screen
+            // Always save progress next level to the current level index + 1, even if it goes beyond the last level
+            // Indeed, we use the convention that level index = last level index + 1 => game cleared on this save
+            // (similarly to Sonic and Freedom Planet, player can replay game from any level at this point)
+            SessionManager.Instance.SaveProgressNextLevel(m_LevelData.levelIndex + 1);
+            
             // Disable all other singleton managers that have an update to avoid weird things happening during the
             // Finish Level sequence.
             ScrollingManager.Instance.enabled = false;

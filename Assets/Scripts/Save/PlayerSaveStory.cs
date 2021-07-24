@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// Player Save for Story mode
 /// It is a different class from PlayerSaveArcade because when we add cinematics, Story save will contain data slightly
 /// different from Arcade, such as the next cinematic to play (this allows precise save resume, and removes the need
