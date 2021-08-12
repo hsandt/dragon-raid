@@ -37,6 +37,6 @@ public class DevMenu : MonoBehaviour
 
     private void GoToMainMenu()
     {
-        SceneManager.LoadScene((int) ScenesEnum.Title);
+        InGameManager.ExitToTitleMenu();
     }
 }

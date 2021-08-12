@@ -220,7 +220,12 @@ public class InGameManager : SingletonManager<InGameManager>
                 nextLevelIndex);
         }
         
-        // last level was finished, or failed to find next level => clear current save and go back to title
+        // last level was finished, or we failed to find next level => clear current save and go back to title
+        ExitToTitleMenu();
+    }
+
+    public static void ExitToTitleMenu()
+    {
         SessionManager.Instance.ExitCurrentPlayMode();
         SceneManager.LoadScene((int) ScenesEnum.Title);
     }
