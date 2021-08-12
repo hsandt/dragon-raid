@@ -32,9 +32,9 @@ public class SessionManager : SingletonManager<SessionManager>
     public void EnterStoryMode(int saveSlotIndex, int enteredLevelIndex)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(m_CurrentPlayMode == PlayMode.None,
-            "[SessionManager] EnterStoryMode: m_CurrentPlayMode is not PlayMode.None, it will be set to " +
-            "PlayMode.Story but this is not supposed to happen.");
+        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+            "[SessionManager] EnterStoryMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
+            "PlayMode.Story anyway, but this is not supposed to happen.", m_CurrentPlayMode);
         #endif
         m_CurrentPlayMode = PlayMode.Story;
         m_SaveSlotIndex = saveSlotIndex;
@@ -44,9 +44,9 @@ public class SessionManager : SingletonManager<SessionManager>
     public void EnterArcadeMode(int saveSlotIndex, int enteredLevelIndex)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(m_CurrentPlayMode == PlayMode.None,
-            "[SessionManager] EnterStoryMode: m_CurrentPlayMode is not PlayMode.None, it will be set to " +
-            "PlayMode.Arcade but this is not supposed to happen.");
+        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+            "[SessionManager] EnterStoryMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
+            "PlayMode.Arcade anyway, but this is not supposed to happen.", m_CurrentPlayMode);
         #endif
         m_CurrentPlayMode = PlayMode.Arcade;
         m_SaveSlotIndex = saveSlotIndex;
@@ -78,7 +78,7 @@ public class SessionManager : SingletonManager<SessionManager>
     public void SaveCurrentProgress()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(m_SaveSlotIndex >= 0, "[SessionManager] SaveCurrentProgress: save slot index should be positive, got {0}", m_SaveSlotIndex);
+        Debug.AssertFormat(m_SaveSlotIndex >= 0, "[SessionManager] SaveCurrentProgress: save slot index should be >= 0, got {0}", m_SaveSlotIndex);
         #endif
 
         // Only set next level index in story or arcade mode (level select mode just goes back to level select menu)
@@ -154,7 +154,7 @@ public class SessionManager : SingletonManager<SessionManager>
         }
         catch (Exception e)
         {
-            Debug.LogFormat("[SessionManager] WriteJsonToSaveFile: could not create text file '{0}', " +
+            Debug.LogFormat("[SessionManager] WriteJsonToSaveFile: could not create text file '{0}' " +
                 "due to exception:\n{1}", saveFilePath, e);
             return;
         }
@@ -162,6 +162,40 @@ public class SessionManager : SingletonManager<SessionManager>
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogFormat("[SessionManager] Saved progress in saveFilePath: {0} with Json: {1}", saveFilePath,
             playerSaveStoryJson);
+        #endif
+    }
+
+    // T should be PlayerSaveStory or PlayerSaveArcade
+    public static void DeleteSaveFile(SavedPlayMode savedPlayMode, int saveSlotIndex)
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(saveSlotIndex >= 0, "[SessionManager] DeleteSaveFile: save slot index should be >= 0, got {0}", saveSlotIndex);
+        #endif
+        
+        string saveFilePath = GetSaveFilePath(savedPlayMode, saveSlotIndex);
+
+        if (File.Exists(saveFilePath))
+        {
+            try
+            {
+                File.Delete(saveFilePath);
+            }
+            catch (Exception e)
+            {
+                Debug.LogFormat("[SessionManager] DeleteSaveFile: could not delete text file '{0}' " +
+                                "due to exception:\n{1}", saveFilePath, e);
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogFormat("[SessionManager] DeleteSaveFile: could not delete text file '{0}' " +
+                            "because it doesn't exist.", saveFilePath);
+            return;
+        }
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogFormat("[SessionManager] Deleted save file: {0}", saveFilePath);
         #endif
     }
 

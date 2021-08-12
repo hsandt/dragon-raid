@@ -38,9 +38,6 @@ public class SaveSlotMenu : Menu
     
     /* Cached references */
     
-    /// Array of save slot buttons
-    private Button[] saveSlotButtons;
-    
     /// Array of save slot container widgets
     private SaveSlotContainerWidget[] saveSlotContainerWidgets;
     
@@ -70,7 +67,6 @@ public class SaveSlotMenu : Menu
         Debug.AssertFormat(buttonBack != null, this, "[SaveSlotMenu] Awake: Button Back not set on {0}", this);
         #endif
         
-        saveSlotButtons = new Button[saveSlotParameters.saveSlotsCount];
         saveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
 
         // No Save slot button just starts the first level without setting up any save, for a simple run 
@@ -123,11 +119,13 @@ public class SaveSlotMenu : Menu
                         
                         // Player finished game on this slot iff the next level is last level index + 1
                         bool isComplete = playerSaveStory.nextLevelIndex >= levelDataList.levelDataArray.Length;
-                        saveSlotContainerWidgets[i].InitFilled(m_SavedPlayMode, i, isComplete, playerSaveStory.nextLevelIndex);
+                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveStory.nextLevelIndex);
                     }
                     else
                     {
-                        saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].InitEmpty();
                     }
                     break;
                 case SavedPlayMode.Arcade:
@@ -136,19 +134,16 @@ public class SaveSlotMenu : Menu
                     {
                         PlayerSaveArcade playerSaveArcade = optionalPlayerSaveArcade.Value;
                         bool isComplete = playerSaveArcade.nextLevelIndex >= levelDataList.levelDataArray.Length;
-                        saveSlotContainerWidgets[i].InitFilled(m_SavedPlayMode, i, isComplete, playerSaveArcade.nextLevelIndex);
+                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveArcade.nextLevelIndex);
                     }
                     else
                     {
-                        saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        saveSlotContainerWidgets[i].InitEmpty();
                     }
                     break;
             }
-            
-            // Bind button confirm callback (it's a method on the widget script so it can access save data
-            // directly without any need to make a lambda capturing this info)
-            saveSlotButtons[i] = saveSlotTransform.GetComponentOrFail<Button>();
-            saveSlotButtons[i].onClick.AddListener(saveSlotContainerWidgets[i].OnConfirm);
         }
     }
 
