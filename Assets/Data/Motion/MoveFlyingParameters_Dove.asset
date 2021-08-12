@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14394f4960c4c1fb7795680109dbfd0, type: 3}
-  m_Name: HealthParameters_Bird
+  m_Script: {fileID: 11500000, guid: 21f0d15c523d27920862e11d83f38527, type: 3}
+  m_Name: MoveFlyingParameters_Dove
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxSpeed: 5

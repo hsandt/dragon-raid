@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991456189922480483}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.0625, y: 0.0625, z: 0}
+  m_LocalPosition: {x: -0.875, y: 0.0625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1991456190773342593}
@@ -50,8 +50,11 @@ GameObject:
   - component: {fileID: 3276983679402282777}
   - component: {fileID: 1991456190773342604}
   - component: {fileID: 2214942553324554159}
+  - component: {fileID: 3939344505263049967}
+  - component: {fileID: 8776711105734704578}
+  - component: {fileID: 1799657125874514192}
   m_Layer: 16
-  m_Name: Bird
+  m_Name: Flying Imp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,9 +115,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1543734271
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c8eaf7fb5e32ae68b8a2009d0d448ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -141,8 +144,8 @@ BoxCollider2D:
   m_Offset: {x: 0.03125, y: 0.125}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.3846154, y: 0.30769232}
-    oldSize: {x: 0.8125, y: 0.8125}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.75, y: 2}
     newSize: {x: 2.5, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -184,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7872f9319f44d9daba6449b1cd51b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
+  slaveAnimator: {fileID: 0}
   slaveParticles: []
 --- !u!114 &1991456190773342602
 MonoBehaviour:
@@ -212,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd7b5af6729b7fafb79625c6a565103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthParameters: {fileID: 11400000, guid: cb73248aabe0d3e3d9b6e30673e72e48, type: 2}
+  healthParameters: {fileID: 11400000, guid: d9279053fbca1580789c81aeb3b7b999, type: 2}
   healthAestheticParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
 --- !u!114 &1991456190773342597
 MonoBehaviour:
@@ -251,8 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da83c7e311434133b00f36e10cd6729a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveFlyingParameters: {fileID: 11400000, guid: d4542270cdd75bdacb9a383df4a897f7, type: 2}
-  moveDirection: {x: -2, y: 1}
+  MoveFlyingParameters: {fileID: 11400000, guid: 1a2879d93e74a24b7a04b38b79336edc, type: 2}
+  moveDirection: {x: -2, y: 0}
 --- !u!114 &1991456190773342604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +282,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3939344505263049967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991456190773342592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26c27dde7c9649ec8640beba6167465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootParameters: {fileID: 11400000, guid: 4d88aa3ca667d7dabad20f88da87f8a0, type: 2}
+  shootAnchor: {fileID: 1991456189922480480}
+  defaultProjectileName: EnemyFireball
+--- !u!114 &8776711105734704578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991456190773342592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b256ca88301640e6bce0d0feb650dada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdFire: 0
+  fireDirection: {x: 0, y: 0}
+--- !u!114 &1799657125874514192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991456190773342592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47b40dfb43145a2b7f05fd30e9aa0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyShootParameters: {fileID: 11400000, guid: f8bcfbf5ff7b5e5ff81a6bd98207f741, type: 2}
 --- !u!1 &2883902153170373018
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +368,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03125, y: 0.125}
+  m_Offset: {x: -0.0625, y: -0.21875}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.3846154, y: 0.30769232}
@@ -332,5 +379,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6875, y: 0.5}
+  m_Size: {x: 0.75, y: 1.5625}
   m_EdgeRadius: 0
