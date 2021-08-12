@@ -72,6 +72,10 @@ public class InGameManager : SingletonManager<InGameManager>
     
     private void Start()
     {
+        // If playing in the editor directly into Level scene, do some basic setup
+        // so SessionManager knows what we're doing, in case it needs this info at some point
+        SessionManager.Instance.EnterFallbackModeIfNone(m_LevelData.levelIndex);
+        
         // Setup level
         SetupLevel();
     }

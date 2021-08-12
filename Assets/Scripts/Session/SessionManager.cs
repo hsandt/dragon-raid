@@ -18,7 +18,7 @@ public class SessionManager : SingletonManager<SessionManager>
     
     /// Index of the level to load when the player loads this Save
     /// As soon as the player finishes a level, this is incremented in the current save
-    public int m_NextLevelIndex;
+    private int m_NextLevelIndex;
     
 
     protected override void Init()
@@ -27,6 +27,18 @@ public class SessionManager : SingletonManager<SessionManager>
 
         m_CurrentPlayMode = PlayMode.None;
         m_NextLevelIndex = -1;
+    }
+
+    /// If current mode is None, fallback to Arcade mode with No Save (slot index: -1)
+    /// and with indicated entered level index (obtained from current scene).
+    /// This is only useful when testing in the editor and playing directly from a Level scene,
+    /// so that EnterStoryMode/EnterArcadeMode was never called (it's normally called from the Title menu)
+    public void EnterFallbackModeIfNone(int enteredLevelIndex)
+    {
+        if (m_CurrentPlayMode == PlayMode.None)
+        {
+            EnterArcadeMode(-1, enteredLevelIndex);
+        }
     }
 
     public void EnterStoryMode(int saveSlotIndex, int enteredLevelIndex)

@@ -37,7 +37,6 @@ public class SaveSlotContainerWidget : MonoBehaviour
     /// to check this flag first to avoid loading an invalid level
     private bool m_IsComplete;
     
-    // TODO: put the whole deserialized player save object here
     /// Next level to load when resuming that save
     private int m_NextLevelIndex;
 
