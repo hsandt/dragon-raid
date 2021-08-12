@@ -112,7 +112,7 @@ public class SaveSlotMenu : Menu
             saveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
             
             // TODO: actually check existing save and call InitFilled if there is one for this slot
-            saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode);
+            saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
             
             // Bind button confirm callback (it's a method on the widget script so it can access save data
             // directly without any need to make a lambda capturing this info)
