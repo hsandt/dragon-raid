@@ -75,7 +75,7 @@ public class SessionManager : SingletonManager<SessionManager>
         }
     }
 
-    private void SaveCurrentProgress()
+    public void SaveCurrentProgress()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_SaveSlotIndex >= 0, "[SessionManager] SaveCurrentProgress: save slot index should be positive, got {0}", m_SaveSlotIndex);

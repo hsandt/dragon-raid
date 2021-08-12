@@ -89,7 +89,14 @@ public class SaveSlotContainerWidget : MonoBehaviour
                 break;
         }
         
-        // If slot is filled, next level index is 0, so this statement always works
+        // Immediately save progress if starting from empty slot (new save)
+        // This will effectively create a save for this slot, with next level index: 0
+        if (!m_IsFilled)
+        {
+            SessionManager.Instance.SaveCurrentProgress();
+        }
+        
+        // Start next level (0 if new save)
         MainMenuManager.Instance.StartLevel(nextLevelIndex);
     }
 }
