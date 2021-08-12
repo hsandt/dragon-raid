@@ -25,6 +25,11 @@ public class SaveSlotContainerWidget : MonoBehaviour
     /// True if the slot contains a save, false if empty
     private bool m_IsFilled;
     
+    /// True if the player has finished the last level in this save slot
+    /// If so, m_NextLevelIndex must be last level index + 1 so it's important
+    /// to check this flag first to avoid loading an invalid level
+    private bool m_IsComplete;
+    
     /// Next level to load when resuming that save
     private int m_NextLevelIndex;
     
@@ -35,6 +40,7 @@ public class SaveSlotContainerWidget : MonoBehaviour
         m_SlotIndex = slotIndex;
         
         m_IsFilled = false;
+        m_IsComplete = false;
         
         // Empty save always create a new game that starts on first level
         m_NextLevelIndex = 0;
@@ -42,12 +48,13 @@ public class SaveSlotContainerWidget : MonoBehaviour
         RefreshVisual();
     }
 
-    public void InitFilled(SavedPlayMode savedPlayMode, int slotIndex, int nextLevelIndex)
+    public void InitFilled(SavedPlayMode savedPlayMode, int slotIndex, bool isComplete, int nextLevelIndex)
     {
         m_SavedPlayMode = savedPlayMode;
         m_SlotIndex = slotIndex;
 
         m_IsFilled = true;
+        m_IsComplete = isComplete;
         m_NextLevelIndex = nextLevelIndex;
 
         RefreshVisual();
@@ -67,31 +74,22 @@ public class SaveSlotContainerWidget : MonoBehaviour
 
     public void OnConfirm()
     {
-        if (m_IsFilled)
+        // If game has been completed, we should allow player to select any level to restart from
+        // This hasn't been implemented yet though, so for now just restart the game from the last level
+        // (if m_IsComplete, m_NextLevelIndex = last level index + 1 so just subtract 1)
+        int nextLevelIndex = m_IsComplete ? m_NextLevelIndex - 1 : m_NextLevelIndex;
+        
+        switch (m_SavedPlayMode)
         {
-            // TODO: load existing save
-            switch (m_SavedPlayMode)
-            {
-                case SavedPlayMode.Story:
-                    break;
-                case SavedPlayMode.Arcade:
-                    break;
-            }
-        }
-        else
-        {
-            switch (m_SavedPlayMode)
-            {
-                case SavedPlayMode.Story:
-                    SessionManager.Instance.EnterStoryMode(m_SlotIndex, m_NextLevelIndex);
-                    break;
-                case SavedPlayMode.Arcade:
-                    SessionManager.Instance.EnterArcadeMode(m_SlotIndex, m_NextLevelIndex);
-                    break;
-            }
+            case SavedPlayMode.Story:
+                SessionManager.Instance.EnterStoryMode(m_SlotIndex, nextLevelIndex);
+                break;
+            case SavedPlayMode.Arcade:
+                SessionManager.Instance.EnterArcadeMode(m_SlotIndex, nextLevelIndex);
+                break;
         }
         
         // If slot is filled, next level index is 0, so this statement always works
-        MainMenuManager.Instance.StartLevel(m_NextLevelIndex);
+        MainMenuManager.Instance.StartLevel(nextLevelIndex);
     }
 }

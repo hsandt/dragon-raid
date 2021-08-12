@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class SessionManager : SingletonManager<SessionManager>
     private PlayMode m_CurrentPlayMode;
     
     /// Index of save slot for this saved play mode
-    private int m_SlotIndex;
+    private int m_SaveSlotIndex;
     
     /* State: Save data */
     
@@ -36,7 +37,7 @@ public class SessionManager : SingletonManager<SessionManager>
             "PlayMode.Story but this is not supposed to happen.");
         #endif
         m_CurrentPlayMode = PlayMode.Story;
-        m_SlotIndex = saveSlotIndex;
+        m_SaveSlotIndex = saveSlotIndex;
         m_NextLevelIndex = enteredLevelIndex;
     }
 
@@ -48,7 +49,7 @@ public class SessionManager : SingletonManager<SessionManager>
             "PlayMode.Arcade but this is not supposed to happen.");
         #endif
         m_CurrentPlayMode = PlayMode.Arcade;
-        m_SlotIndex = saveSlotIndex;
+        m_SaveSlotIndex = saveSlotIndex;
         m_NextLevelIndex = enteredLevelIndex;
     }
     
@@ -66,13 +67,20 @@ public class SessionManager : SingletonManager<SessionManager>
             // If we finished the last level, this index will be just after the last once, meaning "finished game"
             m_NextLevelIndex = finishedLevelIndex + 1;
             
-            // Auto-save
-            SaveCurrentProgress();
+            // Auto-save unless using No Save slot (index: -1)
+            if (m_SaveSlotIndex >= 0)
+            {
+                SaveCurrentProgress();
+            }
         }
     }
 
     private void SaveCurrentProgress()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(m_SaveSlotIndex >= 0, "[SessionManager] SaveCurrentProgress: save slot index should be positive, got {0}", m_SaveSlotIndex);
+        #endif
+
         // Only set next level index in story or arcade mode (level select mode just goes back to level select menu)
         if (m_CurrentPlayMode == PlayMode.Story)
         {
@@ -81,7 +89,7 @@ public class SessionManager : SingletonManager<SessionManager>
                 nextLevelIndex = m_NextLevelIndex
             };
 
-            WriteJsonToSaveFile(playerSaveStory);
+            WriteJsonToSaveFile(SavedPlayMode.Story, m_SaveSlotIndex, playerSaveStory);
         }
         else if (m_CurrentPlayMode == PlayMode.Arcade)
         {
@@ -90,7 +98,7 @@ public class SessionManager : SingletonManager<SessionManager>
                 nextLevelIndex = m_NextLevelIndex
             };
             
-            WriteJsonToSaveFile(playerSaveArcade);
+            WriteJsonToSaveFile(SavedPlayMode.Arcade, m_SaveSlotIndex, playerSaveArcade);
         }
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
@@ -101,16 +109,65 @@ public class SessionManager : SingletonManager<SessionManager>
         #endif
     }
 
-    private void WriteJsonToSaveFile<T>(T playerSave)
+    // T should be PlayerSaveStory or PlayerSaveArcade
+    public static T? ReadJsonFromSaveFile<T>(SavedPlayMode savedPlayMode, int saveSlotIndex) where T : struct
+    {
+        string saveFilePath = GetSaveFilePath(savedPlayMode, saveSlotIndex);
+        if (File.Exists(saveFilePath))
+        {
+            string playerSaveJson = File.ReadAllText(saveFilePath);
+            T playerSave = JsonUtility.FromJson<T>(playerSaveJson);
+            return playerSave;
+        }
+
+        return null;
+    }
+    
+    // T should be PlayerSaveStory or PlayerSaveArcade
+    private static void WriteJsonToSaveFile<T>(SavedPlayMode savedPlayMode, int saveSlotIndex, T playerSave)
     {
         string playerSaveStoryJson = JsonUtility.ToJson(playerSave);
-        string saveFilePath = Path.Combine(Application.persistentDataPath, $"{m_CurrentPlayMode}_{m_SlotIndex:02}");
+        string saveFilePath = GetSaveFilePath(savedPlayMode, saveSlotIndex);
+
+        string saveFileDirectoryPath = Path.GetDirectoryName(saveFilePath);
+        if (saveFileDirectoryPath != null && !Directory.Exists(saveFileDirectoryPath))
+        {
+            try
+            {
+                Directory.CreateDirectory(saveFileDirectoryPath);
+            }
+            catch (Exception e)
+            {
+                Debug.LogFormat("[SessionManager] WriteJsonToSaveFile: could not create directory '{0}', " +
+                    "so cannot write to file '{1}', due to exception:\n{2}", saveFileDirectoryPath, saveFilePath, e);
+                return;
+            }
+        }
+        
+        try
+        {
+            // Write new file, or overwrite existing file at this path
+            using (StreamWriter streamWriter = File.CreateText(saveFilePath))
+            {
+                streamWriter.Write(playerSaveStoryJson);
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogFormat("[SessionManager] WriteJsonToSaveFile: could not create text file '{0}', " +
+                "due to exception:\n{1}", saveFilePath, e);
+            return;
+        }
+        
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogFormat("[SessionManager] Saved progress in saveFilePath: {0} with Json: {1}", saveFilePath,
             playerSaveStoryJson);
         #endif
-        StreamWriter streamWriter = File.CreateText(saveFilePath);
-        streamWriter.Write(playerSaveStoryJson);
-        streamWriter.Close();
+    }
+
+    private static string GetSaveFilePath(SavedPlayMode savedPlayMode, int saveSlotIndex)
+    {
+        // Ex: /home/USERNAME/.config/unity3d/komehara/Dragon Raid/saves/Arcade_01.save
+        return Path.Combine(Application.persistentDataPath, "saves", $"{savedPlayMode}_{saveSlotIndex:00}.save");
     }
 }

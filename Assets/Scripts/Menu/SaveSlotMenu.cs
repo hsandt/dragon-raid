@@ -62,8 +62,10 @@ public class SaveSlotMenu : Menu
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(saveSlotParameters != null, this, "[SaveSlotMenu] Awake: Save Slot Parameters not set on {0}", this);
         Debug.AssertFormat(levelDataList != null, this, "[SaveSlotMenu] Awake: Level Data List not set on {0}", this);
-        Debug.AssertFormat(saveSlotsParent.IsChildOf(transform), this, "[SaveSlotMenu] Awake: Save Slots Parent is not a child (in the broad sense) of {0}", this);
+        Debug.AssertFormat(saveSlotContainerButtonPrefab != null, this, "[SaveSlotMenu] Awake: Save Slot Container Button Prefab not set on {0}", this);
         Debug.AssertFormat(headerText != null, this, "[SaveSlotMenu] Awake: Header Text not set on {0}", this);
+        Debug.AssertFormat(noSaveSlotButton != null, this, "[SaveSlotMenu] Awake: No Save Slot Button not set on {0}", this);
+        Debug.AssertFormat(saveSlotsParent.IsChildOf(transform), this, "[SaveSlotMenu] Awake: Save Slots Parent is not a child (in the broad sense) of {0}", this);
         Debug.AssertFormat(saveSlotsParent != null, this, "[SaveSlotMenu] Awake: Save Slots Parent not set on {0}", this);
         Debug.AssertFormat(buttonBack != null, this, "[SaveSlotMenu] Awake: Button Back not set on {0}", this);
         #endif
@@ -72,7 +74,7 @@ public class SaveSlotMenu : Menu
         saveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
 
         // No Save slot button just starts the first level without setting up any save, for a simple run 
-        noSaveSlotButton.onClick.AddListener(StartFirstLevel);
+        noSaveSlotButton.onClick.AddListener(StartGameWithoutSave);
         
         buttonBack.onClick.AddListener(GoBack);
     }
@@ -110,9 +112,38 @@ public class SaveSlotMenu : Menu
             
             // Initialise widget model and view
             saveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
-            
-            // TODO: actually check existing save and call InitFilled if there is one for this slot
-            saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
+
+            switch (m_SavedPlayMode)
+            {
+                case SavedPlayMode.Story:
+                    PlayerSaveStory? optionalPlayerSaveStory = SessionManager.ReadJsonFromSaveFile<PlayerSaveStory>(m_SavedPlayMode, i);
+                    if (optionalPlayerSaveStory.HasValue)
+                    {
+                        PlayerSaveStory playerSaveStory = optionalPlayerSaveStory.Value;
+                        
+                        // Player finished game on this slot iff the next level is last level index + 1
+                        bool isComplete = playerSaveStory.nextLevelIndex >= levelDataList.levelDataArray.Length;
+                        saveSlotContainerWidgets[i].InitFilled(m_SavedPlayMode, i, isComplete, playerSaveStory.nextLevelIndex);
+                    }
+                    else
+                    {
+                        saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
+                    }
+                    break;
+                case SavedPlayMode.Arcade:
+                    PlayerSaveArcade? optionalPlayerSaveArcade = SessionManager.ReadJsonFromSaveFile<PlayerSaveArcade>(m_SavedPlayMode, i);
+                    if (optionalPlayerSaveArcade.HasValue)
+                    {
+                        PlayerSaveArcade playerSaveArcade = optionalPlayerSaveArcade.Value;
+                        bool isComplete = playerSaveArcade.nextLevelIndex >= levelDataList.levelDataArray.Length;
+                        saveSlotContainerWidgets[i].InitFilled(m_SavedPlayMode, i, isComplete, playerSaveArcade.nextLevelIndex);
+                    }
+                    else
+                    {
+                        saveSlotContainerWidgets[i].InitEmpty(m_SavedPlayMode, i);
+                    }
+                    break;
+            }
             
             // Bind button confirm callback (it's a method on the widget script so it can access save data
             // directly without any need to make a lambda capturing this info)
@@ -131,8 +162,21 @@ public class SaveSlotMenu : Menu
         return false;
     }
         
-    private void StartFirstLevel()
+    private void StartGameWithoutSave()
     {
+        // Still notify Session Manager that we enter story/arcade mode so it is in the correct mode,
+        // but pass slot index: -1 since there is no save associated to the session
+        switch (m_SavedPlayMode)
+        {
+            case SavedPlayMode.Story:
+                SessionManager.Instance.EnterStoryMode(-1, 0);
+                break;
+            case SavedPlayMode.Arcade:
+                SessionManager.Instance.EnterArcadeMode(-1, 0);
+                break;
+        }
+        
+        // Always start from first level, since we're playing without save
         MainMenuManager.Instance.StartLevel(0);
     }
     
