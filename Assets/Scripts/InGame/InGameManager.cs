@@ -129,6 +129,7 @@ public class InGameManager : SingletonManager<InGameManager>
         PlayerCharacterPoolManager.Instance.ReleaseAllObjects();
 
         // Despawn all enemies
+        // (this is a low-level method and will not trigger any death / cleared wave event)
         EnemyPoolManager.Instance.ReleaseAllObjects();
         
         // Clean up all projectiles

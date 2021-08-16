@@ -92,7 +92,7 @@ public class HealthSystem : ClearableBehaviour
         m_InvincibilityTimer.CountDown(Time.deltaTime);
     }
 
-    public float GetValue()
+    public int GetValue()
     {
         return m_Health.value;
     }
@@ -123,6 +123,14 @@ public class HealthSystem : ClearableBehaviour
             NotifyValueChangeToObservers();
         }
     }
+
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    /// Kill unit instantly
+    public void Kill()
+    {
+        Damage(m_Health.value);
+    }
+    #endif
 
     /// Apply one-shot damage and return whether it worked or not
     public bool TryOneShotDamage(int value)
@@ -193,9 +201,9 @@ public class HealthSystem : ClearableBehaviour
                 SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
             }
         }
-
+        
         m_OnDeathEventEffect?.Trigger();
-                
+        
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
     }

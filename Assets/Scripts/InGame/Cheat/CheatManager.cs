@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CheatManager : MonoBehaviour
 {
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void Update()
     {
         // Player Input components cannot share the same device (here: keyboard),
@@ -13,6 +14,7 @@ public class CheatManager : MonoBehaviour
         // Key map:
         // - press R to restart level
         // - press F to finish level
+        // - press K to kill all spawned enemies
         
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
@@ -22,5 +24,10 @@ public class CheatManager : MonoBehaviour
         {
             InGameManager.Instance.FinishLevel();
         }
+        else if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            EnemyPoolManager.Instance.KillAllEnemies();
+        }
     }
+    #endif
 }

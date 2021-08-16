@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityConstants;
+using CommonsHelper;
 using CommonsPattern;
 
 /// Pool manager for all enemy characters
@@ -39,4 +40,18 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
         
         return null;
     }
+    
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public void KillAllEnemies()
+    {
+        foreach (Pool<EnemyCharacterMaster> pool in m_MultiPool.Values)
+        {
+            foreach (EnemyCharacterMaster activeEnemy in pool.GetObjectsInUse())
+            {
+                var healthSystem = activeEnemy.GetComponentOrFail<HealthSystem>();
+                healthSystem.Kill();
+            }
+        }
+    }
+    #endif
 }
