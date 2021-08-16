@@ -38,7 +38,10 @@ public class LivingZoneTracker : ClearableBehaviour
             "[LivingZoneTracker] No component of type IPooledObject found on {0}", gameObject);
         #endif
         
-        m_EnemyCharacterMaster = GetComponent<EnemyCharacterMaster>();
+        // Enemy Character Master is a Pooled Object, and there should only be one Pooled Object component per object
+        // so if this object is an enemy, we already have the Enemy Character Master reference as pooled object,
+        // and we just need to cast it. We do a dynamic cast, so if it's not an enemy, we just get null.
+        m_EnemyCharacterMaster = m_PooledObject as EnemyCharacterMaster;
     }
 
     public override void Setup()
