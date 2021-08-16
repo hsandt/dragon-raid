@@ -32,7 +32,9 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
         gameObject.SetActive(true);
         Setup();
 
-        m_Rigidbody2D.position = position;
+        // Make sure to set Transform position, not position, to avoid 1 frame lag when spawning character in
+        // non-Fixed-Update context (it happens with EnemyWave when it uses Coroutine to delay spawn enemy)
+        transform.position = position;
     }
 
 

@@ -176,12 +176,16 @@ MonoBehaviour:
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 10.9375, y: -4.9375}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 13.9375, y: -4.5}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 16.5, y: -4.75}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: ac39cbf898d54532d9b3ed9246b24c6f, type: 2}
     spawnPosition: {x: 19.375, y: -4.875}
+    delay: 0
 --- !u!114 &9170587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,17 +1560,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.9375, y: -2.625}
+    spawnPosition: {x: 11, y: -2.125}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.8125, y: 4.75}
+    spawnPosition: {x: 11, y: -2.125}
+    delay: 0.8
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.8125, y: 3.25}
+    spawnPosition: {x: 11, y: -2.125}
+    delay: 1.6
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.875, y: 2}
+    spawnPosition: {x: 10.6875, y: 3.4375}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.9375, y: 0.6875}
+    spawnPosition: {x: 10.6875, y: 3.4375}
+    delay: 1
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
-    spawnPosition: {x: 10.9375, y: -1.0625}
+    spawnPosition: {x: 10.6875, y: 3.4375}
+    delay: 2
 --- !u!114 &824402474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,6 +2564,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de38ee7e0113f4e0cae62aef93d69748, type: 3}
+--- !u!1 &1322283325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1322283326}
+  - component: {fileID: 1322283328}
+  - component: {fileID: 1322283327}
+  m_Layer: 0
+  m_Name: 'Event: Test Wave Cleared -> Finish Level'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1322283326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322283325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2113426032}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322283327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322283325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c53ba71b86c17d32fb5072e5bf144838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1322283328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322283325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6710bd92f03efad6da9347a3b630117a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyWave: {fileID: 824402473}
 --- !u!4 &1395754621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 581364396840778214, guid: 3458cd92fa6b51822b04360b19edde2e, type: 3}
@@ -2660,7 +2727,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1427448502
 Transform:
   m_ObjectHideFlags: 0
@@ -2690,14 +2757,19 @@ MonoBehaviour:
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 11.1875, y: -1.8125}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 12.5, y: -1.8125}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 12.5625, y: -3.375}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 13.875, y: -3.5625}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 15.1875, y: -4.125}
+    delay: 0
 --- !u!114 &1427448504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,6 +2829,7 @@ MonoBehaviour:
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: ecaf627fd4f4435fc93d7b114aa85314, type: 2}
     spawnPosition: {x: 15.5, y: -3.5625}
+    delay: 0
 --- !u!114 &1465094005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3497,18 +3570,25 @@ MonoBehaviour:
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 12.375, y: -2.5625}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 11, y: -4.8125}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
     spawnPosition: {x: 16.8125, y: -4.6875}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 14.3125, y: -3.3125}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 10.625, y: -1.5625}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: ac39cbf898d54532d9b3ed9246b24c6f, type: 2}
     spawnPosition: {x: 19.25, y: -4.625}
+    delay: 0
   - enemyData: {fileID: 11400000, guid: ac39cbf898d54532d9b3ed9246b24c6f, type: 2}
     spawnPosition: {x: 21.5625, y: -4.5625}
+    delay: 0
 --- !u!114 &1749047179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4188,6 +4268,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2114772813}
+  - {fileID: 1322283326}
   m_Father: {fileID: 683363028}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

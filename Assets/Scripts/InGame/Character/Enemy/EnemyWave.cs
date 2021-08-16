@@ -33,6 +33,12 @@ public class EnemyWave : MonoBehaviour
         m_TrackedEnemiesCount = 0;
     }
     
+    public void Clear()
+    {
+        // Important to avoid keeping a delayed spawn around that would happen out of nowhere after level restart
+        StopAllCoroutines();
+    }
+    
     public void StartWave()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -46,11 +52,27 @@ public class EnemyWave : MonoBehaviour
         {
             if (enemySpawnData.enemyData)
             {
-                EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this);
-                if (enemyCharacterMaster != null)
+                // Track enemy whether immediate or delayed spawn because if we only increment count on actual spawn,
+                // a quick player may destroy all immediate enemies before delayed enemies even arrive and incorrectly
+                // trigger the On Wave Cleared Event Effect. A priori all enemies will eventually spawn, so just
+                // increment. If some spawning fails below, then we will decrement back.
+                ++m_TrackedEnemiesCount;
+                
+                if (enemySpawnData.delay <= 0f)
                 {
-                    ++m_TrackedEnemiesCount;
+                    EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this);
+                    if (enemyCharacterMaster == null)
+                    {
+                        // Spawning failed, immediately stop tracking
+                        --m_TrackedEnemiesCount;
+                    }
                 }
+                else
+                {
+                    StartCoroutine(SpawnEnemyWithDelayAsync(enemySpawnData));
+                }
+                
+
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
@@ -82,6 +104,18 @@ public class EnemyWave : MonoBehaviour
         {
             Debug.LogErrorFormat(this, "[EnemyWave] m_TrackedEnemiesCount ({0}) is not positive on {1}, cannot decrement",
                 m_TrackedEnemiesCount, this);
+        }
+    }
+
+    private IEnumerator SpawnEnemyWithDelayAsync(EnemySpawnData enemySpawnData)
+    {
+        yield return new WaitForSeconds(enemySpawnData.delay);
+        
+        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this);
+        if (enemyCharacterMaster == null)
+        {
+            // Spawning failed, immediately stop tracking
+            --m_TrackedEnemiesCount;
         }
     }
 }

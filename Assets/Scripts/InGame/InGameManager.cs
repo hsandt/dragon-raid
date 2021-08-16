@@ -123,6 +123,8 @@ public class InGameManager : SingletonManager<InGameManager>
         // so it preserves the destroyed reference), so we'll handle this in FinishLevel
         m_PlayerCharacterMaster = null;
         
+        EnemyWaveManager.Instance.Clear();
+        
         // We use the generic Pool API to release all objects, but it really only releases 1 here
         PlayerCharacterPoolManager.Instance.ReleaseAllObjects();
 
@@ -135,7 +137,8 @@ public class InGameManager : SingletonManager<InGameManager>
         // Clean up all FX
         FXPoolManager.Instance.ReleaseAllObjects();
         
-        // Note: we're now restarting Music nor stopping all SFX
+        // Note: we're not restarting Music nor stopping all SFX
+        // We'll eventually do a proper fade-out so this should be enough to cover the duration of the longest SFX.
     }
 
     public void RestartLevel()
@@ -148,6 +151,9 @@ public class InGameManager : SingletonManager<InGameManager>
             SetupLevel();
         }
     }
+    
+    // TODO: add Pause/Resume here
+    // Remember to disable any script with coroutines like EnemyWave so the coroutines are paused too
 
     public void FinishLevel()
     {

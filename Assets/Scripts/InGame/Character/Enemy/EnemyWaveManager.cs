@@ -42,4 +42,12 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
             enemyWave.Setup();
         }
     }
+    
+    public void Clear()
+    {
+        foreach (EnemyWave enemyWave in m_AllEnemyWaves)
+        {
+            enemyWave.Clear();
+        }
+    }
 }
