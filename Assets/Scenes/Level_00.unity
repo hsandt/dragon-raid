@@ -1601,7 +1601,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1991456190773342592, guid: 364d99e2a461fc720b00c26a1e3244f7, type: 3}
       propertyPath: m_Name
-      value: Bird
+      value: Dove
       objectReference: {fileID: 0}
     - target: {fileID: 1991456190773342593, guid: 364d99e2a461fc720b00c26a1e3244f7, type: 3}
       propertyPath: m_RootOrder

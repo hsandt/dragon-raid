@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f0d15c523d27920862e11d83f38527, type: 3}
-  m_Name: MoveFlyingParameters_FlyingImp
+  m_Script: {fileID: 11500000, guid: 3301b18a89d64dc98daabb1f1a082a35, type: 3}
+  m_Name: EnemyMoveFlyingParameters_Dove
   m_EditorClassIdentifier: 
+  movePathType: 0
   maxSpeed: 4
+  halfHeight: 2

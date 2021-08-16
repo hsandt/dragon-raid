@@ -10,13 +10,7 @@ using CommonsPattern;
 /// It manages MoveFlyingIntention and is therefore responsible for its Setup.
 /// SEO for concrete child classes: before MoveFlying
 public abstract class BaseMoveFlyingController : ClearableBehaviour
-{
-    [Header("Parameters data")]
-
-    [Tooltip("Move Parameters Data")]
-    public MoveFlyingParameters MoveFlyingParameters;
-
-    
+{ 
     /* Sibling components */
     
     protected MoveFlyingIntention m_MoveFlyingIntention;

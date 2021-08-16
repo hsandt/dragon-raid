@@ -423,6 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725a8402bafd44fe9a71ffd14c429d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
   slaveParticles: []
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70242e138d02b17aca9480e24388e9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveFlyingParameters: {fileID: 11400000, guid: 42e77963589ee021b897a8514b094310, type: 2}
+  playerMoveFlyingParameters: {fileID: 11400000, guid: 42e77963589ee021b897a8514b094310, type: 2}
 --- !u!114 &4277205838411756315
 MonoBehaviour:
   m_ObjectHideFlags: 0

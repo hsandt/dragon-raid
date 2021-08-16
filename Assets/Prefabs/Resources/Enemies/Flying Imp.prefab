@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da83c7e311434133b00f36e10cd6729a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveFlyingParameters: {fileID: 11400000, guid: 1a2879d93e74a24b7a04b38b79336edc, type: 2}
+  enemyMoveFlyingParameters: {fileID: 11400000, guid: da0234e9a6b5e540caa260832b22ff9f, type: 2}
   moveDirection: {x: -2, y: 0}
 --- !u!114 &1991456190773342604
 MonoBehaviour:

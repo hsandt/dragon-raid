@@ -13,7 +13,7 @@ public class EnemyMoveFlyingControllerEditor : Editor
         var script = (EnemyMoveFlyingController) target;
             
         Vector2 startPosition = (Vector2)script.transform.position;
-        Vector2 endPosition = startPosition + script.MoveDirection;
+        Vector2 endPosition = startPosition + script.LinearMoveDirection;
         HandlesUtil.DrawArrow2D(startPosition, endPosition, Color.white);
 
         using (var check = new EditorGUI.ChangeCheckScope())
@@ -25,7 +25,7 @@ public class EnemyMoveFlyingControllerEditor : Editor
                 // Don't normalize direction to make it easier to edit using snapping
                 // with values like (-2, 1)
                 // Move direction will be normalized before moving
-                script.MoveDirection = endPosition - startPosition;
+                script.LinearMoveDirection = endPosition - startPosition;
             }
         }
     }

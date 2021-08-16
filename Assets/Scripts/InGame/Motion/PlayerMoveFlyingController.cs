@@ -10,10 +10,16 @@ using CommonsPattern;
 /// SEO: before MoveFlying
 public class PlayerMoveFlyingController : BaseMoveFlyingController
 {
+    [Header("Parameters data")]
+
+    [Tooltip("Move Parameters Data")]
+    public PlayerMoveFlyingParameters playerMoveFlyingParameters;
+    
+    
     /// PlayerInput action message callback for Move
     private void OnMove(InputValue value)
     {
         // Binary Cardinal Processor makes sure that move input is -1/0/+1 on each axis
-        m_MoveFlyingIntention.moveVelocity = MoveFlyingParameters.maxSpeed * value.Get<Vector2>();
+        m_MoveFlyingIntention.moveVelocity = playerMoveFlyingParameters.maxSpeed * value.Get<Vector2>();
     }
 }
