@@ -33,7 +33,11 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
             return playerCharacter;
         }
         
-        // pool starvation (error is already logged inside GetObject)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogErrorFormat("[PlayerCharacterPoolManager] SpawnCharacter: pool starvation! Cannot spawn player character. " +
+            "Consider setting instantiateNewObjectOnStarvation: true on PlayerCharacterPoolManager, or increasing its pool size.");
+        #endif
+        
         return null;
     }
 }

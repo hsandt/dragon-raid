@@ -30,7 +30,12 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
             return fx;
         }
         
-        // pool starvation (error is already logged inside GetObject)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogErrorFormat("[FXPoolManager] SpawnFX: pool starvation! Cannot spawn FX '{0}'. " +
+            "Consider setting instantiateNewObjectOnStarvation: true on FXPoolManager, or increasing its pool size.",
+            resourceName);
+        #endif
+        
         return null;
     }
 }

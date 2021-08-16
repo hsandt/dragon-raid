@@ -28,7 +28,12 @@ public class SfxPoolManager : PoolManager<Sfx, SfxPoolManager>
             return sfx;
         }
         
-        // pool starvation (error is already logged inside GetObject)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogWarningFormat(this, "[SfxPoolManager] PlaySfx: pool starvation! Cannot play clip '{0}'. " +
+            "Consider setting instantiateNewObjectOnStarvation: true on SfxPoolManager, or increasing its pool size.",
+            clip);
+        #endif
+        
         return null;
     }
 }

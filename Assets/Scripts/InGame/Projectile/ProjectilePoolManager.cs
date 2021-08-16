@@ -30,7 +30,12 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
             return projectile;
         }
         
-        // pool starvation (error is already logged inside GetObject)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogErrorFormat("[ProjectilePoolManager] SpawnProjectile: pool starvation! Cannot spawn projectile '{0}'. " +
+            "Consider setting instantiateNewObjectOnStarvation: true on ProjectilePoolManager, or increasing its pool size.",
+            resourceName);
+        #endif
+        
         return null;
     }
 }

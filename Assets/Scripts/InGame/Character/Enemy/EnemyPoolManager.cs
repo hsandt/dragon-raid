@@ -31,7 +31,12 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
             return enemyCharacter;
         }
         
-        // pool starvation (error is already logged inside GetObject)
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: pool starvation! Cannot spawn enemy '{0}'. " +
+            "Consider setting instantiateNewObjectOnStarvation: true on EnemyPoolManager, or increasing its pool size.",
+            enemyName);
+        #endif
+        
         return null;
     }
 }
