@@ -24,11 +24,13 @@ public class Background : MonoBehaviour
     /// for continuous loop
     private Rigidbody2D[] m_DuplicateParallaxLayerRigidbodies;
 
-    /// Array of references to the current left and right parallax layers, for each level.
+    /// Array of references to the current left and right parallax layer transforms, for each level.
     /// All left layers are the original ones on start, but they swap with their duplicate every full scrolling period.
     /// However, this period depends on the parallax level, so we must track them independently for each level.
     /// Note that C# System.Tuple is immutable, so we use our custom Pair struct instead.
-    private Pair<Rigidbody2D, Rigidbody2D>[] leftAndRightParallaxLayerRigidbodies;
+    /// Also note that we store Transform instead of Rigidbody2D just because we only use those to warp position
+    /// directly, and warping is more reliable with Transform (avoids lag when done outside FixedUpdate context).
+    private Pair<Transform, Transform>[] leftAndRightParallaxLayerTransforms;
 
     
     void Start()
@@ -43,7 +45,7 @@ public class Background : MonoBehaviour
         m_DuplicateParallaxLayerRigidbodies = new Rigidbody2D[parallaxLayerRigidbodies.Length];
         
         // Construct array of pairs too
-        leftAndRightParallaxLayerRigidbodies = new Pair<Rigidbody2D, Rigidbody2D>[parallaxLayerRigidbodies.Length];
+        leftAndRightParallaxLayerTransforms = new Pair<Transform, Transform>[parallaxLayerRigidbodies.Length];
         
         // Create a duplicate for this parallax layer so we can have it loop continuously by swapping 
         // the left and right copies when the left one has completely exited the screen to the left.
@@ -59,8 +61,8 @@ public class Background : MonoBehaviour
                 Quaternion.identity, transform);
 
             // Also initialize reference pair: original parallax layer starts on the left, duplicate on the right
-            leftAndRightParallaxLayerRigidbodies[i].First = parallaxLayerRigidbodies[i];
-            leftAndRightParallaxLayerRigidbodies[i].Second = m_DuplicateParallaxLayerRigidbodies[i];
+            leftAndRightParallaxLayerTransforms[i].First = parallaxLayerRigidbodies[i].transform;
+            leftAndRightParallaxLayerTransforms[i].Second = m_DuplicateParallaxLayerRigidbodies[i].transform;
         }
     }
 
@@ -83,22 +85,22 @@ public class Background : MonoBehaviour
         // layer entering and covering the screen completely, which is equivalent to its position crossing 0 toward left
         for (int i = 0; i < parallaxLayerRigidbodies.Length; ++i)
         {
-            Rigidbody2D leftParallaxLayerRigidbody2D = leftAndRightParallaxLayerRigidbodies[i].First;
-            Rigidbody2D rightParallaxLayerRigidbody2D = leftAndRightParallaxLayerRigidbodies[i].Second;
+            Transform leftParallaxLayerTransform = leftAndRightParallaxLayerTransforms[i].First;
+            Transform rightParallaxLayerTransform = leftAndRightParallaxLayerTransforms[i].Second;
 
-            if (rightParallaxLayerRigidbody2D.position.x <= 0f)
+            if (rightParallaxLayerTransform.position.x <= 0f)
             {
                 // the left parallax layer stops covering the right part of the screen, warp the original layer
                 // just to the right of the right layer for perfect looping
-                float warpedPositionX = rightParallaxLayerRigidbody2D.position.x + skySpriteRenderer.size.x;
+                float warpedPositionX = rightParallaxLayerTransform.position.x + skySpriteRenderer.size.x;
                 
                 // position y is always 0
-                leftParallaxLayerRigidbody2D.position = warpedPositionX * Vector2.right;
+                leftParallaxLayerTransform.position = warpedPositionX * Vector2.right;
                 
                 // swap both roles now, we start another scrolling loop for this layer level
-                Rigidbody2D tempParallaxLayerRigidbody = leftParallaxLayerRigidbody2D;
-                leftAndRightParallaxLayerRigidbodies[i].First = rightParallaxLayerRigidbody2D;
-                leftAndRightParallaxLayerRigidbodies[i].Second = tempParallaxLayerRigidbody;
+                Transform tempParallaxLayerTransform = leftParallaxLayerTransform;
+                leftAndRightParallaxLayerTransforms[i].First = rightParallaxLayerTransform;
+                leftAndRightParallaxLayerTransforms[i].Second = tempParallaxLayerTransform;
             }
         }
     }
