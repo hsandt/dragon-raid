@@ -1976,7 +1976,7 @@ GameObject:
   - component: {fileID: 939457268}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2016,8 +2016,8 @@ MonoBehaviour:
   - {fileID: 596803216}
   - {fileID: 1888109098}
   - {fileID: 1161848660}
-  parallaxSpeedBase: 1
-  parallaxSpeedIncrement: 1
+  parallaxSpeedFactorBase: 0.5
+  parallaxSpeedFactorIncrement: 0.5
 --- !u!1 &984149950
 GameObject:
   m_ObjectHideFlags: 0

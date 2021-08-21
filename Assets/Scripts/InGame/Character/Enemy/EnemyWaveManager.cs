@@ -34,7 +34,7 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
         }
     }
 
-    /// Setup is managed by InGameManager, so not called on Start
+    /// Setup is managed by InGameManager, so no need to call it in this script's Start
     public void Setup()
     {
         foreach (EnemyWave enemyWave in m_AllEnemyWaves)

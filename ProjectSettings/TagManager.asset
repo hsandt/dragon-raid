@@ -13,6 +13,7 @@ TagManager:
   - EnemyWaves
   - CanvasTitleMenu
   - CanvasPauseMenu
+  - Background
   layers:
   - Default
   - TransparentFX

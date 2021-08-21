@@ -58,9 +58,9 @@ public class InGameManager : SingletonManager<InGameManager>
     /// True iff level finish sequence is playing
     private bool m_IsFinishingLevel;
 
-    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
-    public bool CanRestartLevel => !m_IsFinishingLevel;
-    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
+    private bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
+    private bool CanRestartLevel => !m_IsFinishingLevel;
+    private bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
 
     protected override void Init()
     {
@@ -202,7 +202,7 @@ public class InGameManager : SingletonManager<InGameManager>
         {
             m_IsGamePaused = true;
             
-            ScrollingManager.Instance.enabled = false;
+            ScrollingManager.Instance.Pause();
             EnemyWaveManager.Instance.Pause();
             
             // TODO: pause BGM?
@@ -225,7 +225,7 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         m_IsGamePaused = false;
 
-        ScrollingManager.Instance.enabled = true;
+        ScrollingManager.Instance.Resume();
         EnemyWaveManager.Instance.Resume();
         
         // TODO: resume BGM?
@@ -251,7 +251,7 @@ public class InGameManager : SingletonManager<InGameManager>
             
             // Disable all other singleton managers that have an update to avoid weird things happening during the
             // Finish Level sequence.
-            ScrollingManager.Instance.enabled = false;
+            ScrollingManager.Instance.StopScrolling();
 
             StartCoroutine(FinishLevelAsync());
         }

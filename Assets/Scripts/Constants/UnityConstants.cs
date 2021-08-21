@@ -68,6 +68,10 @@ namespace UnityConstants
         /// Name of tag 'CanvasPauseMenu'.
         /// </summary>
         public const string CanvasPauseMenu = "CanvasPauseMenu";
+        /// <summary>
+        /// Name of tag 'Background'.
+        /// </summary>
+        public const string Background = "Background";
     }
 
     public static class SortingLayers

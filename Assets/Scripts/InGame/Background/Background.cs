@@ -15,10 +15,10 @@ public class Background : MonoBehaviour
     public Rigidbody2D[] parallaxLayerRigidbodies;
 
     [SerializeField, Tooltip("Scrolling speed of the farthest parallax layer")]
-    private float parallaxSpeedBase = 1f;
+    private float parallaxSpeedFactorBase = 1f;
     
     [SerializeField, Tooltip("Scrolling speed increment for each parallax layer closer to the camera")]
-    private float parallaxSpeedIncrement = 1f;
+    private float parallaxSpeedFactorIncrement = 1f;
 
     /// Array of duplicates of rigidbodies of parallax layers, from farthest to closest, swapped with the original ones
     /// for continuous loop
@@ -33,10 +33,14 @@ public class Background : MonoBehaviour
     private Pair<Transform, Transform>[] leftAndRightParallaxLayerTransforms;
 
     
-    void Start()
+    /* State */
+
+    private float m_CurrentScrollingSpeed = 0f;
+
+    
+    void Awake()
     {
         InstantiateDuplicateParallaxLayers();
-        SetupAllParallaxLayersVelocity();
     }
     
     private void InstantiateDuplicateParallaxLayers()
@@ -66,7 +70,7 @@ public class Background : MonoBehaviour
         }
     }
 
-    private void SetupAllParallaxLayersVelocity()
+    public void SetupAllParallaxLayersVelocity()
     {
         for (int i = 0; i < parallaxLayerRigidbodies.Length; ++i)
         {
@@ -74,9 +78,32 @@ public class Background : MonoBehaviour
             Rigidbody2D duplicateParallaxLayerRigidbody2D = m_DuplicateParallaxLayerRigidbodies[i];
 
             // Player character is advancing to the right, so the background scrolls to the left
-            parallaxLayerRigidbody2D.velocity = (parallaxSpeedBase + i * parallaxSpeedIncrement) * Vector2.left;
-            duplicateParallaxLayerRigidbody2D.velocity = (parallaxSpeedBase + i * parallaxSpeedIncrement) * Vector2.left;
+            parallaxLayerRigidbody2D.velocity = (parallaxSpeedFactorBase + i * parallaxSpeedFactorIncrement) * m_CurrentScrollingSpeed * Vector2.left;
+            duplicateParallaxLayerRigidbody2D.velocity = (parallaxSpeedFactorBase + i * parallaxSpeedFactorIncrement) * m_CurrentScrollingSpeed * Vector2.left;
         }
+    }
+
+    public void Pause()
+    {
+        for (int i = 0; i < parallaxLayerRigidbodies.Length; ++i)
+        {
+            Rigidbody2D parallaxLayerRigidbody2D = parallaxLayerRigidbodies[i];
+            Rigidbody2D duplicateParallaxLayerRigidbody2D = m_DuplicateParallaxLayerRigidbodies[i];
+
+            parallaxLayerRigidbody2D.velocity = Vector2.zero;
+            duplicateParallaxLayerRigidbody2D.velocity = Vector2.zero;
+        }
+    }
+
+    public void Resume()
+    {
+        SetupAllParallaxLayersVelocity();
+    }
+    
+    public void SetScrollingSpeedAndUpdateVelocity(float speed)
+    {
+        m_CurrentScrollingSpeed = speed;
+        SetupAllParallaxLayersVelocity();
     }
 
     private void Update()
