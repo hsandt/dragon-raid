@@ -38,4 +38,15 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
         
         return null;
     }
+    
+    public void PauseAllFX()
+    {
+        // TODO
+        
+    }
+    
+    public void ResumeAllFX()
+    {
+        // TODO
+    }
 }

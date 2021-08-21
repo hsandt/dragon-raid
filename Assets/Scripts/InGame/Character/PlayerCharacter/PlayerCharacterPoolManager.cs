@@ -40,4 +40,15 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
         
         return null;
     }
+
+    public void PauseCharacter()
+    {
+        // TODO
+        
+    }
+    
+    public void ResumeCharacter()
+    {
+        // TODO
+    }
 }

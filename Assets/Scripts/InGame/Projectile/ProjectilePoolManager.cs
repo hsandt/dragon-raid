@@ -38,4 +38,15 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
         
         return null;
     }
+    
+    public void PauseAllProjectiles()
+    {
+        // TODO
+        
+    }
+    
+    public void ResumeAllProjectiles()
+    {
+        // TODO
+    }
 }

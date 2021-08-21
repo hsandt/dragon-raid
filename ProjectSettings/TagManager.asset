@@ -12,6 +12,7 @@ TagManager:
   - SpatialEvents
   - EnemyWaves
   - CanvasTitleMenu
+  - CanvasPauseMenu
   layers:
   - Default
   - TransparentFX

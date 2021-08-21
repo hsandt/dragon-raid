@@ -43,14 +43,24 @@ public class InGameManager : SingletonManager<InGameManager>
     /// Player Character Master component, reference stored after spawn (getter)
     public CharacterMaster PlayerCharacterMaster => m_PlayerCharacterMaster;
     
+    /// Cached canvas pause menu reference
+    public CanvasPauseMenu m_CanvasPauseMenu;
+    
     
     /* State */
 
     /// Time elapsed since level start
     private float m_TimeSinceLevelStart;
     
+    /// True iff game is paused / pause menu is open
+    private bool m_IsGamePaused;
+
     /// True iff level finish sequence is playing
     private bool m_IsFinishingLevel;
+
+    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanRestartLevel => !m_IsFinishingLevel;
+    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
 
     protected override void Init()
     {
@@ -61,12 +71,15 @@ public class InGameManager : SingletonManager<InGameManager>
 
         m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
         
+        m_CanvasPauseMenu = LocatorManager.Instance.FindWithTag(Tags.CanvasPauseMenu)?.GetComponent<CanvasPauseMenu>();
+        
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
         Debug.Assert(inGameFlowParameters != null, "No In-game Flow Parameters asset set on InGame Manager", this);
         Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
         Debug.Assert(m_PlayerSpawnTransform != null, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene", this);
         Debug.Assert(m_LevelData != null, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data", this);
+        Debug.Assert(m_CanvasPauseMenu != null, "[InGameManager] Could not find active Canvas Pause Menu object > CanvasPauseMenu component", this);
         #endif
     }
     
@@ -76,12 +89,19 @@ public class InGameManager : SingletonManager<InGameManager>
         // so SessionManager knows what we're doing, in case it needs this info at some point
         SessionManager.Instance.EnterFallbackModeIfNone(m_LevelData.levelIndex);
         
+        // Hide pause menu (don't use Hide, which may have an animation later)
+        m_CanvasPauseMenu.gameObject.SetActive(false);
+        
+        // Hide performance assessment until we finish the level
+        PerformanceAssessment.Instance.Hide();
+        
         // Setup level
         SetupLevel();
     }
 
     private void SetupLevel()
     {
+        m_IsGamePaused = false;
         m_IsFinishingLevel = false;
 
         ScrollingManager.Instance.Setup();
@@ -94,9 +114,6 @@ public class InGameManager : SingletonManager<InGameManager>
         }
         
         SpawnPlayerCharacter();
-
-        // Hide performance assessment until we finish the level
-        PerformanceAssessment.Instance.Hide();
     }
     
     private void SpawnPlayerCharacter()
@@ -146,19 +163,83 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         // Don't allow level restart during finish sequence to avoid invalid states likelLoading next level async
         // but restarting this level in the middle
-        if (!m_IsFinishingLevel)
+        if (CanRestartLevel)
         {
             ClearLevel();
             SetupLevel();
         }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat("[InGameManager] RestartLevel: CanRestartLevel is false (m_IsFinishingLevel is {0})", m_IsFinishingLevel);
+        }
+        #endif
     }
     
     // TODO: add Pause/Resume here
     // Remember to disable any script with coroutines like EnemyWave so the coroutines are paused too
 
+    public void TryTogglePauseMenu()
+    {
+        if (m_IsGamePaused)
+        {
+            m_CanvasPauseMenu.Hide();
+            ResumeGame();
+        }
+        else
+        {
+            if (CanPauseGame)
+            {
+                m_CanvasPauseMenu.Show();
+                PauseGame();
+            }
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (CanPauseGame)
+        {
+            m_IsGamePaused = true;
+            
+            ScrollingManager.Instance.enabled = false;
+            EnemyWaveManager.Instance.Pause();
+            
+            // TODO: pause BGM?
+    //        MusicManager.Instance.PauseBgm();        
+            
+            PlayerCharacterPoolManager.Instance.PauseCharacter();
+            EnemyPoolManager.Instance.PauseAllEnemies();
+            ProjectilePoolManager.Instance.PauseAllProjectiles();
+            FXPoolManager.Instance.PauseAllFX();
+        }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat("[InGameManager] PauseGame: CanPauseGame is false (m_IsGamePaused is {0}, m_IsFinishingLevel is {1})", m_IsGamePaused, m_IsFinishingLevel);
+        }
+        #endif
+    }
+    
+    public void ResumeGame()
+    {
+        m_IsGamePaused = false;
+
+        ScrollingManager.Instance.enabled = true;
+        EnemyWaveManager.Instance.Resume();
+        
+        // TODO: resume BGM?
+//        MusicManager.Instance.ResumeBgm();        
+        
+        PlayerCharacterPoolManager.Instance.ResumeCharacter();
+        EnemyPoolManager.Instance.ResumeAllEnemies();
+        ProjectilePoolManager.Instance.ResumeAllProjectiles();
+        FXPoolManager.Instance.ResumeAllFX();
+    }
+    
     public void FinishLevel()
     {
-        if (!m_IsFinishingLevel)
+        if (CanFinishLevel)
         {
             m_IsFinishingLevel = true;
             
@@ -174,6 +255,12 @@ public class InGameManager : SingletonManager<InGameManager>
 
             StartCoroutine(FinishLevelAsync());
         }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat("[InGameManager] FinishLevel: CanFinishLevel is false (m_IsGamePaused is {0}, m_IsFinishingLevel is {1})", m_IsGamePaused, m_IsFinishingLevel);
+        }
+        #endif
     }
     
     private IEnumerator FinishLevelAsync()

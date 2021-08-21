@@ -41,6 +41,17 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
         return null;
     }
     
+    public void PauseAllEnemies()
+    {
+        // TODO
+        
+    }
+    
+    public void ResumeAllEnemies()
+    {
+        // TODO
+    }
+    
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public void KillAllEnemies()
     {

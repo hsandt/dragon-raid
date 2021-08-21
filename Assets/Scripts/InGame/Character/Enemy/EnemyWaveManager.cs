@@ -50,4 +50,14 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
             enemyWave.Clear();
         }
     }
+
+    public void Pause()
+    {
+        // TODO: pause all Enemy Waves
+    }
+
+    public void Resume()
+    {
+        // TODO: resume all Enemy Waves
+    }
 }

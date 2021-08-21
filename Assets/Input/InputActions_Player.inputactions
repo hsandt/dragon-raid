@@ -6,6 +6,14 @@
             "id": "9eea325b-1814-47da-8644-00c26a42d70e",
             "actions": [
                 {
+                    "name": "TogglePauseMenu",
+                    "type": "Button",
+                    "id": "b665bb0f-fbc8-4dc2-87c0-0d1c81769324",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "ead8358b-3f43-4a38-b2e4-4b70e655adef",
@@ -248,6 +256,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MeleeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31ee552f-f805-45a6-9ad0-e39c85cb891e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TogglePauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "531d5337-6640-45f4-8467-1b941399efcd",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "TogglePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
