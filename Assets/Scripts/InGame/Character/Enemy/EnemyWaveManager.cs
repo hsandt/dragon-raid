@@ -53,11 +53,18 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
 
     public void Pause()
     {
-        // TODO: pause all Enemy Waves
+        foreach (EnemyWave enemyWave in m_AllEnemyWaves)
+        {
+            // Delayed enemy spawn is now handled in FixedUpdate, so this will effectively pause them
+            enemyWave.enabled = false;
+        }
     }
 
     public void Resume()
     {
-        // TODO: resume all Enemy Waves
+        foreach (EnemyWave enemyWave in m_AllEnemyWaves)
+        {
+            enemyWave.enabled = true;
+        }
     }
 }
