@@ -40,15 +40,20 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
         
         return null;
     }
-
+    
     public void PauseCharacter()
     {
-        // TODO
-        
+        foreach (PlayerCharacterMaster playerCharacter in GetObjectsInUse())
+        {
+            playerCharacter.Pause();
+        }
     }
     
     public void ResumeCharacter()
     {
-        // TODO
+        foreach (PlayerCharacterMaster playerCharacter in GetObjectsInUse())
+        {
+            playerCharacter.Resume();
+        }
     }
 }

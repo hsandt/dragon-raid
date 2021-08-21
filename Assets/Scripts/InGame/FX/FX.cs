@@ -6,7 +6,9 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// FX component for objects able to call Release by themselves (e.g. animated sprite with animation event at the end)
-public class FX : MonoBehaviour, IPooledObject
+/// It is now a MasterBehaviour, only to auto-manage Animator and ParticleSystem for Pause/Resume, since FX
+/// may use one or the other to represent a visual effect.
+public class FX : MasterBehaviour, IPooledObject
 {
     /* IPooledObject interface */
     

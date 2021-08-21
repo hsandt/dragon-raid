@@ -22,6 +22,12 @@ public class Projectile : MasterBehaviour, IPooledObject
     private Rigidbody2D m_Rigidbody2D;
 
     
+    /* State */
+
+    /// Velocity stored before Pause, used to restore state on Resume
+    private Vector2 m_VelocityOnResume;
+    
+    
     protected override void Init()
     {
         base.Init();
@@ -114,12 +120,33 @@ public class Projectile : MasterBehaviour, IPooledObject
             }
         }
     }
+
+    public override void Pause()
+    {
+        base.Pause();
+        
+        // Projectile script is responsible for managing rigidbody, so we pause it here
+        // We could also extract some MoveLinear component, which would be like MoveFlying but without FixedUpdate,
+        // to handle this
+        m_VelocityOnResume = m_Rigidbody2D.velocity;
+        m_Rigidbody2D.velocity = Vector2.zero;
+    }
+
+    public override void Resume()
+    {
+        base.Resume();
+        
+        m_Rigidbody2D.velocity = m_VelocityOnResume;
+    }
     
     
     /* IPooledObject interface */
     
     public void InitPooled()
     {
+        // InitPooled is redundant with Init as long as the object is instantiated via pooling
+        // If pre-created in the scene (e.g. for Workshop), then only Init is called, but both should work for
+        // normal pooled objects.
     }
 
     public bool IsInUse()

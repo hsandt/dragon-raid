@@ -41,12 +41,17 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     
     public void PauseAllProjectiles()
     {
-        // TODO
-        
+        foreach (Projectile projectile in GetObjectsInUseInAllPools())
+        {
+            projectile.Pause();
+        }
     }
     
     public void ResumeAllProjectiles()
     {
-        // TODO
+        foreach (Projectile projectile in GetObjectsInUseInAllPools())
+        {
+            projectile.Resume();
+        }
     }
 }

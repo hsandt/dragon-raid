@@ -41,12 +41,17 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     
     public void PauseAllFX()
     {
-        // TODO
-        
+        foreach (FX fx in GetObjectsInUseInAllPools())
+        {
+            fx.Pause();
+        }
     }
     
     public void ResumeAllFX()
     {
-        // TODO
+        foreach (FX fx in GetObjectsInUseInAllPools())
+        {
+            fx.Resume();
+        }
     }
 }

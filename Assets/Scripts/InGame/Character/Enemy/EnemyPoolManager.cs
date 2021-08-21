@@ -43,25 +43,27 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
     
     public void PauseAllEnemies()
     {
-        // TODO
-        
+        foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
+        {
+            activeEnemy.Pause();
+        }
     }
     
     public void ResumeAllEnemies()
     {
-        // TODO
+        foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
+        {
+            activeEnemy.Resume();
+        }
     }
     
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public void KillAllEnemies()
     {
-        foreach (Pool<EnemyCharacterMaster> pool in m_MultiPool.Values)
+        foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
         {
-            foreach (EnemyCharacterMaster activeEnemy in pool.GetObjectsInUse())
-            {
-                var healthSystem = activeEnemy.GetComponentOrFail<HealthSystem>();
-                healthSystem.Kill();
-            }
+            var healthSystem = activeEnemy.GetComponentOrFail<HealthSystem>();
+            healthSystem.Kill();
         }
     }
     #endif
