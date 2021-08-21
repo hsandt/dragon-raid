@@ -14,7 +14,7 @@ public class PlayMenu : Menu
     public LevelDataList levelDataList;
     
     
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Story button")]
     public Button buttonStory;

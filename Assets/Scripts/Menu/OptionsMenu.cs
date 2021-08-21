@@ -8,7 +8,7 @@ using UnityConstants;
 
 public class OptionsMenu : Menu
 {
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Back button")]
     public Button buttonBack;

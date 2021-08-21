@@ -14,7 +14,7 @@ public class MainMenu : Menu
     public LevelDataList levelDataList;
     
     
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Play button")]
     public Button buttonPlay;

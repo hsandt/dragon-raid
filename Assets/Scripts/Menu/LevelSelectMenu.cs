@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class LevelSelectMenu : Menu
 {
-   
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("List of Start Level buttons")]
     public List<Button> buttonStartLevelList;
@@ -21,8 +17,6 @@ public class LevelSelectMenu : Menu
     private void Awake()
     {
         buttonBack.onClick.AddListener(GoBack);
-
-
     }
     
     private void Start()

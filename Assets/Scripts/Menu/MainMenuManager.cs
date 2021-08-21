@@ -50,11 +50,6 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
             {
                 canvasTitleMenu = canvasTitleMenuObject.GetComponentOrFail<CanvasTitleMenu>();
             }
-
-            if (canvasTitleMenu == null)
-            {
-                return;
-            }
         }
     }
 

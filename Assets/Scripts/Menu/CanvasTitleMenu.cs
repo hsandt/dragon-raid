@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// Tag: CanvasTitleMenu 
 public class CanvasTitleMenu : MonoBehaviour
 {
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Title Text (TMP)")]
     public TextMeshProUGUI titleText;
