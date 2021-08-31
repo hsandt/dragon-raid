@@ -28,6 +28,12 @@ public class CheatManager : MonoBehaviour
         {
             EnemyPoolManager.Instance.KillAllEnemies();
         }
+        
+        // HACK to fix bug causing Linux Editor to make R key considered press
+        // when first pressing any key since entering Play mode, causing unwanted Restart
+        if (Keyboard.current.rKey.wasReleasedThisFrame)
+        {
+        }
     }
     #endif
 }
