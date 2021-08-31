@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: EnemyMoveFlyingParameters_Dove
   m_EditorClassIdentifier: 
   movePathType: 0
-  maxSpeed: 4
-  halfHeight: 2
+  linearMaxSpeed: 8
+  waveHorizontalSpeed: 4
+  waveHalfHeight: 2
+  wavePeriod: 3

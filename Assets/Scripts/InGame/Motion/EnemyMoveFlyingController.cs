@@ -22,12 +22,13 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
     
     [Header("Linear motion")]
     
-    [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same)")]
+    [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same) " +
+                             "Will be normalized.")]
     [FormerlySerializedAs("moveDirection")]
     private Vector2 linearMoveDirection = Vector2.left;
 
 #if UNITY_EDITOR
-    public Vector2 LinearMoveDirection { get { return linearMoveDirection; } set { linearMoveDirection = value; } }
+    public Vector2 LinearMoveDirection { get => linearMoveDirection; set => linearMoveDirection = value; }
 #endif
     
     
