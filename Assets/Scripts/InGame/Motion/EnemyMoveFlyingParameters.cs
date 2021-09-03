@@ -6,7 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyMoveFlyingParameters", menuName = "Data/Enemy Move Flying Parameters")]
 public class EnemyMoveFlyingParameters : ScriptableObject
 {
-    [Tooltip("Type of moving path (Linear: straight line, Wave: sinusoidal wave)")]
+    [Tooltip("Type of moving path (Linear: straight line, Wave: sinusoidal wave, " +
+             "Linear Dive: straight line, then change direction when target is in range)")]
     public MovePathType movePathType = MovePathType.Linear;
     
     
@@ -16,7 +17,7 @@ public class EnemyMoveFlyingParameters : ScriptableObject
     
     [Header("Linear motion parameters")]
     
-    [Tooltip("Maximum speed for linear motion (m/s)")]
+    [Tooltip("Maximum speed for Linear motion and Linear Dive motion 1st part (m/s)")]
     [Range(0f, 8f)]
     public float linearMaxSpeed = 4f;
     
@@ -34,4 +35,15 @@ public class EnemyMoveFlyingParameters : ScriptableObject
     [Tooltip("Period of sinusoidal pattern (s)")]
     [Range(0f, 6f)]
     public float wavePeriod = 3f;
+
+    
+    [Header("Linear Dive motion parameters")]
+    
+    [Tooltip("Dive angle, counted from enemy forward (world left), CCW (CW if negative) (degrees)")]
+    [Range(-180f, 180f)]
+    public float diveAngle = 90;
+    
+    [Tooltip("Dive speed")]
+    [Range(0f, 8f)]
+    public float diveSpeed = 4f;
 }

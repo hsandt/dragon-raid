@@ -12,6 +12,9 @@ using UnityEngine.Serialization;
 /// SEO: before MoveFlying
 public class EnemyMoveFlyingController : BaseMoveFlyingController
 {
+    /// Maximum distance along dive direction normal allowed behind this enemy to detect target to start Dive 
+    private const float DIVE_DETECTION_BEHIND_THRESHOLD = 1f;
+    
     [Header("Parameters data")]
 
     [Tooltip("Enemy Move Parameters Data")]
@@ -37,6 +40,10 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
     /// Used for Wave only: Time since motion start, modulo motion period
     private float m_CurrentTimeModulo;
     
+    /// Used for Move Paths with several phases: DiveLinear. Use int instead of enum so it can be used across different
+    /// Move Path Types, as more generic.
+    private int m_CurrentPhaseIndex;
+    
     
     protected override void Init()
     {
@@ -52,6 +59,7 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
         base.Setup();
 
         m_CurrentTimeModulo = 0f;
+        m_CurrentPhaseIndex = 0;
     }
 
     private void FixedUpdate()
@@ -77,6 +85,58 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
                     enemyMoveFlyingParameters.waveHalfHeight * 2 * Mathf.PI / enemyMoveFlyingParameters.wavePeriod * Mathf.Cos(2 * Mathf.PI * m_CurrentTimeModulo / enemyMoveFlyingParameters.wavePeriod)
                 );
                 break;
+            case MovePathType.LinearDive:
+                switch (m_CurrentPhaseIndex)
+                {
+                    case 0:
+                        // Phase 0: Linear motion like Linear
+                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.linearMaxSpeed * linearMoveDirection.normalized;
+
+                        // Check if enemy is in Dive area
+                        if (IsPlayerCharacterInsideDiveDetectionArea())
+                        {
+                            // Enter phase 1: Dive (don't mind the 1-frame lag due to still applying Linear motion this frame)
+                            m_CurrentPhaseIndex = 1;
+                        }
+                        break;
+                    case 1:
+                        // Phase 1: Dive on target
+                        // Angle is signed, positive CCW from world left
+                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.diveSpeed * VectorUtil.Rotate(Vector2.left, enemyMoveFlyingParameters.diveAngle);
+                        break;
+                    default:
+                        Debug.LogErrorFormat(this, "{0} has Move Path Type {1} but Current Phase Index {2} is invalid",
+                            this, enemyMoveFlyingParameters.movePathType, m_CurrentPhaseIndex);
+                        break;
+                }
+                break;
+            default:
+                Debug.LogErrorFormat(enemyMoveFlyingParameters, "{0} has unhandled Move Path Type {1}",
+                    enemyMoveFlyingParameters, enemyMoveFlyingParameters.movePathType);
+                break;
         }
+    }
+    
+    /// <summary>
+    /// Return true if player character is inside Dive detection area
+    /// </summary>
+    /// <returns></returns>
+    private bool IsPlayerCharacterInsideDiveDetectionArea()
+    {
+        Vector2 targetPosition = (Vector2)InGameManager.Instance.PlayerCharacterMaster.transform.position;
+        Vector2 toTarget = targetPosition - (Vector2)transform.position;
+
+        // to get the inside normal of the dive detection area's outer edge,
+        // rotate the dive direction by 90 degrees CCW, which is equivalent to rotating world down
+        // instead of world left, by dive angle
+        Vector2 normal = VectorUtil.Rotate(Vector2.down, enemyMoveFlyingParameters.diveAngle);
+
+        // compute dot product with inside normal to know on which side the target is
+        float dotProduct = Vector2.Dot(normal, toTarget);
+
+        // dot product is positive when target is inside area
+        // in addition, we don't want to detect a target too far behind, so we check that dot product
+        // has a value that is not too low
+        return 0 < dotProduct && dotProduct < DIVE_DETECTION_BEHIND_THRESHOLD;
     }
 }

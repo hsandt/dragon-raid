@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3301b18a89d64dc98daabb1f1a082a35, type: 3}
   m_Name: EnemyMoveFlyingParameters_Raven
   m_EditorClassIdentifier: 
-  movePathType: 0
+  movePathType: 2
   linearMaxSpeed: 8
   waveHorizontalSpeed: 4
   waveHalfHeight: 2
   wavePeriod: 3
+  diveAngle: 80
+  diveSpeed: 8
