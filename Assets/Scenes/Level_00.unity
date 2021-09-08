@@ -4523,7 +4523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredSpatialProgress: 15
+  requiredSpatialProgress: 2
 --- !u!1 &2130067661
 GameObject:
   m_ObjectHideFlags: 0
