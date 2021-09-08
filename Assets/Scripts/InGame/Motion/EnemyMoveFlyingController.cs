@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 using CommonsHelper;
 using CommonsPattern;
+using UnityEngine.Rendering.UI;
 using UnityEngine.Serialization;
 
 /// System for MoveFlyingIntention on Enemy: handles control
@@ -155,38 +156,58 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
                         break;
                     }
                     default:
-                        Debug.LogErrorFormat(this, "{0} has Move Path Type {1} but Current Phase Index {2} is invalid",
+                        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        Debug.LogErrorFormat(this, "[EnemyMoveFlyingController] {0} has Move Path Type {1} but Current Phase Index {2} is invalid",
                             this, enemyMoveFlyingParameters.movePathType, m_CurrentPhaseIndex);
+                        #endif
                         break;
                 }
                 break;
             default:
-                Debug.LogErrorFormat(enemyMoveFlyingParameters, "{0} has unhandled Move Path Type {1}",
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                Debug.LogErrorFormat(enemyMoveFlyingParameters, "[EnemyMoveFlyingController] {0} has unhandled Move Path Type {1}",
                     enemyMoveFlyingParameters, enemyMoveFlyingParameters.movePathType);
+                #endif
                 break;
         }
     }
     
-    /// <summary>
-    /// Return true if player character is inside Dive detection area
-    /// </summary>
-    /// <returns></returns>
+    /// Return true iff player character is inside Dive detection area
     private bool IsPlayerCharacterInsideDiveDetectionArea()
     {
+        if (enemyMoveFlyingParameters.diveAngle == 0f)
+        {
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Debug.LogError("[EnemyMoveFlyingController] Cannot decide if target is inside dive detection area when Dive Angle is 0");
+            #endif
+            return false;
+        }
+        
         Vector2 targetPosition = (Vector2)InGameManager.Instance.PlayerCharacterMaster.transform.position;
         Vector2 toTarget = targetPosition - (Vector2)transform.position;
 
+        // the target must be below this enemy, i.e. on the side of the dive direction (relative to initial move direction)
+        // when diving down, angle is positive and normal is a rotation CCW / up, negative, CW resp.
+        Vector2 initialDirectionNormalDiveSide = VectorUtil.Rotate(Vector2.left, enemyMoveFlyingParameters.diveAngle > 0f ? 90f : -90f);
+        float diveDotProduct = Vector2.Dot( initialDirectionNormalDiveSide, toTarget);
+
+        // dot product should be positive when target is in dive side
+        if (diveDotProduct < 0)
+        {
+            return false;
+        }
+        
         // to get the inside normal of the dive detection area's outer edge,
         // rotate the dive direction by 90 degrees CCW, which is equivalent to rotating world down
         // instead of world left, by dive angle
         Vector2 normal = VectorUtil.Rotate(Vector2.down, enemyMoveFlyingParameters.diveAngle);
 
         // compute dot product with inside normal to know on which side the target is
-        float dotProduct = Vector2.Dot(normal, toTarget);
+        float normalDotProduct = Vector2.Dot(normal, toTarget);
 
         // dot product is positive when target is inside area
         // in addition, we don't want to detect a target too far behind, so we check that dot product
         // has a value that is not too low
-        return 0 < dotProduct && dotProduct < DIVE_DETECTION_BEHIND_THRESHOLD;
+        return 0 < normalDotProduct && normalDotProduct < DIVE_DETECTION_BEHIND_THRESHOLD;
     }
 }
