@@ -37,7 +37,10 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
     
     /* State */
 
-    /// Used for Wave only: Time since motion start, modulo motion period
+    /// Used for Move Paths with linear timers: Time since current phase start
+    private float m_CurrentTime;
+    
+    /// Used for Move Paths with cyclic timers: Time since current phase start, modulo motion period
     private float m_CurrentTimeModulo;
     
     /// Used for Move Paths with several phases: DiveLinear. Use int instead of enum so it can be used across different
@@ -58,6 +61,7 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
     {
         base.Setup();
 
+        m_CurrentTime = 0f;
         m_CurrentTimeModulo = 0f;
         m_CurrentPhaseIndex = 0;
     }
@@ -89,6 +93,7 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
                 switch (m_CurrentPhaseIndex)
                 {
                     case 0:
+                    {
                         // Phase 0: Linear motion like Linear
                         m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.linearMaxSpeed * linearMoveDirection.normalized;
 
@@ -97,13 +102,58 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
                         {
                             // Enter phase 1: Dive (don't mind the 1-frame lag due to still applying Linear motion this frame)
                             m_CurrentPhaseIndex = 1;
+                            m_CurrentTime = 0f;
                         }
+
                         break;
+                    }
                     case 1:
+                    {
                         // Phase 1: Dive on target
+                        m_CurrentTime = m_CurrentTime + Time.deltaTime;
+                        
                         // Angle is signed, positive CCW from world left
-                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.diveSpeed * VectorUtil.Rotate(Vector2.left, enemyMoveFlyingParameters.diveAngle);
+                        Vector2 diveDirection = VectorUtil.Rotate(Vector2.left, enemyMoveFlyingParameters.diveAngle);
+                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.diveSpeed * diveDirection;
+                        
+                        // After some time, recover
+                        if (m_CurrentTime > enemyMoveFlyingParameters.diveDuration)
+                        {
+                            // Enter phase 2: Recover
+                            m_CurrentPhaseIndex = 2;
+                            m_CurrentTime = 0f;
+                        }
+                        
                         break;
+                    }
+                    case 2:
+                    {
+                        // Phase 2: Recover position to continue on initial trajectory
+                        m_CurrentTime = m_CurrentTime + Time.deltaTime;
+
+                        // To do this, move with the dive vector reflected by the initial direction vector,
+                        // also at dive speed
+                        Vector2 diveDirection = VectorUtil.Rotate(Vector2.left, enemyMoveFlyingParameters.diveAngle);
+                        Vector2 recoverDirection = VectorUtil.Mirror(diveDirection, linearMoveDirection.normalized);
+                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.diveSpeed * recoverDirection;
+                        
+                        // After same duration as dive, resume initial trajectory
+                        // Unless they were blocked by the environment, this should place them exactly on the initial trajectory
+                        if (m_CurrentTime > enemyMoveFlyingParameters.diveDuration)
+                        {
+                            // Enter phase 3: Resume initial trajectory
+                            m_CurrentPhaseIndex = 3;
+                            m_CurrentTime = 0f;
+                        }
+                        
+                        break;
+                    }
+                    case 3:
+                    {
+                        // Phase 3: Resume initial trajectory (same as Phase 0)
+                        m_MoveFlyingIntention.moveVelocity = enemyMoveFlyingParameters.linearMaxSpeed * linearMoveDirection.normalized;
+                        break;
+                    }
                     default:
                         Debug.LogErrorFormat(this, "{0} has Move Path Type {1} but Current Phase Index {2} is invalid",
                             this, enemyMoveFlyingParameters.movePathType, m_CurrentPhaseIndex);

@@ -7,7 +7,8 @@ using UnityEngine;
 public class EnemyMoveFlyingParameters : ScriptableObject
 {
     [Tooltip("Type of moving path (Linear: straight line, Wave: sinusoidal wave, " +
-             "Linear Dive: straight line, then change direction when target is in range)")]
+             "Linear Dive: straight line, then change direction when target is in range, " +
+             "then recover back to initial trajectory, and finish it)")]
     public MovePathType movePathType = MovePathType.Linear;
     
     
@@ -46,4 +47,8 @@ public class EnemyMoveFlyingParameters : ScriptableObject
     [Tooltip("Dive speed")]
     [Range(0f, 8f)]
     public float diveSpeed = 4f;
+
+    [Tooltip("Dive duration. Also recovery duration.")]
+    [Range(0f, 2f)]
+    public float diveDuration = 1f;
 }

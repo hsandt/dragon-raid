@@ -19,3 +19,4 @@ MonoBehaviour:
   wavePeriod: 3
   diveAngle: 80
   diveSpeed: 8
+  diveDuration: 1
