@@ -18,6 +18,7 @@ public class EnemyMoveFlyingControllerEditor : Editor
 
         using (var check = new EditorGUI.ChangeCheckScope())
         {
+            Undo.RecordObject(script, "Changed Linear Move Direction");
             HandlesUtil.DrawFreeMoveHandle(ref endPosition, Color.blue, capFunction: HandlesUtil.CrossedCircleHandleCap, screenSizeScale: 2f);  // moving direction handle
             
             if (check.changed)
