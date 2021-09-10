@@ -62,6 +62,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
   - {fileID: 21300000, guid: 037ce034154013c0d9237de8b5ca31d1, type: 3}
+  - {fileID: 21300000, guid: ccc745b4070870b31be22bb228935e89, type: 3}
   - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
   - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
   - {fileID: 21300000, guid: aacc2467bb5735c29bb78e551f227c05, type: 3}
@@ -111,6 +112,7 @@ SpriteAtlas:
   - enemy_dove_spritesheet
   - enemy_tiger_spritesheet_0
   - enemy_ispolin_preview
+  - bg_tree_bg_tiled
   - bg_cloud_medium
   - bg_cloud_small
   - fx_particle_medium
