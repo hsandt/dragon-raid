@@ -19,7 +19,7 @@ public class EnemyMoveFlyingParameters : ScriptableObject
     [Header("Linear motion parameters")]
     
     [Tooltip("Maximum speed for Linear motion and Linear Dive motion 1st part (m/s)")]
-    [Range(0f, 8f)]
+    [Range(0f, 16f)]
     public float linearMaxSpeed = 4f;
     
     
