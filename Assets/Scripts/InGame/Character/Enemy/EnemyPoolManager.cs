@@ -33,7 +33,8 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: pool starvation! Cannot spawn enemy '{0}'. " +
+        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: Cannot spawn enemy '{0}' due to either " +
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on EnemyPoolManager, or increasing its pool size.",
             enemyName);
         #endif

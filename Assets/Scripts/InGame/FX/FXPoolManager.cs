@@ -31,7 +31,8 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[FXPoolManager] SpawnFX: pool starvation! Cannot spawn FX '{0}'. " +
+        Debug.LogErrorFormat("[FXPoolManager] SpawnFX: Cannot spawn FX '{0}' due to either " + 
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on FXPoolManager, or increasing its pool size.",
             resourceName);
         #endif

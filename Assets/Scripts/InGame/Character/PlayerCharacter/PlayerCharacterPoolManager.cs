@@ -34,7 +34,8 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[PlayerCharacterPoolManager] SpawnCharacter: pool starvation! Cannot spawn player character. " +
+        Debug.LogErrorFormat("[PlayerCharacterPoolManager] SpawnCharacter: Cannot spawn player character due to either " + 
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on PlayerCharacterPoolManager, or increasing its pool size.");
         #endif
         

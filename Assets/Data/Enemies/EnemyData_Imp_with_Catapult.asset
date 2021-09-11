@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9568f61f74f614b21ad1e3896ec397c9, type: 3}
-  m_Name: ThrowAIParameters_Ispolin
+  m_Script: {fileID: 11500000, guid: efdd07ff7fd1d520491174f784c65c6c, type: 3}
+  m_Name: EnemyData_Imp_with_Catapult
   m_EditorClassIdentifier: 
-  maxDetectionUpwardAngle: 54.3884
-  minDetectionDistanceX: 2
-  maxDetectionDistance: 12
+  enemyName: Imp with Catapult
+  editorSpawnPreviewTexture: {fileID: 2800000, guid: 21d1b740799a9e3ccac159f749e3b2a3, type: 3}

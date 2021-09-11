@@ -29,7 +29,8 @@ public class SfxPoolManager : PoolManager<Sfx, SfxPoolManager>
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogWarningFormat(this, "[SfxPoolManager] PlaySfx: pool starvation! Cannot play clip '{0}'. " +
+        Debug.LogWarningFormat(this, "[SfxPoolManager] PlaySfx: Cannot play clip '{0}' due to either " +
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on SfxPoolManager, or increasing its pool size.",
             clip);
         #endif

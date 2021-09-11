@@ -31,8 +31,9 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[ProjectilePoolManager] SpawnProjectile: pool starvation! Cannot spawn projectile '{0}'. " +
-            "Consider setting instantiateNewObjectOnStarvation: true on ProjectilePoolManager, or increasing its pool size.",
+        Debug.LogErrorFormat("[ProjectilePoolManager] SpawnProjectile: Cannot spawn projectile '{0}' due to either " +
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
+            "instantiateNewObjectOnStarvation: true on ProjectilePoolManager, or increasing its pool size.",
             resourceName);
         #endif
         
