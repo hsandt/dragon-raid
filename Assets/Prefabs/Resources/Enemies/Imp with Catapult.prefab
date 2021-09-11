@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3030697291466877663}
   - component: {fileID: 7093441178587748437}
+  - component: {fileID: 8230820158292152206}
   m_Layer: 9
   m_Name: HurtBox
   m_TagString: Untagged
@@ -57,6 +58,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3125, y: 1.5625}
   m_EdgeRadius: 0
+--- !u!60 &8230820158292152206
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957513562165744737}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -3.4375, y: 2}
+      - {x: -5, y: 0.625}
+      - {x: -5, y: 0}
+      - {x: -1.4375, y: 0}
+      - {x: -1.4375, y: 0.875}
+      - {x: -2.6875, y: 2}
 --- !u!1 &3783596215070344930
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +170,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0ca7617c64768e284b7d6765adbc62b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -290,7 +322,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7611444505608296637}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.75, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -461,6 +493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  additionalSpriteRenderers:
+  - {fileID: 3857993663391439902}
+  - {fileID: 9182974681463965532}
+  - {fileID: 9182974682384713531}
 --- !u!114 &7611444505608296631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +644,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0ca7617c64768e284b7d6765adbc62b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -691,7 +727,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0ca7617c64768e284b7d6765adbc62b7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

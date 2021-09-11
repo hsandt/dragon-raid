@@ -12,6 +12,12 @@ public class Brighten : ClearableBehaviour
     private readonly int brightnessPropertyID = Shader.PropertyToID("Brightness");
     
     
+    [Header("Child references")]
+
+    [Tooltip("Additional sprites to apply brighten to")]
+    public SpriteRenderer[] additionalSpriteRenderers;
+
+
     /* Sibling components */
 
     private SpriteRenderer m_SpriteRenderer;
@@ -51,6 +57,15 @@ public class Brighten : ClearableBehaviour
     private void RefreshSpriteBrightness()
     {
         m_SpriteRenderer.material.SetFloat(brightnessPropertyID, m_Brightness);
+
+        // a priori serialized arrays are never null, but to be safe
+        if (additionalSpriteRenderers != null)
+        {
+            foreach (var additionalSpriteRenderer in additionalSpriteRenderers)
+            {
+                additionalSpriteRenderer.material.SetFloat(brightnessPropertyID, m_Brightness);
+            }
+        }
     }
     
     /// Set sprite material brightness
