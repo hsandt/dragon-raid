@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997b431e050ea5706a5898f7958d1046, type: 3}
-  m_Name: BodyAttackParameters_Echinemon
+  m_Script: {fileID: 11500000, guid: 9f880fe739104b4668ae8a2c51f3b2cb, type: 3}
+  m_Name: MeleeAttackAestheticParameters_Echinemon
   m_EditorClassIdentifier: 
-  damage: 1
+  sfxAttack: {fileID: 8300000, guid: 961e3ec5675216097bfc1fb18f0a6373, type: 3}
+  sfxHit: {fileID: 8300000, guid: 2a68a775deadd662496b8f479026fffe, type: 3}

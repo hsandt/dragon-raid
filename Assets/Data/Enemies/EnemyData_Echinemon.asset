@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyData_Echinemon
   m_EditorClassIdentifier: 
   enemyName: Echinemon
-  editorSpawnPreviewTexture: {fileID: 2800000, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  editorSpawnPreviewTexture: {fileID: 2800000, guid: cfac1ebc2d455a277a8c2d2e27315e44, type: 3}

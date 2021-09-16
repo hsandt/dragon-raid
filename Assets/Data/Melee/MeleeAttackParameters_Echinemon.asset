@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14394f4960c4c1fb7795680109dbfd0, type: 3}
-  m_Name: HealthParameters_Echinemon
+  m_Script: {fileID: 11500000, guid: 4b963815240529b93baa52f565358ec0, type: 3}
+  m_Name: MeleeAttackParameters_Echinemon
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  damage: 2

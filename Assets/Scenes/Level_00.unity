@@ -146,7 +146,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9170585
 Transform:
   m_ObjectHideFlags: 0
@@ -486,6 +486,7 @@ Transform:
   - {fileID: 1237820695}
   - {fileID: 2333063511118508060}
   - {fileID: 1644151014053593936}
+  - {fileID: 315527122}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -550,6 +551,68 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 386875256770908503, guid: b05c97faf9de854d9b74bb3f946e6815, type: 3}
   m_PrefabInstance: {fileID: 540527161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &315527121
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 206429027}
+    m_Modifications:
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581364396840778215, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+      propertyPath: m_Name
+      value: Echinemon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+--- !u!4 &315527122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 581364396840778214, guid: 53d51ab551b44b3f3990323bdc5790b2, type: 3}
+  m_PrefabInstance: {fileID: 315527121}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &330852912
 GameObject:
@@ -856,16 +919,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: b3833fb8a3c9adb15bd26291db916c91, type: 2}
-    spawnPosition: {x: 10.9375, y: -4.9375}
+    spawnPosition: {x: 10.625, y: -5}
     delay: 0
   - enemyData: {fileID: 11400000, guid: b3833fb8a3c9adb15bd26291db916c91, type: 2}
-    spawnPosition: {x: 13.9375, y: -4.875}
+    spawnPosition: {x: 13.625, y: -4.9375}
     delay: 0
   - enemyData: {fileID: 11400000, guid: b3833fb8a3c9adb15bd26291db916c91, type: 2}
-    spawnPosition: {x: 16.5, y: -4.875}
+    spawnPosition: {x: 16.1875, y: -4.9375}
     delay: 0
   - enemyData: {fileID: 11400000, guid: b3833fb8a3c9adb15bd26291db916c91, type: 2}
-    spawnPosition: {x: 19.375, y: -4.875}
+    spawnPosition: {x: 19.0625, y: -4.9375}
     delay: 0
 --- !u!114 &510423095
 MonoBehaviour:
@@ -2833,7 +2896,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1427448502
 Transform:
   m_ObjectHideFlags: 0
@@ -3679,12 +3742,6 @@ MonoBehaviour:
     delay: 0
   - enemyData: {fileID: 11400000, guid: 560a0b14e8a620fd5b82f02fe60cdc11, type: 2}
     spawnPosition: {x: 13.5, y: 4.125}
-    delay: 0
-  - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
-    spawnPosition: {x: 11, y: -4.8125}
-    delay: 0
-  - enemyData: {fileID: 11400000, guid: f535d2c1d8f99c66e9d6fd30d54d4c3c, type: 2}
-    spawnPosition: {x: 16.8125, y: -4.6875}
     delay: 0
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 10.625, y: -1.5625}

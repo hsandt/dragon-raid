@@ -7,7 +7,7 @@ using CommonsPattern;
 
 public class Throw : ClearableBehaviour
 {
-    // Animator hashes
+    /* Animator hashes */
     
     private static readonly int throwHash = Animator.StringToHash("Throw");
     

@@ -8,8 +8,14 @@ using CommonsPattern;
 /// System for Rigidbody2D and MoveGroundedIntention: handles move on ground
 public class MoveGrounded : ClearableBehaviour
 {
+    /* Animator hashes */
+
+    private static readonly int jumpHash = Animator.StringToHash("Jump");
+    
+    
     /* Sibling components */
     
+    private Animator m_Animator;
     private Rigidbody2D m_Rigidbody2D;
     private MoveGroundedIntention m_MoveGroundedIntention;
     
@@ -22,6 +28,7 @@ public class MoveGrounded : ClearableBehaviour
     
     private void Awake()
     {
+        m_Animator = this.GetComponentOrFail<Animator>();
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_MoveGroundedIntention = this.GetComponentOrFail<MoveGroundedIntention>();
     }
@@ -51,6 +58,9 @@ public class MoveGrounded : ClearableBehaviour
             // Set velocity Y by consuming jump speed impulse intention
             newVelocity.y = m_MoveGroundedIntention.jumpSpeedImpulse;
             m_MoveGroundedIntention.jumpSpeedImpulse = 0f;
+            
+            // Animation: play Jump animation
+            m_Animator.SetTrigger(jumpHash);
         }
         
         m_Rigidbody2D.velocity = newVelocity;

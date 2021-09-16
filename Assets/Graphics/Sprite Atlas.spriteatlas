@@ -49,12 +49,14 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
     - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
     - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
+    - {fileID: 102900000, guid: d8c9ac89e1b562395b539fa7b5c4ca98, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 21d1b740799a9e3ccac159f749e3b2a3, type: 3}
+  - {fileID: 21300000, guid: d90a9950343d5c17292978c9515085a0, type: 3}
   - {fileID: 21300000, guid: de9c102190b7200b6bebc6d67bffb4bb, type: 3}
   - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
   - {fileID: 1673412750234017441, guid: 9bacdcb1b615eef0da8ab84fe1ba46e8, type: 3}
@@ -65,8 +67,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
   - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
-  - {fileID: 21300000, guid: 037ce034154013c0d9237de8b5ca31d1, type: 3}
   - {fileID: 21300000, guid: ccc745b4070870b31be22bb228935e89, type: 3}
+  - {fileID: -4915271014213439901, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: 4956372351157801767, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: -1213049812453395690, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: -6781088087781141493, guid: df9dbbf58ecdf820d9b1da56e8a09ade, type: 3}
+  - {fileID: 5754833268761509841, guid: df9dbbf58ecdf820d9b1da56e8a09ade, type: 3}
   - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
   - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
   - {fileID: 21300000, guid: aacc2467bb5735c29bb78e551f227c05, type: 3}
@@ -115,6 +121,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2c8eaf7fb5e32ae68b8a2009d0d448ca, type: 3}
   m_PackedSpriteNamesToIndex:
   - enemy_imp_with_catapult_catapult_frame_spritesheet
+  - ui_generic_panel
   - fx_melee_attack
   - hud_gauge_frame_0
   - enemy_imp_with_catapult_restraining_rope_spritesheet_0
@@ -125,8 +132,12 @@ SpriteAtlas:
   - hud_gauge_fill
   - enemy_dove_spritesheet
   - enemy_tiger_spritesheet_0
-  - enemy_ispolin_preview
   - bg_tree_bg_tiled
+  - enemy_echinemon_spritesheet_0
+  - enemy_echinemon_spritesheet_1
+  - enemy_echinemon_spritesheet_2
+  - environment_soil_spritesheet_0
+  - environment_soil_spritesheet_1
   - bg_cloud_medium
   - bg_cloud_small
   - fx_particle_medium

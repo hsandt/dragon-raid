@@ -120,6 +120,21 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
 
         return 0f;
     }
+    
+    /// Return the max distance over X possible when moving at current speed intention and with hypothetical jump
+    /// with jumpSpeed
+    private float CalculateDistanceXToJump(float jumpSpeed)
+    {
+        // Take scrolling speed into account (and readjust sign) to get the actual speed
+        // If you don't, enemies that don't move by themselves (only follow scrolling) won't even be able to jump,
+        // and enemies who do will still be considered slower than they really are (if moving left).
+        float totalSpeedX = ScrollingManager.Instance.ComputeTotalSpeedWithScrolling(m_MoveGroundedIntention.signedGroundSpeed);
+        
+        // We don't support moving to the right, so only works when moving left in total
+        float speedTowardLeft = Mathf.Max(0f, -totalSpeedX);
+        float maxDistanceXToJump = speedTowardLeft * jumpSpeed/ GetGravity();
+        return maxDistanceXToJump;
+    }
 
     /// Return true is enemy is approaching target, in a range relevant to start computing whether
     /// they can jump and reach target or not. This acts as a pre-check for ShouldJump, which is more expensive.
@@ -154,9 +169,10 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         // it exactly later. But for the pre-check, just take the maximum jump speed (i.e. that can reach max height)
         // possible, so you get an upper bound on the distance on X from target from which it is relevant to start
         // checking if we should jump now.
-        float maxDistanceXToJump = moveGroundedParameters.maxGroundSpeed * moveGroundedParameters.maxJumpSpeed / GetGravity();
+        float maxDistanceXToJump = CalculateDistanceXToJump(moveGroundedParameters.maxJumpSpeed);
         return Mathf.Abs(xToTarget) < maxDistanceXToJump;
     }
+
 
     /// Return true if enemy thinks they can reach the target by jumping now
     /// Set jump speed impulse required to reach target along Y
@@ -175,7 +191,7 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
             // but with the exact jump speed this time (if we clamped jump speed above, it's actually the distance
             // to reach the jump's apogee, and a fictive target at that point; target may move down and still get hit
             // after all)
-            float firstDistanceXToJump = moveGroundedParameters.maxGroundSpeed * requiredJumpSpeed / GetGravity();
+            float firstDistanceXToJump = CalculateDistanceXToJump(requiredJumpSpeed);
 
             // we tolerate any lateness from the moment we reached the ideal distance to jump onto target
             // as long as we didn't move past the target on X (IsPlayerCharacterCloseEnoughToCheckJump already

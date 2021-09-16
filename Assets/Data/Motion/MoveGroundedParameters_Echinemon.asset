@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf071015fed349ba920d48d53a092391, type: 3}
   m_Name: MoveGroundedParameters_Echinemon
   m_EditorClassIdentifier: 
-  maxGroundSpeed: 2
+  maxGroundSpeed: 0
   maxJumpSpeed: 15
