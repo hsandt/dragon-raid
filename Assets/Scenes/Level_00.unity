@@ -2157,12 +2157,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skySpriteRenderer: {fileID: 2017391168}
-  parallaxLayerRigidbodies:
-  - {fileID: 596803216}
-  - {fileID: 1888109098}
-  - {fileID: 1161848660}
-  parallaxSpeedFactorBase: 0.5
-  parallaxSpeedFactorIncrement: 0.5
+  parallaxLayers:
+  - rigidbody: {fileID: 596803216}
+    parallaxSpeedFactor: 0.1
+  - rigidbody: {fileID: 1888109098}
+    parallaxSpeedFactor: 0.3
+  - rigidbody: {fileID: 1161848660}
+    parallaxSpeedFactor: 0.5
 --- !u!1 &984149950
 GameObject:
   m_ObjectHideFlags: 0
