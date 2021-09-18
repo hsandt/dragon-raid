@@ -67,13 +67,35 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
 
     private void FixedUpdate()
     {
-        if (m_ScrollingSpeed != 0f)
+        if (m_ScrollingSpeed > 0f)
         {
-            m_SpatialProgress += m_ScrollingSpeed * Time.deltaTime;
-            SpatialEventManager.Instance.OnSpatialProgressChanged(m_SpatialProgress);
+            AdvanceScrolling(m_ScrollingSpeed * Time.deltaTime);
+        }
+    }
+        
+    /// Advance scrolling by offset and notify SpatialEventManager of progress change
+    public void AdvanceScrolling(float offset)
+    {
+        if (offset > 0)
+        {
+            SpatialEventManager.Instance.OnSpatialProgressChanged(m_SpatialProgress, m_SpatialProgress + offset);
+            m_SpatialProgress += offset;
         }
     }
     
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public void CheatAdvanceScrolling(float offset)
+    {
+        // Do not test for positive offset to allow going back if needed for testing
+        // Do not notify spatial progress to avoid triggering a bunch of enemy waves when doing a big advance
+        // Caution: other events like StopScrolling will not be triggered either, which may cause inconsistent state
+        // such as keeping scrolling before a boss (so avoid warping right into a peculiar zone of the level)
+        // OnSpatialProgressChanged now takes the old spatial progress, so it will not trigger all the events
+        // we skipped on next FixedUpdate.
+        m_SpatialProgress += offset;
+    }
+    #endif
+
     /// Notify Background of scrolling speed change, as ScrollingManager manages Background
     private void RefreshBackgroundScrollingSpeed()
     {

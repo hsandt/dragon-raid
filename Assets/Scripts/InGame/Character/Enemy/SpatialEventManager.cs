@@ -60,7 +60,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         m_RemainingSpatialEventPairs = m_AllSpatialEventPairs.ToList();
     }
 
-    public void OnSpatialProgressChanged(float spatialProgress)
+    public void OnSpatialProgressChanged(float oldSpatialProgress, float newSpatialProgress)
     {
         // Spatial progress has changed, check for any spatial event trigger condition being fulfilled
         // (we don't do this in FixedUpdate so we do no work while scrolling is paused)
@@ -77,10 +77,21 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
             var eventPair = m_RemainingSpatialEventPairs[i];
             EventTrigger_SpatialProgress eventTrigger = eventPair.First;
             IEventEffect eventEffect = eventPair.Second;
-            
-            if (spatialProgress >= eventTrigger.RequiredSpatialProgress)
+
+            if (eventTrigger.RequiredSpatialProgress <= newSpatialProgress)
             {
-                eventEffect.Trigger();
+                if (oldSpatialProgress < eventTrigger.RequiredSpatialProgress)
+                {
+                    // We moved from old to new progress, going through (or just reaching) the required spatial progress
+                    // so trigger the event effect
+                    eventEffect.Trigger();
+                }
+                
+                // Either we triggered the event effect, or the required spatial progress was less than (or equal to)
+                // the old progress, which means we were already past the event yet it wasn't removed (only possible
+                // when using CheatAdvanceScrolling). In both cases, remove the event to avoid processing it again
+                // (it is now optional since we are checking old spatial event and will never trigger old events,
+                // but good for optimization).
                 m_RemainingSpatialEventPairs.RemoveAt(i);
             }
         }

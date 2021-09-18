@@ -114,6 +114,10 @@ public class InGameManager : SingletonManager<InGameManager>
         }
         
         SpawnPlayerCharacter();
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        CheatManager.Instance.OnLevelSetup();
+        #endif
     }
     
     private void SpawnPlayerCharacter()
