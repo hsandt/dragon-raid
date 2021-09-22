@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 852342272029866621}
   - component: {fileID: 581364396840778219}
   - component: {fileID: 8864464776807001610}
+  - component: {fileID: 7589037468340723253}
   m_Layer: 16
   m_Name: Echinemon
   m_TagString: Untagged
@@ -315,6 +316,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7589037468340723253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581364396840778215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5415c562dd0c86b58cbb47b95263d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soilPrefab: {fileID: 5233238052674510184, guid: 96a8219fb50ca4e01b550be29bd6a2b9, type: 3}
 --- !u!1 &1690164849753963081
 GameObject:
   m_ObjectHideFlags: 0

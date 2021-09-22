@@ -7,6 +7,16 @@ using CommonsPattern;
 
 public class ScrollingManager : SingletonManager<ScrollingManager>
 {
+    [Header("Parameters")]
+    
+    [SerializeField, Tooltip("Visual left limit X: Environment Props that go beyond the left edge of the screen by more than " +
+             "this value - their defined half width (+ small margin for safety) can be removed from the game. " +
+             "You can either set this to the actual fixed screen half-width in meters, signed (-10), or the LivingZone " +
+             "- Box Collider 2D width / 2 (-10.5) to match gameplay living zone.")]
+    private float visualLeftLimitX = -10f;
+    public float VisualLeftLimitX => visualLeftLimitX;
+    
+    
     /* Cached scene references */
     
     /// Cached background reference
@@ -126,5 +136,10 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     public float ComputeTotalSpeedWithScrolling(float groundSpeed)
     {
         return - m_ScrollingSpeed + groundSpeed;
+    }
+    
+    public Rigidbody2D GetMidgroundLayer()
+    {
+        return m_Background.midgroundLayerRigidbody;
     }
 }

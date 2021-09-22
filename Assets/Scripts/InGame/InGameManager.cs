@@ -159,6 +159,14 @@ public class InGameManager : SingletonManager<InGameManager>
         // Clean up all FX
         FXPoolManager.Instance.ReleaseAllObjects();
         
+        // Clean up all environment props
+        foreach (Transform environmentPropTransform in ScrollingManager.Instance.GetMidgroundLayer().transform)
+        {
+            // Remember that all environment props should be pooled, directly or indirectly
+            // (e.g. attached to an Enemy, itself pooled), so just deactivate it 
+            environmentPropTransform.gameObject.SetActive(false);
+        }
+        
         // Note: we're not restarting Music nor stopping all SFX
         // We'll eventually do a proper fade-out so this should be enough to cover the duration of the longest SFX.
     }

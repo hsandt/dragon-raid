@@ -14,7 +14,14 @@ public class Background : MonoBehaviour
     [Tooltip("Array of parallax layers")]
     public ParallaxLayer[] parallaxLayers;
 
+    [Tooltip("Midground layer is a special layer at parallax speed factor 1 to place visual elements that should " +
+        "move in sync with the scrolling (but not enemies moving on ground with a dedicated script). " +
+        "Unlike parallax layers, it should not cycle as it contains unique elements, and so no duplicate is created.")]
+    public Rigidbody2D midgroundLayerRigidbody;
 
+
+    /* Runtime references */
+    
     /// Array of duplicates of rigidbodies of parallax layers, from farthest to closest, swapped with the original ones
     /// for continuous loop
     private Rigidbody2D[] m_DuplicateParallaxLayerRigidbodies;
@@ -27,7 +34,7 @@ public class Background : MonoBehaviour
     /// directly, and warping is more reliable with Transform (avoids lag when done outside FixedUpdate context).
     private Pair<Transform, Transform>[] leftAndRightParallaxLayerTransforms;
 
-    
+
     /* State */
 
     private float m_CurrentScrollingSpeed = 0f;
@@ -35,6 +42,10 @@ public class Background : MonoBehaviour
     
     void Awake()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(midgroundLayerRigidbody != null, this, "[Background] No Midground Layer Rigidbody set {0}.", this);
+        #endif
+        
         InstantiateDuplicateParallaxLayers();
     }
     
@@ -69,6 +80,9 @@ public class Background : MonoBehaviour
 
     private void SetupAllParallaxLayersVelocity()
     {
+        // Midground rigidbody always moves at scrolling speed (factor = 1)
+        midgroundLayerRigidbody.velocity = m_CurrentScrollingSpeed * Vector2.left;
+            
         for (int i = 0; i < parallaxLayers.Length; ++i)
         {
             ParallaxLayer parallaxLayer = parallaxLayers[i];
@@ -84,6 +98,8 @@ public class Background : MonoBehaviour
 
     public void Pause()
     {
+        midgroundLayerRigidbody.velocity = Vector2.zero;
+
         for (int i = 0; i < parallaxLayers.Length; ++i)
         {
             Rigidbody2D parallaxLayerRigidbody2D = parallaxLayers[i].rigidbody;

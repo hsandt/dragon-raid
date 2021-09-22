@@ -30,11 +30,13 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
     public void Spawn(Vector2 position)
     {
         gameObject.SetActive(true);
-        Setup();
-
+        
+        // We now set position before calling Setup as some Setup may use the position e.g. to spawn related objects.
         // Make sure to set Transform position, not position, to avoid 1 frame lag when spawning character in
         // non-Fixed-Update context (it happens with EnemyWave when it uses Coroutine to delay spawn enemy)
         transform.position = position;
+        
+        Setup();
     }
 
 
