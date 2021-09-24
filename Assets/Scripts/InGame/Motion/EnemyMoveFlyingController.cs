@@ -1,12 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 using CommonsHelper;
-using CommonsPattern;
-using UnityEngine.Rendering.UI;
 using UnityEngine.Serialization;
 
 /// System for MoveFlyingIntention on Enemy: handles control
