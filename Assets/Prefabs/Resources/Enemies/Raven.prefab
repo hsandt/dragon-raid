@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2420395570157720442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2149f7f878745c2bc4f780927c9644, type: 3}
+  m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_MoveFlyingIntention: {fileID: 5674042436506208745}
@@ -136,11 +136,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4452108631011122735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2149f7f878745c2bc4f780927c9644, type: 3}
+  m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_MoveFlyingIntention: {fileID: 5674042436506208745}
-  moveVector: {x: -6, y: 0}
+  moveVector: {x: -5, y: 0}
   speed: 3
 --- !u!1 &4772071770337055451
 GameObject:
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4772071770337055451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2149f7f878745c2bc4f780927c9644, type: 3}
+  m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_MoveFlyingIntention: {fileID: 5674042436506208745}

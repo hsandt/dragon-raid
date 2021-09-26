@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Action to move flying character by given vector at given speed
-public class MoveFlyingByAction : BehaviourAction
+[AddComponentMenu("Game/Action: Move Flying By")]
+public class Action_MoveFlyingBy : BehaviourAction
 {
     [Header("Parent references")]
     
