@@ -9,7 +9,7 @@ public class Action_MoveFlyingBy : BehaviourAction
     [Header("Parent references")]
     
     [Tooltip("Move Flying Intention to set on Update")]
-    public MoveFlyingIntention m_MoveFlyingIntention;
+    public MoveFlyingIntention moveFlyingIntention;
 
     
     [Header("Parameters")]
@@ -34,16 +34,24 @@ public class Action_MoveFlyingBy : BehaviourAction
     private Vector2 m_TargetPosition;
     
     
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    void Awake()
+    {
+        Debug.AssertFormat(moveFlyingIntention != null, this, "[Action_MoveFlyingBy] No Move Flying Intention component reference set on {0}.", this);
+    }
+    #endif
+    
+    
     public override void OnStart()
     {
-        m_TargetPosition = (Vector2) m_MoveFlyingIntention.transform.position + moveVector;
+        m_TargetPosition = (Vector2) moveFlyingIntention.transform.position + moveVector;
     }
 
     public override void RunUpdate()
     {
         Vector2 nextVelocity;
         
-        Vector2 toTarget = m_TargetPosition - (Vector2) m_MoveFlyingIntention.transform.position;
+        Vector2 toTarget = m_TargetPosition - (Vector2) moveFlyingIntention.transform.position;
         float toTargetDistance = toTarget.magnitude;
         if (toTargetDistance < speed * Time.deltaTime)
         {
@@ -62,21 +70,21 @@ public class Action_MoveFlyingBy : BehaviourAction
             nextVelocity = speed * toTarget / toTargetDistance;
         }
         
-        m_MoveFlyingIntention.moveVelocity = nextVelocity;
+        moveFlyingIntention.moveVelocity = nextVelocity;
     }
 
     public override bool IsOver()
     {
         // Consider move over when character needs to move by less than a frame's move distance
         // Note that the higher the speed is, the less precise 
-        Vector2 toTarget = m_TargetPosition - (Vector2) m_MoveFlyingIntention.transform.position;
+        Vector2 toTarget = m_TargetPosition - (Vector2) moveFlyingIntention.transform.position;
         float moveDistancePerFrame = speed * Time.deltaTime;
         return toTarget.sqrMagnitude < moveDistancePerFrame * moveDistancePerFrame;
     }
 
     public override void OnEnd()
     {
-        m_MoveFlyingIntention.moveVelocity = Vector2.zero;
+        moveFlyingIntention.moveVelocity = Vector2.zero;
     }
 
     public override float GetEstimatedDuration()

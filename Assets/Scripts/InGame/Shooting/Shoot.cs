@@ -28,6 +28,7 @@ public class Shoot : ClearableBehaviour
     /* Sibling components */
     
     private ShootIntention m_ShootIntention;
+    public ShootIntention ShootIntention => m_ShootIntention;
     
     
     /* State */

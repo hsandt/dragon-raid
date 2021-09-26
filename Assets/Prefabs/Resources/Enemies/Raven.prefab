@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 608697792456952002}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -0.6875, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5674042436506208739}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &2420395570157720442
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveFlyingIntention: {fileID: 5674042436506208745}
+  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: 0, y: 7}
   speed: 3
 --- !u!1 &3087471005817206712
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveFlyingIntention: {fileID: 5674042436506208745}
+  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: -5, y: 0}
   speed: 3
 --- !u!1 &4772071770337055451
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveFlyingIntention: {fileID: 5674042436506208745}
+  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: 0, y: -3}
   speed: 4
 --- !u!1 &5674042436506208738
@@ -560,8 +560,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72f05c530a0e5235ad1eb29ef0f4c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShootIntention: {fileID: 549860245308517346}
-  angle: 10
+  shoot: {fileID: 741766702454063191}
+  shootDirectionMode: 1
+  angle: 0
 --- !u!1 &9014096390888468984
 GameObject:
   m_ObjectHideFlags: 0

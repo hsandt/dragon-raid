@@ -22,7 +22,7 @@ public class EnemyShootController : BaseShootController
             // Shoot strait using shoot anchor's 2D forward
             m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;
         }
-        else
+        else  // EnemyShootDirectionMode.TargetPlayerCharacter
         {
             // Shoot at the player character (fire direction will be normalized before shooting)
             Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
