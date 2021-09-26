@@ -66,5 +66,20 @@ public class Shoot : ClearableBehaviour
             Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }
+        
+        // check for single shot too
+        if (ControlUtil.ConsumeBool(ref m_ShootIntention.fireOnce))
+        {
+            // only allow single shots if not already holding fire
+            // however, do not check this above ConsumeBool, as we want to consume the flag every frame,
+            // used or not
+            if (!m_ShootIntention.holdFire)
+            {
+                // single shots do not use the fire cooldown time to allow freestyle patterns
+                // otherwise, same principle as the continuous shot
+                Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
+                ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
+            }
+        }
     }
 }

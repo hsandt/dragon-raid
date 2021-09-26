@@ -4,6 +4,10 @@ using UnityEngine;
 
 using CommonsPattern;
 
+/// Script responsible for playing an Action Sequence on a scripted enemy
+/// SEO: at the same position as dedicated controllers, before any system script checking some Intention,
+/// like MoveGrounded, MoveFlying, Shoot, etc. (placing it before Default Time like dedicated Controller
+/// and EnemyBehaviour scripts should be enough)
 public class ActionSequencePlayer : ClearableBehaviour
 {
     [Header("Parameters")]
