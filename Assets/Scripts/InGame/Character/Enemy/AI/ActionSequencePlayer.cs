@@ -71,7 +71,7 @@ public class ActionSequencePlayer : ClearableBehaviour
 
         // If we called TryProceedToNextAction, it may have incremented the index beyond the limit,
         // so make sure we are still inside the sequence (we could also check if (enabled))
-        if (m_CurrentActionIndex < actionSequence.Length)
+        if (m_CurrentActionIndex < actionSequence.Count)
         {
             BehaviourAction action = actionSequence[m_CurrentActionIndex];
             action.RunUpdate();
@@ -83,7 +83,7 @@ public class ActionSequencePlayer : ClearableBehaviour
         while (true)
         {
             ++m_CurrentActionIndex;
-            if (m_CurrentActionIndex < actionSequence.Length)
+            if (m_CurrentActionIndex < actionSequence.Count)
             {
                 // There is still a next action
                 BehaviourAction action = actionSequence[m_CurrentActionIndex];

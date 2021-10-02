@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+using CommonsHelper;
 
 public class ActionSequence : MonoBehaviour
 {
-    public BehaviourAction[] behaviourActions;
+    /* Cached child references */
+    
+    /// List of behaviour actions on children
+    private List<BehaviourAction> m_BehaviourActions;
 
-    public int Length => behaviourActions.Length;
+    /// Convenience accessor for actions count
+    public int Count => m_BehaviourActions.Count;
 
-    public BehaviourAction this[int index] => behaviourActions[index];
+    /// Convenience action accessor
+    public BehaviourAction this[int index] => m_BehaviourActions[index];
 
 #if UNITY_EDITOR
     /// Initial position on start. Recorded only to draw the action handles correctly
@@ -21,4 +29,10 @@ public class ActionSequence : MonoBehaviour
         debugInitialPosition = (Vector2)transform.position;
     }
 #endif
+
+    private void Awake()
+    {
+        // Linq statement to iterate on all children get BehaviourAction component and generate a list
+        m_BehaviourActions = transform.Cast<Transform>().Select(tr => tr.GetComponentOrFail<BehaviourAction>()).ToList();
+    }
 }
