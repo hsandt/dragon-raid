@@ -10,7 +10,7 @@ public class EnemyBehaviour_IspolinEditor : Editor
 {
     static Editor previousEditor;
     
-    public void OnSceneGUI()
+    private void OnSceneGUI()
     {
         var script = (EnemyBehaviour_Ispolin) target;
         

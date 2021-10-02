@@ -8,7 +8,7 @@ using CommonsHelper;
 [CustomEditor(typeof(EnemyMoveGroundedController))]
 public class EnemyMoveGroundedControllerEditor : Editor
 {
-    public void OnSceneGUI()
+    private void OnSceneGUI()
     {
         if (Application.isPlaying)
         {

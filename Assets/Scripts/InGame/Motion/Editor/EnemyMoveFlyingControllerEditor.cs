@@ -8,7 +8,7 @@ using CommonsHelper;
 [CustomEditor(typeof(EnemyMoveFlyingController))]
 public class EnemyMoveFlyingControllerEditor : Editor
 {
-    public void OnSceneGUI()
+    private void OnSceneGUI()
     {
         var script = (EnemyMoveFlyingController) target;
             
