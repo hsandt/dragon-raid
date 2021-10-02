@@ -22,7 +22,7 @@ public class Action_ShootSingle : BehaviourAction
     private EnemyShootDirectionMode shootDirectionMode = EnemyShootDirectionMode.ShootAnchorForward;
 
     [SerializeField, Tooltip("Angle to shoot at, from the reference angle defined by Shoot Direction Mode " +
-         "(degrees, 0 for forward, positive CCW)")]
+        "(degrees, 0 for forward, positive CCW)")]
     [Range(-180f, 180f)]
     private float angle;
 
