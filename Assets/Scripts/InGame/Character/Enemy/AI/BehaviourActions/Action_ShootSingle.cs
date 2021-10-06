@@ -8,12 +8,6 @@ using CommonsHelper;
 [AddComponentMenu("Game/Action: Shoot Single")]
 public class Action_ShootSingle : BehaviourAction
 {
-    [Header("Parent references")]
-    
-    [Tooltip("Shoot component of the character (Shoot Intention is accessed via it)")]
-    public Shoot shoot;
-
-    
     [Header("Parameters")]
     
     [SerializeField, Tooltip("Which angle reference to use for the shot. " +
@@ -31,18 +25,23 @@ public class Action_ShootSingle : BehaviourAction
     #endif
     
     
+    /* Owner sibling components */
+    
+    private Shoot m_Shoot;
+    private ShootIntention m_ShootIntention;
+
+    
     /* State */
 
     /// True when character has shot the single bullet
     private bool hasOrderedShot;
     
     
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    void Awake()
+    public override void OnInit()
     {
-        Debug.AssertFormat(shoot != null, this, "[Action_ShootSingle] No Shoot component reference set on {0}.", this);
+        m_Shoot = m_EnemyCharacterMaster.GetComponentOrFail<Shoot>();
+        m_ShootIntention = m_Shoot.ShootIntention;
     }
-    #endif
     
     public override void OnStart()
     {
@@ -52,21 +51,21 @@ public class Action_ShootSingle : BehaviourAction
     public override void RunUpdate()
     {
         // We're counting on IsOver to prevent double shooting, so no need to check hasOrderedShot here 
-        shoot.ShootIntention.fireOnce = true;
+        m_ShootIntention.fireOnce = true;
 
         Vector2 referenceDirection;
         if (shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
         {
             // Note that it's generally Left on enemies
-            referenceDirection = shoot.shootAnchor.right;
+            referenceDirection = m_Shoot.shootAnchor.right;
         }
         else  // EnemyShootDirectionMode.TargetPlayerCharacter
         {
             Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
             // normalized is optional since fire direction will be normalized, but clearer to handle unit vectors
-            referenceDirection = ((Vector2) (playerCharacterPosition - shoot.shootAnchor.position)).normalized;
+            referenceDirection = ((Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position)).normalized;
         }
-        shoot.ShootIntention.fireDirection = VectorUtil.Rotate(referenceDirection, angle);
+        m_ShootIntention.fireDirection = VectorUtil.Rotate(referenceDirection, angle);
         
         hasOrderedShot = true;
     }
@@ -80,7 +79,7 @@ public class Action_ShootSingle : BehaviourAction
     {
         // Optional cleanup
         // No need to clear fireOnce, as it is consumed
-        shoot.ShootIntention.fireDirection = Vector2.zero;
+        m_ShootIntention.fireDirection = Vector2.zero;
     }
 
     public override float GetEstimatedDuration()

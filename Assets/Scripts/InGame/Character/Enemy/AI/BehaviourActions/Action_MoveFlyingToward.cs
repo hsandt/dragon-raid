@@ -8,12 +8,6 @@ using CommonsHelper;
 [AddComponentMenu("Game/Action: Move Flying Toward")]
 public class Action_MoveFlyingToward : BehaviourAction
 {
-    [Header("Parent references")]
-    
-    [Tooltip("Move Flying Intention to set on Update")]
-    public MoveFlyingIntention moveFlyingIntention;
-
-    
     [Header("Parameters")]
 
     [SerializeField, Tooltip("Angle to shoot at, from the Left (degrees, 0 for Left, positive CCW)")]
@@ -30,6 +24,11 @@ public class Action_MoveFlyingToward : BehaviourAction
     #endif
     
     
+    /* Owner sibling components */
+    
+    private MoveFlyingIntention m_MoveFlyingIntention;
+
+    
     /* Derived parameters */
 
     /// Target position = start position + move vector
@@ -37,17 +36,14 @@ public class Action_MoveFlyingToward : BehaviourAction
     private Vector2 m_TargetPosition;
     
     
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    void Awake()
+    public override void OnInit()
     {
-        Debug.AssertFormat(moveFlyingIntention != null, this, "[Action_MoveFlyingBy] No Move Flying Intention component reference set on {0}.", this);
+        m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
     }
-    #endif
-    
     
     public override void RunUpdate()
     {
-        moveFlyingIntention.moveVelocity = speed * VectorUtil.Rotate(Vector2.left, angle);
+        m_MoveFlyingIntention.moveVelocity = speed * VectorUtil.Rotate(Vector2.left, angle);
     }
 
     public override bool IsOver()

@@ -73,7 +73,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: 0, y: 7}
   speed: 3
 --- !u!1 &3087471005817206712
@@ -123,11 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e27c379b15d94b19aa0607701549cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourActions:
-  - {fileID: 2951946291227177851}
-  - {fileID: 7946244844781135436}
-  - {fileID: 6997907550347726999}
-  - {fileID: 2233936647697394898}
 --- !u!1 &4452108631011122735
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: -5, y: 0}
   speed: 3
 --- !u!1 &4772071770337055451
@@ -217,7 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7edbd8ed0a5dd97afed844ecd56711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveFlyingIntention: {fileID: 5674042436506208745}
   moveVector: {x: 0, y: -3}
   speed: 4
 --- !u!1 &5674042436506208738
@@ -560,7 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72f05c530a0e5235ad1eb29ef0f4c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shoot: {fileID: 741766702454063191}
   shootDirectionMode: 1
   angle: 0
 --- !u!1 &9014096390888468984

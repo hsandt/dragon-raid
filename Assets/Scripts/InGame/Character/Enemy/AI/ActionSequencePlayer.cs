@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using CommonsHelper;
 using CommonsPattern;
 
 /// Script responsible for playing an Action Sequence on a scripted enemy
@@ -40,6 +41,16 @@ public class ActionSequencePlayer : ClearableBehaviour
         
         // Start at index -1 so the next action is the first one, at index 0
         m_CurrentActionIndex = -1;
+
+        // Inject owner to every action script
+        // This is done on Setup as owner may change when we allow spawn-time action sequence swapping
+        var enemyCharacterMaster = this.GetComponentOrFail<EnemyCharacterMaster>();
+        
+        foreach (var action in actionSequence)
+        {
+            action.Init(enemyCharacterMaster);
+            action.OnInit();
+        }
     }
 
     private void FixedUpdate ()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 using CommonsHelper;
 
-public class ActionSequence : MonoBehaviour
+public class ActionSequence : MonoBehaviour, IEnumerable<BehaviourAction>
 {
     /* Cached child references */
     
@@ -17,8 +17,9 @@ public class ActionSequence : MonoBehaviour
 
     /// Convenience action accessor
     public BehaviourAction this[int index] => m_BehaviourActions[index];
+    
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     /// Initial position on start. Recorded only to draw the action handles correctly
     /// (e.g. AI trajectory as initially planned)
     private Vector2 debugInitialPosition;
@@ -34,5 +35,17 @@ public class ActionSequence : MonoBehaviour
     {
         // Linq statement to iterate on all children get BehaviourAction component and generate a list
         m_BehaviourActions = transform.Cast<Transform>().Select(tr => tr.GetComponentOrFail<BehaviourAction>()).ToList();
+    }
+
+    /* IEnumerable<BehaviourAction> interface */
+    
+    public IEnumerator<BehaviourAction> GetEnumerator()
+    {
+        return m_BehaviourActions.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

@@ -4,6 +4,23 @@ using UnityEngine;
 
 public abstract class BehaviourAction : MonoBehaviour
 {
+    /* Scene references */
+    
+    /// Owner of this script
+    protected EnemyCharacterMaster m_EnemyCharacterMaster;
+
+
+    /// Initialize: set owner
+    public void Init(EnemyCharacterMaster enemyCharacterMaster)
+    {
+        m_EnemyCharacterMaster = enemyCharacterMaster;
+    }
+    
+    /// Action initialisation callback. Called only once on action sequence start, it should
+    /// cache references to any required components, and do any other preprocessing we'd rather avoid later
+    /// (this may still be called in-game at enemy spawn time as we cannot predict action sequence override)
+    public virtual void OnInit() {}
+    
     /// Action start callback. Useful to setup and cache info (optional)
     public virtual void OnStart() {}
 

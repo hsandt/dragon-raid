@@ -424,6 +424,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6764f72dcf4c378b1f8a96158fdd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveFlyingIntention: {fileID: 1991456190773342603}
   angle: -45
   speed: 8
