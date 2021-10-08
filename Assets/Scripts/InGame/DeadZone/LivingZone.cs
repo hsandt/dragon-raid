@@ -13,6 +13,9 @@ using CommonsHelper;
 /// Physics 2D: LivingZone layer must collider with any layer containing entities that can leave the screen,
 /// like enemy characters and projectiles. In addition, those entities should have a LivingZoneTracker component
 /// on them.
+/// SEO: (optional) after Projectile and Animator for MeleeAttackEvent_ApplyHitBoxDamage animation event,
+/// so if enemy leaves screen and gets hit on the same frame, player grabs the kill (for satisfaction). 
+/// We recommend placing it after Default Time.
 public class LivingZone : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D other)

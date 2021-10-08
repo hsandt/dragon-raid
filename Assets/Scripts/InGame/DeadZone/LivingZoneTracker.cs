@@ -20,13 +20,11 @@ public class LivingZoneTracker : ClearableBehaviour
     
     /* State */
 
-    /// Flag meant to track whether entity has been Setup but not Cleared
-    /// so we don't process exiting Living Zone during non-ingame-related exit
-    /// such as Restart Releasing => deactivating the pooled object
-    private bool m_IsAlive;
-
-    /// Getter for m_IsAlive
-    public bool IsAlive => m_IsAlive;
+    /// Flag getter meant to track whether entity has been Setup but not Cleared
+    /// so we don't process exiting Living Zone if entity is not alive
+    /// (e.g. killed by attack earlier on the same frame, or Released by Restart,
+    /// causing it to disable its trigger and exit the Living Zone unrelated to gameplay)
+    public bool IsAlive => m_PooledObject.IsInUse();
     
     
     private void Awake()
@@ -42,16 +40,6 @@ public class LivingZoneTracker : ClearableBehaviour
         // so if this object is an enemy, we already have the Enemy Character Master reference as pooled object,
         // and we just need to cast it. We do a dynamic cast, so if it's not an enemy, we just get null.
         m_EnemyCharacterMaster = m_PooledObject as EnemyCharacterMaster;
-    }
-
-    public override void Setup()
-    {
-        m_IsAlive = true;
-    }
-
-    public override void Clear()
-    {
-        m_IsAlive = false;
     }
 
     public void OnExitLivingZone()

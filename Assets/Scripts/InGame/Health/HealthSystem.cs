@@ -135,7 +135,7 @@ public class HealthSystem : ClearableBehaviour
     /// Apply one-shot damage and return whether it worked or not
     public bool TryOneShotDamage(int value)
     {
-        if (IsInvincible)
+        if (!CanDamage())
         {
             return false;
         }
@@ -154,7 +154,7 @@ public class HealthSystem : ClearableBehaviour
     /// Apply periodic damage and return whether it worked or not
     public bool TryPeriodicDamage(int value)
     {
-        if (IsInvincible)
+        if (!CanDamage())
         {
             return false;
         }
@@ -176,6 +176,16 @@ public class HealthSystem : ClearableBehaviour
         }
 
         return true;
+    }
+
+    private bool CanDamage()
+    {
+        // Verify that the pooled object is active (a bit more generic than health > 0,
+        // as it also covers other reasons to Release than dying, e.g. exiting Living Zone;
+        // although this particular one has its SEO set after Default Time, so melee attacks
+        // and projectiles would have priority when hitting target on the same frame as exit)
+        // Also verify that the health system is not currently invincible
+        return m_PooledObject.IsInUse() && !IsInvincible;
     }
 
     private void Die()
