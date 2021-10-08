@@ -70,7 +70,7 @@ public class ActionSequencePlayer : ClearableBehaviour
             // so we can retrieve and use action safely.
             BehaviourAction action = actionSequence[m_CurrentActionIndex];
             
-            if (action.IsOver())
+            if (action.IsOverOrDeactivated())
             {
                 // Call OnEnd to cleanup anything set by the action we don't want anymore
                 action.OnEnd();
@@ -100,15 +100,18 @@ public class ActionSequencePlayer : ClearableBehaviour
                 BehaviourAction action = actionSequence[m_CurrentActionIndex];
                 if (action != null)
                 {
-                    // Call OnStart immediately, as IsOver may rely on it
+                    // Call OnStart immediately, as IsOverOrDeactivated may rely on it
                     action.OnStart();
                     
-                    if (!action.IsOver())
+                    if (!action.IsOverOrDeactivated())
                     {
                         Debug.LogFormat("Start action #{0}", m_CurrentActionIndex);
                         break;
                     }
-                    // else, action is over: continue so we can immediately go on with the next action 
+                    // else, action is over: continue so we can immediately go on with the next action
+                    // normally actions should not be over right after start, but it's possible if pre-conditions
+                    // cannot fulfilled (e.g. target is already behind so we can never shoot it), and this can also
+                    // be entered if the action was manually deactivated in the editor
                     Debug.LogFormat("Action already over! #{0}", m_CurrentActionIndex);
                 }
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD

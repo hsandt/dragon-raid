@@ -26,10 +26,17 @@ public abstract class BehaviourAction : MonoBehaviour
 
     /// Run Update callback (called every frame while action is active)
     public abstract void RunUpdate ();
-    
-    /// Return true iff action is over and we should proceed to next action when executed inside a sequence
-    /// (must be called after Update)
-    public abstract bool IsOver();
+
+    /// Return true iff action is over or deactivated. Allows to manually deactivate action objects in the editor
+    /// to "mute" them for testing, etc.
+    public bool IsOverOrDeactivated()
+    {
+        return !gameObject.activeSelf || IsOver();
+    }
+        
+    /// Return true iff action is over and we should proceed to next action when executed inside a sequence.
+    /// Protected because external objects should call IsOverOrDeactivated instead.
+    protected abstract bool IsOver();
         
     /// Action end callback. Useful to clear any remaining continuous intention not automatically consumed
     /// (optional)

@@ -70,7 +70,7 @@ public class Action_ShootSingle : BehaviourAction
         hasOrderedShot = true;
     }
     
-    public override bool IsOver()
+    protected override bool IsOver()
     {
         return hasOrderedShot;
     }

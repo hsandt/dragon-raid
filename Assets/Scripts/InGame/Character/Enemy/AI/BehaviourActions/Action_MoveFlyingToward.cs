@@ -46,7 +46,7 @@ public class Action_MoveFlyingToward : BehaviourAction
         m_MoveFlyingIntention.moveVelocity = speed * VectorUtil.Rotate(Vector2.left, angle);
     }
 
-    public override bool IsOver()
+    protected override bool IsOver()
     {
         // This action never ends, so this must be the last action.
         // Assuming speed != 0, the character should exit the Living Zone and disappear at some point.

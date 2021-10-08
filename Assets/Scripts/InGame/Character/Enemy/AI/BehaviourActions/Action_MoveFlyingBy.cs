@@ -71,7 +71,7 @@ public class Action_MoveFlyingBy : BehaviourAction
         m_MoveFlyingIntention.moveVelocity = nextVelocity;
     }
 
-    public override bool IsOver()
+    protected override bool IsOver()
     {
         // Consider move over when character needs to move by less than a frame's move distance
         // Note that the higher the speed is, the less precise 
