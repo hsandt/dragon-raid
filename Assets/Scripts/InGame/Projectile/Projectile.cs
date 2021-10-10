@@ -89,6 +89,9 @@ public class Projectile : MasterBehaviour, IPooledObject
         if (projectileAestheticParameters != null && projectileAestheticParameters.sfxSpawn != null)
         {
             // Audio: play spawn SFX
+            // FIXME: now that we have multi-bullet patterns, SFX stack very fast! Better play them from the Shoot script
+            // Actually, bullet hells tend not to play any SFX on minor enemy bullets, so probably
+            // only player should play bullet SFX, but remark above still stands
             SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxSpawn);
         }
     }

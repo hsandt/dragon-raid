@@ -12,6 +12,9 @@ public class Shoot : ClearableBehaviour
     [Tooltip("Shoot Parameters Data")]
     public ShootParameters shootParameters;
 
+    [Tooltip("Enemy Shoot Parameters Data (optional, enemy only)")]
+    public EnemyShootParameters enemyShootParameters;
+
     
     [Header("Child references")]
 
@@ -63,8 +66,36 @@ public class Shoot : ClearableBehaviour
             // set cooldown time to prevent firing immediately again
             m_FireCooldownTime = shootParameters.fireCooldownDuration;
             
+            // This time we computed the fire direction right from the actor script, and there can only be one shot
+            // on this frame, so unlike the controller, so need to Add it to m_ShootIntention.fireDirections,
+            // as we would be consuming and removing it afterward anyway. Instead, compute it as a local variable.
+            Vector2 fireDirection;
+            
+            // unfortunately, aiming target is for enemies only but we need to check that
+            // in case we have enemies that can hold fire
+            // maybe this will get tidied up with the introduction of Weapons
+            if (enemyShootParameters)
+            {
+                if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
+                {
+                    // Shoot strait using shoot anchor's 2D forward
+                    fireDirection = shootAnchor.right;
+                }
+                else  // shootPattern.shootDirectionMode == EnemyShootDirectionMode.TargetPlayerCharacter
+                {
+                    // Shoot at the player character (normalize now, to match unit vector normalized above)
+                    Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
+                    fireDirection = (Vector2) (playerCharacterPosition - shootAnchor.position).normalized;
+                }
+            }
+            else
+            {
+                // Player only shoots forward
+                fireDirection = shootAnchor.right;
+            }
+            
             // spawn projectile with normalized direction and projectile speed
-            Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
+            Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
             ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
         }
         
@@ -76,10 +107,15 @@ public class Shoot : ClearableBehaviour
             // used or not
             if (!m_ShootIntention.holdFire)
             {
-                // single shots do not use the fire cooldown time to allow freestyle patterns
-                // otherwise, same principle as the continuous shot
-                Vector2 projectileVelocity = shootParameters.projectileSpeed * m_ShootIntention.fireDirection.normalized;
-                ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
+                foreach (Vector2 fireDirection in m_ShootIntention.fireDirections)
+                {
+                    // single shots do not use the fire cooldown time to allow freestyle patterns
+                    // otherwise, same principle as the continuous shot
+                    Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
+                    ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
+                }
+                
+                m_ShootIntention.fireDirections.Clear();
             }
         }
     }

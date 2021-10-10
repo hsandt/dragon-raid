@@ -65,7 +65,7 @@ public class Action_ShootSingle : BehaviourAction
             // normalized is optional since fire direction will be normalized, but clearer to handle unit vectors
             referenceDirection = ((Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position)).normalized;
         }
-        m_ShootIntention.fireDirection = VectorUtil.Rotate(referenceDirection, angle);
+        m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, angle));
         
         hasOrderedShot = true;
     }
@@ -73,13 +73,6 @@ public class Action_ShootSingle : BehaviourAction
     protected override bool IsOver()
     {
         return hasOrderedShot;
-    }
-
-    public override void OnEnd()
-    {
-        // Optional cleanup
-        // No need to clear fireOnce, as it is consumed
-        m_ShootIntention.fireDirection = Vector2.zero;
     }
 
     public override float GetEstimatedDuration()

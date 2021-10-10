@@ -14,7 +14,7 @@ public class ShootIntention : MonoBehaviour
     [ReadOnlyField, Tooltip("Does the character want to fire a single bullet? Unlike Hold Fire, gets consumed on usage.")] 
     public bool fireOnce; 
     
-    [ReadOnlyField, Tooltip("Shooting direction. Can be always the same, or target a specific object. " +
-        "No need to normalize, it will be normalized on shoot.")] 
-    public Vector2 fireDirection;
+    [ReadOnlyField, Tooltip("List of shooting directions. Consumed every frame. " +
+        "No need to normalize, they will be normalized on shoot.")] 
+    public List<Vector2> fireDirections;
 }

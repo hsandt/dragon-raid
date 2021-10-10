@@ -25,6 +25,6 @@ public abstract class BaseShootController : ClearableBehaviour
     public override void Setup()
     {
         m_ShootIntention.holdFire = false;
-        m_ShootIntention.fireDirection = Vector2.zero;
+        m_ShootIntention.fireDirections.Clear();
     }
 }

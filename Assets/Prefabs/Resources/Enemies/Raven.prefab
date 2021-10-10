@@ -30,6 +30,50 @@ Transform:
   m_Father: {fileID: 5674042436506208739}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!1 &2026677176011704866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4724803559255749058}
+  - component: {fileID: 7801880190504427611}
+  m_Layer: 0
+  m_Name: ShootPattern
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4724803559255749058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026677176011704866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5332292096627952928}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7801880190504427611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026677176011704866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f31ea7452081b1c08570b73fef2bbf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootPattern: {fileID: 11400000, guid: cc58a7c55d55bf5d093171e6b3dc108a, type: 2}
 --- !u!1 &2420395570157720442
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +103,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5332292096627952928}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2233936647697394898
 MonoBehaviour:
@@ -106,6 +150,7 @@ Transform:
   - {fileID: 6302647329358436095}
   - {fileID: 3605237638440473614}
   - {fileID: 577558451614960992}
+  - {fileID: 4724803559255749058}
   - {fileID: 586067705250427177}
   m_Father: {fileID: 5674042436506208739}
   m_RootOrder: 2
@@ -491,7 +536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26c27dde7c9649ec8640beba6167465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
+  shootParameters: {fileID: 11400000, guid: f279aefc85003e34ba362ea62e0410e7, type: 2}
+  enemyShootParameters: {fileID: 0}
   shootAnchor: {fileID: 5211726040816874875}
   defaultProjectileName: EnemyFireball
 --- !u!114 &549860245308517346
@@ -508,7 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdFire: 0
   fireOnce: 0
-  fireDirection: {x: 0, y: 0}
+  fireDirections: []
 --- !u!1 &8305944470992936688
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &577558451614960992
 Transform:
   m_ObjectHideFlags: 0

@@ -16,17 +16,8 @@ public class EnemyShootController : BaseShootController
         
     private void FixedUpdate()
     {
+        // When holding fire, do not Add fire directions to the intention.
+        // Instead, Shoot will compute fire direction live for each shot.
         m_ShootIntention.holdFire = true;
-        if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
-        {
-            // Shoot strait using shoot anchor's 2D forward
-            m_ShootIntention.fireDirection = m_Shoot.shootAnchor.right;
-        }
-        else  // EnemyShootDirectionMode.TargetPlayerCharacter
-        {
-            // Shoot at the player character (fire direction will be normalized before shooting)
-            Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-            m_ShootIntention.fireDirection = (Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position);
-        }
     }
 }
