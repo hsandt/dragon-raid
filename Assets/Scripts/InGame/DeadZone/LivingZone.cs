@@ -31,12 +31,8 @@ public class LivingZone : MonoBehaviour
         // ! a child on LivingZoneTracker)
         var tracker = other.GetComponentOrFail<LivingZoneTracker>();
         
-        // Process exiting live zone, but only if the entity is still alive (not in the process of being
-        // released/deactivated as during Restart). Make sure to add a MasterBehaviour script to entities with
-        // a LivingZoneTracker so it can Setup/Clear them appropriately so IsAlive is up-to-date. 
-        if (tracker.IsAlive)
-        {
-            tracker.OnExitLivingZone();
-        }
+        // delegate process to the tracker, which will also check if it's a true exit
+        // (object not being released for another reason nor paused this frame) 
+        tracker.OnExitLivingZone();
     }
 }

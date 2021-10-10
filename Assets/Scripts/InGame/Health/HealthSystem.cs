@@ -62,7 +62,7 @@ public class HealthSystem : ClearableBehaviour
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, this,
-            "[HealthSystem] No component of type IPooledObject found on {0}", gameObject);
+            "[HealthSystem] No component implementing IPooledObject found on {0}", gameObject);
         #endif
         
         m_Health = this.GetComponentOrFail<Health>();

@@ -124,25 +124,7 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
-    public override void Pause()
-    {
-        base.Pause();
-        
-        // Projectile script is responsible for managing rigidbody, so we pause it here
-        // We could also extract some MoveLinear component, which would be like MoveFlying but without FixedUpdate,
-        // to handle this
-        m_VelocityOnResume = m_Rigidbody2D.velocity;
-        m_Rigidbody2D.velocity = Vector2.zero;
-    }
 
-    public override void Resume()
-    {
-        base.Resume();
-        
-        m_Rigidbody2D.velocity = m_VelocityOnResume;
-    }
-    
-    
     /* IPooledObject interface */
     
     public void InitPooled()
