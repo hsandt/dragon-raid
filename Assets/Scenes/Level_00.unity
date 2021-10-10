@@ -2893,7 +2893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5044091037476376185, guid: de38ee7e0113f4e0cae62aef93d69748, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5044091037476376185, guid: de38ee7e0113f4e0cae62aef93d69748, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6696,6 +6696,10 @@ PrefabInstance:
     - target: {fileID: 9137787402837325349, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}
       propertyPath: m_Name
       value: CheatManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137787402837325349, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}
