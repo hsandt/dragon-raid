@@ -98,6 +98,8 @@ public class Background : MonoBehaviour
 
     public void Pause()
     {
+        enabled = false;
+        
         midgroundLayerRigidbody.velocity = Vector2.zero;
 
         for (int i = 0; i < parallaxLayers.Length; ++i)
@@ -112,6 +114,8 @@ public class Background : MonoBehaviour
 
     public void Resume()
     {
+        enabled = true;
+        
         SetupAllParallaxLayersVelocity();
     }
     

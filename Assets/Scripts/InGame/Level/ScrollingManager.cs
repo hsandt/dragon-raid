@@ -63,8 +63,7 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     public void Pause()
     {
         enabled = false;
-        m_Background.Pause();          // the important part, it will set parallax velocities to zero
-        m_Background.enabled = false;  // optional, this will just stop checking parallax layer wrapping (which can't happen when not moving anyway)
+        m_Background.Pause();
     }
 
     public void Resume()
@@ -72,7 +71,6 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         // We assume we didn't change scrolling speed while paused, so no need to RefreshBackgroundScrollingSpeed
         enabled = true;
         m_Background.Resume();
-        m_Background.enabled = true;
     }
 
     private void FixedUpdate()
