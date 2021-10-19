@@ -35,9 +35,8 @@ public class ActionSequencePlayer : ClearableBehaviour
     
     public override void Setup()
     {
-        // Enable script FixedUpdate (should start enabled, but important to do after one Clear on next Setup)
-        // Set it before calling TryProceedToNextAction as the latter may set it back to false
-        enabled = true;
+        // Start sequence
+        m_IsPlaying = true;
         
         // Start at index -1 so the next action is the first one, at index 0
         m_CurrentActionIndex = -1;
@@ -55,6 +54,11 @@ public class ActionSequencePlayer : ClearableBehaviour
 
     private void FixedUpdate ()
     {
+        if (!m_IsPlaying)
+        {
+            return;
+        }
+        
         // On first update since Setup, m_CurrentActionIndex == -1 and we must proceed to the first action
         if (m_CurrentActionIndex < 0)
         {
@@ -65,7 +69,7 @@ public class ActionSequencePlayer : ClearableBehaviour
             // On later updates, we must verify whether the current action is over,
             // which is done better on update start than update end, because it allows us to check up-to-date information,
             // esp. when action.Update() set rigidbody velocity and the position is only updated next frame.
-            // Note that if we are here, enabled == true, so m_CurrentActionIndex < actionSequence.Length,
+            // Note that if we are here, m_IsPlaying is true, so m_CurrentActionIndex < actionSequence.Length,
             // and in addition, the last call to TryProceedToNextAction skipped null actions,
             // so we can retrieve and use action safely.
             BehaviourAction action = actionSequence[m_CurrentActionIndex];
@@ -81,7 +85,7 @@ public class ActionSequencePlayer : ClearableBehaviour
         }
 
         // If we called TryProceedToNextAction, it may have incremented the index beyond the limit,
-        // so make sure we are still inside the sequence (we could also check if (enabled))
+        // so make sure we are still inside the sequence (we could also check if (m_IsPlaying))
         if (m_CurrentActionIndex < actionSequence.Count)
         {
             BehaviourAction action = actionSequence[m_CurrentActionIndex];
@@ -127,7 +131,7 @@ public class ActionSequencePlayer : ClearableBehaviour
             {
                 // There are no more actions, stop sequence
                 Debug.LogFormat("No more actions for #{0}, stop sequence", m_CurrentActionIndex);
-                enabled = false;
+                m_IsPlaying = false;
                 break;
             }
         }
