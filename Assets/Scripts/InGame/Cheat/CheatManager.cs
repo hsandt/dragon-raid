@@ -27,17 +27,27 @@ public class CheatManager : SingletonManager<CheatManager>
         // - press F to finish level
         // - press K to kill all spawned enemies
         
-        if (Keyboard.current.rKey.wasPressedThisFrame)
+        // if (Keyboard.current.rKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            InGameManager.Instance.RestartLevel();
+            if (InGameManager.Instance.CanRestartLevel)
+            {
+                InGameManager.Instance.RestartLevel();
+            }
         }
         else if (Keyboard.current.fKey.wasPressedThisFrame)
         {
-            InGameManager.Instance.FinishLevel();
+            if (InGameManager.Instance.CanFinishLevel)
+            {
+                InGameManager.Instance.FinishLevel();
+            }
         }
         else if (Keyboard.current.kKey.wasPressedThisFrame)
         {
-            EnemyPoolManager.Instance.KillAllEnemies();
+            if (InGameManager.Instance.CanUseCheat)
+            {
+                EnemyPoolManager.Instance.KillAllEnemies();
+            }
         }
         
         // HACK to fix bug causing Linux Editor to make those keys considered press

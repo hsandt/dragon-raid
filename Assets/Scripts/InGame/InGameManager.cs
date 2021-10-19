@@ -58,9 +58,12 @@ public class InGameManager : SingletonManager<InGameManager>
     /// True iff level finish sequence is playing
     private bool m_IsFinishingLevel;
 
-    private bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
-    private bool CanRestartLevel => !m_IsFinishingLevel;
-    private bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanRestartLevel => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel;
+    #endif
 
     protected override void Init()
     {
