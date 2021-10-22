@@ -4,6 +4,7 @@ using UnityEngine;
 
 using CommonsHelper;
 using CommonsPattern;
+using UnityEngine.Serialization;
 
 /// Script responsible for playing an Action Sequence on a scripted enemy
 /// SEO: at the same position as dedicated controllers, before any system script checking some Intention,
@@ -14,10 +15,19 @@ public class ActionSequencePlayer : ClearableBehaviour
     [Header("Parameters")]
     
     [Tooltip("Sequence of actions to execute")]
-    public ActionSequence actionSequence;
+    [FormerlySerializedAs("actionSequence")]
+    public ActionSequence defaultActionSequence;
 
     
+    /* Sibling components */
+
+    private EnemyCharacterMaster m_EnemyCharacterMaster;
+        
+        
     /* State vars */
+    
+    /// Current action sequence: default action sequence by default, but can be overridden by Enemy Spawn Data
+    private ActionSequence m_CurrentActionSequence;
     
     /// True when action sequence is playing (it plays immediately on Master setup, and only stops after last action)
     private bool m_IsPlaying;
@@ -26,30 +36,47 @@ public class ActionSequencePlayer : ClearableBehaviour
     private int m_CurrentActionIndex;
 
     
-    #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void Awake()
     {
-        Debug.AssertFormat(actionSequence != null, this, "[ActionSequencePlayer] Awake: Action Sequence not set on {0}", this);
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(defaultActionSequence != null, this, "[ActionSequencePlayer] Awake: Default Action Sequence not set on {0}", this);
+        #endif
+        
+        m_EnemyCharacterMaster = this.GetComponentOrFail<EnemyCharacterMaster>();
     }
-    #endif
     
     public override void Setup()
     {
-        // Start sequence
-        m_IsPlaying = true;
-        
-        // Start at index -1 so the next action is the first one, at index 0
+        m_CurrentActionSequence = null;
+        m_IsPlaying = false;
         m_CurrentActionIndex = -1;
+    }
 
-        // Inject owner to every action script
-        // This is done on Setup as owner may change when we allow spawn-time action sequence swapping
-        var enemyCharacterMaster = this.GetComponentOrFail<EnemyCharacterMaster>();
-        
-        foreach (var action in actionSequence)
+    /// Start the default or some override action sequence
+    /// It must be called manually after setup from Spawn code
+    public void StartActionSequence(ActionSequence overrideActionSequence = null)
+    {
+        // Override Action Sequence is optional, and allows to customize enemy behavior at certain spawn points
+        m_CurrentActionSequence = overrideActionSequence != null ? overrideActionSequence : defaultActionSequence;
+
+        if (m_CurrentActionSequence != null)
         {
-            action.Init(enemyCharacterMaster);
-            action.OnInit();
+            // Inject owner to every action script
+            // This is done on Setup as owner may change when we allow spawn-time action sequence swapping
+            foreach (var action in m_CurrentActionSequence)
+            {
+                action.Init(m_EnemyCharacterMaster);
+                action.OnInit();
+            }
+            
+            // Start sequence
+            m_IsPlaying = true;
+            
+            // Start at index -1 so the next action is the first one, at index 0
+            m_CurrentActionIndex = -1;
         }
+        // no need to log error in else case, as it can only happen if defaultActionSequence == null,
+        // which is already asserted by Awake
     }
 
     private void FixedUpdate ()
@@ -72,7 +99,7 @@ public class ActionSequencePlayer : ClearableBehaviour
             // Note that if we are here, m_IsPlaying is true, so m_CurrentActionIndex < actionSequence.Length,
             // and in addition, the last call to TryProceedToNextAction skipped null actions,
             // so we can retrieve and use action safely.
-            BehaviourAction action = actionSequence[m_CurrentActionIndex];
+            BehaviourAction action = m_CurrentActionSequence[m_CurrentActionIndex];
             
             if (action.IsOverOrDeactivated())
             {
@@ -86,9 +113,9 @@ public class ActionSequencePlayer : ClearableBehaviour
 
         // If we called TryProceedToNextAction, it may have incremented the index beyond the limit,
         // so make sure we are still inside the sequence (we could also check if (m_IsPlaying))
-        if (m_CurrentActionIndex < actionSequence.Count)
+        if (m_CurrentActionIndex < m_CurrentActionSequence.Count)
         {
-            BehaviourAction action = actionSequence[m_CurrentActionIndex];
+            BehaviourAction action = m_CurrentActionSequence[m_CurrentActionIndex];
             action.RunUpdate();
         }
     }
@@ -98,10 +125,10 @@ public class ActionSequencePlayer : ClearableBehaviour
         while (true)
         {
             ++m_CurrentActionIndex;
-            if (m_CurrentActionIndex < actionSequence.Count)
+            if (m_CurrentActionIndex < m_CurrentActionSequence.Count)
             {
                 // There is still a next action
-                BehaviourAction action = actionSequence[m_CurrentActionIndex];
+                BehaviourAction action = m_CurrentActionSequence[m_CurrentActionIndex];
                 if (action != null)
                 {
                     // Call OnStart immediately, as IsOverOrDeactivated may rely on it
@@ -109,28 +136,25 @@ public class ActionSequencePlayer : ClearableBehaviour
                     
                     if (!action.IsOverOrDeactivated())
                     {
-                        Debug.LogFormat("Start action #{0}", m_CurrentActionIndex);
                         break;
                     }
                     // else, action is over: continue so we can immediately go on with the next action
                     // normally actions should not be over right after start, but it's possible if pre-conditions
                     // cannot fulfilled (e.g. target is already behind so we can never shoot it), and this can also
-                    // be entered if the action was manually deactivated in the editor
-                    Debug.LogFormat("Action already over! #{0}", m_CurrentActionIndex);
+                    // be entered if the action was manually deactivated in the editor, so do not log error here
                 }
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 else
                 {
                     // action is null: continue so we can immediately go on with the next action
                     // (but you should fix your data) 
-                    Debug.LogErrorFormat("On {0}, action #{1} is null", actionSequence, m_CurrentActionIndex);
+                    Debug.LogErrorFormat("[ActionSequencePlayer] On {0}, action #{1} is null", m_CurrentActionSequence, m_CurrentActionIndex);
                 }
                 #endif
             }
             else
             {
                 // There are no more actions, stop sequence
-                Debug.LogFormat("No more actions for #{0}, stop sequence", m_CurrentActionIndex);
                 m_IsPlaying = false;
                 break;
             }

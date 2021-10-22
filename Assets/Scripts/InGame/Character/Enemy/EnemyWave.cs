@@ -154,10 +154,12 @@ public class EnemyWave : MonoBehaviour
                 m_OnWaveClearedEventEffect?.Trigger();
             }
         }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {
             Debug.LogErrorFormat(this, "[EnemyWave] m_TrackedEnemiesCount ({0}) is not positive on {1}, cannot decrement",
                 m_TrackedEnemiesCount, this);
         }
+        #endif
     }
 }

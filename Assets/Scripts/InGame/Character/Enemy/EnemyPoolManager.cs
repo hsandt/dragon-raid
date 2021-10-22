@@ -29,6 +29,13 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
         {
             enemyCharacter.Spawn(position);
             enemyCharacter.SetEnemyWave(enemyWave);
+
+            var actionSequencePlayer = enemyCharacter.GetComponent<ActionSequencePlayer>();
+            if (actionSequencePlayer != null)
+            {
+                actionSequencePlayer.StartActionSequence();
+            }
+            
             return enemyCharacter;
         }
         
