@@ -78,7 +78,7 @@ public class EnemyWave : MonoBehaviour
     
     private void SpawnEnemyFromData(EnemySpawnData enemySpawnData)
     {
-        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this);
+        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this, enemySpawnData.overrideActionSequence);
         if (enemyCharacterMaster == null)
         {
             // Spawning failed, immediately stop tracking

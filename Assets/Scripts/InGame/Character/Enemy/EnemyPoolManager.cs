@@ -21,7 +21,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
     }
 
     /// Spawn character at position
-    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave)
+    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave, ActionSequence overrideActionSequence)
     {
         EnemyCharacterMaster enemyCharacter = GetObject(enemyName);
         
@@ -33,7 +33,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
             var actionSequencePlayer = enemyCharacter.GetComponent<ActionSequencePlayer>();
             if (actionSequencePlayer != null)
             {
-                actionSequencePlayer.StartActionSequence();
+                actionSequencePlayer.StartActionSequence(overrideActionSequence);
             }
             
             return enemyCharacter;

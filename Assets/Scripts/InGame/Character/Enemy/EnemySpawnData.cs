@@ -17,4 +17,8 @@ public class EnemySpawnData
              "another wave just for that. Unlike Wave, it really uses Time, not Spatial Progress. " +
              "Place multiple enemy spawn points at the same position, with various delays, to create a Chain Squad.")]
     public float delay = 0f;
+
+    [Tooltip("Optional action sequence used to override the default one on this specific enemy. " +
+             "Useful to customize enemy behavior, by either only changing parameters or the full action sequence.")]
+    public ActionSequence overrideActionSequence = null;
 }
