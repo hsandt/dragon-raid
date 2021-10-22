@@ -184,6 +184,10 @@ namespace UnityConstants
         /// Index of layer 'SolidEnvironment'.
         /// </summary>
         public const int SolidEnvironment = 24;
+        /// <summary>
+        /// Index of layer 'EnvironmentProp'.
+        /// </summary>
+        public const int EnvironmentProp = 26;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -257,6 +261,10 @@ namespace UnityConstants
         /// Bitmask of layer 'SolidEnvironment'.
         /// </summary>
         public const int SolidEnvironmentMask = 1 << 24;
+        /// <summary>
+        /// Bitmask of layer 'EnvironmentProp'.
+        /// </summary>
+        public const int EnvironmentPropMask = 1 << 26;
     }
 
     public static class Scenes
@@ -273,6 +281,10 @@ namespace UnityConstants
         /// ID of scene 'Level_01'.
         /// </summary>
         public const int Level_01 = 2;
+        /// <summary>
+        /// ID of scene 'Level_02'.
+        /// </summary>
+        public const int Level_02 = 3;
     }
 
     public enum ScenesEnum
@@ -280,6 +292,7 @@ namespace UnityConstants
         Title = 0,
         Level_00 = 1,
         Level_01 = 2,
+        Level_02 = 3,
     }
 
     public static class Axes
