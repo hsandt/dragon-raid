@@ -15,7 +15,6 @@ public class ActionSequencePlayer : ClearableBehaviour
     [Header("Parameters")]
     
     [Tooltip("Sequence of actions to execute")]
-    [FormerlySerializedAs("actionSequence")]
     public ActionSequence defaultActionSequence;
 
     

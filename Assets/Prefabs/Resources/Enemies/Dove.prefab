@@ -188,6 +188,7 @@ MonoBehaviour:
   addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
+  slaveRigidbody2D: {fileID: 0}
   slaveParticles: []
 --- !u!114 &1991456190773342602
 MonoBehaviour:
@@ -279,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd42a87924b94157a9f4c8346dca6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionSequence: {fileID: 3237521946920762279}
+  defaultActionSequence: {fileID: 3237521946920762279}
 --- !u!1 &2883902153170373018
 GameObject:
   m_ObjectHideFlags: 0
