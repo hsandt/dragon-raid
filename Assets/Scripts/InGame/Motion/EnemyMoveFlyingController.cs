@@ -24,7 +24,6 @@ public class EnemyMoveFlyingController : BaseMoveFlyingController
     
     [SerializeField, Tooltip("Fixed direction in which the enemy moves (all enemies of the same type will move the same) " +
                              "Will be normalized.")]
-    [FormerlySerializedAs("moveDirection")]
     private Vector2 linearMoveDirection = Vector2.left;
 
 #if UNITY_EDITOR
