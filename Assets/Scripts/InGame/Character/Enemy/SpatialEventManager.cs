@@ -80,18 +80,24 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
 
             if (eventTrigger.RequiredSpatialProgress <= newSpatialProgress)
             {
-                if (oldSpatialProgress < eventTrigger.RequiredSpatialProgress)
+                // Note that we're now checking for less than *or equal* to support events at time = 0,
+                // and trigger events at time = T when cheat-warping to time T exactly.
+                // This seems redundant with the comparison above, as if on one frame we fall exactly on
+                // RequiredSpatialProgress, next frame we would enter this block again.
+                // But since we Remove the event below, we guarantee not to check this event again,
+                // so there is no risk to Trigger it again.
+                if (oldSpatialProgress <= eventTrigger.RequiredSpatialProgress)
                 {
                     // We moved from old to new progress, going through (or just reaching) the required spatial progress
                     // so trigger the event effect
                     eventEffect.Trigger();
                 }
                 
-                // Either we triggered the event effect, or the required spatial progress was less than (or equal to)
+                // Either we triggered the event effect, or the required spatial progress was less than
                 // the old progress, which means we were already past the event yet it wasn't removed (only possible
                 // when using CheatAdvanceScrolling). In both cases, remove the event to avoid processing it again
-                // (it is now optional since we are checking old spatial event and will never trigger old events,
-                // but good for optimization).
+                // (it also avoids a duplicate Trigger if one a given frame, we fall right on RequiredSpatialProgress
+                // as explained above)
                 m_RemainingSpatialEventPairs.RemoveAt(i);
             }
         }
