@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14394f4960c4c1fb7795680109dbfd0, type: 3}
   m_Name: HealthParameters_BabyDragon
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 1
