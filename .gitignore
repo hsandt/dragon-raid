@@ -96,3 +96,8 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Paid editor assets (ignored so project can remain open source,
+# and since only editor scripts, project will still run without)
+/[Aa]ssets/Asset Usage Finder.meta
+/[Aa]ssets/Asset Usage Finder/
