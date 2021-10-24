@@ -27,8 +27,7 @@ public class CheatManager : SingletonManager<CheatManager>
         // - press F to finish level
         // - press K to kill all spawned enemies
         
-        // if (Keyboard.current.rKey.wasPressedThisFrame)
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             if (InGameManager.Instance.CanRestartLevel)
             {
