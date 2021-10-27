@@ -15,7 +15,7 @@ public class EnemySpawnData
     
     [Tooltip("Spawn delay. Useful to add a small delay on a particular enemy spawn instead of having to add " +
              "another wave just for that. Unlike Wave, it really uses Time, not Spatial Progress. " +
-             "Place multiple enemy spawn points at the same position, with various delays, to create a Chain Squad.")]
+             "If chaining multiple enemies at the same position, prefer Enemy Chain Spawn Data.")]
     public float delay = 0f;
 
     [Tooltip("Optional action sequence used to override the default one on this specific enemy. " +

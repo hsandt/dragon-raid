@@ -9,15 +9,25 @@ public class EnemyWave : MonoBehaviour
 {
     private class DelayedEnemySpawnInfo
     {
-        private EnemySpawnData m_EnemySpawnData;
-        public EnemySpawnData EnemySpawnData => m_EnemySpawnData;
+        private readonly EnemyData m_EnemyData;
+        public EnemyData EnemyData => m_EnemyData;
+        
+        private Vector2 m_SpawnPosition;
+        public Vector2 SpawnPosition => m_SpawnPosition;
+    
+        private ActionSequence m_OverrideActionSequence;
+        public ActionSequence OverrideActionSequence => m_OverrideActionSequence;
+
         
         private float m_TimeLeft;
 
-        public DelayedEnemySpawnInfo(EnemySpawnData enemySpawnData)
+        public DelayedEnemySpawnInfo(EnemyData enemyData, Vector2 spawnPosition, ActionSequence overrideActionSequence,
+            float delay)
         {
-            m_EnemySpawnData = enemySpawnData;
-            m_TimeLeft = enemySpawnData.delay;
+            m_EnemyData = enemyData;
+            m_SpawnPosition = spawnPosition;
+            m_OverrideActionSequence = overrideActionSequence;
+            m_TimeLeft = delay;
         }
         
         /// Countdown the time by deltaTime, and return true if timer reached 0
@@ -28,13 +38,7 @@ public class EnemyWave : MonoBehaviour
             // keep a finished timer around, so don't do the m_TimeLeft > 0 check and don't
             // clamp the time to 0.
             m_TimeLeft -= deltaTime;
-            
-            if (m_TimeLeft <= 0)
-            {
-                return true;
-            }
-			
-            return false;
+            return m_TimeLeft <= 0;
         }
     }
     
@@ -45,6 +49,12 @@ public class EnemyWave : MonoBehaviour
     
     /// Array of enemy spawn data. All enemies will be spawned when this wave is triggered.
     public EnemySpawnData[] EnemySpawnDataArray => enemySpawnDataArray;
+
+    [SerializeField, Tooltip("Array of enemy chain spawn data. Allows chaining enemies of the same type.")]
+    private EnemyChainSpawnData[] enemyChainSpawnDataArray;
+    
+    /// Array of enemy spawn data. All enemies will be spawned when this wave is triggered.
+    public EnemyChainSpawnData[] EnemyChainSpawnDataArray => enemyChainSpawnDataArray;
 
     
     /* Dynamic external references */
@@ -72,13 +82,11 @@ public class EnemyWave : MonoBehaviour
     
     public void Clear()
     {
-        // Important to avoid keeping a delayed spawn around that would happen out of nowhere after level restart
-        StopAllCoroutines();
     }
     
-    private void SpawnEnemyFromData(EnemySpawnData enemySpawnData)
+    private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, ActionSequence overrideActionSequence = null)
     {
-        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemySpawnData.enemyData.enemyName, enemySpawnData.spawnPosition, this, enemySpawnData.overrideActionSequence);
+        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemyData.enemyName, spawnPosition, this, overrideActionSequence);
         if (enemyCharacterMaster == null)
         {
             // Spawning failed, immediately stop tracking
@@ -95,7 +103,7 @@ public class EnemyWave : MonoBehaviour
             m_TrackedEnemiesCount);
         #endif
         
-        foreach (var enemySpawnData in EnemySpawnDataArray)
+        foreach (var enemySpawnData in enemySpawnDataArray)
         {
             if (enemySpawnData.enemyData)
             {
@@ -107,11 +115,45 @@ public class EnemyWave : MonoBehaviour
                 
                 if (enemySpawnData.delay <= 0f)
                 {
-                    SpawnEnemyFromData(enemySpawnData);
+                    SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideActionSequence);
                 }
                 else
                 {
-                    m_DelayedEnemySpawnInfoList.Add(new DelayedEnemySpawnInfo(enemySpawnData));
+                    m_DelayedEnemySpawnInfoList.Add(new DelayedEnemySpawnInfo(
+                        enemySpawnData.enemyData,
+                        enemySpawnData.spawnPosition,
+                        enemySpawnData.overrideActionSequence,
+                        enemySpawnData.delay));
+                }
+            }
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            else
+            {
+                Debug.LogErrorFormat(this, "Missing EnemyData on {0}", this);
+            }
+            #endif
+        }
+        
+        foreach (var enemyChainSpawnData in enemyChainSpawnDataArray)
+        {
+            if (enemyChainSpawnData.enemyData)
+            {
+                // Track all chained enemies now for the same reason as above
+                m_TrackedEnemiesCount += enemyChainSpawnData.spawnCount;
+                
+                // Spawn first enemy of the chain now
+                SpawnEnemy(enemyChainSpawnData.enemyData, enemyChainSpawnData.spawnPosition);
+
+                // Prepare spawning all the other enemies after a delay by regular intervals
+                // Make sure to start index at 1
+                for (int i = 1; i < enemyChainSpawnData.spawnCount; i++)
+                {
+                    float delay = i * enemyChainSpawnData.timeInterval;
+                    m_DelayedEnemySpawnInfoList.Add(new DelayedEnemySpawnInfo(
+                        enemyChainSpawnData.enemyData,
+                        enemyChainSpawnData.spawnPosition,
+                        null,
+                        delay));
                 }
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -131,7 +173,7 @@ public class EnemyWave : MonoBehaviour
             DelayedEnemySpawnInfo delayedEnemySpawnInfo = m_DelayedEnemySpawnInfoList[i];
             if (delayedEnemySpawnInfo.CountDown(Time.deltaTime))
             {
-                SpawnEnemyFromData(delayedEnemySpawnInfo.EnemySpawnData);
+                SpawnEnemy(delayedEnemySpawnInfo.EnemyData, delayedEnemySpawnInfo.SpawnPosition, delayedEnemySpawnInfo.OverrideActionSequence);
                 m_DelayedEnemySpawnInfoList.RemoveAt(i);  // safe thanks to reverse loop
             }
         }
