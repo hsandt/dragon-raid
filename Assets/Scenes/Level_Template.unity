@@ -3745,6 +3745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawnDataArray: []
+  enemyChainSpawnDataArray: []
 --- !u!114 &1446045890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5460,6 +5461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpawnDataArray: []
+  enemyChainSpawnDataArray: []
 --- !u!114 &2122095741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6239,6 +6241,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}

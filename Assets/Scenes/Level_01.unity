@@ -715,6 +715,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 4b35d931fdb35e9258ebf40c5f30e32a, type: 2}
     spawnPosition: {x: 11.6875, y: -5}
     delay: 0.7
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &154044485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,27 +1049,36 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 6.0625, y: -2.1875}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 6.125, y: -1.5625}
     delay: 0.2
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 7, y: -1.625}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 6.9375, y: -2.25}
     delay: 0.2
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 9.25, y: -1.625}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 9.1875, y: -2.25}
     delay: 0.2
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 8.0625, y: -2.0625}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 8, y: -1.5625}
     delay: 0.2
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &309033882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,6 +1462,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 4b35d931fdb35e9258ebf40c5f30e32a, type: 2}
     spawnPosition: {x: 11.6875, y: -5}
     delay: 0.7
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &510782306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,6 +2273,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 560a0b14e8a620fd5b82f02fe60cdc11, type: 2}
     spawnPosition: {x: 10.6875, y: 5}
     delay: 0.7
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &860307614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3269,6 +3284,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
     spawnPosition: {x: 10.8125, y: -0.0625}
     delay: 0
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &1111956631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4025,6 +4042,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 9c57a1e12c8e8af019c8291b89b8efeb, type: 2}
     spawnPosition: {x: 6.0625, y: -2.1875}
     delay: 0
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &1446045890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4847,12 +4866,16 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 560a0b14e8a620fd5b82f02fe60cdc11, type: 2}
     spawnPosition: {x: 10.875, y: 2.75}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 560a0b14e8a620fd5b82f02fe60cdc11, type: 2}
     spawnPosition: {x: 10.875, y: 0.8125}
     delay: 0.3
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: 560a0b14e8a620fd5b82f02fe60cdc11, type: 2}
     spawnPosition: {x: 10.875, y: 3.25}
     delay: 1.2
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &1676941494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5403,12 +5426,16 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
     spawnPosition: {x: 10.9375, y: 1.875}
     delay: 0
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
     spawnPosition: {x: 12.625, y: -1.625}
     delay: 0.3
+    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: b4e1feb49fa8d08d093c45dcad8f3865, type: 2}
     spawnPosition: {x: 14.125, y: 0.5}
     delay: 0.7
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &1885409516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6529,6 +6556,8 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: ac39cbf898d54532d9b3ed9246b24c6f, type: 2}
     spawnPosition: {x: 10.625, y: -5}
     delay: 0
+    overrideRootAction: {fileID: 0}
+  enemyChainSpawnDataArray: []
 --- !u!114 &2122095741
 MonoBehaviour:
   m_ObjectHideFlags: 0
