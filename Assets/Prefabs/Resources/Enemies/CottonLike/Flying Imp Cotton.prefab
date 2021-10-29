@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 2214942553324554159}
   - component: {fileID: 3939344505263049967}
   - component: {fileID: 8776711105734704578}
-  - component: {fileID: 4067889598983368588}
+  - component: {fileID: 5608194585961821552}
   m_Layer: 16
   m_Name: Flying Imp Cotton
   m_TagString: Untagged
@@ -391,7 +391,7 @@ MonoBehaviour:
   holdFire: 0
   fireOnce: 0
   fireDirections: []
---- !u!114 &4067889598983368588
+--- !u!114 &5608194585961821552
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,10 +400,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1991456190773342592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd42a87924b94157a9f4c8346dca6e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fff70ec45b042077933eaa5bd9659eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultActionSequence: {fileID: 3559608845280296476}
+  defaultRootAction: {fileID: 6143662109999669247}
 --- !u!1 &2883902153170373018
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,9 +515,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7340226587828307405}
-  - component: {fileID: 3559608845280296476}
+  - component: {fileID: 6143662109999669247}
   m_Layer: 0
-  m_Name: ActionSequence
+  m_Name: RunActionSequence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ Transform:
   m_Father: {fileID: 1991456190773342593}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3559608845280296476
+--- !u!114 &6143662109999669247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6560925882328931639}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e27c379b15d94b19aa0607701549cbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a3007da2c9e66a8fa5b29990226d59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7294664782719705065

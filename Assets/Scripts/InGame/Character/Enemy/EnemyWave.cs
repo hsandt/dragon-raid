@@ -15,18 +15,18 @@ public class EnemyWave : MonoBehaviour
         private Vector2 m_SpawnPosition;
         public Vector2 SpawnPosition => m_SpawnPosition;
     
-        private ActionSequence m_OverrideActionSequence;
-        public ActionSequence OverrideActionSequence => m_OverrideActionSequence;
+        private BehaviourAction m_OverrideRootAction;
+        public BehaviourAction OverrideRootAction => m_OverrideRootAction;
 
         
         private float m_TimeLeft;
 
-        public DelayedEnemySpawnInfo(EnemyData enemyData, Vector2 spawnPosition, ActionSequence overrideActionSequence,
+        public DelayedEnemySpawnInfo(EnemyData enemyData, Vector2 spawnPosition, BehaviourAction overrideRootAction,
             float delay)
         {
             m_EnemyData = enemyData;
             m_SpawnPosition = spawnPosition;
-            m_OverrideActionSequence = overrideActionSequence;
+            m_OverrideRootAction = overrideRootAction;
             m_TimeLeft = delay;
         }
         
@@ -84,9 +84,9 @@ public class EnemyWave : MonoBehaviour
     {
     }
     
-    private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, ActionSequence overrideActionSequence = null)
+    private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, BehaviourAction overrideRootAction = null)
     {
-        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemyData.enemyName, spawnPosition, this, overrideActionSequence);
+        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemyData.enemyName, spawnPosition, this, overrideRootAction);
         if (enemyCharacterMaster == null)
         {
             // Spawning failed, immediately stop tracking
@@ -115,14 +115,14 @@ public class EnemyWave : MonoBehaviour
                 
                 if (enemySpawnData.delay <= 0f)
                 {
-                    SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideActionSequence);
+                    SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideRootAction);
                 }
                 else
                 {
                     m_DelayedEnemySpawnInfoList.Add(new DelayedEnemySpawnInfo(
                         enemySpawnData.enemyData,
                         enemySpawnData.spawnPosition,
-                        enemySpawnData.overrideActionSequence,
+                        enemySpawnData.overrideRootAction,
                         enemySpawnData.delay));
                 }
             }
@@ -173,7 +173,7 @@ public class EnemyWave : MonoBehaviour
             DelayedEnemySpawnInfo delayedEnemySpawnInfo = m_DelayedEnemySpawnInfoList[i];
             if (delayedEnemySpawnInfo.CountDown(Time.deltaTime))
             {
-                SpawnEnemy(delayedEnemySpawnInfo.EnemyData, delayedEnemySpawnInfo.SpawnPosition, delayedEnemySpawnInfo.OverrideActionSequence);
+                SpawnEnemy(delayedEnemySpawnInfo.EnemyData, delayedEnemySpawnInfo.SpawnPosition, delayedEnemySpawnInfo.OverrideRootAction);
                 m_DelayedEnemySpawnInfoList.RemoveAt(i);  // safe thanks to reverse loop
             }
         }

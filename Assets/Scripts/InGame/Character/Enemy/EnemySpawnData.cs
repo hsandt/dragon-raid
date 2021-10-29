@@ -21,4 +21,5 @@ public class EnemySpawnData
     [Tooltip("Optional action sequence used to override the default one on this specific enemy. " +
              "Useful to customize enemy behavior, by either only changing parameters or the full action sequence.")]
     public ActionSequence overrideActionSequence = null;
+    public BehaviourAction overrideRootAction = null;
 }

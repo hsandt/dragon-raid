@@ -14,12 +14,14 @@ public abstract class BehaviourAction : MonoBehaviour
     public void Init(EnemyCharacterMaster enemyCharacterMaster)
     {
         m_EnemyCharacterMaster = enemyCharacterMaster;
+        
+        OnInit();
     }
     
-    /// Action initialisation callback. Called only once on action sequence start, it should
+    /// Action initialisation callback. Called only once on Init (called recursively), it should
     /// cache references to any required components, and do any other preprocessing we'd rather avoid later
-    /// (this may still be called in-game at enemy spawn time as we cannot predict action sequence override)
-    public virtual void OnInit() {}
+    /// (this is still be called in-game at enemy spawn time as we cannot predict action sequence override)
+    protected virtual void OnInit() {}
     
     /// Action start callback. Useful to setup and cache info (optional)
     public virtual void OnStart() {}

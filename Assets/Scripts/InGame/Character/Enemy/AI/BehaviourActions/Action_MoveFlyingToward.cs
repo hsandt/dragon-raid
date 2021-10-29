@@ -36,7 +36,7 @@ public class Action_MoveFlyingToward : BehaviourAction
     private Vector2 m_TargetPosition;
     
     
-    public override void OnInit()
+    protected override void OnInit()
     {
         m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
     }

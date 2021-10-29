@@ -31,7 +31,7 @@ public class Action_ShootPattern : BehaviourAction
     private int m_OrderedShotsCount;
     
     
-    public override void OnInit()
+    protected override void OnInit()
     {
         m_Shoot = m_EnemyCharacterMaster.GetComponentOrFail<Shoot>();
         m_ShootIntention = m_Shoot.ShootIntention;

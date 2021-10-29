@@ -21,7 +21,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
     }
 
     /// Spawn character at position
-    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave, ActionSequence overrideActionSequence)
+    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave, BehaviourAction overrideRootAction)
     {
         EnemyCharacterMaster enemyCharacter = GetObject(enemyName);
         
@@ -30,20 +30,28 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
             enemyCharacter.Spawn(position);
             enemyCharacter.SetEnemyWave(enemyWave);
 
-            var actionSequencePlayer = enemyCharacter.GetComponent<ActionSequencePlayer>();
-            if (actionSequencePlayer != null)
+            var behaviourTreePlayer = enemyCharacter.GetComponent<BehaviourTreePlayer>();
+            if (behaviourTreePlayer != null)
             {
-                actionSequencePlayer.StartActionSequence(overrideActionSequence);
+                behaviourTreePlayer.StartBehaviourTree(overrideRootAction);
             }
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            else if (overrideRootAction != null)
+            {
+                Debug.LogErrorFormat(enemyWave, "[EnemyPoolManager] SpawnCharacter: Override Root Action {0} was passed " +
+                    "to spawn enemy {1} for wave {2}, but this enemy has no BehaviourTreePlayer component.",
+                    overrideRootAction, enemyName, enemyWave);
+            }
+            #endif
             
             return enemyCharacter;
         }
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: Cannot spawn enemy '{0}' due to either " +
+        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: Cannot spawn enemy '{0}' for wave {1} due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on EnemyPoolManager, or increasing its pool size.",
-            enemyName);
+            enemyName, enemyWave);
         #endif
         
         return null;

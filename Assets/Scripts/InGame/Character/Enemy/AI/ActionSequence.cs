@@ -33,7 +33,7 @@ public class ActionSequence : MonoBehaviour, IEnumerable<BehaviourAction>
 
     private void Awake()
     {
-        // Linq statement to iterate on all children get BehaviourAction component and generate a list
+        // Linq statement to iterate on all children, get BehaviourAction component and generate a list
         m_BehaviourActions = transform.Cast<Transform>().Select(tr => tr.GetComponentOrFail<BehaviourAction>()).ToList();
     }
 

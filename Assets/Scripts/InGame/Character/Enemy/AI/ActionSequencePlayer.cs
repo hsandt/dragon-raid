@@ -65,7 +65,6 @@ public class ActionSequencePlayer : ClearableBehaviour
             foreach (var action in m_CurrentActionSequence)
             {
                 action.Init(m_EnemyCharacterMaster);
-                action.OnInit();
             }
             
             // Start sequence
