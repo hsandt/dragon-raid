@@ -30,6 +30,9 @@ public class Action_MoveFlyingBy : BehaviourAction
 
     /* Derived parameters */
 
+    // Consider changing this to a distance left tracker like Action_MoveGroundedBy
+    // as it's more fitting for relative move esp. if character can be blocked by some things
+    
     /// Target position = start position + move vector
     /// It is important to store on Setup as the start position is not remembered
     private Vector2 m_TargetPosition;
@@ -74,7 +77,8 @@ public class Action_MoveFlyingBy : BehaviourAction
     protected override bool IsOver()
     {
         // Consider move over when character needs to move by less than a frame's move distance
-        // Note that the higher the speed is, the less precise 
+        // Note that the higher the speed is, the less precise the arrival is
+        // Consider checking (clamped) distance left == 0f like Action_MoveGroundedBy
         Vector2 toTarget = m_TargetPosition - (Vector2) m_MoveFlyingIntention.transform.position;
         float moveDistancePerFrame = speed * Time.deltaTime;
         return toTarget.sqrMagnitude < moveDistancePerFrame * moveDistancePerFrame;
