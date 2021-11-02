@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1991456190773342603}
   - component: {fileID: 1991456190773342604}
   - component: {fileID: 2214942553324554159}
-  - component: {fileID: 339414858058383242}
+  - component: {fileID: 5467594487466737326}
   m_Layer: 16
   m_Name: Dove
   m_TagString: Untagged
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &339414858058383242
+--- !u!114 &5467594487466737326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,10 +277,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1991456190773342592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fd42a87924b94157a9f4c8346dca6e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fff70ec45b042077933eaa5bd9659eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultActionSequence: {fileID: 3237521946920762279}
+  defaultRootAction: {fileID: 2320176437062839069}
 --- !u!1 &2883902153170373018
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,9 +347,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8639462480931902692}
-  - component: {fileID: 3237521946920762279}
+  - component: {fileID: 2320176437062839069}
   m_Layer: 0
-  m_Name: ActionSequence
+  m_Name: RunActionSequence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,7 +370,7 @@ Transform:
   m_Father: {fileID: 1991456190773342593}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3237521946920762279
+--- !u!114 &2320176437062839069
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6181032995191038630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e27c379b15d94b19aa0607701549cbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a3007da2c9e66a8fa5b29990226d59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7298886336549476298
