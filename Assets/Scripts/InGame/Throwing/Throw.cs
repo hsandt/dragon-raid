@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityExtensions;
 
 using CommonsHelper;
 using CommonsPattern;
@@ -15,6 +16,7 @@ public class Throw : ClearableBehaviour
     [Header("Parameters data")]
     
     [Tooltip("Throw Parameters Data")]
+    [InspectInline(canEditRemoteTarget = true)]
     public ThrowParameters throwParameters;
 
     [Tooltip("Throw Aesthetic parameters Data")]
