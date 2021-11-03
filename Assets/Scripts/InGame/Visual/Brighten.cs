@@ -39,6 +39,22 @@ public class Brighten : ClearableBehaviour
     {
         m_SpriteRenderer = this.GetComponentOrFail<SpriteRenderer>();
         m_BrightnessEndTimer = new Timer(callback: ResetBrightness);
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (additionalSpriteRenderers != null)
+        {
+            for (int i = 0; i < additionalSpriteRenderers.Length; i++)
+            {
+                Debug.AssertFormat(additionalSpriteRenderers[i] != null, this,
+                    "[Brighten] additionalSpriteRenderers[{0}] is null on {1}", i, this);
+            }
+        }
+        else
+        {
+            Debug.AssertFormat(additionalSpriteRenderers != null, this,
+                "[Brighten] No additionalSpriteRenderers set on {0}", this);
+        }
+        #endif
     }
 
     public override void Setup()
