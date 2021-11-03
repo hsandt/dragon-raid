@@ -2819,7 +2819,7 @@ GameObject:
   - component: {fileID: 826320414}
   - component: {fileID: 826320413}
   m_Layer: 0
-  m_Name: EnemyWave.04 Fish.1
+  m_Name: EnemyWave.07 Fish.1
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2837,7 +2837,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1789300926}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &826320413
 MonoBehaviour:
@@ -4369,6 +4369,86 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1411465338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1411465339}
+  - component: {fileID: 1411465342}
+  - component: {fileID: 1411465341}
+  - component: {fileID: 1411465340}
+  m_Layer: 0
+  m_Name: EnemyWave.06 Baby Dragons
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1411465339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411465338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1789300926}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1411465340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411465338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c58241d7640646a994c900c9e22518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnDataArray: []
+  enemyChainSpawnDataArray:
+  - enemyData: {fileID: 11400000, guid: 99b4c8234578b5144960e8b1e8121c42, type: 2}
+    spawnPosition: {x: 10.6875, y: 4}
+    spawnCount: 6
+    timeInterval: 0.4
+  - enemyData: {fileID: 11400000, guid: 99b4c8234578b5144960e8b1e8121c42, type: 2}
+    spawnPosition: {x: 10.6875, y: 3}
+    spawnCount: 6
+    timeInterval: 0.4
+--- !u!114 &1411465341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411465338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1411465342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411465338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredSpatialProgress: 27
 --- !u!1 &1437443661
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,6 +5417,8 @@ Transform:
   - {fileID: 1437443662}
   - {fileID: 714263309}
   - {fileID: 503915492}
+  - {fileID: 1411465339}
+  - {fileID: 1935532934}
   - {fileID: 826320412}
   m_Father: {fileID: 984149951}
   m_RootOrder: 0
@@ -5711,6 +5793,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredSpatialProgress: 20
+--- !u!1 &1935532933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1935532934}
+  - component: {fileID: 1935532937}
+  - component: {fileID: 1935532936}
+  - component: {fileID: 1935532935}
+  m_Layer: 0
+  m_Name: EnemyWave.06 Baby Dragons.1
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1935532934
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935532933}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1789300926}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1935532935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935532933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c58241d7640646a994c900c9e22518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpawnDataArray: []
+  enemyChainSpawnDataArray:
+  - enemyData: {fileID: 11400000, guid: 99b4c8234578b5144960e8b1e8121c42, type: 2}
+    spawnPosition: {x: 12, y: -2}
+    spawnCount: 6
+    timeInterval: 0.4
+  - enemyData: {fileID: 11400000, guid: 99b4c8234578b5144960e8b1e8121c42, type: 2}
+    spawnPosition: {x: 12, y: -3}
+    spawnCount: 6
+    timeInterval: 0.4
+--- !u!114 &1935532936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935532933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00d0c501b4e98969dbb699c6a9c64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1935532937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935532933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f39d57f18bf4ae68e7f0bfa8d267d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredSpatialProgress: 30
 --- !u!1 &1949952689
 GameObject:
   m_ObjectHideFlags: 0
