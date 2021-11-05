@@ -107,9 +107,10 @@ public class HealthSystem : ClearableBehaviour
     /// via the Try...Damage methods
     private void Damage(int value)
     {
-        // Only damage if character is not already dead i.e. HP are not already at 0
-        // This will prevent unwanted redundant calls to Die causing weird things like Clear-ing
-        // EnemyCharacterMaster.m_EnemyWave then erroring in OnDeathOrExit because m_EnemyWave == null 
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(CanDamage());
+        #endif
+        
         if (value > 0)
         {
             m_Health.value -= value;
@@ -126,8 +127,13 @@ public class HealthSystem : ClearableBehaviour
 
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     /// Kill unit instantly
-    public void Kill()
+    public void TryKill()
     {
+        if (!CanDamage())
+        {
+            return;
+        }
+        
         Damage(m_Health.value);
     }
     #endif

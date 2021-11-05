@@ -79,7 +79,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
         foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
         {
             var healthSystem = activeEnemy.GetComponentOrFail<HealthSystem>();
-            healthSystem.Kill();
+            healthSystem.TryKill();
         }
     }
     #endif
