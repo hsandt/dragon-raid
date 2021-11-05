@@ -45,15 +45,27 @@ public class Projectile : MasterBehaviour, IPooledObject
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
-        // This is to allow projectile to find the parent owning the HealthSystem.
-        Rigidbody2D targetRigidbody = other.attachedRigidbody;
-        if (targetRigidbody != null)
+        // Verify that projectile is still alive
+        // Of course, on Impact it gets Released, but during the frame of impact, the projectile collider remains active
+        // so it can enter multiple colliders at once.
+        // It depends on design whether we want to confirm multiple hit in this case.
+        // For now, we prefer confirming the first hit only, although we cannot tell which collider will recognize
+        // the hit first, because collision is managed by Unity (risk of indeterminism here).
+        // The design reason is that if it takes N projectiles to kill 1 enemy of type T,
+        // it should take M*N projectiles to kill M enemies of type T, even if they are located at the same place.
+        // Of course, if projectiles were considered like AoE bombs, doing multi-hit would make sense.
+        if (IsInUse())
         {
-            var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
-            if (targetHealthSystem != null)
+            // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
+            // This is to allow projectile to find the parent owning the HealthSystem.
+            Rigidbody2D targetRigidbody = other.attachedRigidbody;
+            if (targetRigidbody != null)
             {
-                Impact(targetHealthSystem);
+                var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
+                if (targetHealthSystem != null)
+                {
+                    Impact(targetHealthSystem);
+                }
             }
         }
     }
