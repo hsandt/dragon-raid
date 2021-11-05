@@ -13,5 +13,6 @@ public class PeriodicThrowAIParameters : ScriptableObject
     public float period = 1f;
     
     [Tooltip("Throw angle (degrees, CW from left)")]
+    [Range(-180f, 180f)]
     public float angle = 45f;
 }

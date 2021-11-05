@@ -33,7 +33,8 @@ public class Throw : ClearableBehaviour
     
     private Animator m_Animator;
     private ThrowIntention m_ThrowIntention;
-    
+    public ThrowIntention ThrowIntention => m_ThrowIntention;
+
     
     /* State */
     
