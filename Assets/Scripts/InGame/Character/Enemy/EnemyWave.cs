@@ -74,6 +74,15 @@ public class EnemyWave : MonoBehaviour
     /// (we cannot just use coroutines because they are not paused when script is disabled)
     private readonly List<DelayedEnemySpawnInfo> m_DelayedEnemySpawnInfoList = new List<DelayedEnemySpawnInfo>();
 
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    /// Dev-only enemy tracker
+    /// Usually we would track spawned enemies, but unless we store them in some HashSet by instance ID,
+    /// searching and removing them costs O(N), which is okay but can stack quickly in an action game
+    /// with frequent destruction. So we use m_TrackedEnemiesCount in production for performance,
+    /// but track spawned enemies in development to detect Desync immediately (see CheckDesync).
+    private readonly List<EnemyCharacterMaster> m_SpawnedEnemies = new List<EnemyCharacterMaster>();
+    #endif
+    
     
     public void Setup()
     {
@@ -82,6 +91,13 @@ public class EnemyWave : MonoBehaviour
     
     public void Clear()
     {
+        // Exceptionally clear the count on Clear too, not just Setup, just to get in sync
+        m_TrackedEnemiesCount = 0;
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        m_SpawnedEnemies.Clear();
+        CheckDesync();
+        #endif
     }
     
     private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, BehaviourAction overrideRootAction = null)
@@ -92,6 +108,12 @@ public class EnemyWave : MonoBehaviour
             // Spawning failed, immediately stop tracking
             --m_TrackedEnemiesCount;
         }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            RegisterSpawnedEnemy(enemyCharacterMaster);
+        }
+        #endif
     }
 
     public void StartWave()
@@ -112,7 +134,7 @@ public class EnemyWave : MonoBehaviour
                 // trigger the On Wave Cleared Event Effect. A priori all enemies will eventually spawn, so just
                 // increment. If some spawning fails below, then we will decrement back.
                 ++m_TrackedEnemiesCount;
-                
+
                 if (enemySpawnData.delay <= 0f)
                 {
                     SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideRootAction);
@@ -125,6 +147,10 @@ public class EnemyWave : MonoBehaviour
                         enemySpawnData.overrideRootAction,
                         enemySpawnData.delay));
                 }
+                
+                #if UNITY_EDITOR || DEVELOPMENT_BUILD
+                CheckDesync();
+                #endif
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
@@ -204,4 +230,36 @@ public class EnemyWave : MonoBehaviour
         }
         #endif
     }
+    
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private void RegisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
+    {
+        m_SpawnedEnemies.Add(enemyCharacterMaster);
+    }
+    
+    public void UnregisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
+    {
+        bool success = m_SpawnedEnemies.Remove(enemyCharacterMaster);
+        if (!success)
+        {
+            Debug.LogFormat(this, "[EnemyWave] Enemy wave {0} could not remove enemy {1}, " +
+                                  "it was never registered or already unregistered",
+                this, enemyCharacterMaster);
+        }
+    }
+
+    public void CheckDesync()
+    {
+        // Remember we track enemies to spawn in advance, so the tracked enemies count include delayed enemies to spawn
+        if (m_SpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count != m_TrackedEnemiesCount)
+        {
+            Debug.LogErrorFormat(this, "[EnemyWave] Desync on enemy wave {0}: " +
+                                       "Spawned Enemies count ({1}) + Delayed Spawn Queue count ({2}) = {3}, " +
+                                       "it doesn't match Tracked Enemies count ({4})",
+                this,
+                m_SpawnedEnemies.Count, m_DelayedEnemySpawnInfoList.Count, m_SpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count,
+                m_TrackedEnemiesCount);
+        }
+    }
+    #endif
 }

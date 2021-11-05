@@ -40,6 +40,10 @@ public class EnemyCharacterMaster : CharacterMaster
         if (m_EnemyWave)
         {
             m_EnemyWave.DecrementTrackedEnemiesCount();
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            m_EnemyWave.UnregisterSpawnedEnemy(this);
+            m_EnemyWave.CheckDesync();
+            #endif
         }
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
