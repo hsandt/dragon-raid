@@ -93,6 +93,7 @@ public class EnemyWave : MonoBehaviour
     {
         // Exceptionally clear the count on Clear too, not just Setup, just to get in sync
         m_TrackedEnemiesCount = 0;
+        m_DelayedEnemySpawnInfoList.Clear();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         m_SpawnedEnemies.Clear();
