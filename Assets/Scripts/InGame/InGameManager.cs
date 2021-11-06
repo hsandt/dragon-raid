@@ -46,6 +46,9 @@ public class InGameManager : SingletonManager<InGameManager>
     /// Cached canvas pause menu reference
     public CanvasPauseMenu m_CanvasPauseMenu;
     
+    /// Cached canvas level reference
+    public CanvasLevel m_CanvasLevel;
+    
     
     /* State */
 
@@ -75,6 +78,7 @@ public class InGameManager : SingletonManager<InGameManager>
         m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
         
         m_CanvasPauseMenu = LocatorManager.Instance.FindWithTag(Tags.CanvasPauseMenu)?.GetComponent<CanvasPauseMenu>();
+        m_CanvasLevel = LocatorManager.Instance.FindWithTag(Tags.CanvasLevel)?.GetComponent<CanvasLevel>();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
@@ -83,10 +87,11 @@ public class InGameManager : SingletonManager<InGameManager>
         Debug.Assert(m_PlayerSpawnTransform != null, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene", this);
         Debug.Assert(m_LevelData != null, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data", this);
         Debug.Assert(m_CanvasPauseMenu != null, "[InGameManager] Could not find active Canvas Pause Menu object > CanvasPauseMenu component", this);
+        Debug.Assert(m_CanvasLevel != null, "[InGameManager] Could not find active Canvas Level object > CanvasLevel component", this);
         #endif
     }
     
-    private void Start()
+    private IEnumerator Start()
     {
         // If playing in the editor directly into Level scene, do some basic setup
         // so SessionManager knows what we're doing, in case it needs this info at some point
@@ -100,6 +105,8 @@ public class InGameManager : SingletonManager<InGameManager>
         
         // Setup level
         SetupLevel();
+
+        yield return m_CanvasLevel.FadeIn(inGameFlowParameters.fadeInDuration);
     }
 
     private void SetupLevel()
@@ -350,6 +357,8 @@ public class InGameManager : SingletonManager<InGameManager>
     private IEnumerator PlayGameOverRestartAsync()
     {
         yield return new WaitForSeconds(inGameFlowParameters.gameOverDelay);
+        yield return m_CanvasLevel.FadeOut(inGameFlowParameters.gameOverFadeOutDuration);
         RestartLevel();
+        yield return m_CanvasLevel.FadeIn(inGameFlowParameters.fadeInDuration);
     }
 }

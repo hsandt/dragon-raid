@@ -7248,10 +7248,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas Level
       objectReference: {fileID: 0}
-    - target: {fileID: 4477211929871635049, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -7262,10 +7258,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4477211930127021247, guid: 3d951f80aeefeda06833830ce2c43a73, type: 3}
-      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

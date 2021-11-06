@@ -72,6 +72,10 @@ namespace UnityConstants
         /// Name of tag 'Background'.
         /// </summary>
         public const string Background = "Background";
+        /// <summary>
+        /// Name of tag 'CanvasLevel'.
+        /// </summary>
+        public const string CanvasLevel = "CanvasLevel";
     }
 
     public static class SortingLayers
@@ -282,9 +286,9 @@ namespace UnityConstants
         /// </summary>
         public const int Level_01 = 2;
         /// <summary>
-        /// ID of scene 'Level_02'.
+        /// ID of scene 'Level_02_CottonLike'.
         /// </summary>
-        public const int Level_02 = 3;
+        public const int Level_02_CottonLike = 3;
     }
 
     public enum ScenesEnum
@@ -292,7 +296,7 @@ namespace UnityConstants
         Title = 0,
         Level_00 = 1,
         Level_01 = 2,
-        Level_02 = 3,
+        Level_02_CottonLike = 3,
     }
 
     public static class Axes

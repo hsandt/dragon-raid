@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8d3a043bb969d7c6ba3c6aec6401c3f, type: 3}
   m_Name: InGameFlowParameters
   m_EditorClassIdentifier: 
+  fadeInDuration: 0.5
   performanceAssessmentDelay: 1
   loadNextLevelDelay: 1
   gameOverDelay: 1.5
+  gameOverFadeOutDuration: 0.5
