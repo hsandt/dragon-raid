@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityConstants;
+using CommonsHelper;
 using CommonsPattern;
 
 /// Pool manager for Player Character (Dragon)
@@ -57,4 +58,16 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
             playerCharacter.Resume();
         }
     }
+    
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public void KillPlayerCharacter()
+    {
+        // Pool is generic, so loop on all player characters although we know there is only one
+        foreach (PlayerCharacterMaster activePlayerCharacter in GetObjectsInUse())
+        {
+            var healthSystem = activePlayerCharacter.GetComponentOrFail<HealthSystem>();
+            healthSystem.TryKill();
+        }
+    }
+    #endif
 }

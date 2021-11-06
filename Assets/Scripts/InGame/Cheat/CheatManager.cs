@@ -26,6 +26,7 @@ public class CheatManager : SingletonManager<CheatManager>
         // - press R to restart level
         // - press F to finish level
         // - press K to kill all spawned enemies
+        // - press H to kill player character
         
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
@@ -48,6 +49,13 @@ public class CheatManager : SingletonManager<CheatManager>
                 EnemyPoolManager.Instance.KillAllEnemies();
             }
         }
+        else if (Keyboard.current.hKey.wasPressedThisFrame)
+        {
+            if (InGameManager.Instance.CanUseCheat)
+            {
+                PlayerCharacterPoolManager.Instance.KillPlayerCharacter();
+            }
+        }
         
         // HACK to fix bug causing Linux Editor to make those keys considered press
         // when first pressing any key since entering Play mode, causing unwanted effects
@@ -58,6 +66,9 @@ public class CheatManager : SingletonManager<CheatManager>
         {
         }
         if (Keyboard.current.kKey.wasReleasedThisFrame)
+        {
+        }
+        if (Keyboard.current.pKey.wasReleasedThisFrame)
         {
         }
     }
