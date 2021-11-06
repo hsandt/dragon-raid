@@ -39,8 +39,10 @@ public class ExtraLivesSystem : ClearableBehaviour
     public void InitExtraLives()
     {
         m_ExtraLives.count = m_ExtraLives.maxCount;
-        // ! We don't call NotifyValueChangeToObservers here, so make sure to call this during SpawnPlayerCharacter
-        // before HUD.Instance.AssignExtraLivesViewTo, which will refresh the view properly from the correct value.
+        
+        // It is optional to notify observers here if this is called before HUD.AssignExtraLivesViewTo
+        // in InitialSpawnPlayerCharacter, but required if called after. For safety, we call it.
+        NotifyValueChangeToObservers();
     }
 
     public int GetRemainingExtraLives()

@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4277205838411756290, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
+      propertyPath: healthParameters
+      value: 
+      objectReference: {fileID: 11400000, guid: b0aafc65530119c7fab742b67c4be9a8, type: 2}
     - target: {fileID: 4277205838411756308, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
       propertyPath: m_Name
       value: Dragon Witch

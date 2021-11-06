@@ -84,9 +84,7 @@ public class HealthSystem : ClearableBehaviour
     public override void Setup()
     {
         m_Health.value = m_Health.maxValue;
-        // no need to call NotifyValueChangeToObservers, on first Spawn the gauge has not been registered yet,
-        // but it will Refresh by itself soon after registration
-        // no need to setup m_Brighten, it is another slave managed by Character Master
+        NotifyValueChangeToObservers();  // only needed on Respawn
         
         m_InvincibilityTimer.Stop();
     }

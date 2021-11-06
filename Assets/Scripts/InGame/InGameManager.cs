@@ -123,7 +123,7 @@ public class InGameManager : SingletonManager<InGameManager>
             MusicManager.Instance.PlayBgm(m_LevelData.bgm);        
         }
         
-        SpawnPlayerCharacter();
+        InitialSpawnPlayerCharacter();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         if (CheatManager.Instance)
@@ -133,7 +133,7 @@ public class InGameManager : SingletonManager<InGameManager>
         #endif
     }
     
-    private void SpawnPlayerCharacter()
+    private void InitialSpawnPlayerCharacter()
     {
         // Spawn Player Character
         if (m_PlayerSpawnTransform != null)
@@ -145,10 +145,21 @@ public class InGameManager : SingletonManager<InGameManager>
             var healthSystem = m_PlayerCharacterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
             
-            // Same thing for extra lives. Make sure to init extra lives manually before assigning view
+            // Same thing for extra lives
             var extraLivesSystem = m_PlayerCharacterMaster.GetComponentOrFail<ExtraLivesSystem>();
             extraLivesSystem.InitExtraLives();
             HUD.Instance.AssignExtraLivesViewTo(extraLivesSystem);
+        }
+    }
+
+    private void RespawnPlayerCharacter()
+    {
+        // Respawn Player Character
+        // Unlike InitialSpawnPlayerCharacter above, we don't need to assign HUD view and we don't init extra lives
+        if (m_PlayerSpawnTransform != null)
+        {
+            // Spawn character as a pooled object (in a pool of 1 object)
+            m_PlayerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
         }
     }
 
@@ -362,7 +373,7 @@ public class InGameManager : SingletonManager<InGameManager>
     private IEnumerator RespawnPlayerCharacterAfterDelayAsync()
     {
         yield return new WaitForSeconds(inGameFlowParameters.respawnDelay);
-        SpawnPlayerCharacter();
+        RespawnPlayerCharacter();
     }
     
     public void PlayGameOverRestart()
