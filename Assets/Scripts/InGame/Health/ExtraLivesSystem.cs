@@ -33,11 +33,14 @@ public class ExtraLivesSystem : ClearableBehaviour
         m_ExtraLives.maxCount = extraLivesParameters.maxExtraLivesCount;
     }
 
-    public override void Setup()
+    /// Initialize extra lives to max count
+    /// Exceptionally called manually and not done in Setup, to avoid resetting the number of extra lives
+    /// each time the player character dies and respawn, which would defeat the concept of extra lives
+    public void InitExtraLives()
     {
         m_ExtraLives.count = m_ExtraLives.maxCount;
-        // no need to call NotifyValueChangeToObservers, on first Spawn the view has not been registered yet,
-        // but it will Refresh by itself soon after registration
+        // ! We don't call NotifyValueChangeToObservers here, so make sure to call this during SpawnPlayerCharacter
+        // before HUD.Instance.AssignExtraLivesViewTo, which will refresh the view properly from the correct value.
     }
 
     public int GetRemainingExtraLives()

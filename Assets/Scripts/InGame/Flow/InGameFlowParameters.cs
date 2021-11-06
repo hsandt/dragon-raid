@@ -19,6 +19,10 @@ public class InGameFlowParameters : ScriptableObject
     [Range(0f, 2f)]
     public float loadNextLevelDelay = 1f;
 
+    [Tooltip("Time between Player Character dying (losing one life with some left) and respawning")]
+    [Range(0f, 2f)]
+    public float respawnDelay = 1f;
+    
     [Tooltip("Time between Player Character losing last life and starting game over + restart animation")]
     [Range(0f, 2f)]
     public float gameOverDelay = 1f;

@@ -145,8 +145,9 @@ public class InGameManager : SingletonManager<InGameManager>
             var healthSystem = m_PlayerCharacterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
             
-            // Same thing for extra lives
+            // Same thing for extra lives. Make sure to init extra lives manually before assigning view
             var extraLivesSystem = m_PlayerCharacterMaster.GetComponentOrFail<ExtraLivesSystem>();
+            extraLivesSystem.InitExtraLives();
             HUD.Instance.AssignExtraLivesViewTo(extraLivesSystem);
         }
     }
@@ -353,6 +354,17 @@ public class InGameManager : SingletonManager<InGameManager>
         SceneManager.LoadScene((int) ScenesEnum.Title);
     }
 
+    public void RespawnPlayerCharacterAfterDelay()
+    {
+        StartCoroutine(RespawnPlayerCharacterAfterDelayAsync());
+    }
+    
+    private IEnumerator RespawnPlayerCharacterAfterDelayAsync()
+    {
+        yield return new WaitForSeconds(inGameFlowParameters.respawnDelay);
+        SpawnPlayerCharacter();
+    }
+    
     public void PlayGameOverRestart()
     {
         StartCoroutine(PlayGameOverRestartAsync());
