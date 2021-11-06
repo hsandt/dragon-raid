@@ -14,4 +14,8 @@ public class InGameFlowParameters : ScriptableObject
     [Tooltip("Time between displaying Performance Assessment and loading next level (or going back to title menu)")]
     [Range(0f, 2f)]
     public float loadNextLevelDelay = 1f;
+
+    [Tooltip("Time between Player Character losing last life and starting game over + restart animation")]
+    [Range(0f, 2f)]
+    public float gameOverDelay = 1f;
 }

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   performanceAssessmentDelay: 1
   loadNextLevelDelay: 1
+  gameOverDelay: 1.5

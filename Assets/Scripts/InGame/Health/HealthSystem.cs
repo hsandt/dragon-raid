@@ -43,7 +43,7 @@ public class HealthSystem : ClearableBehaviour
     
     /* Sibling components (optional) */
 
-    private EnemyCharacterMaster m_EnemyCharacterMaster;
+    private CharacterMaster m_CharacterMaster;
 
     
     /* State */
@@ -70,7 +70,7 @@ public class HealthSystem : ClearableBehaviour
         
         m_Brighten = this.GetComponentOrFail<Brighten>();
 
-        m_EnemyCharacterMaster = GetComponent<EnemyCharacterMaster>();
+        m_CharacterMaster = GetComponent<CharacterMaster>();
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
         
@@ -196,9 +196,9 @@ public class HealthSystem : ClearableBehaviour
 
     private void Die()
     {
-        if (m_EnemyCharacterMaster)
+        if (m_CharacterMaster)
         {
-            m_EnemyCharacterMaster.OnDeathOrExit();
+            m_CharacterMaster.OnDeathOrExit();
         }
         
         if (healthAestheticParameters != null)

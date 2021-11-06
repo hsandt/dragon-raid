@@ -8,4 +8,8 @@ using CommonsPattern;
 /// Master behaviour for player character
 public class PlayerCharacterMaster : CharacterMaster
 {
+    public override void OnDeathOrExit()
+    {
+        InGameManager.Instance.PlayGameOverRestart();
+    }
 }

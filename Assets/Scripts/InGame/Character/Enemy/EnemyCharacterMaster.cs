@@ -35,7 +35,7 @@ public class EnemyCharacterMaster : CharacterMaster
     /// This method allows to distinguish a low-level Pooled Object Release from an actual gameplay death or exit
     /// This avoids triggering gameplay events during Restart (which also Clears all enemies), or having to track
     /// if we are restarting the level with some IsRestarting flag
-    public void OnDeathOrExit()
+    public override void OnDeathOrExit()
     {
         if (m_EnemyWave)
         {

@@ -15,7 +15,7 @@ public class LivingZoneTracker : ClearableBehaviour
     
     /* Sibling components (optional) */
 
-    private EnemyCharacterMaster m_EnemyCharacterMaster;
+    private CharacterMaster m_CharacterMaster;
     private IPausable m_Pausable;
     
     
@@ -38,10 +38,10 @@ public class LivingZoneTracker : ClearableBehaviour
             return;
         }
         
-        // Enemy Character Master is a Pooled Object, and there should only be one Pooled Object component per object
-        // so if this object is an enemy, we already have the Enemy Character Master reference as pooled object,
-        // and we just need to cast it. We do a dynamic cast, so if it's not an enemy, we just get null.
-        m_EnemyCharacterMaster = m_PooledObject as EnemyCharacterMaster;
+        // Character Master is a Pooled Object, and there should only be one Pooled Object component per object
+        // so if this object is a character, we already have the Character Master reference as pooled object,
+        // and we just need to cast it. We do a dynamic cast, so if it's not a character, we just get null.
+        m_CharacterMaster = m_PooledObject as CharacterMaster;
         
         // Make sure to always make pooled objects IPausable so they can act like master scripts
         // (often MasterBehaviour, but not necessarily), be paused by InGameManager and recognized here)
@@ -64,9 +64,9 @@ public class LivingZoneTracker : ClearableBehaviour
         // and we must completely ignore this as it's not a gameplay-related exit)
         if (m_PooledObject.IsInUse() && !m_Pausable.IsPaused())
         {
-            if (m_EnemyCharacterMaster != null)
+            if (m_CharacterMaster != null)
             {
-                m_EnemyCharacterMaster.OnDeathOrExit();
+                m_CharacterMaster.OnDeathOrExit();
             }
 
             // Always Release after other signals as those may need members cleared in Release

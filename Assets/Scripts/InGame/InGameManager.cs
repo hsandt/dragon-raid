@@ -224,7 +224,7 @@ public class InGameManager : SingletonManager<InGameManager>
             EnemyWaveManager.Instance.Pause();
             
             // TODO: pause BGM?
-    //        MusicManager.Instance.PauseBgm();        
+    //        MusicManager.Instance.PauseBgm();
             
             PlayerCharacterPoolManager.Instance.PauseCharacter();
             EnemyPoolManager.Instance.PauseAllEnemies();
@@ -247,7 +247,7 @@ public class InGameManager : SingletonManager<InGameManager>
         EnemyWaveManager.Instance.Resume();
         
         // TODO: resume BGM?
-//        MusicManager.Instance.ResumeBgm();        
+//        MusicManager.Instance.ResumeBgm();
         
         PlayerCharacterPoolManager.Instance.ResumeCharacter();
         EnemyPoolManager.Instance.ResumeAllEnemies();
@@ -340,5 +340,16 @@ public class InGameManager : SingletonManager<InGameManager>
     {
         SessionManager.Instance.ExitCurrentPlayMode();
         SceneManager.LoadScene((int) ScenesEnum.Title);
+    }
+
+    public void PlayGameOverRestart()
+    {
+        StartCoroutine(PlayGameOverRestartAsync());
+    }
+    
+    private IEnumerator PlayGameOverRestartAsync()
+    {
+        yield return new WaitForSeconds(inGameFlowParameters.gameOverDelay);
+        RestartLevel();
     }
 }

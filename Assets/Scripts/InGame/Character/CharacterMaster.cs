@@ -39,6 +39,9 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
         Setup();
     }
 
+    // Callback on Death (for Player Character) or Exit (for all characters)
+    public virtual void OnDeathOrExit() {}
+
 
     /* IPooledObject interface */
     
