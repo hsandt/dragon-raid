@@ -229,6 +229,8 @@ GameObject:
   - component: {fileID: 8054502187896568295}
   - component: {fileID: 4277205838411756317}
   - component: {fileID: 4277205838411756290}
+  - component: {fileID: 4221224501163877484}
+  - component: {fileID: 3315991959223753500}
   - component: {fileID: 4277205838411756314}
   - component: {fileID: 4277205838411756319}
   - component: {fileID: 4277205838411756316}
@@ -439,6 +441,7 @@ MonoBehaviour:
   addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
+  slaveRigidbody2D: {fileID: 0}
   slaveParticles: []
 --- !u!114 &4277205838411756317
 MonoBehaviour:
@@ -468,6 +471,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: 0a7ee98eb9b76d7079d8af32f8fce83b, type: 2}
   healthAestheticParameters: {fileID: 11400000, guid: a34f5f9bff5011c2a808f65327ca6426, type: 2}
+--- !u!114 &4221224501163877484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277205838411756308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df55f71ac96962c0ac73494791a6049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCount: 0
+  count: 0
+--- !u!114 &3315991959223753500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277205838411756308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08dfe4ce282307b3ad66bec2faaf8de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraLivesParameters: {fileID: 11400000, guid: 1957f3be6782871559129df6e16fa1af, type: 2}
 --- !u!114 &4277205838411756314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootParameters: {fileID: 11400000, guid: 6f7a7fe6c57e85c3281458a889d84560, type: 2}
+  enemyShootParameters: {fileID: 0}
   shootAnchor: {fileID: 4277205838255629522}
   defaultProjectileName: Fireball
 --- !u!114 &4277205838411756288
@@ -534,7 +565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdFire: 0
-  fireDirection: {x: 0, y: 0}
+  fireOnce: 0
+  fireDirections: []
 --- !u!114 &4277205838411756289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,6 +591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  additionalSpriteRenderers: []
 --- !u!114 &249001918273035722
 MonoBehaviour:
   m_ObjectHideFlags: 0

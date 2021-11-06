@@ -12,6 +12,9 @@ public class HUD : SingletonManager<HUD>
     [Tooltip("Health gauge for player character")]
     public GaugeHealth gaugeHealthPlayer;
 
+    [Tooltip("Extra Lives view")]
+    public ExtraLivesView extraLivesView;
+
     
     /* Sibling components */
 
@@ -21,6 +24,11 @@ public class HUD : SingletonManager<HUD>
     protected override void Init()
     {
         base.Init();
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(gaugeHealthPlayer != null, this, "[HUD] Awake: Gauge Health Player not set on {0}", this);
+        Debug.AssertFormat(extraLivesView != null, this, "[HUD] Awake: Extra Lives View not set on {0}", this);
+        #endif
 
         m_Canvas = this.GetComponentOrFail<Canvas>();
         
@@ -37,5 +45,10 @@ public class HUD : SingletonManager<HUD>
     public void AssignGaugeHealthPlayerTo(HealthSystem healthSystem)
     {
         gaugeHealthPlayer.RegisterHealthSystem(healthSystem);
+    }
+    
+    public void AssignExtraLivesViewTo(ExtraLivesSystem extraLivesSystem)
+    {
+        extraLivesView.RegisterExtraLivesSystem(extraLivesSystem);
     }
 }

@@ -81,9 +81,9 @@ public class InGameManager : SingletonManager<InGameManager>
         m_CanvasLevel = LocatorManager.Instance.FindWithTag(Tags.CanvasLevel)?.GetComponent<CanvasLevel>();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(levelDataList != null, "No Level Data List asset set on InGame Manager", this);
-        Debug.Assert(inGameFlowParameters != null, "No In-game Flow Parameters asset set on InGame Manager", this);
-        Debug.Assert(healthSharedParameters != null, "No Health Shared Parameters asset set on InGame Manager", this);
+        Debug.Assert(levelDataList != null, "[InGameManager] No Level Data List asset set on InGame Manager", this);
+        Debug.Assert(inGameFlowParameters != null, "[InGameManager] No In-game Flow Parameters asset set on InGame Manager", this);
+        Debug.Assert(healthSharedParameters != null, "[InGameManager] No Health Shared Parameters asset set on InGame Manager", this);
         Debug.Assert(m_PlayerSpawnTransform != null, "[InGameManager] No active object with tag PlayerSpawnPosition found in scene", this);
         Debug.Assert(m_LevelData != null, "[InGameManager] Could not find active LevelIdentifier object > LevelIdentifier component > Level Data", this);
         Debug.Assert(m_CanvasPauseMenu != null, "[InGameManager] Could not find active Canvas Pause Menu object > CanvasPauseMenu component", this);
@@ -144,6 +144,10 @@ public class InGameManager : SingletonManager<InGameManager>
             // Assign HUD's player health gauge to player health system (on Restart, it only refreshes the gauge)
             var healthSystem = m_PlayerCharacterMaster.GetComponentOrFail<HealthSystem>();
             HUD.Instance.AssignGaugeHealthPlayerTo(healthSystem);
+            
+            // Same thing for extra lives
+            var extraLivesSystem = m_PlayerCharacterMaster.GetComponentOrFail<ExtraLivesSystem>();
+            HUD.Instance.AssignExtraLivesViewTo(extraLivesSystem);
         }
     }
 

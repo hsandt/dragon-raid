@@ -63,6 +63,8 @@ public class HealthSystem : ClearableBehaviour
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, this,
             "[HealthSystem] No component implementing IPooledObject found on {0}", gameObject);
+        
+        Debug.AssertFormat(healthParameters != null, this, "[HealthSystem] No Health Parameters asset set on {0}", this);
         #endif
         
         m_Health = this.GetComponentOrFail<Health>();
@@ -82,6 +84,8 @@ public class HealthSystem : ClearableBehaviour
     public override void Setup()
     {
         m_Health.value = m_Health.maxValue;
+        // no need to call NotifyValueChangeToObservers, on first Spawn the gauge has not been registered yet,
+        // but it will Refresh by itself soon after registration
         // no need to setup m_Brighten, it is another slave managed by Character Master
         
         m_InvincibilityTimer.Stop();
@@ -231,7 +235,7 @@ public class HealthSystem : ClearableBehaviour
     {
         if (!m_GaugeHealthList.Contains(gaugeHealth))
         {
-            m_GaugeHealthList.Add(gaugeHealth);
+             m_GaugeHealthList.Add(gaugeHealth);
         }
     }
     
