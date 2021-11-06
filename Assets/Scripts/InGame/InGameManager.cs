@@ -38,10 +38,10 @@ public class InGameManager : SingletonManager<InGameManager>
     public LevelData LevelData => m_LevelData;
 
     /// Player Character Master component, reference stored after spawn
-    private CharacterMaster m_PlayerCharacterMaster;
+    private PlayerCharacterMaster m_PlayerCharacterMaster;
     
     /// Player Character Master component, reference stored after spawn (getter)
-    public CharacterMaster PlayerCharacterMaster => m_PlayerCharacterMaster;
+    public PlayerCharacterMaster PlayerCharacterMaster => m_PlayerCharacterMaster;
     
     /// Cached canvas pause menu reference
     public CanvasPauseMenu m_CanvasPauseMenu;
@@ -158,7 +158,8 @@ public class InGameManager : SingletonManager<InGameManager>
         // Unlike InitialSpawnPlayerCharacter above, we don't need to assign HUD view and we don't init extra lives
         if (m_PlayerSpawnTransform != null)
         {
-            // Spawn character as a pooled object (in a pool of 1 object)
+            // Respawn character (we keep using the same spawn position, but we could also respawn at the last position
+            // before death depending on design)
             m_PlayerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
         }
     }
