@@ -13,13 +13,11 @@ public abstract class BaseShootController : ClearableBehaviour
     /* Sibling components */
     
     protected ShootIntention m_ShootIntention;
-    protected Shoot m_Shoot;
     
     
     private void Awake()
     {
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
-        m_Shoot = this.GetComponentOrFail<Shoot>();
     }
     
     public override void Setup()

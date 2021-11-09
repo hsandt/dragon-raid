@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2840418104767749004, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
+      propertyPath: playerMoveFlyingParameters
+      value: 
+      objectReference: {fileID: 11400000, guid: 67dc6468451423fd0b9e6cd8301f926d, type: 2}
     - target: {fileID: 4277205838411756290, guid: 06829531ea8f44e249b57c5acd1ea439, type: 3}
       propertyPath: healthParameters
       value: 

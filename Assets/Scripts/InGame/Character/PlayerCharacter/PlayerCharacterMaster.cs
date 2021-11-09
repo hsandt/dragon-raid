@@ -22,6 +22,10 @@ public class PlayerCharacterMaster : CharacterMaster
 
     public override void OnDeathOrExit()
     {
+        // Clear reference to player character controller to avoid unwanted control during death
+        // that may set sticky intention that would be interpreted just after respawn
+        // InGameInputManager.Instance.SetPlayerCharacterController(null);
+
         if (m_ExtraLivesSystem.GetRemainingExtraLives() > 0)
         {
             m_ExtraLivesSystem.LoseLife();

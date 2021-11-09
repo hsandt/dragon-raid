@@ -149,33 +149,45 @@ public class InGameManager : SingletonManager<InGameManager>
             var extraLivesSystem = m_PlayerCharacterMaster.GetComponentOrFail<ExtraLivesSystem>();
             extraLivesSystem.InitExtraLives();
             HUD.Instance.AssignExtraLivesViewTo(extraLivesSystem);
+
+            AssignPlayerCharacterController();
         }
     }
 
     private void RespawnPlayerCharacter()
     {
         // Respawn Player Character
-        // Unlike InitialSpawnPlayerCharacter above, we don't need to assign HUD view and we don't init extra lives
+        // Unlike InitialSpawnPlayerCharacter above, we don't need to assign HUD view nor input controller,
+        // and we don't init extra lives
         if (m_PlayerSpawnTransform != null)
         {
             // Respawn character (we keep using the same spawn position, but we could also respawn at the last position
             // before death depending on design)
             m_PlayerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
+
+            // AssignPlayerCharacterController();
         }
+    }
+    
+    private void AssignPlayerCharacterController()
+    {
+        var playerCharacterController = m_PlayerCharacterMaster.GetComponentOrFail<PlayerCharacterController>();
+        InGameInputManager.Instance.SetPlayerCharacterController(playerCharacterController);
     }
 
     private void ClearLevel()
     {
-        // Despawn the player character
-        
-        // First clean up references to avoid relying on Unity's "destroyed null"
+        // First clean up references to avoid referencing cleared objects
         // Do not clear cached scene references m_PlayerSpawnTransform and m_LevelData yet,
         // those can only be destroyed when loading a new scene (assuming InGameManager is flagged DontDestroyOnLoad
         // so it preserves the destroyed reference), so we'll handle this in FinishLevel
         m_PlayerCharacterMaster = null;
+        InGameInputManager.Instance.SetPlayerCharacterController(null);
         
+        // Clear all waves (this only clears wave information, we need to despawn all enemies below so things stay synced)
         EnemyWaveManager.Instance.Clear();
-        
+
+        // Despawn the player character
         // We use the generic Pool API to release all objects, but it really only releases 1 here
         PlayerCharacterPoolManager.Instance.ReleaseAllObjects();
 
