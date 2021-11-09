@@ -94,4 +94,47 @@ public class InGameInputManager : SingletonManager<InGameInputManager>
             }
         }
     }
+    
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    /// PlayerInput action message callback for Cheat_Restart
+    /// This is always accessible, even when Player Character is not active
+    private void OnCheat_Restart(InputValue value)
+    {
+        if (InGameManager.Instance.CanRestartLevel)
+        {
+            InGameManager.Instance.RestartLevel();
+        }
+    }
+
+    /// PlayerInput action message callback for Cheat_FinishLevel
+    /// This is always accessible, even when Player Character is not active
+    private void OnCheat_FinishLevel(InputValue value)
+    {
+        if (InGameManager.Instance.CanFinishLevel)
+        {
+            InGameManager.Instance.FinishLevel();
+        }
+    }
+
+    /// PlayerInput action message callback for Cheat_KillAllEnemies
+    /// This is always accessible, even when Player Character is not active
+    private void OnCheat_KillAllEnemies(InputValue value)
+    {
+        if (InGameManager.Instance.CanUseCheat)
+        {
+            EnemyPoolManager.Instance.KillAllEnemies();
+        }
+    }
+
+    /// PlayerInput action message callback for Cheat_KillPlayerCharacter
+    /// This is always accessible, but obviously does nothing when Player Character is inactive
+    private void OnCheat_KillPlayerCharacter(InputValue value)
+    {
+        if (InGameManager.Instance.CanUseCheat)
+        {
+            PlayerCharacterPoolManager.Instance.KillPlayerCharacter();
+        }
+    }
+
+    #endif
 }

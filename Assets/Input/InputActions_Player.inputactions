@@ -36,6 +36,38 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Cheat_Restart",
+                    "type": "Button",
+                    "id": "3f358c38-5d40-4e31-868d-d266483684cb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cheat_FinishLevel",
+                    "type": "Button",
+                    "id": "e068d78a-d059-47f8-a868-f9b39bec62cb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cheat_KillAllEnemies",
+                    "type": "Button",
+                    "id": "97b3f34c-d6d9-44cb-9384-18e5fefb80a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cheat_KillPlayerCharacter",
+                    "type": "Button",
+                    "id": "f9df9acf-c1b3-47b7-85ef-f7f07efb7315",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -278,6 +310,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TogglePauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94efa4f6-32dc-47c7-b5f5-025d2554dfdf",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cheat_Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fb9f0c9-7785-4ac5-99cd-301b1c19fcdd",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cheat_KillAllEnemies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4a4c34a5-ae9c-447c-bb3a-6e2f08b09305",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cheat_KillPlayerCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f8fd6f7-e7f6-4488-ae2f-6b7161a7198f",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Cheat_FinishLevel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
