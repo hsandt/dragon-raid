@@ -115,7 +115,7 @@ public class Projectile : MasterBehaviour, IPooledObject
 
         if (didDamage)
         {
-            // Our current convention is that projectiles that cannot hit the target goes throught it
+            // Our current convention is that projectiles that cannot hit the target goes through it
             // This corresponds to the character being intangible as in traditional shmup post-respawn
             // safety mechanic. In some cases, it may look better to make them block the projectiles
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility

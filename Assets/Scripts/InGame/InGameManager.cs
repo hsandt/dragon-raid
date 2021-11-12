@@ -52,20 +52,22 @@ public class InGameManager : SingletonManager<InGameManager>
     
     /* State */
 
-    /// Time elapsed since level start
-    private float m_TimeSinceLevelStart;
-    
     /// True iff game is paused / pause menu is open
     private bool m_IsGamePaused;
 
     /// True iff level finish sequence is playing
     private bool m_IsFinishingLevel;
+    public bool IsFinishingLevel => m_IsFinishingLevel;
 
-    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel;
+    /// True iff game over -> restart sequence is playing
+    private bool m_IsPlayingGameOverRestartSequence;
+    public bool IsPlayingGameOverRestartSequence => m_IsPlayingGameOverRestartSequence;
+
+    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
     public bool CanRestartLevel => !m_IsGamePaused && !m_IsFinishingLevel;
-    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel;
+    public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
     #endif
 
     protected override void Init()
@@ -112,7 +114,6 @@ public class InGameManager : SingletonManager<InGameManager>
     private void SetupLevel()
     {
         m_IsGamePaused = false;
-        m_IsFinishingLevel = false;
 
         ScrollingManager.Instance.Setup();
         SpatialEventManager.Instance.Setup();
@@ -164,8 +165,6 @@ public class InGameManager : SingletonManager<InGameManager>
             // Respawn character (we keep using the same spawn position, but we could also respawn at the last position
             // before death depending on design)
             m_PlayerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_PlayerSpawnTransform.position);
-
-            // AssignPlayerCharacterController();
         }
     }
     
@@ -291,12 +290,21 @@ public class InGameManager : SingletonManager<InGameManager>
         FXPoolManager.Instance.ResumeAllFX();
     }
     
+    public bool TryFinishLevel()
+    {
+        if (!CanFinishLevel)
+        {
+            return false;
+        }
+        
+        FinishLevel();
+        return true;
+    }
+    
     public void FinishLevel()
     {
         if (CanFinishLevel)
         {
-            m_IsFinishingLevel = true;
-            
             // Immediately notify session manager that level was finished
             // If play mode progress can be saved, then it is immediately auto-saved.
             // This is useful so player doesn't lose it if application is shutdown.
@@ -319,6 +327,8 @@ public class InGameManager : SingletonManager<InGameManager>
     
     private IEnumerator FinishLevelAsync()
     {
+        m_IsFinishingLevel = true;
+
         yield return new WaitForSeconds(inGameFlowParameters.performanceAssessmentDelay);
         
         // Show performance assessment canvas
@@ -327,6 +337,8 @@ public class InGameManager : SingletonManager<InGameManager>
         yield return new WaitForSeconds(inGameFlowParameters.loadNextLevelDelay);
         
         LoadNextLevelOrGoBackToTitle();
+        
+        m_IsFinishingLevel = false;
     }
 
     private void LoadNextLevelOrGoBackToTitle()
@@ -389,16 +401,20 @@ public class InGameManager : SingletonManager<InGameManager>
         RespawnPlayerCharacter();
     }
     
-    public void PlayGameOverRestart()
+    public void PlayGameOverRestartSequence()
     {
-        StartCoroutine(PlayGameOverRestartAsync());
+        StartCoroutine(PlayGameOverRestartSequenceAsync());
     }
     
-    private IEnumerator PlayGameOverRestartAsync()
+    private IEnumerator PlayGameOverRestartSequenceAsync()
     {
+        m_IsPlayingGameOverRestartSequence = true;
+        
         yield return new WaitForSeconds(inGameFlowParameters.gameOverDelay);
         yield return m_CanvasLevel.FadeOut(inGameFlowParameters.gameOverFadeOutDuration);
         RestartLevel();
         yield return m_CanvasLevel.FadeIn(inGameFlowParameters.fadeInDuration);
+        
+        m_IsPlayingGameOverRestartSequence = false;
     }
 }

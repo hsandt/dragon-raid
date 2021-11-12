@@ -52,7 +52,7 @@ public class HealthSystem : ClearableBehaviour
     private Timer m_InvincibilityTimer;
 
     /// Is the character invincible?
-    public bool IsInvincible => m_InvincibilityTimer.HasTimeLeft;
+    private bool IsInvincible => m_InvincibilityTimer.HasTimeLeft;
     
     
     private void Awake()
@@ -192,8 +192,9 @@ public class HealthSystem : ClearableBehaviour
         // as it also covers other reasons to Release than dying, e.g. exiting Living Zone;
         // although this particular one has its SEO set after Default Time, so melee attacks
         // and projectiles would have priority when hitting target on the same frame as exit)
-        // Also verify that the health system is not currently invincible
-        return m_PooledObject.IsInUse() && !IsInvincible;
+        // Also verify that the health system is not currently invincible,
+        // and that we are not finishing the level already.
+        return m_PooledObject.IsInUse() && !IsInvincible && !InGameManager.Instance.IsFinishingLevel;
     }
 
     private void Die()

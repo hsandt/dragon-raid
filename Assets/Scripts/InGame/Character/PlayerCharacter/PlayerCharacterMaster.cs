@@ -33,7 +33,7 @@ public class PlayerCharacterMaster : CharacterMaster
         }
         else
         {
-            InGameManager.Instance.PlayGameOverRestart();
+            InGameManager.Instance.PlayGameOverRestartSequence();
         }
     }
 }
