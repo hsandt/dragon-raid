@@ -14,8 +14,9 @@ public class RepeatAction : BehaviourAction
     
     /* State vars */
 
-    /// Index of action currently active in the sequence
-    private bool m_IsChildRunning = false;
+    /// True iff child is not running yet, or has finished execution this frame
+    /// (Repeat never stops, so it will re-run the child right on next frame)
+    private bool m_IsChildRunning;
 
     
     private void Awake()
@@ -41,12 +42,7 @@ public class RepeatAction : BehaviourAction
 
     public override void OnStart()
     {
-        base.OnStart();
-    }
-
-    public override void OnEnd()
-    {
-        base.OnEnd();
+        m_IsChildRunning = false;
     }
 
     public override void RunUpdate()
