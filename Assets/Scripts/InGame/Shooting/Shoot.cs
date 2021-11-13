@@ -76,17 +76,7 @@ public class Shoot : ClearableBehaviour
             // maybe this will get tidied up with the introduction of Weapons
             if (enemyShootParameters)
             {
-                if (enemyShootParameters.shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
-                {
-                    // Shoot strait using shoot anchor's 2D forward
-                    fireDirection = shootAnchor.right;
-                }
-                else  // shootPattern.shootDirectionMode == EnemyShootDirectionMode.TargetPlayerCharacter
-                {
-                    // Shoot at the player character (normalize now, to match unit vector normalized above)
-                    Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-                    fireDirection = (Vector2) (playerCharacterPosition - shootAnchor.position).normalized;
-                }
+                fireDirection = GetBaseFireDirection(enemyShootParameters.shootDirectionMode, shootAnchor);
             }
             else
             {
@@ -117,6 +107,29 @@ public class Shoot : ClearableBehaviour
                 
                 m_ShootIntention.fireDirections.Clear();
             }
+        }
+    }
+
+    /// Return fire direction for given shoot direction mode and shoot anchor
+    public static Vector2 GetBaseFireDirection(EnemyShootDirectionMode shootDirectionMode, Transform shootAnchor)
+    {
+        if (shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
+        {
+            // Shoot strait using shoot anchor's 2D forward
+            // Note that it's generally Left on enemies
+            return shootAnchor.right;
+        }
+        else
+        {
+            Debug.AssertFormat(shootDirectionMode == EnemyShootDirectionMode.TargetPlayerCharacter,
+                "Unsupported EnemyShootDirectionMode {0}, expected EnemyShootDirectionMode.TargetPlayerCharacter as last case",
+                shootDirectionMode);
+            
+            // Shoot at the player character (normalize now, optional but matches unit vector normalized above)
+            // Note that if Player Character is inactive, its last position will be used, as it is a pooled object
+            // and therefore not destroyed, just deactivated and staying in place.
+            Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
+            return (Vector2) (playerCharacterPosition - shootAnchor.position).normalized;
         }
     }
 }

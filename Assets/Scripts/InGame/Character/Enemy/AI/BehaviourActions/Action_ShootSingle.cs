@@ -21,6 +21,7 @@ public class Action_ShootSingle : BehaviourAction
     private float angle;
 
     #if UNITY_EDITOR
+    public EnemyShootDirectionMode ShootDirectionMode { get => shootDirectionMode; set => shootDirectionMode = value; }
     public float Angle { get => angle; set => angle = value; }
     #endif
     
@@ -53,18 +54,7 @@ public class Action_ShootSingle : BehaviourAction
         // We're counting on IsOver to prevent double shooting, so no need to check hasOrderedShot here 
         m_ShootIntention.fireOnce = true;
 
-        Vector2 referenceDirection;
-        if (shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
-        {
-            // Note that it's generally Left on enemies
-            referenceDirection = m_Shoot.shootAnchor.right;
-        }
-        else  // EnemyShootDirectionMode.TargetPlayerCharacter
-        {
-            Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-            // normalized is optional since fire direction will be normalized, but clearer to handle unit vectors
-            referenceDirection = ((Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position)).normalized;
-        }
+        Vector2 referenceDirection = Shoot.GetBaseFireDirection(shootDirectionMode, m_Shoot.shootAnchor);
         m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, angle));
         
         hasOrderedShot = true;

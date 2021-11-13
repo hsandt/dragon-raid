@@ -33,6 +33,10 @@ public class Action_ShootPattern : BehaviourAction
     
     protected override void OnInit()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(shootPattern != null, this, "[Action_ShootPattern] OnInit: Shoot Pattern not set on {0}", this);
+        #endif
+        
         m_Shoot = m_EnemyCharacterMaster.GetComponentOrFail<Shoot>();
         m_ShootIntention = m_Shoot.ShootIntention;
     }
@@ -76,19 +80,7 @@ public class Action_ShootPattern : BehaviourAction
             // iterate over bullets to shoot that have not been shot yet
             for (int i = m_OrderedShotsCount; i < shotsToOrderTotalCount; i++)
             {
-                Vector2 referenceDirection;
-                
-                if (shootPattern.shootDirectionMode == EnemyShootDirectionMode.ShootAnchorForward)
-                {
-                    // note that it's generally Left on enemies
-                    referenceDirection = m_Shoot.shootAnchor.right;
-                }
-                else  // shootPattern.shootDirectionMode == EnemyShootDirectionMode.TargetPlayerCharacter
-                {
-                    Vector3 playerCharacterPosition = InGameManager.Instance.PlayerCharacterMaster.transform.position;
-                    // normalized is optional since fire direction will be normalized, but clearer to handle unit vectors
-                    referenceDirection = ((Vector2) (playerCharacterPosition - m_Shoot.shootAnchor.position)).normalized;
-                }
+                Vector2 referenceDirection = Shoot.GetBaseFireDirection(shootPattern.shootDirectionMode, m_Shoot.shootAnchor);
 
                 // compute progress ratio for this specific bullet to determine the shot angle
                 float bulletProgressRatio;
