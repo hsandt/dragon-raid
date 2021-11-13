@@ -17,14 +17,12 @@ public class Action_ShootSingleEditor : Editor
         // TODO: support Override BT under Enemy Spawn Wave too, but retrieving an Enemy Prefab may be costly,
         // so consider defaulting shootAnchor to current transform position if no Shoot component is found at all
         var shoot = script.GetComponentInParent<Shoot>();
-
         if (shoot == null)
         {
             return;
         }
 
         Vector2 startPosition = (Vector2) script.transform.position;
-        Vector2 direction = VectorUtil.Rotate(Vector2.left, script.Angle);
 
         using (var check = new EditorGUI.ChangeCheckScope())
         {
@@ -35,7 +33,7 @@ public class Action_ShootSingleEditor : Editor
             // shootAnchor.right (often Vector2.left) even if shoot direction mode is EnemyShootDirectionMode.TargetPlayerCharacter,
             // instead of using Shoot.GetBaseFireDirection.
             HandlesUtil.DrawAngleHandle(startPosition, 1f, shoot.shootAnchor.right, ref angle,
-                ColorUtil.orange, ColorUtil.gold, HandlesUtil.CrossedCircleHandleCap, 2f);
+                ColorUtil.orange, ColorUtil.gold, ColorUtil.quarterInvisibleWhite, HandlesUtil.CrossedCircleHandleCap, 2f);
 
             if (check.changed)
             {

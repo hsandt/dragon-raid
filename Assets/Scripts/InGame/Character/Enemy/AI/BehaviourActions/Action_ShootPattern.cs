@@ -77,41 +77,49 @@ public class Action_ShootPattern : BehaviourAction
             // set fire intention once, if there are multiple bullets to shoot, it will cover them all
             m_ShootIntention.fireOnce = true;
 
+            Vector2 referenceDirection = Shoot.GetBaseFireDirection(shootPattern.shootDirectionMode, m_Shoot.shootAnchor);
+
             // iterate over bullets to shoot that have not been shot yet
-            for (int i = m_OrderedShotsCount; i < shotsToOrderTotalCount; i++)
+            foreach (float fireAngle in ComputeFireAngles(m_OrderedShotsCount, shotsToOrderTotalCount))
             {
-                Vector2 referenceDirection = Shoot.GetBaseFireDirection(shootPattern.shootDirectionMode, m_Shoot.shootAnchor);
-
-                // compute progress ratio for this specific bullet to determine the shot angle
-                float bulletProgressRatio;
-
-                if (shootPattern.bulletCount > 1)
-                {
-                    // directly compute ratio from index
-                    bulletProgressRatio = (float) i / (shootPattern.bulletCount - 1);
-                }
-                else
-                {
-                    // we cannot divide by 0 so we have to pick a convention here:
-                    // we decide that a single bullet is always shot at Angle Start, hence ratio = 0
-                    bulletProgressRatio = 0f;
-                }
-
-                // Note we use Lerp so there is no wrapping around -180/180 and if angle start/end are close to those,
-                // the resulting pattern will always spread on the wider arc, as often in shmups.
-                // If you need to support spread fire behind the character, add a flag that enforces LerpAngle instead.
-                // Finally, angle start and end are inclusive, which often desired, but when doing a full turn
-                // from -180 to 180, the bullet at 180 will be shot twice. Consider passing -180 and 180 - interval
-                // until we support exclusive angle end (by adding a flag).
-                float angle = Mathf.Lerp(shootPattern.angleStart, shootPattern.angleEnd, bulletProgressRatio);
-                m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, angle));
+                m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, fireAngle));
             }
             
             // update the count of ordered shots
             m_OrderedShotsCount = shotsToOrderTotalCount;
         }
     }
-    
+
+    public IEnumerable<float> ComputeFireAngles(int startIndex, int endCount)
+    {
+        for (int i = startIndex; i < endCount; i++)
+        {
+            // compute progress ratio for this specific bullet to determine the shot angle
+            float bulletProgressRatio;
+
+            if (shootPattern.bulletCount > 1)
+            {
+                // directly compute ratio from index
+                bulletProgressRatio = (float) i / (shootPattern.bulletCount - 1);
+            }
+            else
+            {
+                // we cannot divide by 0 so we have to pick a convention here:
+                // we decide that a single bullet is always shot at Angle Start, hence ratio = 0
+                bulletProgressRatio = 0f;
+            }
+
+            // Note we use Lerp so there is no wrapping around -180/180 and if angle start/end are close to those,
+            // the resulting pattern will always spread on the wider arc, as often in shmups.
+            // If you need to support spread fire behind the character, add a flag that enforces LerpAngle instead.
+            // Finally, angle start and end are inclusive, which often desired, but when doing a full turn
+            // from -180 to 180, the bullet at 180 will be shot twice. Consider passing -180 and 180 - interval
+            // until we support exclusive angle end (by adding a flag).
+            float angle = Mathf.Lerp(shootPattern.angleStart, shootPattern.angleEnd, bulletProgressRatio);
+            yield return angle;
+        }
+    }
+
     protected override bool IsOver()
     {
         // action is over when all bullets have been shot (could be ==)

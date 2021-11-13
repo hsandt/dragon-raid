@@ -29,12 +29,12 @@ public class EnemyBehaviour_IspolinEditor : Editor
                 
                 if (check.changed)
                 {
-                    // Scriptable Object is on a different object, so we need to mark it as dirty manually
+                    // Scriptable Object is on a different object, so we need to mark it as dirty manually (still needs Undo)
                     EditorUtility.SetDirty(script.detectionThrowAiParameters);
                     Undo.RecordObject(script.detectionThrowAiParameters, "Changed Throw Parameters (maxDetectionUpwardAngle)");
                     script.detectionThrowAiParameters.maxDetectionUpwardAngle = Vector3.Angle(Vector3.left, detectionUpwardAngleHandlePos - detectionOrigin);
                     
-                    // EditScriptableAttribute does not provide auto-refresh on inlined scriptable object,
+                    // InspectInline attribute does not provide auto-refresh on inlined scriptable object,
                     // so manually refresh this custom editor on Handles move
                     Repaint();
                 }

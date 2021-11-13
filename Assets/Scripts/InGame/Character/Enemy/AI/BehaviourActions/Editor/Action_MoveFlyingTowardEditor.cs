@@ -33,7 +33,7 @@ public class Action_MoveFlyingTowardEditor : Editor
             // Angle handle
             float angle = script.Angle;
             HandlesUtil.DrawAngleHandle(startPosition, 1f, Vector2.left, ref angle,
-                ColorUtil.orange, ColorUtil.gold, HandlesUtil.CrossedCircleHandleCap, 2f);
+                ColorUtil.orange, ColorUtil.gold, ColorUtil.quarterInvisibleWhite, HandlesUtil.CrossedCircleHandleCap, 2f);
 
             if (check.changed)
             {
