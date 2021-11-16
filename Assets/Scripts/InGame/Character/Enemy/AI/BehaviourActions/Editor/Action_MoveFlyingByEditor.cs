@@ -17,6 +17,9 @@ public class Action_MoveFlyingByEditor : Editor
         Vector2 startPosition = (Vector2) script.transform.position;
         Vector2 moveVector = script.MoveVector;
 
+        // Move arrow
+        HandlesUtil.DrawArrow2D(startPosition, startPosition + moveVector, ColorUtil.gold);
+
         using (var check = new EditorGUI.ChangeCheckScope())
         {
             // Move vector handle
@@ -41,7 +44,7 @@ public class Action_MoveFlyingByEditor : Editor
             Vector2 speedHandlePosition = startPosition + speedHandleDistance * moveDirection;
             
             // Velocity arrow
-            HandlesUtil.DrawArrow2D(startPosition, speedHandlePosition, ColorUtil.gold);
+            HandlesUtil.DrawArrow2D(startPosition, speedHandlePosition, Color.magenta);
 
             // Circle that contains the speed handle for easier visualization of magnitude
             Handles.DrawWireDisc(startPosition, Vector3.forward, speedHandleDistance);
