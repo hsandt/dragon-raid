@@ -1,0 +1,14 @@
+.behaviour-action-button {
+    -unity-text-align: middle-left;
+    height: 30px;
+    font-size: 14px;
+    width: 350px;
+}
+
+.title {
+    -unity-font-style: bold;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
