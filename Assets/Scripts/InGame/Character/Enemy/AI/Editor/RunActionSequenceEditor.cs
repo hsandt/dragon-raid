@@ -10,7 +10,15 @@ public class RunActionSequenceEditor : BehaviourActionEditor
 {
     /* Constants */
 
-    private static float LABEL_STACK_OFFSET = 25f;
+    /// Offset added on X to evert label to approximately center the label below the action start position
+    private static float LABEL_OFFSET_X = 100f;
+    
+    /// Offset added on Y to evert label to put it below the action start position and avoid hiding handles there
+    private static float LABEL_OFFSET_Y = 20f;
+    
+    /// Offset added on Y for every new label placed on an action at the same start position,
+    /// to keep the labels distinct and readable
+    private static float LABEL_STACK_OFFSET_Y = 25f;
     
     
     private void OnSceneGUI()
@@ -37,8 +45,10 @@ public class RunActionSequenceEditor : BehaviourActionEditor
                 continue;
             }
             
-            float labelStackOffset = labelStackCount * LABEL_STACK_OFFSET * pixelSize;
-            Vector2 labelRectPosition = currentPosition + new Vector2(- 100f * pixelSize, - labelStackOffset - 10f * pixelSize);
+            float labelStackOffset = labelStackCount * LABEL_STACK_OFFSET_Y * pixelSize;
+            
+            Vector2 labelRectPosition = currentPosition + new Vector2(- LABEL_OFFSET_X * pixelSize,
+                - LABEL_OFFSET_Y * pixelSize - labelStackOffset );
             
             string labelText;
             Color textColor;
