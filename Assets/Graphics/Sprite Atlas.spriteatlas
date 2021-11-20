@@ -113,6 +113,7 @@ SpriteAtlas:
   - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 21300000, guid: 1a5442bd6a162b521a1b82f574ae306e, type: 3}
   - {fileID: 21300000, guid: 6390253e2593432ab8da95acf3411cb4, type: 3}
   - {fileID: 2486971594287974987, guid: e472466e40f8f486d9e88efba28d45cd, type: 3}
   - {fileID: 8587108646636105660, guid: e472466e40f8f486d9e88efba28d45cd, type: 3}
@@ -178,6 +179,7 @@ SpriteAtlas:
   - projectile_fireball_impact_spritesheet_6
   - projectile_fireball_impact_spritesheet_5
   - projectile_fireball_impact_spritesheet_4
+  - dragon_hurtbox
   - projectile_rock
   - enemy_imp_with_catapult_imp_spritesheet_2
   - enemy_imp_with_catapult_imp_spritesheet_1
