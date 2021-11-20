@@ -88,9 +88,4 @@ public class Action_MoveFlyingBy : BehaviourAction
     {
         m_MoveFlyingIntention.moveVelocity = Vector2.zero;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

@@ -79,9 +79,4 @@ public class RepeatAction : BehaviourAction
         // Repeat never ends
         return false;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

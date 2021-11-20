@@ -55,9 +55,4 @@ public class Action_Throw : BehaviourAction
     {
         return hasOrderedThrow;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

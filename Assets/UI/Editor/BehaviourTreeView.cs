@@ -13,40 +13,53 @@ public class BehaviourTreeView : VisualElement
     public void PopulateView(BehaviourAction rootAction)
     {
         Clear();
-        AddBehaviourActionButton(rootAction, 0);
+        AddBehaviourActionButton(0, rootAction);
     }
 
-    private void AddBehaviourActionButton(BehaviourAction behaviourAction, int indentLevel)
+    private void AddBehaviourActionButton(int indentLevel, BehaviourAction behaviourAction)
     {
-        // Create button representing the action
-        Button actionButton = new Button();
-        actionButton.AddToClassList("behaviour-action-button");
-        
-        // Styling
-        
-        // Ex: "MoveLeft (Action_MoveFlyingBy)"
-        actionButton.text = $"{behaviourAction.name} ({behaviourAction.GetType()})";
-        
-        // Compute margin left from indent factor and indent level
-        Length marginLeft = new Length(INDENT_FACTOR * indentLevel, LengthUnit.Pixel);
-        actionButton.style.marginLeft = marginLeft;
-        
-        // Bind behaviour to select game object on button click
-        actionButton.clickable.clicked += () => { Selection.activeObject = behaviourAction; };
+        string text = behaviourAction.ToString();
+        AddButton(indentLevel, text, behaviourAction);
 
-        Add(actionButton);
-        
         foreach (Transform child in behaviourAction.transform)
         {
             var childBehaviourAction = child.GetComponent<BehaviourAction>();
             if (childBehaviourAction != null)
             {
-                AddBehaviourActionButton(childBehaviourAction, indentLevel + 1);
+                AddBehaviourActionButton(indentLevel + 1, childBehaviourAction);
             }
             else
             {
-                Debug.LogWarningFormat(child, "child {0} has no BehaviourAction component", child);
+                // Missing BehaviourAction component on this game object, but still show button to indicate it to user
+                AddInvalidActionButton(indentLevel + 1, child.gameObject);
             }
         }
+    }
+    
+    private void AddInvalidActionButton(int indentLevel, GameObject child)
+    {
+        string text = $"{child.name} (Invalid)";
+        AddButton(indentLevel, text, child);
+    }
+
+    private void AddButton(int indentLevel, string text, Object target)
+    {
+        // Create button with class
+        Button actionButton = new Button();
+        actionButton.AddToClassList("behaviour-action-button");
+
+        // Custom styling
+
+        // Ex: "MoveLeft (Action_MoveFlyingBy)"
+        actionButton.text = text;
+
+        // Compute margin left from indent factor and indent level
+        Length marginLeft = new Length(INDENT_FACTOR * indentLevel, LengthUnit.Pixel);
+        actionButton.style.marginLeft = marginLeft;
+
+        // Bind behaviour to select game object on button click
+        actionButton.clickable.clicked += () => { Selection.activeObject = target; };
+
+        Add(actionButton);
     }
 }

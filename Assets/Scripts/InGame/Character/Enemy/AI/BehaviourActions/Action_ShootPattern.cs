@@ -127,9 +127,4 @@ public class Action_ShootPattern : BehaviourAction
     }
 
     // no need to clear m_ShootIntention.fireDirections in OnEnd, as it is consumed by Shoot
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

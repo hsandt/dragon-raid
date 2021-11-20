@@ -6,9 +6,14 @@ using UnityEngine;
 using CommonsHelper;
 
 [CustomEditor(typeof(Action_ShootSingle))]
-public class Action_ShootSingleEditor : Editor
+public class Action_ShootSingleEditor : BehaviourActionEditor
 {
     private void OnSceneGUI()
+    {
+        DrawLocalHandles();
+    }
+
+    public override void DrawHandles(Vector2 startPosition)
     {
         var script = (Action_ShootSingle) target;
         
@@ -21,8 +26,6 @@ public class Action_ShootSingleEditor : Editor
         {
             return;
         }
-
-        Vector2 startPosition = (Vector2) script.transform.position;
 
         using (var check = new EditorGUI.ChangeCheckScope())
         {

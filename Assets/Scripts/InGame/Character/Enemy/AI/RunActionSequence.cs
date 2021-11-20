@@ -12,7 +12,6 @@ public class RunActionSequence : BehaviourAction
     
     /// List of behaviour actions on children
     private List<BehaviourAction> m_BehaviourActions;
-    
         
     /* State vars */
     
@@ -136,10 +135,5 @@ public class RunActionSequence : BehaviourAction
     protected override bool IsOver()
     {
         return !m_IsRunning;
-    }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
     }
 }

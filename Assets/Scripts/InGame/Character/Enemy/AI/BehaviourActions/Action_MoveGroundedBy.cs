@@ -80,9 +80,4 @@ public class Action_MoveGroundedBy : BehaviourAction
     {
         m_MoveGroundedIntention.signedGroundSpeed = 0f;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

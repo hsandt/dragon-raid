@@ -53,9 +53,4 @@ public class Action_MoveFlyingToward : BehaviourAction
         // For this reason, we don't override OnEnd to reset the velocity intention.
         return false;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

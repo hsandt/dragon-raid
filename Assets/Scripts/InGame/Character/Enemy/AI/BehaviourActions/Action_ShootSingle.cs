@@ -64,9 +64,4 @@ public class Action_ShootSingle : BehaviourAction
     {
         return hasOrderedShot;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

@@ -6,16 +6,20 @@ using UnityEngine;
 using CommonsHelper;
 
 [CustomEditor(typeof(Action_MoveFlyingToward))]
-public class Action_MoveFlyingTowardEditor : Editor
+public class Action_MoveFlyingTowardEditor : BehaviourActionEditor
 {
     // Factor applied to avoid placing the speed handle too far from the center to reach high speeds
     private const float SPEED_HANDLE_DISTANCE_FACTOR = 0.5f;
 
+
     private void OnSceneGUI()
     {
-        var script = (Action_MoveFlyingToward) target;
+        DrawLocalHandles();
+    }
 
-        Vector2 startPosition = (Vector2) script.transform.position;
+    public override void DrawHandles(Vector2 startPosition)
+    {
+        var script = (Action_MoveFlyingToward) target;
         Vector2 direction = VectorUtil.Rotate(Vector2.left, script.Angle);
 
         // Apply factor to draw speed handle closer to center

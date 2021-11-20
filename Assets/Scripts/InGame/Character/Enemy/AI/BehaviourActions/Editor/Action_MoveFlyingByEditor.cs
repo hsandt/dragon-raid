@@ -5,16 +5,20 @@ using UnityEngine;
 using CommonsHelper;
 
 [CustomEditor(typeof(Action_MoveFlyingBy))]
-public class Action_MoveFlyingByEditor : Editor
+public class Action_MoveFlyingByEditor : BehaviourActionEditor
 {
     // Factor applied to avoid placing the speed handle too far from the center to reach high speeds
     private const float SPEED_HANDLE_DISTANCE_FACTOR = 0.5f;
 
+    
     private void OnSceneGUI()
     {
+        DrawLocalHandles();
+    }
+    
+    public override void DrawHandles(Vector2 startPosition)
+    {
         var script = (Action_MoveFlyingBy) target;
-
-        Vector2 startPosition = (Vector2) script.transform.position;
         Vector2 moveVector = script.MoveVector;
 
         // Move arrow
@@ -47,7 +51,7 @@ public class Action_MoveFlyingByEditor : Editor
             HandlesUtil.DrawArrow2D(startPosition, speedHandlePosition, Color.magenta);
 
             // Circle that contains the speed handle for easier visualization of magnitude
-            Handles.DrawWireDisc(startPosition, Vector3.forward, speedHandleDistance);
+            HandlesUtil.DrawCircle2D(startPosition, speedHandleDistance, Color.magenta);
             
             using (var check = new EditorGUI.ChangeCheckScope())
             {
@@ -66,5 +70,12 @@ public class Action_MoveFlyingByEditor : Editor
                 }
             }
         }
+    }
+
+    public override Vector2 ComputeEndPosition(Vector2 startPosition)
+    {
+        var script = (Action_MoveFlyingBy) target;
+        Vector2 moveVector = script.MoveVector;
+        return startPosition + moveVector;
     }
 }

@@ -43,11 +43,4 @@ public abstract class BehaviourAction : MonoBehaviour
     /// Action end callback. Useful to clear any remaining continuous intention not automatically consumed
     /// (optional)
     public virtual void OnEnd() {}
-        
-    #if UNITY_EDITOR
-    /// Return estimated duration of an action having this end condition.
-    /// For event-based conditions, there is not much we can guess, so we return an arbitrary value
-    /// that will make the BehaviourAction.DrawHandles look good.
-    public abstract float GetEstimatedDuration();
-    #endif
 }

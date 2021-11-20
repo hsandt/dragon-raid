@@ -90,11 +90,6 @@ public class MoveAlongBezierPathAction : BehaviourAction
         throw new System.NotImplementedException();
     }
 
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
-
     #if UNITY_EDITOR
     private void OnDrawGizmos ()
     {

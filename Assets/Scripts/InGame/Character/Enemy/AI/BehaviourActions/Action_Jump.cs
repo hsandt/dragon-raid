@@ -50,9 +50,4 @@ public class Action_Jump : BehaviourAction
     {
         return m_HasOrderedJump;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }

@@ -36,9 +36,4 @@ public class Action_Wait : BehaviourAction
     {
         return m_Time >= duration;
     }
-
-    public override float GetEstimatedDuration()
-    {
-        throw new System.NotImplementedException();
-    }
 }
