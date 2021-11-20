@@ -39,10 +39,11 @@ public class BehaviourTreeView : VisualElement
     private void AddInvalidActionButton(int indentLevel, GameObject child)
     {
         string text = $"{child.name} (Invalid)";
-        AddButton(indentLevel, text, child);
+        Button invalidActionButton = AddButton(indentLevel, text, child);
+        invalidActionButton.AddToClassList("invalid");
     }
 
-    private void AddButton(int indentLevel, string text, Object target)
+    private Button AddButton(int indentLevel, string text, Object target)
     {
         // Create button with class
         Button actionButton = new Button();
@@ -61,5 +62,7 @@ public class BehaviourTreeView : VisualElement
         actionButton.clickable.clicked += () => { Selection.activeObject = target; };
 
         Add(actionButton);
+        
+        return actionButton;
     }
 }

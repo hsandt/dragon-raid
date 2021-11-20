@@ -41,6 +41,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
             Vector2 labelRectPosition = currentPosition + new Vector2(- 100f * pixelSize, - labelStackOffset - 10f * pixelSize);
             
             string labelText;
+            Color textColor;
             
             var behaviourAction = child.GetComponent<BehaviourAction>();
             if (behaviourAction != null)
@@ -51,6 +52,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
                 if (actionEditor != null)
                 {
                     labelText = behaviourAction.ToString();
+                    textColor = Color.white;
 
                     // Handles specific to this action
                     actionEditor.DrawHandles(currentPosition);
@@ -73,6 +75,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
                 {
                     // Missing custom editor
                     labelText = $"{behaviourAction} - No Custom Editor";
+                    textColor = ColorUtil.orange;
                     
                     // Next action will be at same position, remember stack count to show next label more below
                     labelStackCount++;
@@ -82,13 +85,14 @@ public class RunActionSequenceEditor : BehaviourActionEditor
             {
                 // Missing behaviour action component
                 labelText = $"{child.name} - No Behaviour Action";
-                
+                textColor = Color.red;
+
                 // Next action will be at same position, remember stack count to show next label more below
                 labelStackCount++;
             }
             
             // Whether valid or invalid, print the label
-            HandlesUtil.DrawLabelWithBackground(labelRectPosition, labelText, 1f, true);
+            HandlesUtil.DrawLabelWithBackground(labelRectPosition, labelText, 1f, true, textColor);
         }
     }
 }
