@@ -40,15 +40,9 @@ public class MoveGrounded : ClearableBehaviour
 
     private void FixedUpdate()
     {
+        // Grounded characters naturally move with the environment, which is now static (the camera moves instead),
+        // so no extra velocity added due to scrolling
         Vector2 newVelocity = m_Rigidbody2D.velocity;
-        
-        // When grounded: no slopes for now, so just move left/right according to ground speed
-        // (gravity is still applied but ground collider will prevent sinking into ground)
-        // When airborne: only set X component of velocity to let gravity do its job
-        // Setting X component of velocity covers both cases
-        // Note we have set the motion intention relative to ground, so we always add the reverse ground scrolling
-        // speed, even in the air. This way, a grounded unit with an extra ground speed of 0 sticks to scrolling speed. 
-        newVelocity.x = ScrollingManager.Instance.ComputeTotalSpeedWithScrolling(m_MoveGroundedIntention.signedGroundSpeed);
 
         // Set velocity Y when ordered to jump (we don't check if we are grounded, as we assume
         // character starts grounded and only tries to jump once)

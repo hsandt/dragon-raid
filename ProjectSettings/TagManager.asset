@@ -44,9 +44,9 @@ TagManager:
   - 
   - EnvironmentProp
   - 
+  - Background
   - 
-  - 
-  - 
+  - Camera
   - 
   m_SortingLayers:
   - name: Level_Background

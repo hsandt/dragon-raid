@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CommonsHelper;
 using UnityEngine;
 
 using UnityConstants;
@@ -19,6 +20,9 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     
     /* Cached scene references */
     
+    /// Cached camera Rigidbody2D reference
+    private Rigidbody2D m_CameraRigibody2D;
+
     /// Cached background reference
     private Background m_Background;
 
@@ -44,6 +48,7 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     {
         base.Init();
 
+        m_CameraRigibody2D = Camera.main.GetComponentOrFail<Rigidbody2D>();
         m_Background = LocatorManager.Instance.FindWithTag(Tags.Background)?.GetComponent<Background>();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -63,13 +68,15 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     public void Pause()
     {
         enabled = false;
+        m_CameraRigibody2D.simulated = false;
         m_Background.Pause();
     }
 
     public void Resume()
     {
-        // We assume we didn't change scrolling speed while paused, so no need to RefreshBackgroundScrollingSpeed
+        // We assume we didn't change scrolling speed while paused, so no need to RefreshCameraAndBackgroundScrollingSpeed
         enabled = true;
+        m_CameraRigibody2D.simulated = true;
         m_Background.Resume();
     }
 
@@ -105,8 +112,9 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     #endif
 
     /// Notify Background of scrolling speed change, as ScrollingManager manages Background
-    private void RefreshBackgroundScrollingSpeed()
+    private void RefreshCameraAndBackgroundScrollingSpeed()
     {
+        m_CameraRigibody2D.velocity = m_ScrollingSpeed * Vector2.right;
         m_Background.SetScrollingSpeedAndUpdateVelocity(m_ScrollingSpeed);
     }
 
@@ -115,7 +123,7 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         Debug.Assert(enabled, "[ScrollingManager] StartScrollingAtLevelNormalSpeed: should never be called while disabled", this);
         
         m_ScrollingSpeed = InGameManager.Instance.LevelData.baseScrollingSpeed;
-        RefreshBackgroundScrollingSpeed();
+        RefreshCameraAndBackgroundScrollingSpeed();
     }
 
     public void StopScrolling()
@@ -128,7 +136,7 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         // m_Background.enabled = false, then if player Pause and Resume game, it would resume background scrolling
         // with the old speed!
         m_ScrollingSpeed = 0f;
-        RefreshBackgroundScrollingSpeed();
+        RefreshCameraAndBackgroundScrollingSpeed();
     }
 
     public float ComputeTotalSpeedWithScrolling(float groundSpeed)

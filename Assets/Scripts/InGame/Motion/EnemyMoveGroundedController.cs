@@ -128,6 +128,8 @@ public class EnemyMoveGroundedController : BaseMoveGroundedController
         // Take scrolling speed into account (and readjust sign) to get the actual speed
         // If you don't, enemies that don't move by themselves (only follow scrolling) won't even be able to jump,
         // and enemies who do will still be considered slower than they really are (if moving left).
+        // Note that environment is now static, only player character and camera are moving along scrolling.
+        // But it doesn't matter, as the relative velocity between player character and grounded enemy is the same.
         float totalSpeedX = ScrollingManager.Instance.ComputeTotalSpeedWithScrolling(m_MoveGroundedIntention.signedGroundSpeed);
         
         // We don't support moving to the right, so only works when moving left in total

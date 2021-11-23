@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// Base move parameters for flying characters
+/// Move parameters for flying player character
 [CreateAssetMenu(fileName = "PlayerMoveFlyingParameters", menuName = "Data/Player Move Flying Parameters")]
 public class PlayerMoveFlyingParameters : ScriptableObject
 {
