@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class MainMenu : Menu
 {
@@ -62,10 +60,14 @@ public class MainMenu : Menu
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        buttonPlay.Select();
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
 

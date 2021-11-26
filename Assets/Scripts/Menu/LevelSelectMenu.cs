@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LevelSelectMenu : Menu
@@ -58,10 +59,17 @@ public class LevelSelectMenu : Menu
     public override void Show()
     {
         gameObject.SetActive(true);
+
+        if (buttonStartLevelList.Count > 0)
+        {
+            buttonStartLevelList[0].Select();
+        }
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
 

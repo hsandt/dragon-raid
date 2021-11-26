@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 using CommonsHelper;
@@ -97,6 +98,8 @@ public class SaveSlotMenu : Menu
     {
         gameObject.SetActive(true);
         
+        noSaveSlotButton.Select();
+        
         // Display header corresponding to Saved Play Mode
         headerText.text = (m_SavedPlayMode == SavedPlayMode.Story ? "Story mode" : "Arcade mode");
         
@@ -149,6 +152,8 @@ public class SaveSlotMenu : Menu
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
 

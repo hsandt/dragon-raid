@@ -47,11 +47,13 @@ public class CanvasPauseMenu : MonoBehaviour
     {
         gameObject.SetActive(true);
         
-//        EventSystem.current.SetSelectedGameObject(buttonResume.gameObject);
+        buttonResume.Select();
     }
 
     public void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
     

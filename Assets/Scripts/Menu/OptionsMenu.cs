@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class OptionsMenu : Menu
 {
@@ -30,10 +28,14 @@ public class OptionsMenu : Menu
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        buttonBack.Select();
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
     
