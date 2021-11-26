@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,9 +15,6 @@ public class SaveSlotMenu : Menu
     
     [Tooltip("Save Slot Parameters Data")]
     public SaveSlotParameters saveSlotParameters;
-    
-    [Tooltip("Level Data List asset")]
-    public LevelDataList levelDataList;
     
     [Tooltip("Save Slot Container Button Prefab")]
     public GameObject saveSlotContainerButtonPrefab;
@@ -40,7 +38,7 @@ public class SaveSlotMenu : Menu
     /* Cached references */
     
     /// Array of save slot container widgets
-    private SaveSlotContainerWidget[] saveSlotContainerWidgets;
+    private SaveSlotContainerWidget[] m_SaveSlotContainerWidgets;
     
     
     /* State */
@@ -59,7 +57,6 @@ public class SaveSlotMenu : Menu
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(saveSlotParameters != null, this, "[SaveSlotMenu] Awake: Save Slot Parameters not set on {0}", this);
-        Debug.AssertFormat(levelDataList != null, this, "[SaveSlotMenu] Awake: Level Data List not set on {0}", this);
         Debug.AssertFormat(saveSlotContainerButtonPrefab != null, this, "[SaveSlotMenu] Awake: Save Slot Container Button Prefab not set on {0}", this);
         Debug.AssertFormat(headerText != null, this, "[SaveSlotMenu] Awake: Header Text not set on {0}", this);
         Debug.AssertFormat(noSaveSlotButton != null, this, "[SaveSlotMenu] Awake: No Save Slot Button not set on {0}", this);
@@ -68,7 +65,7 @@ public class SaveSlotMenu : Menu
         Debug.AssertFormat(buttonBack != null, this, "[SaveSlotMenu] Awake: Button Back not set on {0}", this);
         #endif
         
-        saveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
+        m_SaveSlotContainerWidgets = new SaveSlotContainerWidget[saveSlotParameters.saveSlotsCount];
 
         // No Save slot button just starts the first level without setting up any save, for a simple run 
         noSaveSlotButton.onClick.AddListener(StartGameWithoutSave);
@@ -96,6 +93,8 @@ public class SaveSlotMenu : Menu
 
     public override void Show()
     {
+        LevelDataList levelDataList = MainMenuManager.Instance.levelDataList;
+
         gameObject.SetActive(true);
         
         noSaveSlotButton.Select();
@@ -110,7 +109,7 @@ public class SaveSlotMenu : Menu
             Transform saveSlotTransform = saveSlotsParent.GetChild(i);
             
             // Initialise widget model and view
-            saveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
+            m_SaveSlotContainerWidgets[i] = saveSlotTransform.GetComponentOrFail<SaveSlotContainerWidget>();
 
             switch (m_SavedPlayMode)
             {
@@ -122,13 +121,13 @@ public class SaveSlotMenu : Menu
                         
                         // Player finished game on this slot iff the next level is last level index + 1
                         bool isComplete = playerSaveStory.nextLevelIndex >= levelDataList.levelDataArray.Length;
-                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
-                        saveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveStory.nextLevelIndex);
+                        m_SaveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        m_SaveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveStory.nextLevelIndex);
                     }
                     else
                     {
-                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
-                        saveSlotContainerWidgets[i].InitEmpty();
+                        m_SaveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        m_SaveSlotContainerWidgets[i].InitEmpty();
                     }
                     break;
                 case SavedPlayMode.Arcade:
@@ -137,13 +136,13 @@ public class SaveSlotMenu : Menu
                     {
                         PlayerSaveArcade playerSaveArcade = optionalPlayerSaveArcade.Value;
                         bool isComplete = playerSaveArcade.nextLevelIndex >= levelDataList.levelDataArray.Length;
-                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
-                        saveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveArcade.nextLevelIndex);
+                        m_SaveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        m_SaveSlotContainerWidgets[i].InitFilled(isComplete, playerSaveArcade.nextLevelIndex);
                     }
                     else
                     {
-                        saveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
-                        saveSlotContainerWidgets[i].InitEmpty();
+                        m_SaveSlotContainerWidgets[i].Init(m_SavedPlayMode, i);
+                        m_SaveSlotContainerWidgets[i].InitEmpty();
                     }
                     break;
             }
