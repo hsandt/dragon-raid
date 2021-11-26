@@ -1208,20 +1208,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!115 &334331448
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 5
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: GraphicAlphaTween/Driver
-  m_Namespace: ElRaccoone.Tweens
 --- !u!1001 &353242899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2131,34 +2117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   splashScreenParameters: {fileID: 11400000, guid: 70da33abd5a2f9ed48f196df73d3d416, type: 2}
   teamLogo: {fileID: 815537985}
---- !u!115 &722246485
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 5
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: GraphicAlphaTween/Driver
-  m_Namespace: ElRaccoone.Tweens
---- !u!115 &727181040
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 5
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: GraphicAlphaTween/Driver
-  m_Namespace: ElRaccoone.Tweens
 --- !u!1 &745931965
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,18 +2209,6 @@ GameObject:
   - component: {fileID: 815537986}
   - component: {fileID: 815537988}
   - component: {fileID: 815537987}
-  - component: {fileID: 815537989}
-  - component: {fileID: 815537990}
-  - component: {fileID: 815537991}
-  - component: {fileID: 815537992}
-  - component: {fileID: 815537993}
-  - component: {fileID: 815537994}
-  - component: {fileID: 815537995}
-  - component: {fileID: 815537996}
-  - component: {fileID: 815537997}
-  - component: {fileID: 815537998}
-  - component: {fileID: 815537999}
-  - component: {fileID: 815538000}
   m_Layer: 5
   m_Name: Team Logo Text (TMP)
   m_TagString: Untagged
@@ -2386,150 +2332,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815537985}
   m_CullTransparentMesh: 1
---- !u!114 &815537989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 334331448}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 722246485}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 722246485}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 727181040}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 727181040}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815537999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1479025701}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &815538000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815537985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1479025701}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &851047293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3527,20 +3329,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!115 &1479025701
-MonoScript:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 5
-  m_Script: 
-  m_DefaultReferences: {}
-  m_Icon: {fileID: 0}
-  m_ExecutionOrder: 0
-  m_ClassName: GraphicAlphaTween/Driver
-  m_Namespace: ElRaccoone.Tweens
 --- !u!1 &1531212784
 GameObject:
   m_ObjectHideFlags: 0

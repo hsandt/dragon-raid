@@ -9,7 +9,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Main Menu Manager
-/// SEO: after LocatorManager
+/// SEO: after LocatorManager, before all sub-menu scripts (for instance Instance access)
 public class MainMenuManager : SingletonManager<MainMenuManager>
 {
     [Header("Assets")]
@@ -56,8 +56,9 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
     private void Start()
     {
         // Note that we prefer hiding things in Start than in Awake,
-        // because it allows menus to call their own Awake to setup things and assert on bad things,
-        // rather than waiting to be shown
+        // because SEO guarantees this class is initialized before any sub-menu, so Awake would be too early,
+        // while Start allows sub-menus to call their own Awake to setup things and assert on bad things early.
+        // ! This means sub-menus should *not* rely on their Start to initialize things required before their Show.
         
         // Immediately hide whole main menu  until we want to show it. Don't use Hide(), which may contain an animation
         // (sub-menus will be hidden below anything, but not Title + Version)

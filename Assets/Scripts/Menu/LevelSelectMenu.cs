@@ -40,12 +40,8 @@ public class LevelSelectMenu : Menu
         #endif
 
         buttonBack.onClick.AddListener(GoBack);
-    }
-    
-    private void Start()
-    {
-        // Level data list doesn't change, so we can initialize everything once, on Start
-        // (just so other SingletonManager Instance is guaranteed)
+        
+        // Instance access guaranteed by SEO
         LevelDataList levelDataList = MainMenuManager.Instance.levelDataList;
         int levelCount = levelDataList.levelDataArray.Length;
         m_LevelButtonWidgets = new LevelButtonWidget[levelCount];
@@ -61,7 +57,7 @@ public class LevelSelectMenu : Menu
             m_LevelButtonWidgets[i].Init(i);
         }
     }
-
+    
     private void OnDestroy()
     {
         if (buttonBack)
