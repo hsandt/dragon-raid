@@ -88,6 +88,11 @@ public class LevelSelectMenu : Menu
         return false;
     }
 
+    public override bool CanGoBack()
+    {
+        return true;
+    }
+    
     private void GoBack()
     {
         MainMenuManager.Instance.GoBackToPreviousMenu();

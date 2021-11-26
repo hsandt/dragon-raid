@@ -76,6 +76,11 @@ public class MainMenu : Menu
         return true;
     }
 
+    public override bool CanGoBack()
+    {
+        return false;
+    }
+
     private void EnterPlayMenu()
     {
         MainMenuManager.Instance.EnterMenu(playMenu);

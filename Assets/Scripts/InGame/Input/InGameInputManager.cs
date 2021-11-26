@@ -51,8 +51,9 @@ public class InGameInputManager : SingletonManager<InGameInputManager>
     /// This is always accessible, even when Player Character is not active
     private void OnTogglePauseMenu(InputValue value)
     {
+        Debug.AssertFormat(value.isPressed, this, "value.isPressed is false. Make sure that InputActions only detect TogglePauseMenu on press.");
+        
         // Immediately toggle pause menu
-        // We assume TogglePauseMenu action is only bound to press, so no need to check value.isPressed
         InGameManager.Instance.TryTogglePauseMenu();
     }
     

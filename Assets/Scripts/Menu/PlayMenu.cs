@@ -83,6 +83,11 @@ public class PlayMenu : Menu
     {
         return true;
     }
+    
+    public override bool CanGoBack()
+    {
+        return true;
+    }
 
     private void StartStory()
     {

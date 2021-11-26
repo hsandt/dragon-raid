@@ -43,6 +43,11 @@ public class OptionsMenu : Menu
     {
         return true;
     }
+    
+    public override bool CanGoBack()
+    {
+        return true;
+    }
 
     private void GoBack()
     {

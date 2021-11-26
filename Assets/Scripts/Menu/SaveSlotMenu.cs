@@ -160,6 +160,11 @@ public class SaveSlotMenu : Menu
     {
         return false;
     }
+    
+    public override bool CanGoBack()
+    {
+        return true;
+    }
         
     private void StartGameWithoutSave()
     {

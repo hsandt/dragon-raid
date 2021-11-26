@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 using UnityConstants;
@@ -131,7 +132,6 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
 
         // Show previous menu, if any
         if (m_MenuStack.Count > 0)
-
         {
             Menu previousMenu = m_MenuStack.Peek();
             previousMenu.Show();
@@ -175,6 +175,24 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
             Debug.LogErrorFormat(levelDataList, "[MainMenuManager] StartGame: Level Data List has only {0} entries, " +
                 "cannot get entry for levelIndex {1}",
                 levelDataList.levelDataArray.Length, levelIndex);
+        }
+    }
+    
+    /// PlayerInput action message callback for Cancel
+    private void OnCancel(InputValue value)
+    {
+        Debug.AssertFormat(value.isPressed, this, "value.isPressed is false. Make sure that InputActions only detect Cancel on press.");
+        
+        if (m_MenuStack.Count > 0)
+        {
+            Menu menu = m_MenuStack.Peek();
+            if (menu.CanGoBack())
+            {
+                // For now, works in all cases, but when we add special behaviour on Back
+                // like prompting for changes or auto-applying changes in Options,
+                // we may want to call some overridden OnBack method on the current menu
+                GoBackToPreviousMenu();
+            }
         }
     }
 }
