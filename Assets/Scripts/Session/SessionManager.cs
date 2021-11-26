@@ -65,6 +65,16 @@ public class SessionManager : SingletonManager<SessionManager>
         m_NextLevelIndex = enteredLevelIndex;
     }
     
+    public void EnterLevelSelectMode()
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+            "[SessionManager] EnterLevelSelectMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
+            "PlayMode.LevelSelect anyway, but this is not supposed to happen.", m_CurrentPlayMode);
+        #endif
+        m_CurrentPlayMode = PlayMode.LevelSelect;
+    }
+    
     public void ExitCurrentPlayMode()
     {
         m_CurrentPlayMode = PlayMode.None;

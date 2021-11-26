@@ -4,47 +4,61 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+using CommonsHelper;
+using CommonsPattern;
+
 public class LevelSelectMenu : Menu
 {
+    [Header("Assets")]
+    
+    [Tooltip("Level Button Prefab")]
+    public GameObject levelButtonPrefab;
+
+
     [Header("Child references")]
     
-    [Tooltip("List of Start Level buttons")]
-    public List<Button> buttonStartLevelList;
-
+    [Tooltip("Level Buttons parent")]
+    public Transform levelButtonsParent;
+    
     [Tooltip("Back button")]
     public Button buttonBack;
 
     
+    /* Cached references */
+
+    /// Array of save slot container widgets
+    private LevelButtonWidget[] m_LevelButtonWidgets;
+
     private void Awake()
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(levelButtonPrefab != null, this,
+            "[LevelSelectMenu] Awake: Level Button Prefab not set on {0}", this);
+        Debug.AssertFormat(levelButtonsParent != null, this,
+            "[LevelSelectMenu] Awake: Level Buttons Parent not set on {0}", this);
+        Debug.AssertFormat(buttonBack != null, this, "[LevelSelectMenu] Awake: Button Back not set on {0}", this);
+        #endif
+
         buttonBack.onClick.AddListener(GoBack);
     }
     
     private void Start()
     {
+        // Level data list doesn't change, so we can initialize everything once, on Start
+        // (just so other SingletonManager Instance is guaranteed)
         LevelDataList levelDataList = MainMenuManager.Instance.levelDataList;
+        int levelCount = levelDataList.levelDataArray.Length;
+        m_LevelButtonWidgets = new LevelButtonWidget[levelCount];
         
-        for (int i = 0; i < levelDataList.levelDataArray.Length; i++)
+        UIPoolHelper.LazyInstantiateWidgets(levelButtonPrefab, levelCount, levelButtonsParent);
+        
+        for (int i = 0; i < levelCount; i++)
         {
-            // eventually we'll do lazy pooling i.e. create any missing buttons (copying code from Anima) 
-            // but for now we assume the buttons have been manually added
-            if (i < buttonStartLevelList.Count && buttonStartLevelList[i] != null)
-            {
-                // quick trick to pass dynamic callback: copy variable to get constant in closure,
-                // and pass lambda
-                // eventually, we'll have a dedicated StartLevelButton with a member int levelIndex
-                // and its own method StartLevel, so we won't need to pass the level index anymore
-                int closureLevelIndex = i;
-                buttonStartLevelList[i].onClick.AddListener(() => MainMenuManager.Instance.StartLevel(closureLevelIndex));
-            }
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            else
-            {
-                Debug.LogErrorFormat(this, "[LevelSelectMenu] Start: buttonStartLevelList has no entry or null entry " +
-                   "for index {0} yet levelDataList.levelDataArray.Length is {1}",
-                    i, levelDataList.levelDataArray.Length);
-            }
-            #endif
+            Transform saveSlotTransform = levelButtonsParent.GetChild(i);
+            
+            // Initialise widget model and view
+            m_LevelButtonWidgets[i] = saveSlotTransform.GetComponentOrFail<LevelButtonWidget>();
+            m_LevelButtonWidgets[i].Init(i);
         }
     }
 
@@ -60,9 +74,9 @@ public class LevelSelectMenu : Menu
     {
         gameObject.SetActive(true);
 
-        if (buttonStartLevelList.Count > 0)
+        if (m_LevelButtonWidgets.Length > 0)
         {
-            buttonStartLevelList[0].Select();
+            m_LevelButtonWidgets[0].Select();
         }
     }
 
