@@ -63,7 +63,6 @@ public class InGameManager : SingletonManager<InGameManager>
     private bool m_IsPlayingRestartSequence;
     public bool IsPlayingRestartSequence => m_IsPlayingRestartSequence;
 
-    // TODO: add CanTriggerEvent to prevent all scrolling events in general after game over, etc.
     public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     // We let the game run during the menu restart sequence (and it's already running when the game over restart
     // sequence starts), so we are checking that m_IsGamePaused is false on purpose.
@@ -73,6 +72,8 @@ public class InGameManager : SingletonManager<InGameManager>
     public bool CanRestartLevel => !m_IsGamePaused && !m_IsFinishingLevel;
     public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     public bool CanAnyEntityBeDamaged => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    public bool CanTriggerSpatialProgressEvent => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     #endif
@@ -238,9 +239,6 @@ public class InGameManager : SingletonManager<InGameManager>
         #endif
     }
     
-    // TODO: add Pause/Resume here
-    // Remember to disable any script with coroutines like EnemyWave so the coroutines are paused too
-
     public void TryTogglePauseMenu()
     {
         if (m_IsGamePaused)

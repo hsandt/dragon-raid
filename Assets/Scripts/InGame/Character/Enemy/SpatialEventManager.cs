@@ -68,7 +68,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
         // Do a reverse iteration so we can remove event pairs by index safely
         
         // OPTIMIZATION: when we have many events (esp. waves), this will be slow at the beginning
-        // where we have not removed many event pairs.
+        // where we have not removed many event pairs (O(N) for N event pairs)
         // In this case, it's better to enforce convention on level design that all event objects
         // are ordered chronologically, so we can only check the next one i.e. the first in the
         // remaining list
@@ -89,8 +89,22 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
                 if (oldSpatialProgress <= eventTrigger.RequiredSpatialProgress)
                 {
                     // We moved from old to new progress, going through (or just reaching) the required spatial progress
-                    // so trigger the event effect
-                    eventEffect.Trigger();
+                    // so trigger the event effect.
+                    // Check for game flow blocking spatial progress events too. While events triggered by specific
+                    // gameplay events like character death are easily prevented by ignoring all damage during special
+                    // game flow sequences, scrolling tends to continue, even during sequences like game over,
+                    // so we must prevent random events from being triggered because of that.
+                    // Of course, this means we'll be missing on possibly important events like finish level,
+                    // but CanTriggerSpatialProgressEvent is only true when game is paused (in which case scrolling is
+                    // paused), or level will be soon restarted/finished, so this is okay.
+                    // Design note: we could tolerate minor events like enemies or projectiles spawning.
+                    // In this case, either (a) remove this check and use a Try... method inside each Trigger implementation
+                    // of an major event, or (b) add IEventEffect interface method CanTriggerDuringGameFlowSequence
+                    // with only minor event effects returning true.
+                    if (InGameManager.Instance.CanTriggerSpatialProgressEvent)
+                    {
+                        eventEffect.Trigger();
+                    }
                 }
                 
                 // Either we triggered the event effect, or the required spatial progress was less than
