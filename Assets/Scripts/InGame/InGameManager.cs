@@ -59,15 +59,22 @@ public class InGameManager : SingletonManager<InGameManager>
     private bool m_IsFinishingLevel;
     public bool IsFinishingLevel => m_IsFinishingLevel;
 
-    /// True iff game over -> restart sequence is playing
-    private bool m_IsPlayingGameOverRestartSequence;
-    public bool IsPlayingGameOverRestartSequence => m_IsPlayingGameOverRestartSequence;
+    /// True iff game over -> restart sequence (game over or via menu) is playing
+    private bool m_IsPlayingRestartSequence;
+    public bool IsPlayingRestartSequence => m_IsPlayingRestartSequence;
 
-    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
+    // TODO: add CanTriggerEvent to prevent all scrolling events in general after game over, etc.
+    public bool CanPauseGame => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    // We let the game run during the menu restart sequence (and it's already running when the game over restart
+    // sequence starts), so we are checking that m_IsGamePaused is false on purpose.
+    public bool CanPlayRestartLevelSequence => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    // unlike CanPlayRestartLevelSequence, CanRestartLevel checks for the actual Restart which, outside Cheat Restart,
+    // happen right in the middle of the Restart Sequence, so we should not check for !m_IsPlayingRestartSequence
     public bool CanRestartLevel => !m_IsGamePaused && !m_IsFinishingLevel;
-    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
+    public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    public bool CanDamage => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingGameOverRestartSequence;
+    public bool CanUseCheat => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     #endif
 
     protected override void Init()
@@ -214,7 +221,7 @@ public class InGameManager : SingletonManager<InGameManager>
 
     public void RestartLevel()
     {
-        // Don't allow level restart during finish sequence to avoid invalid states likelLoading next level async
+        // Don't allow level restart during finish sequence to avoid invalid states like loading next level async
         // but restarting this level in the middle
         if (CanRestartLevel)
         {
@@ -224,7 +231,9 @@ public class InGameManager : SingletonManager<InGameManager>
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {
-            Debug.LogErrorFormat("[InGameManager] RestartLevel: CanRestartLevel is false (m_IsFinishingLevel is {0})", m_IsFinishingLevel);
+            Debug.LogErrorFormat("[InGameManager] RestartLevel: CanRestartLevel is false " +
+                                 "(m_IsGamePaused: {0}, m_IsFinishingLevel: {1})",
+                m_IsGamePaused, m_IsFinishingLevel);
         }
         #endif
     }
@@ -320,7 +329,8 @@ public class InGameManager : SingletonManager<InGameManager>
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {
-            Debug.LogErrorFormat("[InGameManager] FinishLevel: CanFinishLevel is false (m_IsGamePaused is {0}, m_IsFinishingLevel is {1})", m_IsGamePaused, m_IsFinishingLevel);
+            Debug.LogErrorFormat("[InGameManager] FinishLevel: CanFinishLevel is false " +
+                                 "(m_IsGamePaused: {0}, m_IsFinishingLevel: {1})", m_IsGamePaused, m_IsFinishingLevel);
         }
         #endif
     }
@@ -403,18 +413,56 @@ public class InGameManager : SingletonManager<InGameManager>
     
     public void PlayGameOverRestartSequence()
     {
-        StartCoroutine(PlayGameOverRestartSequenceAsync());
+        if (CanPlayRestartLevelSequence)
+        {
+            StartCoroutine(PlayGameOverRestartSequenceAsync());
+        }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat("[InGameManager] PlayGameOverRestartSequence: CanPlayRestartLevelSequence is false " +
+                                 "(m_IsGamePaused: {0}, m_IsFinishingLevel: {1}, m_IsPlayingRestartSequence: {2})",
+                m_IsGamePaused, m_IsFinishingLevel, m_IsPlayingRestartSequence);
+        }
+        #endif
     }
     
     private IEnumerator PlayGameOverRestartSequenceAsync()
     {
-        m_IsPlayingGameOverRestartSequence = true;
+        m_IsPlayingRestartSequence = true;
         
         yield return new WaitForSeconds(inGameFlowParameters.gameOverDelay);
         yield return m_CanvasLevel.FadeOut(inGameFlowParameters.gameOverFadeOutDuration);
         RestartLevel();
         yield return m_CanvasLevel.FadeIn(inGameFlowParameters.fadeInDuration);
         
-        m_IsPlayingGameOverRestartSequence = false;
+        m_IsPlayingRestartSequence = false;
+    }
+    
+    public void PlayMenuRestartSequence()
+    {
+        if (CanPlayRestartLevelSequence)
+        {
+            StartCoroutine(PlayMenuRestartSequenceAsync());
+        }
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        else
+        {
+            Debug.LogErrorFormat("[InGameManager] PlayMenuRestartSequence: CanPlayRestartLevelSequence is false " +
+                                 "(m_IsGamePaused: {0}, m_IsFinishingLevel: {1}, m_IsPlayingRestartSequence: {2})",
+                m_IsGamePaused, m_IsFinishingLevel, m_IsPlayingRestartSequence);
+        }
+        #endif
+    }
+
+    private IEnumerator PlayMenuRestartSequenceAsync()
+    {
+        m_IsPlayingRestartSequence = true;
+        
+        yield return m_CanvasLevel.FadeOut(inGameFlowParameters.menuRestartFadeOutDuration);
+        RestartLevel();
+        yield return m_CanvasLevel.FadeIn(inGameFlowParameters.fadeInDuration);
+        
+        m_IsPlayingRestartSequence = false;
     }
 }

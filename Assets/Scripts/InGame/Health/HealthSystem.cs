@@ -193,8 +193,8 @@ public class HealthSystem : ClearableBehaviour
         // although this particular one has its SEO set after Default Time, so melee attacks
         // and projectiles would have priority when hitting target on the same frame as exit)
         // Also verify that the health system is not currently invincible,
-        // and that we are not finishing the level already.
-        return m_PooledObject.IsInUse() && !IsInvincible && !InGameManager.Instance.IsFinishingLevel;
+        // and that we are not playing a flow sequence that should not allow damage.
+        return m_PooledObject.IsInUse() && !IsInvincible && InGameManager.Instance.CanDamage;
     }
 
     private void Die()

@@ -16,6 +16,9 @@ public class CanvasPauseMenu : MonoBehaviour
     [Tooltip("Options button")]
     public Button buttonOptions;
 
+    [Tooltip("Restart button")]
+    public Button buttonRestart;
+
     [Tooltip("Exit button")]
     public Button buttonExit;
 
@@ -24,6 +27,7 @@ public class CanvasPauseMenu : MonoBehaviour
     {
         buttonResume.onClick.AddListener(ResumeGame);
         buttonOptions.onClick.AddListener(ShowOptions);
+        buttonRestart.onClick.AddListener(RestartLevel);
         buttonExit.onClick.AddListener(ExitGame);
     }
     
@@ -36,6 +40,10 @@ public class CanvasPauseMenu : MonoBehaviour
         if (buttonOptions)
         {
             buttonOptions.onClick.RemoveAllListeners();
+        }
+        if (buttonRestart)
+        {
+            buttonRestart.onClick.RemoveAllListeners();
         }
         if (buttonExit)
         {
@@ -68,6 +76,16 @@ public class CanvasPauseMenu : MonoBehaviour
     private void ShowOptions()
     {
         // TODO: show options sub-menu
+    }
+
+    private void RestartLevel()
+    {
+        Hide();
+        // While some games prefer keeping the full pause for menu restart, we allow the game to keep running shortly,
+        // but in counterpart we block all game events (esp. damage and finish level) during that transition.
+        // Note that this means that CanPlayRestartLevelSequence checking game not being paused is correct.
+        InGameManager.Instance.ResumeGame();
+        InGameManager.Instance.PlayMenuRestartSequence();
     }
 
     private void ExitGame()

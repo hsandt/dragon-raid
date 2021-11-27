@@ -30,4 +30,8 @@ public class InGameFlowParameters : ScriptableObject
     [Tooltip("Duration of level fade-out on gameover")]
     [Range(0f, 2f)]
     public float gameOverFadeOutDuration = 1f;
+    
+    [Tooltip("Duration of level fade-out on menu Restart")]
+    [Range(0f, 2f)]
+    public float menuRestartFadeOutDuration = 1f;
 }

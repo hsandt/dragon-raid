@@ -101,10 +101,10 @@ public class InGameInputManager : SingletonManager<InGameInputManager>
     /// This is always accessible, even when Player Character is not active
     private void OnCheat_Restart(InputValue value)
     {
-        // CanRestartLevel doesn't check for IsPlayingGameOverRestartSequence since we *want* to restart in the middle
-        // of the game over restart sequence in normal usage. However, a cheat Restart will cause a redundant Restart
-        // in the middle of said sequence, so we prevent that by checking IsPlayingGameOverRestartSequence manually.
-        if (InGameManager.Instance.CanRestartLevel && !InGameManager.Instance.IsPlayingGameOverRestartSequence)
+        // CanRestartLevel doesn't check for IsPlayingRestartSequence, and we don't want to cheat restart during
+        // a normal restart sequence (although StopAllCoroutines makes things a little safer), so we check
+        // CanPlayRestartLevelSequence as if we were trying to play a full sequence (except it's an insta-Restart).
+        if (InGameManager.Instance.CanPlayRestartLevelSequence)
         {
             // Stop all coroutines for an insta-restart to avoid conflict with running sequences such as Respawn
             // (which would try to spawn another player character after Restart, causing pool starvation)
