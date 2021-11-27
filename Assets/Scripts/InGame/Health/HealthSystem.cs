@@ -107,10 +107,10 @@ public class HealthSystem : ClearableBehaviour
     /// Low-level function to deal damage, check death and update observers
     /// This is private as you should always check for invincibility and apply visual feedbackk
     /// via the Try...Damage methods
-    private void Damage(int value)
+    private void TakeDamage(int value)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.Assert(CanDamage());
+        Debug.Assert(CanBeDamaged());
         #endif
         
         if (value > 0)
@@ -129,26 +129,26 @@ public class HealthSystem : ClearableBehaviour
 
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     /// Kill unit instantly
-    public void TryKill()
+    public void TryBeKilled()
     {
-        if (!CanDamage())
+        if (!CanBeDamaged())
         {
             return;
         }
         
-        Damage(m_Health.value);
+        TakeDamage(m_Health.value);
     }
     #endif
 
     /// Apply one-shot damage and return whether it worked or not
-    public bool TryOneShotDamage(int value)
+    public bool TryTakeOneShotDamage(int value)
     {
-        if (!CanDamage())
+        if (!CanBeDamaged())
         {
             return false;
         }
 
-        Damage(value);
+        TakeDamage(value);
         
         if (m_Health.value > 0)
         {
@@ -160,14 +160,14 @@ public class HealthSystem : ClearableBehaviour
     }
 
     /// Apply periodic damage and return whether it worked or not
-    public bool TryPeriodicDamage(int value)
+    public bool TryTakePeriodicDamage(int value)
     {
-        if (!CanDamage())
+        if (!CanBeDamaged())
         {
             return false;
         }
         
-        Damage(value);
+        TakeDamage(value);
         
         if (m_Health.value > 0)
         {
@@ -186,7 +186,7 @@ public class HealthSystem : ClearableBehaviour
         return true;
     }
 
-    private bool CanDamage()
+    private bool CanBeDamaged()
     {
         // Verify that the pooled object is active (a bit more generic than health > 0,
         // as it also covers other reasons to Release than dying, e.g. exiting Living Zone;
@@ -194,7 +194,7 @@ public class HealthSystem : ClearableBehaviour
         // and projectiles would have priority when hitting target on the same frame as exit)
         // Also verify that the health system is not currently invincible,
         // and that we are not playing a flow sequence that should not allow damage.
-        return m_PooledObject.IsInUse() && !IsInvincible && InGameManager.Instance.CanDamage;
+        return m_PooledObject.IsInUse() && !IsInvincible && InGameManager.Instance.CanAnyEntityBeDamaged;
     }
 
     private void Die()

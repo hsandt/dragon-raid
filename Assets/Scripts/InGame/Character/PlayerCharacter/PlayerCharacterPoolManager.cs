@@ -66,7 +66,7 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
         foreach (PlayerCharacterMaster activePlayerCharacter in GetObjectsInUse())
         {
             var healthSystem = activePlayerCharacter.GetComponentOrFail<HealthSystem>();
-            healthSystem.TryKill();
+            healthSystem.TryBeKilled();
         }
     }
     #endif

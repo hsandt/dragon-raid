@@ -111,7 +111,7 @@ public class Projectile : MasterBehaviour, IPooledObject
     /// Impact on target: damage it and self-destruct
     private void Impact(HealthSystem targetHealthSystem)
     {
-        bool didDamage = targetHealthSystem.TryOneShotDamage(projectileParameters.damage);
+        bool didDamage = targetHealthSystem.TryTakeOneShotDamage(projectileParameters.damage);
 
         if (didDamage)
         {
