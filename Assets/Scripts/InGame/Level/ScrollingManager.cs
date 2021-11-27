@@ -23,6 +23,9 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     /// Cached camera Rigidbody2D reference
     private Rigidbody2D m_CameraRigibody2D;
 
+    /// Cached camera start position reference
+    private Transform m_CameraStartPosition;
+
     /// Cached background reference
     private Background m_Background;
 
@@ -49,6 +52,7 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         base.Init();
 
         m_CameraRigibody2D = Camera.main.GetComponentOrFail<Rigidbody2D>();
+        m_CameraStartPosition = LocatorManager.Instance.FindWithTag(Tags.CameraStartPosition).transform;
         m_Background = LocatorManager.Instance.FindWithTag(Tags.Background)?.GetComponent<Background>();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -60,6 +64,11 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
     public void Setup()
     {
         m_SpatialProgress = 0f;
+        
+        // Warp camera to initial position
+        // Make sure to set transform position not rigidbody position, for immediate effect,
+        // and to avoid warp glitch and camera offset
+        m_CameraRigibody2D.transform.position = m_CameraStartPosition.position;
         
         // Always start at base scrolling speed
         StartScrollingAtLevelNormalSpeed();

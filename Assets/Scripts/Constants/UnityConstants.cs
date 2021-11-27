@@ -76,6 +76,10 @@ namespace UnityConstants
         /// Name of tag 'CanvasLevel'.
         /// </summary>
         public const string CanvasLevel = "CanvasLevel";
+        /// <summary>
+        /// Name of tag 'CameraStartPosition'.
+        /// </summary>
+        public const string CameraStartPosition = "CameraStartPosition";
     }
 
     public static class SortingLayers
@@ -192,6 +196,14 @@ namespace UnityConstants
         /// Index of layer 'EnvironmentProp'.
         /// </summary>
         public const int EnvironmentProp = 26;
+        /// <summary>
+        /// Index of layer 'Background'.
+        /// </summary>
+        public const int Background = 28;
+        /// <summary>
+        /// Index of layer 'Camera'.
+        /// </summary>
+        public const int Camera = 30;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -269,6 +281,14 @@ namespace UnityConstants
         /// Bitmask of layer 'EnvironmentProp'.
         /// </summary>
         public const int EnvironmentPropMask = 1 << 26;
+        /// <summary>
+        /// Bitmask of layer 'Background'.
+        /// </summary>
+        public const int BackgroundMask = 1 << 28;
+        /// <summary>
+        /// Bitmask of layer 'Camera'.
+        /// </summary>
+        public const int CameraMask = 1 << 30;
     }
 
     public static class Scenes

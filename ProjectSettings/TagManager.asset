@@ -15,6 +15,7 @@ TagManager:
   - CanvasPauseMenu
   - Background
   - CanvasLevel
+  - CameraStartPosition
   layers:
   - Default
   - TransparentFX
