@@ -33,6 +33,8 @@ public class Projectile : MasterBehaviour, IPooledObject
         base.Init();
         
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(projectileParameters, this,
+            "[Projectile] Projectile Parameters not set on projectile {0}", this);
         Debug.AssertFormat(projectileAestheticParameters, this,
             "[Projectile] Projectile Aesthetic Parameters not set on projectile {0}", this);
         #endif

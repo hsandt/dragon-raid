@@ -42,7 +42,7 @@ TagManager:
   - LivingZone
   - 
   - SolidEnvironment
-  - 
+  - DamagingEnvironment
   - EnvironmentProp
   - 
   - Background

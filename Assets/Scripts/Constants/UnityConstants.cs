@@ -193,6 +193,10 @@ namespace UnityConstants
         /// </summary>
         public const int SolidEnvironment = 24;
         /// <summary>
+        /// Index of layer 'DamagingEnvironment'.
+        /// </summary>
+        public const int DamagingEnvironment = 25;
+        /// <summary>
         /// Index of layer 'EnvironmentProp'.
         /// </summary>
         public const int EnvironmentProp = 26;
@@ -277,6 +281,10 @@ namespace UnityConstants
         /// Bitmask of layer 'SolidEnvironment'.
         /// </summary>
         public const int SolidEnvironmentMask = 1 << 24;
+        /// <summary>
+        /// Bitmask of layer 'DamagingEnvironment'.
+        /// </summary>
+        public const int DamagingEnvironmentMask = 1 << 25;
         /// <summary>
         /// Bitmask of layer 'EnvironmentProp'.
         /// </summary>

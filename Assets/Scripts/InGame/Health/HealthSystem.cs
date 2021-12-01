@@ -177,7 +177,9 @@ public class HealthSystem : ClearableBehaviour
             // timer they would get hit every frame and die too fast.
             // Note that this can lead to odd behaviors like surviving longer by staying in a
             // danger zone because it helps you not getting hit by many projectiles.
-            m_InvincibilityTimer.SetTime(m_healthSharedParameters.postBodyAttackInvincibilityDuration);
+            // This can be avoided by always allowing one-shot damages, but currently periodic invincibility
+            // applies to all further incoming damages.
+            m_InvincibilityTimer.SetTime(m_healthSharedParameters.postPeriodicDamageInvincibilityDuration);
             
             // Set the brightness without timer: the invincibility timer will take care of resetting it
             m_Brighten.SetBrightness(m_healthSharedParameters.damagedBrightness);

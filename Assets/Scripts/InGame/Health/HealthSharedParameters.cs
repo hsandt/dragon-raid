@@ -9,9 +9,9 @@ public class HealthSharedParameters : ScriptableObject
 {
     [Header("Gameplay")]
 
-    [Tooltip("Duration of invincibility after receiving a body attack (to avoid attack stacking)")]
+    [Tooltip("Duration of invincibility after receiving a periodic damage (to avoid attack stacking)")]
     [Range(0f, 2f)]
-    public float postBodyAttackInvincibilityDuration = 1f;
+    public float postPeriodicDamageInvincibilityDuration = 1f;
     
     
     [Header("Aesthetics")]
