@@ -34,9 +34,12 @@ public class MoveGrounded : ClearableBehaviour
 
     private void FixedUpdate()
     {
-        // Grounded characters naturally move with the environment, which is now static (the camera moves instead),
-        // so no extra velocity added due to scrolling
+        // Start from current velocity (just to preserve y)
         Vector2 newVelocity = m_Rigidbody2D.velocity;
+        
+        // Grounded characters naturally move with the environment, which is now static (the camera moves instead),
+        // so no extra velocity added due to scrolling. Just add the intention velocity on X.
+        newVelocity.x = m_MoveGroundedIntention.signedGroundSpeed;
 
         // Set velocity Y when ordered to jump (we don't check if we are grounded, as we assume
         // character starts grounded and only tries to jump once)
