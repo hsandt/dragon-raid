@@ -20,12 +20,6 @@ public class MoveFlying : ClearableBehaviour
     private MoveFlyingIntention m_MoveFlyingIntention;
     
     
-    /* State */
-
-    /// Velocity stored before Pause, used to restore state on Resume
-    private Vector2 m_VelocityOnResume;
-    
-    
     private void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -49,19 +43,5 @@ public class MoveFlying : ClearableBehaviour
         {
             m_Rigidbody2D.velocity += ScrollingManager.Instance.ScrollingSpeed * Vector2.right;
         }
-    }
-
-    /// Pause behaviour
-    private void OnDisable()
-    {
-        m_VelocityOnResume = m_Rigidbody2D.velocity;
-        m_Rigidbody2D.velocity = Vector2.zero;
-    }
-    
-    /// Resume behaviour
-    private void OnEnable()
-    {
-        // Restoring velocity is not critical since it is set every Fixed Update, but safer
-        m_Rigidbody2D.velocity = m_VelocityOnResume;
     }
 }

@@ -22,12 +22,6 @@ public class Projectile : MasterBehaviour, IPooledObject
     private Rigidbody2D m_Rigidbody2D;
 
     
-    /* State */
-
-    /// Velocity stored before Pause, used to restore state on Resume
-    private Vector2 m_VelocityOnResume;
-    
-    
     protected override void Init()
     {
         base.Init();

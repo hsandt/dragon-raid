@@ -20,12 +20,6 @@ public class MoveGrounded : ClearableBehaviour
     private MoveGroundedIntention m_MoveGroundedIntention;
     
     
-    /* State */
-
-    /// Velocity stored before Pause, used to restore state on Resume
-    private Vector2 m_VelocityOnResume;
-
-    
     private void Awake()
     {
         m_Animator = this.GetComponentOrFail<Animator>();
@@ -58,19 +52,5 @@ public class MoveGrounded : ClearableBehaviour
         }
         
         m_Rigidbody2D.velocity = newVelocity;
-    }
-    
-    /// Pause behaviour
-    private void OnDisable()
-    {
-        m_VelocityOnResume = m_Rigidbody2D.velocity;
-        m_Rigidbody2D.velocity = Vector2.zero;
-    }
-    
-    /// Resume behaviour
-    private void OnEnable()
-    {
-        // Restoring velocity is not critical since it is set every Fixed Update, but safer
-        m_Rigidbody2D.velocity = m_VelocityOnResume;
     }
 }
