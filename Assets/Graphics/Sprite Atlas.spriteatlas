@@ -66,6 +66,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6ac4a9c25032f38ba955da20649835d1, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
   - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
+  - {fileID: 21300000, guid: 82638ba3b1a93ab69b8764eaf822f392, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
   - {fileID: 21300000, guid: ccc745b4070870b31be22bb228935e89, type: 3}
   - {fileID: -4915271014213439901, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
@@ -79,6 +80,8 @@ SpriteAtlas:
   - {fileID: -1961516879713267842, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
   - {fileID: -7911955526642296718, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
   - {fileID: 3587858779838700405, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
+  - {fileID: 6240900007677276853, guid: d869b0a7c71e26c9eacda3c0405af4d8, type: 3}
+  - {fileID: -6748485600109523364, guid: d869b0a7c71e26c9eacda3c0405af4d8, type: 3}
   - {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
   - {fileID: 21300000, guid: 7ac181c899bb733ffa887f6799f4598f, type: 3}
@@ -91,6 +94,9 @@ SpriteAtlas:
   - {fileID: 6669843986732815514, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
   - {fileID: 8313924796183435041, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
   - {fileID: 21300000, guid: 8098424b667018af9ac5ff038a434426, type: 3}
+  - {fileID: 7812051119679007272, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
+  - {fileID: 4781553904861370396, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
+  - {fileID: 8982306651567365739, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
   - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
   - {fileID: -4830872509790701028, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   - {fileID: 8571754651483645374, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
@@ -132,6 +138,7 @@ SpriteAtlas:
   - weapon_bat
   - hud_gauge_fill
   - enemy_dove_spritesheet
+  - fx_melee_attack_thrust
   - enemy_tiger_spritesheet_0
   - bg_tree_bg_tiled
   - enemy_echinemon_spritesheet_0
@@ -145,6 +152,8 @@ SpriteAtlas:
   - enemy_imp_with_catapult_catapult_arm_spritesheet_0
   - enemy_imp_with_catapult_catapult_arm_spritesheet_1
   - enemy_imp_with_catapult_catapult_arm_spritesheet_2
+  - enemy_giant_wasp_wings_spritesheet_0
+  - enemy_giant_wasp_wings_spritesheet_1
   - projectile_enemy_fireball_spritesheet_0
   - bg_sky
   - bg_tree_back
@@ -157,6 +166,9 @@ SpriteAtlas:
   - enemy_ispolin_spritesheet_1
   - enemy_ispolin_spritesheet_2
   - bg_tree_front
+  - enemy_giant_wasp_body_spritesheet_2
+  - enemy_giant_wasp_body_spritesheet_0
+  - enemy_giant_wasp_body_spritesheet_1
   - bg_cloud_big
   - projectile_fireball_impact_spritesheet_classic_2
   - projectile_fireball_impact_spritesheet_classic_3
