@@ -30,45 +30,54 @@ public class Action_MoveFlyingBy : BehaviourAction
 
     /* Derived parameters */
 
-    // Consider changing this to a distance left tracker like Action_MoveGroundedBy
-    // as it's more fitting for relative move esp. if character can be blocked by some things
+    /// Move distance
+    private float m_MoveDistance;
     
-    /// Target position = start position + move vector
-    /// It is important to store on Setup as the start position is not remembered
-    private Vector2 m_TargetPosition;
+    /// Normalized move direction
+    private Vector2 m_MoveDirection;
+    
+    
+    /* State */
+    
+    /// Signed distance left to travel
+    private float m_DistanceLeft;
     
     
     protected override void OnInit()
     {
         m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
+        
+        // Precompute derived parameters
+        m_MoveDistance = moveVector.magnitude;
+        m_MoveDirection = moveVector / m_MoveDistance;
     }
     
     public override void OnStart()
     {
-        m_TargetPosition = (Vector2) m_MoveFlyingIntention.transform.position + moveVector;
+        m_DistanceLeft = m_MoveDistance;
     }
 
     public override void RunUpdate()
     {
         Vector2 nextVelocity;
-        
-        Vector2 toTarget = m_TargetPosition - (Vector2) m_MoveFlyingIntention.transform.position;
-        float toTargetDistance = toTarget.magnitude;
-        if (toTargetDistance < speed * Time.deltaTime)
+
+        if (Mathf.Abs(m_DistanceLeft) < speed * Time.deltaTime)
         {
             // Target at less than 1 frame of motion ahead at this speed, use lower speed to arrive
             // right on the target next frame (we must use this trick because we don't support setting
             // direct target position on MoveFlyingIntention currently, only velocity)
             // We shouldn't fear precision issues because IsOver will return false and stop the action
             // if we arrived very close to the target last frame
-            nextVelocity = toTarget / Time.deltaTime;
+            nextVelocity = m_MoveDirection * m_DistanceLeft / Time.deltaTime;
+            m_DistanceLeft = 0f;
         }
         else
         {
             // Target is more than 1 frame ahead, go full speed
-            // Note that toTarget / toTargetDistance = moveVector.normalized, it's just cheaper to reuse
-            // square root already computed
-            nextVelocity = speed * toTarget / toTargetDistance;
+            nextVelocity = m_MoveDirection * speed;
+            
+            // Decrease signed distance left by the progress done this frame
+            m_DistanceLeft = Mathf.MoveTowards(m_DistanceLeft, 0f, speed * Time.deltaTime);
         }
         
         m_MoveFlyingIntention.moveVelocity = nextVelocity;
@@ -77,11 +86,8 @@ public class Action_MoveFlyingBy : BehaviourAction
     protected override bool IsOver()
     {
         // Consider move over when character needs to move by less than a frame's move distance
-        // Note that the higher the speed is, the less precise the arrival is
-        // Consider checking (clamped) distance left == 0f like Action_MoveGroundedBy
-        Vector2 toTarget = m_TargetPosition - (Vector2) m_MoveFlyingIntention.transform.position;
-        float moveDistancePerFrame = speed * Time.deltaTime;
-        return toTarget.sqrMagnitude < moveDistancePerFrame * moveDistancePerFrame;
+        // Note that the higher the speed is, the less precise 
+        return m_DistanceLeft == 0f;
     }
 
     public override void OnEnd()

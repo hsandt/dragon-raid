@@ -63,6 +63,7 @@ public class Action_MoveGroundedBy : BehaviourAction
             // Target is more than 1 frame ahead, go full speed in the wanted direction
             nextSignedSpeed = Mathf.Sign(m_SignedDistanceLeft) * speed;
             
+            // Decrease signed distance left by the progress done this frame
             m_SignedDistanceLeft = Mathf.MoveTowards(m_SignedDistanceLeft, 0f, speed * Time.deltaTime);
         }
         
