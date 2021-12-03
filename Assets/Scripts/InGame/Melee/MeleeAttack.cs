@@ -45,6 +45,7 @@ public class MeleeAttack : ClearableBehaviour
     
     private Animator m_Animator;
     private MeleeAttackIntention m_MeleeAttackIntention;
+    public MeleeAttackIntention MeleeAttackIntention => m_MeleeAttackIntention;
 
     
     /* State */
