@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f0d15c523d27920862e11d83f38527, type: 3}
   m_Name: PlayerMoveFlyingParameters_Dragon
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  maxSpeed: 6

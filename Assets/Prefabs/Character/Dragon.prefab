@@ -129,9 +129,9 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 0.5625
-    y: -0.875
-    width: 0.9375
-    height: 1.5
+    y: -1.1575577
+    width: 1.397665
+    height: 2.016677
   alwaysShowRect: 0
   drawColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4277205836989588869
