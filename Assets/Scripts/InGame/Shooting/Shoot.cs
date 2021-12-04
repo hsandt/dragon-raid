@@ -28,10 +28,15 @@ public class Shoot : ClearableBehaviour
     private string defaultProjectileName = "Fireball";
     
     
-    /* Sibling components */
+    /* Sibling components (required) */
     
     private ShootIntention m_ShootIntention;
     public ShootIntention ShootIntention => m_ShootIntention;
+    
+    
+    /* Sibling components (optional) */
+    
+    private MeleeAttack m_MeleeAttack;
     
     
     /* State */
@@ -43,6 +48,7 @@ public class Shoot : ClearableBehaviour
     private void Awake()
     {
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
+        m_MeleeAttack = GetComponent<MeleeAttack>();
     }
 
     public override void Setup()
@@ -61,32 +67,35 @@ public class Shoot : ClearableBehaviour
         // do not put this in else case of countdown above, in case we've just ended cooldown this frame
         if (m_ShootIntention.holdFire && m_FireCooldownTime <= 0f)
         {
-            // actually fire
-        
-            // set cooldown time to prevent firing immediately again
-            m_FireCooldownTime = shootParameters.fireCooldownDuration;
-            
-            // This time we computed the fire direction right from the actor script, and there can only be one shot
-            // on this frame, so unlike the controller, so need to Add it to m_ShootIntention.fireDirections,
-            // as we would be consuming and removing it afterward anyway. Instead, compute it as a local variable.
-            Vector2 fireDirection;
-            
-            // unfortunately, aiming target is for enemies only but we need to check that
-            // in case we have enemies that can hold fire
-            // maybe this will get tidied up with the introduction of Weapons
-            if (enemyShootParameters)
+            if (CanShoot())
             {
-                fireDirection = GetBaseFireDirection(enemyShootParameters.shootDirectionMode, shootAnchor);
-            }
-            else
-            {
-                // Player only shoots forward
-                fireDirection = shootAnchor.right;
-            }
+                // actually fire
             
-            // spawn projectile with normalized direction and projectile speed
-            Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
-            ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
+                // set cooldown time to prevent firing immediately again
+                m_FireCooldownTime = shootParameters.fireCooldownDuration;
+                
+                // This time we computed the fire direction right from the actor script, and there can only be one shot
+                // on this frame, so unlike the controller, so need to Add it to m_ShootIntention.fireDirections,
+                // as we would be consuming and removing it afterward anyway. Instead, compute it as a local variable.
+                Vector2 fireDirection;
+                
+                // unfortunately, aiming target is for enemies only but we need to check that
+                // in case we have enemies that can hold fire
+                // maybe this will get tidied up with the introduction of Weapons
+                if (enemyShootParameters)
+                {
+                    fireDirection = GetBaseFireDirection(enemyShootParameters.shootDirectionMode, shootAnchor);
+                }
+                else
+                {
+                    // Player only shoots forward
+                    fireDirection = shootAnchor.right;
+                }
+                
+                // spawn projectile with normalized direction and projectile speed
+                Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
+                ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position, projectileVelocity);
+            }
         }
         
         // check for single shot too
@@ -95,7 +104,7 @@ public class Shoot : ClearableBehaviour
             // only allow single shots if not already holding fire
             // however, do not check this above ConsumeBool, as we want to consume the flag every frame,
             // used or not
-            if (!m_ShootIntention.holdFire)
+            if (!m_ShootIntention.holdFire && CanShoot())
             {
                 foreach (Vector2 fireDirection in m_ShootIntention.fireDirections)
                 {
@@ -108,6 +117,13 @@ public class Shoot : ClearableBehaviour
                 m_ShootIntention.fireDirections.Clear();
             }
         }
+    }
+
+    /// Return true if the character can shoot now
+    private bool CanShoot()
+    {
+        // Melee attack has priority over shoot
+        return m_MeleeAttack == null || m_MeleeAttack.CanStartNewAction();
     }
 
     /// Return fire direction for given shoot direction mode and shoot anchor
