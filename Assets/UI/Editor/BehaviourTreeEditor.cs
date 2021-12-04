@@ -1,8 +1,6 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
 
 public class BehaviourTreeEditor : EditorWindow
@@ -23,7 +21,7 @@ public class BehaviourTreeEditor : EditorWindow
         wnd.titleContent = new GUIContent("Behaviour Tree Editor");
     }
 
-    public void CreateGUI()
+    private void CreateGUI()
     {
         VisualElement root = rootVisualElement;
 
