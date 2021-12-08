@@ -21,11 +21,14 @@ public class LevelEditor : EditorWindow
     /* Queried elements */
     
     /// Area showing the level preview
-    private VisualElement m_PreviewArea;
+    private VisualElement m_LevelPreviewArea;
     
     /// Rectangle representing the camera preview
     /// Can be dragged to move the scene view across the level quickly
-    private VisualElement m_PreviewRectangle;
+    private VisualElement m_LevelPreviewRectangle;
+    
+    /// Area showing enemy waves in the current level preview rectangle
+    private VisualElement m_EnemyWavePreviewArea;
     
     
     /* State */
@@ -48,18 +51,27 @@ public class LevelEditor : EditorWindow
         VisualElement root = rootVisualElement;
 
         // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor/LevelEditor.uxml");
         visualTree.CloneTree(root);
 
         // Query existing elements
-        m_PreviewArea = rootVisualElement.Q<VisualElement>("PreviewArea");
-        Debug.AssertFormat(m_PreviewArea != null, "[LevelEditor] No VisualElement 'PreviewArea' found on Level Editor UXML");
+        m_LevelPreviewArea = rootVisualElement.Q<VisualElement>("LevelPreviewArea");
+        Debug.AssertFormat(m_LevelPreviewArea != null, "[LevelEditor] No VisualElement 'LevelPreviewArea' found on Level Editor UXML");
 
-        m_PreviewRectangle = rootVisualElement.Q<VisualElement>("PreviewRectangle");
-        Debug.AssertFormat(m_PreviewRectangle != null, "[LevelEditor] No VisualElement 'PreviewRectangle' found on Level Editor UXML");
+        m_LevelPreviewRectangle = rootVisualElement.Q<VisualElement>("LevelPreviewRectangle");
+        Debug.AssertFormat(m_LevelPreviewRectangle != null, "[LevelEditor] No VisualElement 'LevelPreviewRectangle' found on Level Editor UXML");
+
+        m_EnemyWavePreviewArea = rootVisualElement.Q<VisualElement>("EnemyWavePreviewArea");
+        Debug.AssertFormat(m_EnemyWavePreviewArea != null, "[LevelEditor] No VisualElement 'EnemyWavePreviewArea' found on Level Editor UXML");
 
         RegisterInternalCallbacks();
         Setup();
+        
+        AddEnemyWaveButton(0f, "Wave 0");
+        AddEnemyWaveButton(1f, "Wave 1");
+        AddEnemyWaveButton(2f, "Wave 2");
+        AddEnemyWaveButton(3f, "Wave 3");
+        AddEnemyWaveButton(4f, "Wave 4");
     }
 
     private void OnEnable()
@@ -116,9 +128,9 @@ public class LevelEditor : EditorWindow
     private void RegisterInternalCallbacks()
     {
         // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
-        m_PreviewArea.RegisterCallback<PointerDownEvent>(OnPointerDown);
-        m_PreviewArea.RegisterCallback<PointerUpEvent>(OnPointerUp);
-        m_PreviewArea.RegisterCallback<PointerMoveEvent>(OnPointerMove);
+        m_LevelPreviewArea.RegisterCallback<PointerDownEvent>(OnPreviewAreaPointerDown);
+        m_LevelPreviewArea.RegisterCallback<PointerUpEvent>(OnPreviewAreaPointerUp);
+        m_LevelPreviewArea.RegisterCallback<PointerMoveEvent>(OnPreviewAreaPointerMove);
     }
     
     private void Setup()
@@ -152,35 +164,35 @@ public class LevelEditor : EditorWindow
         }
     }
     
-    private void OnPointerDown(PointerDownEvent evt)
+    private void OnPreviewAreaPointerDown(PointerDownEvent evt)
     {
         // Capture pointer (in preview area, not preview rectangle, to allow
         // clicking anywhere to warp the preview rectangle, and to avoid motion jitter)
-        m_PreviewArea.CapturePointer(evt.pointerId);
+        m_LevelPreviewArea.CapturePointer(evt.pointerId);
         
         // Highlight preview rectangle
-        m_PreviewRectangle.AddToClassList("preview-rectangle--dragged");
+        m_LevelPreviewRectangle.AddToClassList("preview-rectangle--dragged");
 
         // Warp preview rectangle to pointer
         UpdatePreviewRectanglePosition(evt.localPosition);
     }
     
-    private void OnPointerUp(PointerUpEvent evt)
+    private void OnPreviewAreaPointerUp(PointerUpEvent evt)
     {
         // Release pointer
-        m_PreviewArea.ReleasePointer(evt.pointerId);
+        m_LevelPreviewArea.ReleasePointer(evt.pointerId);
         
         // Stop highlighting preview rectangle
-        m_PreviewRectangle.RemoveFromClassList("preview-rectangle--dragged");
+        m_LevelPreviewRectangle.RemoveFromClassList("preview-rectangle--dragged");
         
         // Warp preview rectangle to pointer one last time
         UpdatePreviewRectanglePosition(evt.localPosition);
     }
     
-    private void OnPointerMove(PointerMoveEvent evt)
+    private void OnPreviewAreaPointerMove(PointerMoveEvent evt)
     {
         // Check that we have started the drag from inside the preview area
-        if (m_PreviewArea.panel.GetCapturingElement(evt.pointerId) == evt.target)
+        if (m_LevelPreviewArea.panel.GetCapturingElement(evt.pointerId) == evt.target)
         {
             // Move preview rectangle along with pointer
             UpdatePreviewRectanglePosition(evt.localPosition);
@@ -191,23 +203,23 @@ public class LevelEditor : EditorWindow
     {
         // Center preview rectangle around pointer by subtracting half-width
         // Clamp to limits of containing area (PreviewArea)
-        float maxPreviewRectangleX = m_PreviewArea.contentRect.width - m_PreviewRectangle.contentRect.width;
-        float previewRectangleX = Mathf.Clamp(localPosition.x - m_PreviewRectangle.contentRect.width / 2,
+        float maxPreviewRectangleX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.contentRect.width;
+        float previewRectangleX = Mathf.Clamp(localPosition.x - m_LevelPreviewRectangle.contentRect.width / 2,
             0, maxPreviewRectangleX);
         MovePreviewRectangle(previewRectangleX);
         
         // Compute the preview progress ratio (it's close to the level progress ratio, except since preview
         // occupies a window, it reaches 100% one content rect width before the end, see maxPreviewRectangleX)
         float previewProgressRatio = previewRectangleX / maxPreviewRectangleX;
-        MoveSceneViewToProgressRatio(previewProgressRatio);
+        MoveSceneViewToPreviewProgressRatio(previewProgressRatio);
     }
 
     private void MovePreviewRectangle(float previewRectangleX)
     {
-        m_PreviewRectangle.style.left = previewRectangleX;
+        m_LevelPreviewRectangle.style.left = previewRectangleX;
     }
 
-    private void MoveSceneViewToProgressRatio(float previewProgressRatio)
+    private void MoveSceneViewToPreviewProgressRatio(float previewProgressRatio)
     {
         if (m_CameraStartTransform == null || m_LevelData == null)
         {
@@ -225,5 +237,26 @@ public class LevelEditor : EditorWindow
         // Only support scrolling to the right for now
         m_PreviewCameraPosition = (Vector2) m_CameraStartTransform.position + m_PreviewProgress * Vector2.right;
         SceneView.lastActiveSceneView.pivot = m_PreviewCameraPosition;
+    }
+    
+    
+    /* Enemy Wave Editor */
+    
+    private EnemyWaveButton AddEnemyWaveButton(float x, string waveName)
+    {
+        // Create button with class
+        EnemyWaveButton enemyWaveButton = new EnemyWaveButton(waveName);
+        enemyWaveButton.AddToClassList("behaviour-action-button");
+
+        // Custom styling
+
+        enemyWaveButton.style.left = x;
+
+        // Bind behaviour to select game object on button click
+        // actionButton.clickable.clicked += () => { Selection.activeObject = target; };
+
+        m_EnemyWavePreviewArea.Add(enemyWaveButton);
+        
+        return enemyWaveButton;
     }
 }

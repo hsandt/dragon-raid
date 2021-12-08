@@ -1,9 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="LevelEditor.uss" />
-    <ui:VisualElement name="PreviewArea">
-        <ui:VisualElement name="PreviewRectangle" class="preview-rectangle">
+    <ui:VisualElement name="LevelPreviewArea">
+        <ui:VisualElement name="LevelPreviewRectangle" class="preview-rectangle">
             <ui:Label text="Preview&#10;" display-tooltip-when-elided="true" name="PreviewLabel" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Scroller high-value="100" direction="Horizontal" value="42" />
+    <ui:VisualElement name="EnemyWavePreviewArea" style="overflow: hidden;" />
 </ui:UXML>

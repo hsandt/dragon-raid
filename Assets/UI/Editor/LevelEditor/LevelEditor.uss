@@ -17,3 +17,16 @@
     border-top-color: rgb(176, 248, 254);
     border-bottom-color: rgb(176, 248, 254);
 }
+
+.enemy-wave-button {
+    background-color: rgb(176, 87, 0);
+    color: rgb(255, 255, 255);
+}
+
+.enemy-wave-button:hover {
+    background-color: rgb(186, 92, 0);
+}
+
+.enemy-wave-button:active {
+    background-color: rgb(141, 71, 0);
+}
