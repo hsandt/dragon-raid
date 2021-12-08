@@ -133,6 +133,11 @@ public class LevelEditor : EditorWindow
             // Draw rectangle representing camera preview
             Rect rect = new Rect(m_PreviewCameraPosition - cameraHalfExtent, 2f * cameraHalfExtent);
             HandlesUtil.DrawRect(rect, Color.cyan);
+            
+            // Draw "Preview" in the top-left corner
+            Vector2 offset = new Vector2(0.1f, -0.1f);
+            HandlesUtil.Label2D(new Vector2(rect.xMin, rect.yMax) + offset, "Preview",
+                2f,  true, Color.white);
         }
     }
     
