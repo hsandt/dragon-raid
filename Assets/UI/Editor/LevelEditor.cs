@@ -13,6 +13,9 @@ public class LevelEditor : EditorWindow
     
     /// Cached camera start position reference
     private Transform m_CameraStartTransform;
+    
+    /// Cached level data, retrieved from the level identifier of the current scene
+    private LevelData m_LevelData;
 
     
     /* Queried elements */
@@ -80,15 +83,23 @@ public class LevelEditor : EditorWindow
         // be outdated (e.g. using the wrong transform). This should be a rare case, so just reopen the window,
         // or make sure that the previously tagged object was destroyed, to force cache reference refresh.
         
-        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition).transform;
+        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition)?.transform;
         if (m_CameraStartTransform == null)
         {
             Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");
+        }
+        
+        m_LevelData = GameObject.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
+        if (m_LevelData == null)
+        {
+            Debug.LogError("[LevelEditor] Could not find Game Object tagged LevelIdentifier, " +
+                           "or LevelIdentifier component with Level Data is missing on it");
         }
     }
     private void ClearSceneReferences()
     {
         m_CameraStartTransform = null;
+        m_LevelData = null;
     }
 
     private void RegisterExternalCallbacks()
@@ -198,19 +209,20 @@ public class LevelEditor : EditorWindow
 
     private void MoveSceneViewToProgressRatio(float previewProgressRatio)
     {
-        if (m_CameraStartTransform == null)
+        if (m_CameraStartTransform == null || m_LevelData == null)
         {
             CacheSceneReferences();
             
-            if (m_CameraStartTransform == null)
+            if (m_CameraStartTransform == null || m_LevelData == null)
             {
                 return;
             }
         }
+
+        // Compute preview progress from ratio
+        m_PreviewProgress = previewProgressRatio * m_LevelData.maxScrollingProgress;
         
-        // Estimated level end
-        m_PreviewProgress = previewProgressRatio * 100f;
-        
+        // Only support scrolling to the right for now
         m_PreviewCameraPosition = (Vector2) m_CameraStartTransform.position + m_PreviewProgress * Vector2.right;
         SceneView.lastActiveSceneView.pivot = m_PreviewCameraPosition;
     }
