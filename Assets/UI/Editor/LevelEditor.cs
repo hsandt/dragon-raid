@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 using UnityConstants;
+using CommonsHelper;
 
 public class LevelEditor : EditorWindow
 {
@@ -29,6 +30,7 @@ public class LevelEditor : EditorWindow
     /// Level spatial progress corresponding to the back (generally left) edge
     /// of the preview rectangle
     private float m_PreviewProgress;
+    private Vector2 m_PreviewCameraPosition;
     
     
     [MenuItem("Window/Game/Level Editor")]
@@ -40,8 +42,6 @@ public class LevelEditor : EditorWindow
 
     private void CreateGUI()
     {
-        CacheSceneReferences();
-
         VisualElement root = rootVisualElement;
 
         // Import UXML
@@ -54,10 +54,21 @@ public class LevelEditor : EditorWindow
 
         m_PreviewRectangle = rootVisualElement.Q<VisualElement>("PreviewRectangle");
         Debug.AssertFormat(m_PreviewRectangle != null, "[LevelEditor] No VisualElement 'PreviewRectangle' found on Level Editor UXML");
-        
-        RegisterCallbacks();
 
+        RegisterInternalCallbacks();
         Setup();
+    }
+
+    private void OnEnable()
+    {
+        CacheSceneReferences();
+        RegisterExternalCallbacks();
+    }
+
+    private void OnDisable()
+    {
+        ClearSceneReferences();
+        UnregisterExternalCallbacks();
     }
 
     private void CacheSceneReferences()
@@ -75,25 +86,54 @@ public class LevelEditor : EditorWindow
             Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");
         }
     }
-
-    private void Setup()
+    private void ClearSceneReferences()
     {
-        m_PreviewProgress = 0f;
+        m_CameraStartTransform = null;
     }
 
-    private void RegisterCallbacks()
+    private void RegisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened += OnSceneOpened;
-        
+        SceneView.duringSceneGui += OnDuringSceneGui;
+    }
+    private void UnregisterExternalCallbacks()
+    {
+        EditorSceneManager.sceneOpened -= OnSceneOpened;
+        SceneView.duringSceneGui -= OnDuringSceneGui;
+    }
+    
+    private void RegisterInternalCallbacks()
+    {
         // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
         m_PreviewArea.RegisterCallback<PointerDownEvent>(OnPointerDown);
         m_PreviewArea.RegisterCallback<PointerUpEvent>(OnPointerUp);
         m_PreviewArea.RegisterCallback<PointerMoveEvent>(OnPointerMove);
     }
     
+    private void Setup()
+    {
+        m_PreviewProgress = 0f;
+    }
+
     private void OnSceneOpened(Scene scene, OpenSceneMode mode)
     {
         CacheSceneReferences();
+    }
+
+    private void OnDuringSceneGui(SceneView sceneView)
+    {
+        Camera camera = Camera.main;
+        if (camera != null)
+        {
+            // Get camera view dimensions
+            float cameraHalfHeight = camera.orthographicSize;
+            float cameraHalfWidth = camera.aspect * cameraHalfHeight;
+            Vector2 cameraHalfExtent = new Vector2(cameraHalfWidth, cameraHalfHeight);
+            
+            // Draw rectangle representing camera preview
+            Rect rect = new Rect(m_PreviewCameraPosition - cameraHalfExtent, 2f * cameraHalfExtent);
+            HandlesUtil.DrawRect(rect, Color.cyan);
+        }
     }
     
     private void OnPointerDown(PointerDownEvent evt)
@@ -166,7 +206,7 @@ public class LevelEditor : EditorWindow
         // Estimated level end
         m_PreviewProgress = previewProgressRatio * 100f;
         
-        Vector3 newSceneViewPivot = m_CameraStartTransform.position + m_PreviewProgress * Vector3.right;
-        SceneView.lastActiveSceneView.pivot = newSceneViewPivot;
+        m_PreviewCameraPosition = (Vector2) m_CameraStartTransform.position + m_PreviewProgress * Vector2.right;
+        SceneView.lastActiveSceneView.pivot = m_PreviewCameraPosition;
     }
 }
