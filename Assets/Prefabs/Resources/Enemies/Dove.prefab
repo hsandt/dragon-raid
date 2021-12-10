@@ -45,6 +45,8 @@ GameObject:
   - component: {fileID: 3476648162736905454}
   - component: {fileID: 1991456190773342602}
   - component: {fileID: 1991456190773342600}
+  - component: {fileID: 5837934089140630814}
+  - component: {fileID: 8033345887616221732}
   - component: {fileID: 1991456190773342597}
   - component: {fileID: 1991456190773342603}
   - component: {fileID: 1991456190773342604}
@@ -218,6 +220,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthParameters: {fileID: 11400000, guid: cb73248aabe0d3e3d9b6e30673e72e48, type: 2}
   healthAestheticParameters: {fileID: 11400000, guid: 9d5de0352102be375bd0aac716a9136c, type: 2}
+--- !u!114 &5837934089140630814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991456190773342592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09a4ad5febe19bb1bb28d288598be73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCookProgress: 0
+  cookProgress: 0
+--- !u!114 &8033345887616221732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991456190773342592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c87a09505526468a5ea7e8648d2e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1991456190773342597
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -87,5 +87,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6764f72dcf4c378b1f8a96158fdd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: -45
-  speed: 8
+  angle: -12.735118
+  speed: 6.296256

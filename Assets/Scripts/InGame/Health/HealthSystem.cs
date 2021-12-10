@@ -44,7 +44,8 @@ public class HealthSystem : ClearableBehaviour
     /* Sibling components (optional) */
 
     private CharacterMaster m_CharacterMaster;
-
+    private CookSystem m_CookSystem;
+    
     
     /* State */
     
@@ -73,6 +74,7 @@ public class HealthSystem : ClearableBehaviour
         m_Brighten = this.GetComponentOrFail<Brighten>();
 
         m_CharacterMaster = GetComponent<CharacterMaster>();
+        m_CookSystem = GetComponent<CookSystem>();
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
         
@@ -105,7 +107,7 @@ public class HealthSystem : ClearableBehaviour
     }
 
     /// Low-level function to deal damage, check death and update observers
-    /// This is private as you should always check for invincibility and apply visual feedbackk
+    /// This is private as you should always check for invincibility and apply visual feedback
     /// via the Try...Damage methods
     private void TakeDamage(int value)
     {
@@ -116,13 +118,20 @@ public class HealthSystem : ClearableBehaviour
         if (value > 0)
         {
             m_Health.value -= value;
-            
+
             if (m_Health.value <= 0)
             {
                 m_Health.value = 0;
                 Die();
             }
     
+            if (m_CookSystem != null)
+            {
+                // Note that this is the unclamped value
+                // This way, an overkill attack on an enemy with low HP will still cook a lot!
+                m_CookSystem.AdvanceCookProgress(value);
+            }
+            
             NotifyValueChangeToObservers();
         }
     }
