@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c87a09505526468a5ea7e8648d2e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cookParameters: {fileID: 11400000, guid: c10dace48c791704496383c0d5977906, type: 2}
 --- !u!114 &1991456190773342597
 MonoBehaviour:
   m_ObjectHideFlags: 0
