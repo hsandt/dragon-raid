@@ -42,7 +42,7 @@ public class BodyAttack : MonoBehaviour
     /// Damage target
     private void TryPeriodicDamage(HealthSystem targetHealthSystem)
     {
-        bool didDamage = targetHealthSystem.TryTakePeriodicDamage(bodyAttackParameters.damage);
+        bool didDamage = targetHealthSystem.TryTakePeriodicDamage(bodyAttackParameters.damage, ElementType.Neutral);
 
         if (didDamage)
         {

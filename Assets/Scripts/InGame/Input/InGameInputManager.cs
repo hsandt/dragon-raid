@@ -136,7 +136,7 @@ public class InGameInputManager : SingletonManager<InGameInputManager>
     {
         if (InGameManager.Instance.CanUseCheat)
         {
-            PlayerCharacterPoolManager.Instance.KillPlayerCharacter();
+            PlayerCharacterPoolManager.Instance.Cheat_KillPlayerCharacter();
         }
     }
 

@@ -109,7 +109,7 @@ public class HealthSystem : ClearableBehaviour
     /// Low-level function to deal damage, check death and update observers
     /// This is private as you should always check for invincibility and apply visual feedback
     /// via the Try...Damage methods
-    private void TakeDamage(int value)
+    private void TakeDamage(int value, ElementType elementType)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(CanBeDamaged());
@@ -125,7 +125,8 @@ public class HealthSystem : ClearableBehaviour
                 Die();
             }
     
-            if (m_CookSystem != null)
+            // If this entity is cookable and damaged by fire, advance cook progress
+            if (m_CookSystem != null && elementType == ElementType.Fire)
             {
                 // Note that this is the unclamped value
                 // This way, an overkill attack on an enemy with low HP will still cook a lot!
@@ -138,26 +139,26 @@ public class HealthSystem : ClearableBehaviour
 
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     /// Kill unit instantly
-    public void TryBeKilled()
+    public void Cheat_TryBeKilled()
     {
         if (!CanBeDamaged())
         {
             return;
         }
         
-        TakeDamage(m_Health.value);
+        TakeDamage(m_Health.value, ElementType.Neutral);
     }
     #endif
 
     /// Apply one-shot damage and return whether it worked or not
-    public bool TryTakeOneShotDamage(int value)
+    public bool TryTakeOneShotDamage(int value, ElementType elementType)
     {
         if (!CanBeDamaged())
         {
             return false;
         }
 
-        TakeDamage(value);
+        TakeDamage(value, elementType);
         
         if (m_Health.value > 0)
         {
@@ -169,14 +170,14 @@ public class HealthSystem : ClearableBehaviour
     }
 
     /// Apply periodic damage and return whether it worked or not
-    public bool TryTakePeriodicDamage(int value)
+    public bool TryTakePeriodicDamage(int value, ElementType elementType)
     {
         if (!CanBeDamaged())
         {
             return false;
         }
         
-        TakeDamage(value);
+        TakeDamage(value, elementType);
         
         if (m_Health.value > 0)
         {

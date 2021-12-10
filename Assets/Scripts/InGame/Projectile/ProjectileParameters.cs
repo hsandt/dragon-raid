@@ -8,4 +8,7 @@ public class ProjectileParameters : ScriptableObject
 {
     [Tooltip("Damage dealt to target on impact (health unit)")]
     public int damage = 1;
+    
+    [Tooltip("Element type of damage dealt")]
+    public ElementType elementType = ElementType.Neutral;
 }

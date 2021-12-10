@@ -60,13 +60,13 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
     }
     
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    public void KillPlayerCharacter()
+    public void Cheat_KillPlayerCharacter()
     {
         // Pool is generic, so loop on all player characters although we know there is only one
         foreach (PlayerCharacterMaster activePlayerCharacter in GetObjectsInUse())
         {
             var healthSystem = activePlayerCharacter.GetComponentOrFail<HealthSystem>();
-            healthSystem.TryBeKilled();
+            healthSystem.Cheat_TryBeKilled();
         }
     }
     #endif

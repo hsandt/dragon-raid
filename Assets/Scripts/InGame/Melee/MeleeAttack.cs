@@ -158,7 +158,7 @@ public class MeleeAttack : ClearableBehaviour
                 if (targetHealthSystem != null)
                 {
                     // Try to damage target found
-                    bool didDamage = targetHealthSystem.TryTakeOneShotDamage(bodyAttackParameters.damage);
+                    bool didDamage = targetHealthSystem.TryTakeOneShotDamage(bodyAttackParameters.damage, ElementType.Neutral);
     
                     if (didDamage)
                     {

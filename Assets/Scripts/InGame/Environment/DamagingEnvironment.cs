@@ -57,7 +57,7 @@ public class DamagingEnvironment : MonoBehaviour
     /// Impact on target: damage it and self-destruct
     private void TryPeriodicDamage(HealthSystem targetHealthSystem)
     {
-        bool didDamage = targetHealthSystem.TryTakePeriodicDamage(damagingEnvironmentParameters.damage);
+        bool didDamage = targetHealthSystem.TryTakePeriodicDamage(damagingEnvironmentParameters.damage, ElementType.Neutral);
 
         if (didDamage)
         {
