@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b0367fa6b9455d0a9c39f62c3bb1fa, type: 3}
   m_Name: CookParameters_Dove
   m_EditorClassIdentifier: 
-  wellDoneThreshold: 5
+  wellDoneThreshold: 1
