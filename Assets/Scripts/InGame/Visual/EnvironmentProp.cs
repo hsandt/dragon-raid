@@ -21,13 +21,19 @@ public class EnvironmentProp : MonoBehaviour
     // The object should be a visual prop, so Update is fine 
     public void Update()
     {
-        // Add a margin of 1px just in case pixel perfect rounding made the visual still visible on screen
-        // Remember that VisualLeftLimitX is already signed, so negative for left edge
-        // We assume scrolling only goes left and all environment props follow scrolling,
-        // so we don't have to mind about the right edge
-        if (transform.position.x + halfWidth < ScrollingManager.Instance.VisualLeftLimitX - 1f)
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
         {
-            gameObject.SetActive(false);
+            // Check if object has left screen to th left side, with predefined margin
+            // Remember to use camera position as we now move PC and camera within a static world
+            // Add a margin of 1px just in case pixel perfect rounding made the visual still visible on screen
+            // Remember that VisualLeftLimitX is already signed, so negative for left edge
+            // We assume scrolling only goes left and all environment props follow scrolling,
+            // so we don't have to mind about the right edge
+            if (transform.position.x + halfWidth < mainCamera.transform.position.x + ScrollingManager.Instance.VisualLeftLimitX - 1f)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
