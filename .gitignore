@@ -101,3 +101,8 @@ crashlytics-build.properties
 # and since only editor scripts, project will still run without)
 /[Aa]ssets/Asset Usage Finder.meta
 /[Aa]ssets/Asset Usage Finder/
+
+# Samples that can be imported with a package
+# They are just here for demonstration and shouldn't be used in the project
+/[Aa]ssets/Samples.meta
+/[Aa]ssets/Samples/
