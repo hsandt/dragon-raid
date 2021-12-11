@@ -4,13 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsPattern;
-using UnityEditor;
 
 /// System component for pick-up items
 public class PickUp : MonoBehaviour, IPooledObject
 {
+    [Header("Parameters data")]
+    
+    [Tooltip("Pick-up Parameters Data")]
+    public PickUpParameters pickUpParameters;
+    
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(pickUpParameters != null, this, "[PickUpSystem] No Pick-up Parameters asset set on {0}", this);
+        #endif
+
         // Check that item is still alive, to avoid being picked twice in the same frame
         // (although it's not possible with a single player character anyway)
         if (IsInUse())

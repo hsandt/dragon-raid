@@ -206,7 +206,12 @@ public class HealthSystem : ClearableBehaviour
         // and projectiles would have priority when hitting target on the same frame as exit)
         // Also verify that the health system is not currently invincible,
         // and that we are not playing a flow sequence that should not allow damage.
-        return m_PooledObject.IsInUse() && !IsInvincible && InGameManager.Instance.CanAnyEntityBeDamaged;
+        return m_PooledObject.IsInUse() && !IsInvincible && InGameManager.Instance.CanAnyEntityBeDamagedOrHealed;
+    }
+
+    private bool CanRecover()
+    {
+        return m_PooledObject.IsInUse() && InGameManager.Instance.CanAnyEntityBeDamagedOrHealed;
     }
 
     private void Die()
@@ -238,7 +243,28 @@ public class HealthSystem : ClearableBehaviour
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
     }
+
+    private void Recover(int value)
+    {
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.Assert(CanRecover());
+        #endif
+
+        // Recover health up to max value
+        m_Health.value = Mathf.Min(m_Health.value + value, m_Health.maxValue);
+        
+        NotifyValueChangeToObservers();
+    }
     
+    public void TryRecover(int value)
+    {
+        if (!CanRecover())
+        {
+            return;
+        }
+        
+        Recover(value);
+    }
     
     /* Observer pattern */
     

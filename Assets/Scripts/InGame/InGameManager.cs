@@ -71,7 +71,7 @@ public class InGameManager : SingletonManager<InGameManager>
     // happen right in the middle of the Restart Sequence, so we should not check for !m_IsPlayingRestartSequence
     public bool CanRestartLevel => !m_IsGamePaused && !m_IsFinishingLevel;
     public bool CanFinishLevel => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
-    public bool CanAnyEntityBeDamaged => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
+    public bool CanAnyEntityBeDamagedOrHealed => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     public bool CanTriggerSpatialProgressEvent => !m_IsGamePaused && !m_IsFinishingLevel && !m_IsPlayingRestartSequence;
     
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
