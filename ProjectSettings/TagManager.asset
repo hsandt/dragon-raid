@@ -37,7 +37,7 @@ TagManager:
   - 
   - InvisibleWall
   - 
-  - 
+  - PickUp
   - 
   - LivingZone
   - 
@@ -61,6 +61,9 @@ TagManager:
     locked: 0
   - name: Level_Dragon
     uniqueID: 753183255
+    locked: 0
+  - name: Level_PickUp
+    uniqueID: 151875487
     locked: 0
   - name: Level_ThrowProjectile
     uniqueID: 3040915957

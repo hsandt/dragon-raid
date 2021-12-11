@@ -24,7 +24,7 @@ public class EnvironmentProp : MonoBehaviour
         Camera mainCamera = Camera.main;
         if (mainCamera != null)
         {
-            // Check if object has left screen to th left side, with predefined margin
+            // Check if object has left screen to the left side, with predefined margin
             // Remember to use camera position as we now move PC and camera within a static world
             // Add a margin of 1px just in case pixel perfect rounding made the visual still visible on screen
             // Remember that VisualLeftLimitX is already signed, so negative for left edge
