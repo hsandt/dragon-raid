@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -220,6 +221,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      projectile_fireball_impact_spritesheet_classic_0: 3459474658204554586
+      projectile_fireball_impact_spritesheet_classic_3: 8571754651483645374
+      projectile_fireball_impact_spritesheet_classic_2: -4830872509790701028
+      projectile_fireball_impact_spritesheet_classic_1: -7622532561685878819
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

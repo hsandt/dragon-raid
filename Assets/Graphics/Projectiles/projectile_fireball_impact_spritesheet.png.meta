@@ -126,6 +126,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -571,6 +572,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      projectile_fireball_impact_spritesheet_15: -5000116297605096390
+      projectile_fireball_impact_spritesheet_7: 1383787530715693586
+      projectile_fireball_impact_spritesheet_12: -3786093973488514517
+      projectile_fireball_impact_spritesheet_4: 6626436987915088659
+      projectile_fireball_impact_spritesheet_6: -3315804106667708785
+      projectile_fireball_impact_spritesheet_9: 5796462597814593602
+      projectile_fireball_impact_spritesheet_11: 5958264666565956762
+      projectile_fireball_impact_spritesheet_13: 6462790393593252489
+      projectile_fireball_impact_spritesheet_14: 5691119552608332904
+      projectile_fireball_impact_spritesheet_1: -4561309920375870554
+      projectile_fireball_impact_spritesheet_0: -5361527223419541628
+      projectile_fireball_impact_spritesheet_10: 8136729202242274974
+      projectile_fireball_impact_spritesheet_3: 4592483917916239982
+      projectile_fireball_impact_spritesheet_2: 3971639578494278912
+      projectile_fireball_impact_spritesheet_5: -2092013694427051649
+      projectile_fireball_impact_spritesheet_16: 4658233769407990989
+      projectile_fireball_impact_spritesheet_8: 1579823946253585403
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
