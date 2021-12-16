@@ -10,8 +10,8 @@ public class EnemyWaveButton : Button
     
     /* Queried elements */
     
-    /// Label showing enemy wave name
-    private Label m_Label;
+    /// Button showing enemy wave name
+    private Button m_Button;
     
 
     /// Parameterless constructor to allow UxmlFactory for manual editing (mostly for testing)
@@ -24,9 +24,9 @@ public class EnemyWaveButton : Button
     {
         Init();
 
-        if (m_Label != null)
+        if (m_Button != null)
         {
-            m_Label.text = waveName;
+            m_Button.text = waveName;
         }
     }
     
@@ -35,6 +35,6 @@ public class EnemyWaveButton : Button
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor/EnemyWaveButton.uxml");
         visualTree.CloneTree(this);
 
-        m_Label = this.Q<Label>("Label");
+        m_Button = this.Q<Button>("Button");
     }
 }

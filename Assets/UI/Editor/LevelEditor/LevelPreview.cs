@@ -66,17 +66,16 @@ public class LevelPreview : VisualElement
         Debug.AssertFormat(m_EnemyWavePreviewArea != null, "[LevelEditor] No VisualElement 'EnemyWavePreviewArea' found on Level Editor UXML");
 
         CacheSceneReferences();
-
-        RegisterInternalCallbacks();
-        RegisterExternalCallbacks();
-        Setup();
-        
         GenerateWaveButtons();
+
+        RegisterExternalCallbacks();
+        RegisterInternalCallbacks();
+        
+        Setup();
     }
     
     public void OnDestroy()
     {
-        ClearSceneReferences();
         UnregisterExternalCallbacks();
     }
 
@@ -108,12 +107,6 @@ public class LevelPreview : VisualElement
             Debug.LogError("[LevelEditor] Could not find Game Object tagged EnemyWaves");
         }
     }
-    private void ClearSceneReferences()
-    {
-        m_CameraStartTransform = null;
-        m_LevelData = null;
-    }
-
     public void RegisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened += OnSceneOpened;
@@ -140,6 +133,8 @@ public class LevelPreview : VisualElement
     
     private void GenerateWaveButtons()
     {
+        m_EnemyWavePreviewArea.Clear();
+        
         if (m_EnemyWavesParent == null )
         {
             CacheSceneReferences();
@@ -155,7 +150,7 @@ public class LevelPreview : VisualElement
         for (int i = 0; i < allEnemyWaves.Length; i++)
         {
             EnemyWave enemyWave = allEnemyWaves[i];
-            AddEnemyWaveButton(i, enemyWave.ToString());
+            AddEnemyWaveButton(i, enemyWave.name);
         }
     }
 
