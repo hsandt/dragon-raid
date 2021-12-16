@@ -20,8 +20,8 @@ public class LevelPreview : VisualElement
     /// Cached level data, retrieved from the level identifier of the current scene
     private LevelData m_LevelData;
 
-    /// Cached enemy wave parent
-    private GameObject m_EnemyWavesParent;
+    /// Cached spatial events parent
+    private GameObject m_SpatialEventsParent;
 
     
     /* Queried elements */
@@ -101,18 +101,18 @@ public class LevelPreview : VisualElement
                            "or LevelIdentifier component with Level Data is missing on it");
         }
 
-        m_EnemyWavesParent = GameObject.FindWithTag(Tags.EnemyWaves);
-        if (m_EnemyWavesParent == null)
+        m_SpatialEventsParent = GameObject.FindWithTag(Tags.SpatialEvents);
+        if (m_SpatialEventsParent == null)
         {
-            Debug.LogError("[LevelEditor] Could not find Game Object tagged EnemyWaves");
+            Debug.LogError("[LevelEditor] Could not find Game Object tagged SpatialEvents");
         }
     }
-    public void RegisterExternalCallbacks()
+    private void RegisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened += OnSceneOpened;
         SceneView.duringSceneGui += OnDuringSceneGui;
     }
-    public void UnregisterExternalCallbacks()
+    private void UnregisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened -= OnSceneOpened;
         SceneView.duringSceneGui -= OnDuringSceneGui;
@@ -133,24 +133,32 @@ public class LevelPreview : VisualElement
     
     private void GenerateWaveButtons()
     {
+        // Seems too early, there are no children at this point, but *afterward* the sample button appears at the bottom
         m_EnemyWavePreviewArea.Clear();
         
-        if (m_EnemyWavesParent == null )
+        if (m_SpatialEventsParent == null )
         {
             CacheSceneReferences();
             
-            if (m_EnemyWavesParent == null )
+            if (m_SpatialEventsParent == null )
             {
                 return;
             }
         }
 
-        EnemyWave[] allEnemyWaves = m_EnemyWavesParent.GetComponentsInChildren<EnemyWave>();
+        EnemyWave[] allEnemyWaves = m_SpatialEventsParent.GetComponentsInChildren<EnemyWave>();
+        var allSpatialEventTriggers = m_SpatialEventsParent.GetComponentsInChildren<EventTrigger_SpatialProgress>();
 
-        for (int i = 0; i < allEnemyWaves.Length; i++)
+        for (int i = 0; i < allSpatialEventTriggers.Length; i++)
         {
-            EnemyWave enemyWave = allEnemyWaves[i];
-            AddEnemyWaveButton(i, enemyWave.name);
+            EventTrigger_SpatialProgress spatialEventTrigger = allSpatialEventTriggers[i];
+            
+            // For now, only care about Enemy Wave
+            var enemyWave = spatialEventTrigger.GetComponent<EnemyWave>();
+            if (enemyWave != null)
+            {
+                AddEnemyWaveButton(i, spatialEventTrigger, enemyWave);
+            }
         }
     }
 
@@ -258,18 +266,16 @@ public class LevelPreview : VisualElement
     
     /* Enemy Wave Editor */
     
-    private EnemyWaveButton AddEnemyWaveButton(float x, string waveName)
+    private EnemyWaveButton AddEnemyWaveButton(int index, EventTrigger_SpatialProgress spatialEventTrigger, EnemyWave enemyWave)
     {
         // Create button with class
-        EnemyWaveButton enemyWaveButton = new EnemyWaveButton(waveName);
-
+        EnemyWaveButton enemyWaveButton = new EnemyWaveButton();
+        enemyWaveButton.Init(spatialEventTrigger, enemyWave);
+        
         // Custom styling
-
+        float x = spatialEventTrigger.RequiredSpatialProgress * 10f;
         enemyWaveButton.style.left = x;
-
-        // Bind behaviour to select game object on button click
-        // actionButton.clickable.clicked += () => { Selection.activeObject = target; };
-
+        
         m_EnemyWavePreviewArea.Add(enemyWaveButton);
         
         return enemyWaveButton;
