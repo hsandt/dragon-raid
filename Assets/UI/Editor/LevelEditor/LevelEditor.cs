@@ -1,42 +1,17 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 using UnityConstants;
-using CommonsHelper;
 
 public class LevelEditor : EditorWindow
 {
-    /* Cached scene references */
-    
-    /// Cached camera start position reference
-    private Transform m_CameraStartTransform;
-    
-    /// Cached level data, retrieved from the level identifier of the current scene
-    private LevelData m_LevelData;
-
-    
     /* Queried elements */
     
-    /// Area showing the level preview
-    private VisualElement m_LevelPreviewArea;
-    
-    /// Rectangle representing the camera preview
-    /// Can be dragged to move the scene view across the level quickly
-    private VisualElement m_LevelPreviewRectangle;
-    
-    /// Area showing enemy waves in the current level preview rectangle
-    private VisualElement m_EnemyWavePreviewArea;
-    
-    
-    /* State */
-
-    /// Level spatial progress corresponding to the back (generally left) edge
-    /// of the preview rectangle
-    private float m_PreviewProgress;
-    private Vector2 m_PreviewCameraPosition;
+    /// Level preview (main content)
+    private LevelPreview m_LevelPreview;    
     
     
     [MenuItem("Window/Game/Level Editor")]
@@ -50,213 +25,57 @@ public class LevelEditor : EditorWindow
     {
         VisualElement root = rootVisualElement;
 
-        // Import UXML
+        // Import UXML (it's mostly empty)
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor/LevelEditor.uxml");
         visualTree.CloneTree(root);
 
-        // Query existing elements
-        m_LevelPreviewArea = rootVisualElement.Q<VisualElement>("LevelPreviewArea");
-        Debug.AssertFormat(m_LevelPreviewArea != null, "[LevelEditor] No VisualElement 'LevelPreviewArea' found on Level Editor UXML");
-
-        m_LevelPreviewRectangle = rootVisualElement.Q<VisualElement>("LevelPreviewRectangle");
-        Debug.AssertFormat(m_LevelPreviewRectangle != null, "[LevelEditor] No VisualElement 'LevelPreviewRectangle' found on Level Editor UXML");
-
-        m_EnemyWavePreviewArea = rootVisualElement.Q<VisualElement>("EnemyWavePreviewArea");
-        Debug.AssertFormat(m_EnemyWavePreviewArea != null, "[LevelEditor] No VisualElement 'EnemyWavePreviewArea' found on Level Editor UXML");
-
-        RegisterInternalCallbacks();
-        Setup();
-        
-        AddEnemyWaveButton(0f, "Wave 0");
-        AddEnemyWaveButton(1f, "Wave 1");
-        AddEnemyWaveButton(2f, "Wave 2");
-        AddEnemyWaveButton(3f, "Wave 3");
-        AddEnemyWaveButton(4f, "Wave 4");
-    }
-
-    private void OnEnable()
-    {
-        CacheSceneReferences();
         RegisterExternalCallbacks();
-    }
 
-    private void OnDisable()
+        TryCreateLevelPreview();
+    }
+    
+    private void OnDestroy()
     {
-        ClearSceneReferences();
+        m_LevelPreview?.OnDestroy();
+        
         UnregisterExternalCallbacks();
     }
-
-    private void CacheSceneReferences()
-    {
-        // We cache scene references on window open, but also on scene change.
-        // In addition, if a tagged object found previously has been destroyed, we will search for a tagged object
-        // one last time and return early if we still find nothing. So we are safe against missing object null references.
-        // However, if you retag objects after opening this window, this will not be detected, and our references may
-        // be outdated (e.g. using the wrong transform). This should be a rare case, so just reopen the window,
-        // or make sure that the previously tagged object was destroyed, to force cache reference refresh.
-        
-        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition)?.transform;
-        if (m_CameraStartTransform == null)
-        {
-            Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");
-        }
-        
-        m_LevelData = GameObject.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
-        if (m_LevelData == null)
-        {
-            Debug.LogError("[LevelEditor] Could not find Game Object tagged LevelIdentifier, " +
-                           "or LevelIdentifier component with Level Data is missing on it");
-        }
-    }
-    private void ClearSceneReferences()
-    {
-        m_CameraStartTransform = null;
-        m_LevelData = null;
-    }
-
+    
     private void RegisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened += OnSceneOpened;
-        SceneView.duringSceneGui += OnDuringSceneGui;
     }
+    
     private void UnregisterExternalCallbacks()
     {
         EditorSceneManager.sceneOpened -= OnSceneOpened;
-        SceneView.duringSceneGui -= OnDuringSceneGui;
     }
     
-    private void RegisterInternalCallbacks()
-    {
-        // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
-        m_LevelPreviewArea.RegisterCallback<PointerDownEvent>(OnPreviewAreaPointerDown);
-        m_LevelPreviewArea.RegisterCallback<PointerUpEvent>(OnPreviewAreaPointerUp);
-        m_LevelPreviewArea.RegisterCallback<PointerMoveEvent>(OnPreviewAreaPointerMove);
-    }
-    
-    private void Setup()
-    {
-        m_PreviewProgress = 0f;
-    }
-
     private void OnSceneOpened(Scene scene, OpenSceneMode mode)
     {
-        CacheSceneReferences();
+        TryCreateLevelPreview();
     }
 
-    private void OnDuringSceneGui(SceneView sceneView)
+    private void TryCreateLevelPreview()
     {
-        Camera camera = Camera.main;
-        if (camera != null)
+        rootVisualElement.Clear();
+        
+        // Only create LevelPreview main widget if a Level scene is open
+        if (GameObject.FindWithTag(Tags.LevelIdentifier) != null)
         {
-            // Get camera view dimensions
-            float cameraHalfHeight = camera.orthographicSize;
-            float cameraHalfWidth = camera.aspect * cameraHalfHeight;
-            Vector2 cameraHalfExtent = new Vector2(cameraHalfWidth, cameraHalfHeight);
+            m_LevelPreview = new LevelPreview();
+            m_LevelPreview.Init();
             
-            // Draw rectangle representing camera preview
-            Rect rect = new Rect(m_PreviewCameraPosition - cameraHalfExtent, 2f * cameraHalfExtent);
-            HandlesUtil.DrawRect(rect, Color.cyan);
-            
-            // Draw "Preview" in the top-left corner
-            Vector2 offset = new Vector2(0.1f, -0.1f);
-            HandlesUtil.Label2D(new Vector2(rect.xMin, rect.yMax) + offset, "Preview",
-                2f,  true, Color.white);
+            rootVisualElement.Add(m_LevelPreview);
         }
-    }
-    
-    private void OnPreviewAreaPointerDown(PointerDownEvent evt)
-    {
-        // Capture pointer (in preview area, not preview rectangle, to allow
-        // clicking anywhere to warp the preview rectangle, and to avoid motion jitter)
-        m_LevelPreviewArea.CapturePointer(evt.pointerId);
-        
-        // Highlight preview rectangle
-        m_LevelPreviewRectangle.AddToClassList("preview-rectangle--dragged");
-
-        // Warp preview rectangle to pointer
-        UpdatePreviewRectanglePosition(evt.localPosition);
-    }
-    
-    private void OnPreviewAreaPointerUp(PointerUpEvent evt)
-    {
-        // Release pointer
-        m_LevelPreviewArea.ReleasePointer(evt.pointerId);
-        
-        // Stop highlighting preview rectangle
-        m_LevelPreviewRectangle.RemoveFromClassList("preview-rectangle--dragged");
-        
-        // Warp preview rectangle to pointer one last time
-        UpdatePreviewRectanglePosition(evt.localPosition);
-    }
-    
-    private void OnPreviewAreaPointerMove(PointerMoveEvent evt)
-    {
-        // Check that we have started the drag from inside the preview area
-        if (m_LevelPreviewArea.panel.GetCapturingElement(evt.pointerId) == evt.target)
+        else
         {
-            // Move preview rectangle along with pointer
-            UpdatePreviewRectanglePosition(evt.localPosition);
-        }
-    }
-
-    private void UpdatePreviewRectanglePosition(Vector2 localPosition)
-    {
-        // Center preview rectangle around pointer by subtracting half-width
-        // Clamp to limits of containing area (PreviewArea)
-        float maxPreviewRectangleX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.contentRect.width;
-        float previewRectangleX = Mathf.Clamp(localPosition.x - m_LevelPreviewRectangle.contentRect.width / 2,
-            0, maxPreviewRectangleX);
-        MovePreviewRectangle(previewRectangleX);
-        
-        // Compute the preview progress ratio (it's close to the level progress ratio, except since preview
-        // occupies a window, it reaches 100% one content rect width before the end, see maxPreviewRectangleX)
-        float previewProgressRatio = previewRectangleX / maxPreviewRectangleX;
-        MoveSceneViewToPreviewProgressRatio(previewProgressRatio);
-    }
-
-    private void MovePreviewRectangle(float previewRectangleX)
-    {
-        m_LevelPreviewRectangle.style.left = previewRectangleX;
-    }
-
-    private void MoveSceneViewToPreviewProgressRatio(float previewProgressRatio)
-    {
-        if (m_CameraStartTransform == null || m_LevelData == null)
-        {
-            CacheSceneReferences();
+            Label errorLabel = new Label("No Level scene opened");
+            rootVisualElement.Add(errorLabel);
             
-            if (m_CameraStartTransform == null || m_LevelData == null)
-            {
-                return;
-            }
+            Button retryButton = new Button(TryCreateLevelPreview);
+            retryButton.text = "Retry Create Level Preview";
+            rootVisualElement.Add(retryButton);
         }
-
-        // Compute preview progress from ratio
-        m_PreviewProgress = previewProgressRatio * m_LevelData.maxScrollingProgress;
-        
-        // Only support scrolling to the right for now
-        m_PreviewCameraPosition = (Vector2) m_CameraStartTransform.position + m_PreviewProgress * Vector2.right;
-        SceneView.lastActiveSceneView.pivot = m_PreviewCameraPosition;
-    }
-    
-    
-    /* Enemy Wave Editor */
-    
-    private EnemyWaveButton AddEnemyWaveButton(float x, string waveName)
-    {
-        // Create button with class
-        EnemyWaveButton enemyWaveButton = new EnemyWaveButton(waveName);
-        enemyWaveButton.AddToClassList("behaviour-action-button");
-
-        // Custom styling
-
-        enemyWaveButton.style.left = x;
-
-        // Bind behaviour to select game object on button click
-        // actionButton.clickable.clicked += () => { Selection.activeObject = target; };
-
-        m_EnemyWavePreviewArea.Add(enemyWaveButton);
-        
-        return enemyWaveButton;
     }
 }
