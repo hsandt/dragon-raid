@@ -43,13 +43,17 @@ public class CookSystem : ClearableBehaviour
         }
     }
 
-    /// Spawn Cooked Enemy pickup for the current progress, or nothing if not cooked enough
+    /// Spawn Cooked Enemy pickup for the current progress, or do nothing based on random result
     /// Call this when the enemy dies
-    public void SpawnCookedEnemyForCurrentProgress()
+    public void RandomSpawnCookedEnemyForCurrentProgress()
     {
-        CookLevel cookLevel = GetCurrentCookLevel();
-        // Ex: "CookedEnemy_CookLevel1"
-        PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{(int) cookLevel}", transform.position);
+        if (Random.value <= cookParameters.cookedEnemySpawnProbability)
+        {
+            CookLevel cookLevel = GetCurrentCookLevel();
+            
+            // Ex: "CookedEnemy_CookLevel1"
+            PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{(int) cookLevel}", transform.position);
+        }
     }
 
     private CookLevel GetCurrentCookLevel()

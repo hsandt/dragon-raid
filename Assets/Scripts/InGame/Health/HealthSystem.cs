@@ -244,10 +244,10 @@ public class HealthSystem : ClearableBehaviour
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
         
-        // If cookable and cooked enough, spawn cooked enemy
+        // If cookable and cooked enough, spawn cooked enemy with randomness
         if (m_CookSystem != null)
         {
-            m_CookSystem.SpawnCookedEnemyForCurrentProgress();
+            m_CookSystem.RandomSpawnCookedEnemyForCurrentProgress();
         }
     }
 
