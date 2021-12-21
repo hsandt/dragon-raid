@@ -38,7 +38,8 @@ public class CookSystem : ClearableBehaviour
     {
         if (value > 0)
         {
-            m_CookStatus.cookProgress = Mathf.Min(m_CookStatus.cookProgress + value, cookParameters.wellDoneThreshold); 
+            int maxCookLevelThreshold = cookParameters.cookLevelThresholds[cookParameters.cookLevelThresholds.Length - 1];
+            m_CookStatus.cookProgress = Mathf.Min(m_CookStatus.cookProgress + value, maxCookLevelThreshold); 
         }
     }
 
@@ -46,10 +47,26 @@ public class CookSystem : ClearableBehaviour
     /// Call this when the enemy dies
     public void SpawnCookedEnemyForCurrentProgress()
     {
-        if (m_CookStatus.cookProgress >= cookParameters.wellDoneThreshold)
+        CookLevel cookLevel = GetCurrentCookLevel();
+        // Ex: "CookedEnemy_CookLevel1"
+        PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{(int) cookLevel}", transform.position);
+    }
+
+    private CookLevel GetCurrentCookLevel()
+    {
+        // Threshold pattern
+        for (int i = 0; i < cookParameters.cookLevelThresholds.Length; ++i)
         {
-            int cookLevel = 0;
-            PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{cookLevel}", transform.position);
+            int threshold = cookParameters.cookLevelThresholds[i];
+
+            // Upper threshold excludes current level, so <
+            if (m_CookStatus.cookProgress < threshold)
+            {
+                return (CookLevel) i;
+            }
         }
+
+        // Last threshold reached
+        return CookLevel.Carbonized;
     }
 }

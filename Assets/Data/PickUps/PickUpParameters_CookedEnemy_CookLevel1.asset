@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98b0367fa6b9455d0a9c39f62c3bb1fa, type: 3}
-  m_Name: CookParameters_Dove
+  m_Script: {fileID: 11500000, guid: 56d9a84dbf67fe027870e0d88e067fd0, type: 3}
+  m_Name: PickUpParameters_CookedEnemy_CookLevel1
   m_EditorClassIdentifier: 
-  cookLevelThresholds: 010000000200000003000000
+  healthRecovery: 1

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8669100792888354378}
   - component: {fileID: 7889951143906239984}
   m_Layer: 20
-  m_Name: CookedEnemy_CookLevel0
+  m_Name: CookedEnemy_CookLevel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 151875487
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1466369959, guid: 88080c3eaa1664d10b640cc1ccb26920, type: 3}
+  m_Sprite: {fileID: 1572506883, guid: 88080c3eaa1664d10b640cc1ccb26920, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dedfa6502c49a9697b843badcb05fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpParameters: {fileID: 11400000, guid: 0283172cb172a7feb87556fec878c196, type: 2}
+  pickUpParameters: {fileID: 11400000, guid: 11765063b0920a9ba9df002fe672261f, type: 2}
