@@ -49,4 +49,15 @@ public class PickUp : MonoBehaviour, IPooledObject
     public void Release()
     {
         gameObject.SetActive(false);
-    }}
+    }
+    
+    
+    /* Own methods */
+
+    public void Spawn(Vector2 position)
+    {
+        gameObject.SetActive(true);
+        
+        transform.position = position;
+    }
+}

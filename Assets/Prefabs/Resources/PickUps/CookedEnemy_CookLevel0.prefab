@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8669100792888354378}
   - component: {fileID: 7889951143906239984}
   m_Layer: 20
-  m_Name: PickUp Chicken
+  m_Name: CookedEnemy_CookLevel0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

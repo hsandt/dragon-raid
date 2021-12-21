@@ -38,11 +38,18 @@ public class CookSystem : ClearableBehaviour
     {
         if (value > 0)
         {
-            m_CookStatus.cookProgress += value;
-            if (m_CookStatus.cookProgress >= cookParameters.wellDoneThreshold)
-            {
-                Debug.Log("Well done!");
-            }
+            m_CookStatus.cookProgress = Mathf.Min(m_CookStatus.cookProgress + value, cookParameters.wellDoneThreshold); 
+        }
+    }
+
+    /// Spawn Cooked Enemy pickup for the current progress, or nothing if not cooked enough
+    /// Call this when the enemy dies
+    public void SpawnCookedEnemyForCurrentProgress()
+    {
+        if (m_CookStatus.cookProgress >= cookParameters.wellDoneThreshold)
+        {
+            int cookLevel = 0;
+            PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{cookLevel}", transform.position);
         }
     }
 }

@@ -205,6 +205,9 @@ public class InGameManager : SingletonManager<InGameManager>
         // Clean up all projectiles
         ProjectilePoolManager.Instance.ReleaseAllObjects();
         
+        // Clean up all PickUp
+        PickUpPoolManager.Instance.ReleaseAllObjects();
+        
         // Clean up all FX
         FXPoolManager.Instance.ReleaseAllObjects();
         
@@ -271,6 +274,7 @@ public class InGameManager : SingletonManager<InGameManager>
             PlayerCharacterPoolManager.Instance.PauseCharacter();
             EnemyPoolManager.Instance.PauseAllEnemies();
             ProjectilePoolManager.Instance.PauseAllProjectiles();
+            PickUpPoolManager.Instance.PauseAllPickUp();
             FXPoolManager.Instance.PauseAllFX();
         }
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -294,6 +298,7 @@ public class InGameManager : SingletonManager<InGameManager>
         PlayerCharacterPoolManager.Instance.ResumeCharacter();
         EnemyPoolManager.Instance.ResumeAllEnemies();
         ProjectilePoolManager.Instance.ResumeAllProjectiles();
+        PickUpPoolManager.Instance.ResumeAllPickUp();
         FXPoolManager.Instance.ResumeAllFX();
     }
     

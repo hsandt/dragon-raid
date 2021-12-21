@@ -16,6 +16,7 @@ TagManager:
   - Background
   - CanvasLevel
   - CameraStartPosition
+  - PickUpPool
   layers:
   - Default
   - TransparentFX

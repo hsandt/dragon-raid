@@ -117,6 +117,15 @@ public class HealthSystem : ClearableBehaviour
         
         if (value > 0)
         {
+            // If this entity is cookable and damaged by fire, advance cook progress
+            // We must do this before death check as death must spawn cooked enemy based on the latest cook progress
+            if (m_CookSystem != null && elementType == ElementType.Fire)
+            {
+                // Note that this is the unclamped value
+                // This way, an overkill attack on an enemy with low HP will still cook a lot!
+                m_CookSystem.AdvanceCookProgress(value);
+            }
+            
             m_Health.value -= value;
 
             if (m_Health.value <= 0)
@@ -125,14 +134,6 @@ public class HealthSystem : ClearableBehaviour
                 Die();
             }
     
-            // If this entity is cookable and damaged by fire, advance cook progress
-            if (m_CookSystem != null && elementType == ElementType.Fire)
-            {
-                // Note that this is the unclamped value
-                // This way, an overkill attack on an enemy with low HP will still cook a lot!
-                m_CookSystem.AdvanceCookProgress(value);
-            }
-            
             NotifyValueChangeToObservers();
         }
     }
@@ -242,6 +243,12 @@ public class HealthSystem : ClearableBehaviour
         
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
+        
+        // If cookable and cooked enough, spawn cooked enemy
+        if (m_CookSystem != null)
+        {
+            m_CookSystem.SpawnCookedEnemyForCurrentProgress();
+        }
     }
 
     private void Recover(int value)

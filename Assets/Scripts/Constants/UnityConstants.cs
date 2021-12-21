@@ -80,6 +80,10 @@ namespace UnityConstants
         /// Name of tag 'CameraStartPosition'.
         /// </summary>
         public const string CameraStartPosition = "CameraStartPosition";
+        /// <summary>
+        /// Name of tag 'PickUpPool'.
+        /// </summary>
+        public const string PickUpPool = "PickUpPool";
     }
 
     public static class SortingLayers
@@ -100,6 +104,10 @@ namespace UnityConstants
         /// ID of sorting layer 'Level_Dragon'.
         /// </summary>
         public const int Level_Dragon = 753183255;
+        /// <summary>
+        /// ID of sorting layer 'Level_PickUp'.
+        /// </summary>
+        public const int Level_PickUp = 151875487;
         /// <summary>
         /// ID of sorting layer 'Level_ThrowProjectile'.
         /// </summary>
@@ -184,6 +192,10 @@ namespace UnityConstants
         /// Index of layer 'InvisibleWall'.
         /// </summary>
         public const int InvisibleWall = 18;
+        /// <summary>
+        /// Index of layer 'PickUp'.
+        /// </summary>
+        public const int PickUp = 20;
         /// <summary>
         /// Index of layer 'LivingZone'.
         /// </summary>
@@ -273,6 +285,10 @@ namespace UnityConstants
         /// Bitmask of layer 'InvisibleWall'.
         /// </summary>
         public const int InvisibleWallMask = 1 << 18;
+        /// <summary>
+        /// Bitmask of layer 'PickUp'.
+        /// </summary>
+        public const int PickUpMask = 1 << 20;
         /// <summary>
         /// Bitmask of layer 'LivingZone'.
         /// </summary>
