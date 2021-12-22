@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cookedEnemySpawnProbability: 0.1
   cookLevelThresholds: 010000000200000003000000
+  healthRecoveryValues: 01000000010000000200000000000000

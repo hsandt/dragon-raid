@@ -62,6 +62,12 @@ public class Projectile : MasterBehaviour, IPooledObject
                 {
                     Impact(targetHealthSystem);
                 }
+                
+                var targetCookedEnemy = targetRigidbody.GetComponent<CookedEnemy>();
+                if (targetCookedEnemy != null)
+                {
+                    Impact(targetCookedEnemy);
+                }
             }
         }
     }
@@ -107,7 +113,7 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
-    /// Impact on target: damage it and self-destruct
+    /// Impact on target health: damage it and self-destruct
     private void Impact(HealthSystem targetHealthSystem)
     {
         bool didDamage = targetHealthSystem.TryTakeOneShotDamage(projectileParameters.damage, projectileParameters.elementType);
@@ -119,6 +125,32 @@ public class Projectile : MasterBehaviour, IPooledObject
             // safety mechanic. In some cases, it may look better to make them block the projectiles
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility
             // (with some enum member) like Smash.
+            Release();
+    
+            if (projectileAestheticParameters != null)
+            {
+                // Visual: impact FX appears centered on projectile's last position
+                FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
+                
+                if (projectileAestheticParameters.sfxImpact != null)
+                {
+                    // Audio: play impact SFX
+                    SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
+                }
+            }
+        }
+    }
+
+    /// Impact on target Cooked Enemy: damage it and self-destruct
+    private void Impact(CookedEnemy CookedEnemy)
+    {
+        // Same as HealthSystem, so we could merge both Impact methods but we'll need to make
+        // TryTakeOneShotDamage a common interface method
+        // FOr now, we keep it separate to allow customizing visual feedback if needed.
+        bool didDamage = CookedEnemy.TryTakeOneShotDamage(projectileParameters.damage, projectileParameters.elementType);
+
+        if (didDamage)
+        {
             Release();
     
             if (projectileAestheticParameters != null)
