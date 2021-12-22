@@ -18,4 +18,8 @@ public class CookParameters : ScriptableObject
              "WellDone between Element 1 and Element 2 (excluded)\n" +
              "Carbonized from Element 2")]
     public int[] cookLevelThresholds = new int[EnumUtil.GetCount<CookLevel>() - 1];
+    
+    [Tooltip("Health recovery value per Cooked Enemy Cook Level.\n" +
+             "Rare (0), Medium (1), WellDone (2), Carbonized (3)")]
+    public int[] healthRecoveryValues = new int[EnumUtil.GetCount<CookLevel>()];
 }

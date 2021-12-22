@@ -73,7 +73,6 @@ public class Projectile : MasterBehaviour, IPooledObject
     {
         // Set active first, or rigidbody setup will be ignored
         gameObject.SetActive(true);
-        Setup();
 
         // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
         // due to pixel perfect camera, use this code to synchronize the sub-pixel at which they are spawned base on
@@ -93,6 +92,10 @@ public class Projectile : MasterBehaviour, IPooledObject
         // but in case it is not, to be safe, we set transform position directly.
         transform.position = (Vector3) position;
         m_Rigidbody2D.velocity = velocity;
+        
+        // Setup can be done before setting transform position, but to follow CharacterMaster we do it after
+        // (in case we add components whose Setup rely on master position later)
+        Setup();
         
         if (projectileAestheticParameters != null && projectileAestheticParameters.sfxSpawn != null)
         {

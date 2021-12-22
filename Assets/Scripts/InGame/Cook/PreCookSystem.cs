@@ -6,7 +6,8 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// System for CookStatus data component
-public class CookSystem : ClearableBehaviour
+/// It is used by a cookable enemy while still alive, to decide how to spawn the Cooked Enemy prefab
+public class PreCookSystem : ClearableBehaviour
 {
     [Header("Parameters data")]
     
@@ -30,7 +31,7 @@ public class CookSystem : ClearableBehaviour
     
     public override void Setup()
     {
-        m_CookStatus.maxCookProgress = 10;
+        m_CookStatus.maxCookProgress = cookParameters.cookLevelThresholds[cookParameters.cookLevelThresholds.Length - 1];
         m_CookStatus.cookProgress = 0;
     }
 
@@ -38,8 +39,7 @@ public class CookSystem : ClearableBehaviour
     {
         if (value > 0)
         {
-            int maxCookLevelThreshold = cookParameters.cookLevelThresholds[cookParameters.cookLevelThresholds.Length - 1];
-            m_CookStatus.cookProgress = Mathf.Min(m_CookStatus.cookProgress + value, maxCookLevelThreshold); 
+            m_CookStatus.cookProgress = Mathf.Min(m_CookStatus.cookProgress + value, m_CookStatus.maxCookProgress); 
         }
     }
 
@@ -49,28 +49,12 @@ public class CookSystem : ClearableBehaviour
     {
         if (Random.value <= cookParameters.cookedEnemySpawnProbability)
         {
-            CookLevel cookLevel = GetCurrentCookLevel();
+            // Spawn prefab as general pick up
+            PickUp pickUp = PickUpPoolManager.Instance.SpawnPickUp("CookedEnemy", transform.position);
             
-            // Ex: "CookedEnemy_CookLevel1"
-            PickUpPoolManager.Instance.SpawnPickUp($"CookedEnemy_CookLevel{(int) cookLevel}", transform.position);
+            // Initialize CookedEnemy component
+            var cookedEnemy = pickUp.GetComponentOrFail<CookedEnemy>();
+            cookedEnemy.Init(cookParameters, m_CookStatus.cookProgress);
         }
-    }
-
-    private CookLevel GetCurrentCookLevel()
-    {
-        // Threshold pattern
-        for (int i = 0; i < cookParameters.cookLevelThresholds.Length; ++i)
-        {
-            int threshold = cookParameters.cookLevelThresholds[i];
-
-            // Upper threshold excludes current level, so <
-            if (m_CookStatus.cookProgress < threshold)
-            {
-                return (CookLevel) i;
-            }
-        }
-
-        // Last threshold reached
-        return CookLevel.Carbonized;
     }
 }

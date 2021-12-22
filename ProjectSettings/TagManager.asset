@@ -37,8 +37,8 @@ TagManager:
   - EnemyMoveBox
   - 
   - InvisibleWall
-  - 
-  - PickUp
+  - PickUpIntangible
+  - PickUpTangible
   - 
   - LivingZone
   - 

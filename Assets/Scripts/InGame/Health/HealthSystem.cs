@@ -44,7 +44,7 @@ public class HealthSystem : ClearableBehaviour
     /* Sibling components (optional) */
 
     private CharacterMaster m_CharacterMaster;
-    private CookSystem m_CookSystem;
+    private PreCookSystem m_PreCookSystem;
     
     
     /* State */
@@ -74,7 +74,7 @@ public class HealthSystem : ClearableBehaviour
         m_Brighten = this.GetComponentOrFail<Brighten>();
 
         m_CharacterMaster = GetComponent<CharacterMaster>();
-        m_CookSystem = GetComponent<CookSystem>();
+        m_PreCookSystem = GetComponent<PreCookSystem>();
         
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
         
@@ -117,13 +117,14 @@ public class HealthSystem : ClearableBehaviour
         
         if (value > 0)
         {
-            // If this entity is cookable and damaged by fire, advance cook progress
+            // If this entity is cookable and damaged by fire, advance cook progress to prepare spawning cooked enemy
+            // (hence *pre*-cook system).
             // We must do this before death check as death must spawn cooked enemy based on the latest cook progress
-            if (m_CookSystem != null && elementType == ElementType.Fire)
+            if (m_PreCookSystem != null && elementType == ElementType.Fire)
             {
                 // Note that this is the unclamped value
                 // This way, an overkill attack on an enemy with low HP will still cook a lot!
-                m_CookSystem.AdvanceCookProgress(value);
+                m_PreCookSystem.AdvanceCookProgress(value);
             }
             
             m_Health.value -= value;
@@ -245,9 +246,9 @@ public class HealthSystem : ClearableBehaviour
         m_PooledObject.Release();
         
         // If cookable and cooked enough, spawn cooked enemy with randomness
-        if (m_CookSystem != null)
+        if (m_PreCookSystem != null)
         {
-            m_CookSystem.RandomSpawnCookedEnemyForCurrentProgress();
+            m_PreCookSystem.RandomSpawnCookedEnemyForCurrentProgress();
         }
     }
 

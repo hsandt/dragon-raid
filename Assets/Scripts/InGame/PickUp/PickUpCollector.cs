@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +11,13 @@ public class PickUpCollector : MonoBehaviour
 
     private HealthSystem m_HealthSystem;
 
-
     private void Awake()
     {
         m_HealthSystem = this.GetComponentOrFail<HealthSystem>();
     }
 
-    public void Pick(PickUp pickUp)
+    public void TryRecover(int value)
     {
-        m_HealthSystem.TryRecover(pickUp.pickUpParameters.healthRecovery);
+        m_HealthSystem.TryRecover(value);
     }
 }

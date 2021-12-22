@@ -8,18 +8,23 @@ using CommonsPattern;
 /// System component for pick-up items
 public class PickUp : MonoBehaviour, IPooledObject
 {
-    [Header("Parameters data")]
+    /* Sibling components */
     
-    [Tooltip("Pick-up Parameters Data")]
-    public PickUpParameters pickUpParameters;
+    private IPickUpEffect m_PickUpEffect;
     
+    
+    private void Awake()
+    {
+        m_PickUpEffect = GetComponent<IPickUpEffect>();
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.AssertFormat(m_PickUpEffect != null, gameObject,
+            "[PickUp] No component implemented IPickUpEffect found on {0}", gameObject);
+        #endif
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(pickUpParameters != null, this, "[PickUpSystem] No Pick-up Parameters asset set on {0}", this);
-        #endif
-
         // Check that item is still alive, to avoid being picked twice in the same frame
         // (although it's not possible with a single player character anyway)
         if (IsInUse())
@@ -27,7 +32,7 @@ public class PickUp : MonoBehaviour, IPooledObject
             var pickUpCollector = other.GetComponent<PickUpCollector>();
             if (pickUpCollector != null)
             {
-                pickUpCollector.Pick(this);
+                m_PickUpEffect.OnPick(pickUpCollector);
                 Release();
             }
         }

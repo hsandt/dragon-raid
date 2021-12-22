@@ -9,11 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1964431964107245729}
+  - component: {fileID: 5048381839752817847}
   - component: {fileID: 1964431964107245756}
   - component: {fileID: 8669100792888354378}
   - component: {fileID: 7889951143906239984}
+  - component: {fileID: 1841952195452856431}
+  - component: {fileID: 8364473200891831534}
   m_Layer: 20
-  m_Name: CookedEnemy_CookLevel0
+  m_Name: CookedEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,6 +37,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5048381839752817847
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964431964107245728}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 752ccc574b0bec2d6bbde749fb152418, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &1964431964107245756
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -124,4 +147,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dedfa6502c49a9697b843badcb05fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpParameters: {fileID: 11400000, guid: 0283172cb172a7feb87556fec878c196, type: 2}
+--- !u!114 &1841952195452856431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964431964107245728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ab80e497f5eba40b19a0e712ba6acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cookParameters: {fileID: 0}
+--- !u!114 &8364473200891831534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964431964107245728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09a4ad5febe19bb1bb28d288598be73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCookProgress: 0
+  cookProgress: 0
