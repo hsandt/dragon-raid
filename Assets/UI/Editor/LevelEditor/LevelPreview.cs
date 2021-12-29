@@ -227,8 +227,10 @@ public class LevelPreview : VisualElement
     {
         // Center preview rectangle around pointer by subtracting half-width
         // Clamp to limits of containing area (PreviewArea)
-        float maxPreviewRectangleX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.contentRect.width;
-        float previewRectangleX = Mathf.Clamp(localPosition.x - m_LevelPreviewRectangle.contentRect.width / 2,
+        // Note that we use contentRect for the container, but resolvedStyle for the containee which includes the
+        // border for full width (e.g. 100 instead of 98, so preview rectangle is perfectly contained within its parent) 
+        float maxPreviewRectangleX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.resolvedStyle.width;
+        float previewRectangleX = Mathf.Clamp(localPosition.x - m_LevelPreviewRectangle.resolvedStyle.width / 2,
             0, maxPreviewRectangleX);
         MovePreviewRectangle(previewRectangleX);
         
