@@ -5,7 +5,7 @@
             <ui:Label text="Preview&#10;" display-tooltip-when-elided="true" name="PreviewLabel" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Scroller high-value="100" direction="Horizontal" value="42" />
+    <ui:Scroller high-value="100" direction="Horizontal" value="42" name="Scroller" />
     <ui:VisualElement name="EnemyWavePreviewArea" style="overflow: hidden;">
         <EnemyWaveButton focusable="true" />
     </ui:VisualElement>

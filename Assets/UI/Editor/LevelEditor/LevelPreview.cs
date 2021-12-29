@@ -12,6 +12,11 @@ public class LevelPreview : VisualElement
     public new class UxmlFactory : UxmlFactory<LevelPreview> {}
     
     
+    /* Constants */
+
+    private const float SCROLL_ZOOM_FACTOR = 1f; 
+    
+    
     /* Cached scene references */
     
     /// Cached camera start position reference
@@ -32,6 +37,9 @@ public class LevelPreview : VisualElement
     /// Rectangle representing the camera preview
     /// Can be dragged to move the scene view across the level quickly
     private VisualElement m_LevelPreviewRectangle;
+
+    /// Scroller used to scroll the level preview area across the whole the whole level
+    private Scroller m_Scroller;
     
     /// Area showing enemy waves in the current level preview rectangle
     private VisualElement m_EnemyWavePreviewArea;
@@ -46,6 +54,9 @@ public class LevelPreview : VisualElement
     private float m_PreviewSpanLeftProgress;
     private float m_PreviewSpanRightProgress;
     private Vector2 m_PreviewCameraPosition;
+
+    /// Current world-to-window pixel resolution
+    private float m_WorldToWindowPixelResolution = 10f; 
     
     
     /// Parameterless constructor with minimal static asset loading to allow UxmlFactory preview in UI Toolkit Builder
@@ -64,6 +75,9 @@ public class LevelPreview : VisualElement
 
         m_LevelPreviewRectangle = this.Q<VisualElement>("LevelPreviewRectangle");
         Debug.AssertFormat(m_LevelPreviewRectangle != null, "[LevelEditor] No VisualElement 'LevelPreviewRectangle' found on Level Editor UXML");
+
+        m_Scroller = this.Q<Scroller>("Scroller");
+        Debug.AssertFormat(m_Scroller != null, "[LevelEditor] No VisualElement 'Scroller' found on Level Editor UXML");
 
         m_EnemyWavePreviewArea = this.Q<VisualElement>("EnemyWavePreviewArea");
         Debug.AssertFormat(m_EnemyWavePreviewArea != null, "[LevelEditor] No VisualElement 'EnemyWavePreviewArea' found on Level Editor UXML");
@@ -128,14 +142,17 @@ public class LevelPreview : VisualElement
         // https://forum.unity.com/threads/visualelement-layout-content-rects-contain-nan-values-initially-transform-scale-breaks-children.677314/
         // In addition, we must update the preview elements after window resize.
         // So register a callback for geometry change.
-        m_LevelPreviewArea.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+        RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         
         // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
         m_LevelPreviewArea.RegisterCallback<PointerDownEvent>(OnPreviewAreaPointerDown);
         m_LevelPreviewArea.RegisterCallback<PointerUpEvent>(OnPreviewAreaPointerUp);
         m_LevelPreviewArea.RegisterCallback<PointerMoveEvent>(OnPreviewAreaPointerMove);
+        m_LevelPreviewArea.RegisterCallback<WheelEvent>(OnPreviewAreaWheelEvent);
+        
+        m_Scroller.valueChanged += OnScrollerValueChanged;
     }
-    
+
     private void Setup()
     {
         m_PreviewRectangleCenter = 0f;
@@ -200,6 +217,35 @@ public class LevelPreview : VisualElement
     
     private void OnGeometryChanged(GeometryChangedEvent evt)
     {
+        RefreshScroller();
+        RefreshPreviewRectangle();
+    }
+
+    private void RefreshScroller()
+    {
+        Camera camera = Camera.main;
+        if (camera != null)
+        {
+            // Get camera view dimensions
+            float cameraHalfHeight = camera.orthographicSize;
+            float cameraHalfWidth = camera.aspect * cameraHalfHeight;
+            float cameraWidth = 2f * cameraHalfWidth;
+            Debug.LogFormat("low {0}, high {1}", m_Scroller.lowValue, m_Scroller.highValue);
+            m_Scroller.lowValue = 0f;
+            // We can scroll along the whole camera + level distance, minus one area width 
+            float visibleWidth = m_LevelPreviewArea.contentRect.width;
+            float fullWidth = m_WorldToWindowPixelResolution * (cameraWidth + m_LevelData.maxScrollingProgress);
+            m_Scroller.highValue = Mathf.Max(0f, fullWidth - visibleWidth);
+            m_Scroller.Adjust(visibleWidth / fullWidth);
+            
+            // Due to bug, Slider inverted set to true on document save, as if Vertical,
+            // so we must reset it to false manually (as scroller is Horizontal)
+            m_Scroller.slider.inverted = false;
+        }
+    }
+    
+    private void RefreshPreviewRectangle()
+    {
         // Adjust preview rectangle width to match camera view
         Camera camera = Camera.main;
         if (camera != null)
@@ -208,17 +254,18 @@ public class LevelPreview : VisualElement
             float cameraHalfHeight = camera.orthographicSize;
             float cameraHalfWidth = camera.aspect * cameraHalfHeight;
             float cameraWidth = 2f * cameraHalfWidth;
-            
+
             // Compute real world unit to window pixels scaling factor
             // Take camera width itself into account, on top of scrolling
             // It's equivalent to taking previewAreaWidth - preview rect width (but not known at this point)
             // and just dividing by m_LevelData.maxScrollingProgress
-            float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
-            float spatialProgressToWindowWidth = previewAreaWidth / (cameraWidth + m_LevelData.maxScrollingProgress);
-        
+            // float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
+            // float spatialProgressToWindowWidth = previewAreaWidth / (cameraWidth + m_LevelData.maxScrollingProgress);
+            float spatialProgressToWindowWidth = m_WorldToWindowPixelResolution;
+
             float previewRectangleWidth = cameraWidth * spatialProgressToWindowWidth;
             m_LevelPreviewRectangle.style.width = previewRectangleWidth;
-            
+
             // A kind of reverse of RefreshPreviewRectanglePosition:
             // we stabilize camera position and cached progress members, but we recompute preview rectangle position
             // from those members instead
@@ -226,12 +273,12 @@ public class LevelPreview : VisualElement
             // not really used until next change, but cleaner to set now
             m_PreviewRectangleCenter = previewRectangleLeft + previewRectangleWidth / 2f;
             MovePreviewRectangle(previewRectangleLeft);
-            
+
             // Also adjust button positions
             RefreshAllEnemyWaveButtonPositions();
         }
     }
-    
+
     private void OnPreviewAreaPointerDown(PointerDownEvent evt)
     {
         // Capture pointer (in preview area, not preview rectangle, to allow
@@ -266,10 +313,26 @@ public class LevelPreview : VisualElement
             SetPreviewRectanglePosition(evt.localPosition);
         }
     }
+    
+    private void OnPreviewAreaWheelEvent(WheelEvent evt)
+    {
+        // Wheel up to zoom in i.e. decrease world to pixel factor
+        m_WorldToWindowPixelResolution = Mathf.Clamp(m_WorldToWindowPixelResolution - SCROLL_ZOOM_FACTOR * evt.delta.y, 1f, 100f);
+        Debug.LogFormat("wheel: {0}", m_WorldToWindowPixelResolution);
+        RefreshScroller();
+        RefreshPreviewRectangle();
+    }
+
+    private void OnScrollerValueChanged(float value)
+    {
+        Debug.LogFormat("scroll {0}", value);
+        RefreshPreviewRectangle();
+    }
 
     private void SetPreviewRectanglePosition(Vector2 localPosition)
     {
-        m_PreviewRectangleCenter = localPosition.x;
+        // Add scroller value to take current scroll into account
+        m_PreviewRectangleCenter = localPosition.x + m_Scroller.value;
         RefreshPreviewRectanglePosition();
     }
 
@@ -289,17 +352,18 @@ public class LevelPreview : VisualElement
         float previewProgressRatio = previewRectangleLeftClamped / maxPreviewRectangleX;
         MoveSceneViewToPreviewProgressRatio(previewProgressRatio);
 
-        float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
-        m_PreviewSpanLeftProgress = previewRectangleLeftClamped / previewAreaWidth * m_LevelData.maxScrollingProgress;
+        m_PreviewSpanLeftProgress = previewRectangleLeftClamped / m_WorldToWindowPixelResolution;
         float previewRectangleRight = previewRectangleLeftClamped + m_LevelPreviewRectangle.resolvedStyle.width;
-        m_PreviewSpanRightProgress = previewRectangleRight / previewAreaWidth * m_LevelData.maxScrollingProgress;
+        m_PreviewSpanRightProgress = previewRectangleRight / m_WorldToWindowPixelResolution;
 
         RefreshAllEnemyWaveButtonPositions();
     }
 
     private void MovePreviewRectangle(float previewRectangleX)
     {
-        m_LevelPreviewRectangle.style.left = previewRectangleX;
+        // Scroller was set to use value scaled with window pixels, ranging from 0 to max right, so just subtract it
+        Debug.LogFormat("scroll: {0}", m_Scroller.value);
+        m_LevelPreviewRectangle.style.left = previewRectangleX - m_Scroller.value;
     }
 
     private void MoveSceneViewToPreviewProgressRatio(float previewProgressRatio)
