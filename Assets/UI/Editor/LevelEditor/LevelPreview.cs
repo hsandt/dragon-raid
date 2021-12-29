@@ -41,7 +41,10 @@ public class LevelPreview : VisualElement
 
     /// Level spatial progress corresponding to the back (generally left) edge
     /// of the preview rectangle
+    private float m_PreviewRectangleCenter;
     private float m_PreviewProgress;
+    private float m_PreviewSpanLeftProgress;
+    private float m_PreviewSpanRightProgress;
     private Vector2 m_PreviewCameraPosition;
     
     
@@ -120,6 +123,13 @@ public class LevelPreview : VisualElement
 
     private void RegisterInternalCallbacks()
     {
+        // Visual Elements are not ready on construction and still have NaN coordinates, so we must setup
+        // things based on such coordinates after document geometry was constructed.
+        // https://forum.unity.com/threads/visualelement-layout-content-rects-contain-nan-values-initially-transform-scale-breaks-children.677314/
+        // In addition, we must update the preview elements after window resize.
+        // So register a callback for geometry change.
+        m_LevelPreviewArea.RegisterCallback<GeometryChangedEvent> (OnGeometryChanged);
+        
         // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
         m_LevelPreviewArea.RegisterCallback<PointerDownEvent>(OnPreviewAreaPointerDown);
         m_LevelPreviewArea.RegisterCallback<PointerUpEvent>(OnPreviewAreaPointerUp);
@@ -128,7 +138,7 @@ public class LevelPreview : VisualElement
     
     private void Setup()
     {
-        m_PreviewProgress = 0f;
+        m_PreviewRectangleCenter = 0f;
     }
     
     private void GenerateWaveButtons()
@@ -188,6 +198,11 @@ public class LevelPreview : VisualElement
         }
     }
     
+    private void OnGeometryChanged(GeometryChangedEvent evt)
+    {
+        RefreshPreviewRectanglePosition();
+    }
+    
     private void OnPreviewAreaPointerDown(PointerDownEvent evt)
     {
         // Capture pointer (in preview area, not preview rectangle, to allow
@@ -198,7 +213,7 @@ public class LevelPreview : VisualElement
         m_LevelPreviewRectangle.AddToClassList("preview-rectangle--dragged");
 
         // Warp preview rectangle to pointer
-        UpdatePreviewRectanglePosition(evt.localPosition);
+        SetPreviewRectanglePosition(evt.localPosition);
     }
     
     private void OnPreviewAreaPointerUp(PointerUpEvent evt)
@@ -210,7 +225,7 @@ public class LevelPreview : VisualElement
         m_LevelPreviewRectangle.RemoveFromClassList("preview-rectangle--dragged");
         
         // Warp preview rectangle to pointer one last time
-        UpdatePreviewRectanglePosition(evt.localPosition);
+        SetPreviewRectanglePosition(evt.localPosition);
     }
     
     private void OnPreviewAreaPointerMove(PointerMoveEvent evt)
@@ -219,25 +234,38 @@ public class LevelPreview : VisualElement
         if (m_LevelPreviewArea.panel.GetCapturingElement(evt.pointerId) == evt.target)
         {
             // Move preview rectangle along with pointer
-            UpdatePreviewRectanglePosition(evt.localPosition);
+            SetPreviewRectanglePosition(evt.localPosition);
         }
     }
 
-    private void UpdatePreviewRectanglePosition(Vector2 localPosition)
+    private void SetPreviewRectanglePosition(Vector2 localPosition)
+    {
+        m_PreviewRectangleCenter = localPosition.x;
+        RefreshPreviewRectanglePosition();
+    }
+
+    private void RefreshPreviewRectanglePosition()
     {
         // Center preview rectangle around pointer by subtracting half-width
         // Clamp to limits of containing area (PreviewArea)
         // Note that we use contentRect for the container, but resolvedStyle for the containee which includes the
         // border for full width (e.g. 100 instead of 98, so preview rectangle is perfectly contained within its parent) 
+        float previewRectangleLeft = m_PreviewRectangleCenter - m_LevelPreviewRectangle.resolvedStyle.width / 2;
         float maxPreviewRectangleX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.resolvedStyle.width;
-        float previewRectangleX = Mathf.Clamp(localPosition.x - m_LevelPreviewRectangle.resolvedStyle.width / 2,
-            0, maxPreviewRectangleX);
-        MovePreviewRectangle(previewRectangleX);
-        
+        float previewRectangleLeftClamped = Mathf.Clamp(previewRectangleLeft, 0, maxPreviewRectangleX);
+        MovePreviewRectangle(previewRectangleLeftClamped);
+
         // Compute the preview progress ratio (it's close to the level progress ratio, except since preview
         // occupies a window, it reaches 100% one content rect width before the end, see maxPreviewRectangleX)
-        float previewProgressRatio = previewRectangleX / maxPreviewRectangleX;
+        float previewProgressRatio = previewRectangleLeftClamped / maxPreviewRectangleX;
         MoveSceneViewToPreviewProgressRatio(previewProgressRatio);
+
+        float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
+        m_PreviewSpanLeftProgress = previewRectangleLeftClamped / previewAreaWidth * m_LevelData.maxScrollingProgress;
+        float previewRectangleRight = previewRectangleLeftClamped + m_LevelPreviewRectangle.resolvedStyle.width;
+        m_PreviewSpanRightProgress = previewRectangleRight / previewAreaWidth * m_LevelData.maxScrollingProgress;
+
+        RefreshAllEnemyWaveButtonPositions();
     }
 
     private void MovePreviewRectangle(float previewRectangleX)
@@ -273,13 +301,31 @@ public class LevelPreview : VisualElement
         // Create button with class
         EnemyWaveButton enemyWaveButton = new EnemyWaveButton();
         enemyWaveButton.Init(spatialEventTrigger, enemyWave);
-        
-        // Custom styling
-        float x = spatialEventTrigger.RequiredSpatialProgress * 10f;
-        enemyWaveButton.style.left = x;
-        
         m_EnemyWavePreviewArea.Add(enemyWaveButton);
         
         return enemyWaveButton;
+    }
+
+    private void RefreshEnemyWaveButtonPosition(EnemyWaveButton enemyWaveButton)
+    {
+        // Custom styling
+        // Map RequiredSpatialProgress to style x
+        // m_PreviewSpanLeftProgress => 0
+        // m_PreviewSpanRightProgress => m_EnemyWavePreviewArea.contentRect.width
+        float ratio = (enemyWaveButton.SpatialEventRequiredSpatialProgress - m_PreviewSpanLeftProgress) /
+                      (m_PreviewSpanRightProgress - m_PreviewSpanLeftProgress);
+        float x = Mathf.LerpUnclamped(0f, m_EnemyWavePreviewArea.contentRect.width, ratio);
+        enemyWaveButton.style.left = x;
+    }
+    
+    private void RefreshAllEnemyWaveButtonPositions()
+    {
+        foreach (VisualElement child in m_EnemyWavePreviewArea.Children())
+        {
+            if (child is EnemyWaveButton enemyWaveButton)
+            {
+                RefreshEnemyWaveButtonPosition(enemyWaveButton);
+            }
+        }
     }
 }

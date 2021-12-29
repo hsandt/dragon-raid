@@ -8,6 +8,13 @@ public class EnemyWaveButton : VisualElement
     public new class UxmlFactory : UxmlFactory<EnemyWaveButton> {}
     
     
+    /* Injected parameters */
+
+    private EventTrigger_SpatialProgress m_SpatialEventTrigger;
+    
+    public float SpatialEventRequiredSpatialProgress => m_SpatialEventTrigger.RequiredSpatialProgress;
+
+    
     /* Queried elements */
     
     /// Button showing enemy wave name
@@ -26,6 +33,8 @@ public class EnemyWaveButton : VisualElement
     
     public void Init(EventTrigger_SpatialProgress spatialEventTrigger, EnemyWave enemyWave)
     {
+        m_SpatialEventTrigger = spatialEventTrigger;
+        
         if (m_Button != null)
         {
             m_Button.text = enemyWave.name;

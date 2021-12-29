@@ -14,7 +14,7 @@ public class CookedEnemy : MonoBehaviour, IPickUpEffect
     private static readonly int cookLevelHash = Animator.StringToHash("CookLevel");
     
     
-    [Header("Dynamic parameters data")]
+    [Header("Injected parameters data")]
     
     [ReadOnlyField, Tooltip("Cook Parameters Data. Should be injected by spawning code.")]
     public CookParameters cookParameters;
