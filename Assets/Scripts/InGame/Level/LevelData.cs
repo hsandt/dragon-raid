@@ -23,6 +23,6 @@ public class LevelData : ScriptableObject
     public float baseScrollingSpeed = 2f;
     
     [Tooltip("Scrolling progress required to reach the end of the level. For now, only used by Level Editor window.")]
-    [Min(0f)]
+    [Min(1f)]
     public float maxScrollingProgress = 100f;
 }

@@ -128,7 +128,7 @@ public class LevelPreview : VisualElement
         // https://forum.unity.com/threads/visualelement-layout-content-rects-contain-nan-values-initially-transform-scale-breaks-children.677314/
         // In addition, we must update the preview elements after window resize.
         // So register a callback for geometry change.
-        m_LevelPreviewArea.RegisterCallback<GeometryChangedEvent> (OnGeometryChanged);
+        m_LevelPreviewArea.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         
         // Callback system and implementation based on UI Toolkit Samples: PointerEventsWindow.cs
         m_LevelPreviewArea.RegisterCallback<PointerDownEvent>(OnPreviewAreaPointerDown);
@@ -200,7 +200,16 @@ public class LevelPreview : VisualElement
     
     private void OnGeometryChanged(GeometryChangedEvent evt)
     {
-        RefreshPreviewRectanglePosition();
+        // A kind of reverse of RefreshPreviewRectanglePosition:
+        // we stabilize camera position and cached progress members, but we recompute preview rectangle position
+        // from those members instead
+        float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
+        float previewRectangleLeft = m_PreviewSpanLeftProgress * previewAreaWidth / m_LevelData.maxScrollingProgress;
+        m_PreviewRectangleCenter = previewRectangleLeft + m_LevelPreviewRectangle.resolvedStyle.width / 2;
+        MovePreviewRectangle(m_PreviewRectangleCenter);
+        
+        // Also adjust button positions
+        RefreshAllEnemyWaveButtonPositions();
     }
     
     private void OnPreviewAreaPointerDown(PointerDownEvent evt)
