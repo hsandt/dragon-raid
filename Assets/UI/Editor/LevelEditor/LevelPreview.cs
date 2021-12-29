@@ -200,16 +200,36 @@ public class LevelPreview : VisualElement
     
     private void OnGeometryChanged(GeometryChangedEvent evt)
     {
-        // A kind of reverse of RefreshPreviewRectanglePosition:
-        // we stabilize camera position and cached progress members, but we recompute preview rectangle position
-        // from those members instead
-        float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
-        float previewRectangleLeft = m_PreviewSpanLeftProgress * previewAreaWidth / m_LevelData.maxScrollingProgress;
-        m_PreviewRectangleCenter = previewRectangleLeft + m_LevelPreviewRectangle.resolvedStyle.width / 2;
-        MovePreviewRectangle(m_PreviewRectangleCenter);
+        // Adjust preview rectangle width to match camera view
+        Camera camera = Camera.main;
+        if (camera != null)
+        {
+            // Get camera view dimensions
+            float cameraHalfHeight = camera.orthographicSize;
+            float cameraHalfWidth = camera.aspect * cameraHalfHeight;
+            float cameraWidth = 2f * cameraHalfWidth;
+            
+            // Compute real world unit to window pixels scaling factor
+            // Take camera width itself into account, on top of scrolling
+            // It's equivalent to taking previewAreaWidth - preview rect width (but not known at this point)
+            // and just dividing by m_LevelData.maxScrollingProgress
+            float previewAreaWidth = m_LevelPreviewArea.contentRect.width;
+            float spatialProgressToWindowWidth = previewAreaWidth / (cameraWidth + m_LevelData.maxScrollingProgress);
         
-        // Also adjust button positions
-        RefreshAllEnemyWaveButtonPositions();
+            float previewRectangleWidth = cameraWidth * spatialProgressToWindowWidth;
+            m_LevelPreviewRectangle.style.width = previewRectangleWidth;
+            
+            // A kind of reverse of RefreshPreviewRectanglePosition:
+            // we stabilize camera position and cached progress members, but we recompute preview rectangle position
+            // from those members instead
+            float previewRectangleLeft = m_PreviewProgress * spatialProgressToWindowWidth;
+            // not really used until next change, but cleaner to set now
+            m_PreviewRectangleCenter = previewRectangleLeft + previewRectangleWidth / 2f;
+            MovePreviewRectangle(previewRectangleLeft);
+            
+            // Also adjust button positions
+            RefreshAllEnemyWaveButtonPositions();
+        }
     }
     
     private void OnPreviewAreaPointerDown(PointerDownEvent evt)
