@@ -193,9 +193,13 @@ namespace UnityConstants
         /// </summary>
         public const int InvisibleWall = 18;
         /// <summary>
-        /// Index of layer 'PickUp'.
+        /// Index of layer 'PickUpIntangible'.
         /// </summary>
-        public const int PickUp = 20;
+        public const int PickUpIntangible = 19;
+        /// <summary>
+        /// Index of layer 'PickUpTangible'.
+        /// </summary>
+        public const int PickUpTangible = 20;
         /// <summary>
         /// Index of layer 'LivingZone'.
         /// </summary>
@@ -286,9 +290,13 @@ namespace UnityConstants
         /// </summary>
         public const int InvisibleWallMask = 1 << 18;
         /// <summary>
-        /// Bitmask of layer 'PickUp'.
+        /// Bitmask of layer 'PickUpIntangible'.
         /// </summary>
-        public const int PickUpMask = 1 << 20;
+        public const int PickUpIntangibleMask = 1 << 19;
+        /// <summary>
+        /// Bitmask of layer 'PickUpTangible'.
+        /// </summary>
+        public const int PickUpTangibleMask = 1 << 20;
         /// <summary>
         /// Bitmask of layer 'LivingZone'.
         /// </summary>

@@ -41,12 +41,17 @@ public class MeleeAttack : ClearableBehaviour
     private Faction m_AttackerFaction;
     
     
-    /* Sibling components */
+    /* Sibling components (required) */
     
     private Animator m_Animator;
     private MeleeAttackIntention m_MeleeAttackIntention;
     public MeleeAttackIntention MeleeAttackIntention => m_MeleeAttackIntention;
 
+    
+    /* Sibling components (optional) */
+
+    private PickUpCollector m_PickUpCollector;
+    
     
     /* State */
 
@@ -63,7 +68,9 @@ public class MeleeAttack : ClearableBehaviour
         {
             case Faction.Player:
                 // Player Melee Attack can destroy both enemies and tangible enemy projectiles
-                return Layers.EnemyHurtBoxMask | Layers.EnemyProjectileTangibleMask;
+                // It can also be used to catch pick-ups with some extra range
+                return Layers.EnemyHurtBoxMask | Layers.EnemyProjectileTangibleMask |
+                       Layers.PickUpIntangibleMask | Layers.PickUpTangibleMask;
             case Faction.Enemy:
                 return Layers.PlayerCharacterHurtBoxMask;
             default:
@@ -83,6 +90,8 @@ public class MeleeAttack : ClearableBehaviour
         
         m_Animator = this.GetComponentOrFail<Animator>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
+        
+        m_PickUpCollector = GetComponent<PickUpCollector>();
     }
 
     public override void Setup()
@@ -154,8 +163,16 @@ public class MeleeAttack : ClearableBehaviour
             Rigidbody2D targetRigidbody = resultCollider.attachedRigidbody;
             if (targetRigidbody != null)
             {
-                var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
-                if (targetHealthSystem != null)
+                // `is {}` is enough to check `is not null`, but we added `!= null` for the custom Unity
+                // lifetime check (although component is unlikely to be destroyed at this point)
+                if (targetRigidbody.GetComponent<PickUp>() is {} targetPickUp && targetPickUp != null)
+                {
+                    if (m_PickUpCollector != null)
+                    {
+                        targetPickUp.GetPickedBy(m_PickUpCollector);
+                    }
+                }
+                else if (targetRigidbody.GetComponent<HealthSystem>() is {} targetHealthSystem && targetHealthSystem != null)
                 {
                     // Try to damage target found
                     bool didDamage = targetHealthSystem.TryTakeOneShotDamage(bodyAttackParameters.damage, ElementType.Neutral);
@@ -172,7 +189,7 @@ public class MeleeAttack : ClearableBehaviour
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 else
                 {
-                    Debug.LogWarningFormat(resultCollider, "[MeleeAttack] No HealthSystem component found on {0}, " +
+                    Debug.LogWarningFormat(resultCollider, "[MeleeAttack] No PickUp nor HealthSystem component found on {0}, " +
                         "yet it contained {1} which was present on targetable layer mask {2}",
                         targetRigidbody, resultCollider, targetLayerMask);
                 }

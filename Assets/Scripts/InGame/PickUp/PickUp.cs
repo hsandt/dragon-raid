@@ -32,13 +32,18 @@ public class PickUp : MonoBehaviour, IPooledObject
             var pickUpCollector = other.GetComponent<PickUpCollector>();
             if (pickUpCollector != null)
             {
-                m_PickUpEffect.OnPick(pickUpCollector);
-                Release();
+                GetPickedBy(pickUpCollector);
             }
         }
     }
 
-    
+    public void GetPickedBy(PickUpCollector pickUpCollector)
+    {
+        m_PickUpEffect.OnPick(pickUpCollector);
+        Release();
+    }
+
+
     /* IPooledObject interface */
     
     public void InitPooled()
