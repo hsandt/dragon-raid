@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14394f4960c4c1fb7795680109dbfd0, type: 3}
-  m_Name: HealthParameters_Boss_Tiger
+  m_Script: {fileID: 11500000, guid: 06445f2d64057676d9748d436a1bbd61, type: 3}
+  m_Name: ShootPattern_BossTiger_1
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  shootDirectionMode: 0
+  angleStart: 22.353752
+  angleEnd: -32.818546
+  bulletCount: 6
+  duration: 0.5
