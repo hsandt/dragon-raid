@@ -9,25 +9,25 @@ using CommonsHelper;
 public class RunActionSequence : BehaviourAction
 {
     /* Cached child references */
-    
+
     /// List of behaviour actions on children
     private List<BehaviourAction> m_BehaviourActions;
-        
+
     /* State vars */
-    
+
     /// True when action sequence is running (it plays immediately on Master setup, and only stops after last action)
     private bool m_IsRunning;
-    
+
     /// Index of action currently active in the sequence
     private int m_CurrentActionIndex;
 
-    
+
     private void Awake()
     {
         // Linq statement to iterate on all children, get BehaviourAction component and generate a list
         m_BehaviourActions = transform.Cast<Transform>().Select(tr => tr.GetComponentOrFail<BehaviourAction>()).ToList();
     }
-    
+
     protected override void OnInit()
     {
         // Recurse Init on every child
@@ -36,7 +36,7 @@ public class RunActionSequence : BehaviourAction
             action.Init(m_EnemyCharacterMaster);
         }
     }
-    
+
     public override void OnStart()
     {
         m_IsRunning = true;
@@ -59,12 +59,12 @@ public class RunActionSequence : BehaviourAction
             // and in addition, the last call to TryProceedToNextAction skipped null actions,
             // so we can retrieve and use action safely.
             BehaviourAction action = m_BehaviourActions[m_CurrentActionIndex];
-            
+
             if (action.IsOverOrDeactivated())
             {
                 // Call OnEnd to cleanup anything set by the action we don't want anymore
                 action.OnEnd();
-                
+
                 // Last action is over, so proceed to next one, if any
                 TryProceedToNextAction();
             }
@@ -84,7 +84,7 @@ public class RunActionSequence : BehaviourAction
             action.RunUpdate();
         }
     }
-    
+
     private void TryProceedToNextAction()
     {
         while (true)
@@ -96,7 +96,9 @@ public class RunActionSequence : BehaviourAction
                 BehaviourAction action = m_BehaviourActions[m_CurrentActionIndex];
                 if (action != null)
                 {
-                    // Call OnStart immediately, as IsOverOrDeactivated may rely on it
+                    // Call OnStart immediately, as IsOverOrDeactivated may rely on it,
+                    // and it may contain precious instructions for fire-and-forget actions
+                    // which never RunUpdate, only OnStart and OnEnd immediately.
                     action.OnStart();
 
                     if (action.IsOverOrDeactivated())
@@ -118,7 +120,7 @@ public class RunActionSequence : BehaviourAction
                 else
                 {
                     // action is null: continue so we can immediately go on with the next action
-                    // (but you should fix your data) 
+                    // (but you should fix your data)
                     Debug.LogErrorFormat("[ActionSequencePlayer] On {0}, action #{1} is null", m_BehaviourActions, m_CurrentActionIndex);
                 }
                 #endif
