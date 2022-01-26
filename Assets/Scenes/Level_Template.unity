@@ -6679,7 +6679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5612176500669209476, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
       propertyPath: m_Name
-      value: Main Camera
+      value: InGame Main Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
