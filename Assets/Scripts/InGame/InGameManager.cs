@@ -143,6 +143,8 @@ public class InGameManager : SingletonManager<InGameManager>
         InitialSpawnPlayerCharacter();
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        // Apply Cheat level setup after spawning player character,
+        // it will move it relatively to its start position if needed
         if (CheatManager.Instance)
         {
             CheatManager.Instance.OnLevelSetup();
