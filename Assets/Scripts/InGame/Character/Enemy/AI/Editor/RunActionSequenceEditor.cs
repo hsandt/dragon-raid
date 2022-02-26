@@ -145,7 +145,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
         // fix the CPU lag due to CreateEditor while avoiding to create many of them.
         foreach (var cachedEditor in m_CachedEditors.Values)
         {
-            Destroy(cachedEditor);
+            DestroyImmediate(cachedEditor);
         }
     }
 }
