@@ -10,12 +10,12 @@ public class Action_MoveFlyingByEditor : BehaviourActionEditor
     // Factor applied to avoid placing the speed handle too far from the center to reach high speeds
     private const float SPEED_HANDLE_DISTANCE_FACTOR = 0.5f;
 
-    
+
     private void OnSceneGUI()
     {
         DrawLocalHandles();
     }
-    
+
     public override void DrawHandles(Vector2 startPosition)
     {
         var script = (Action_MoveFlyingBy) target;
@@ -28,8 +28,9 @@ public class Action_MoveFlyingByEditor : BehaviourActionEditor
         {
             // Move vector handle
             Vector2 relativeTargetPosition = startPosition + moveVector;
-            HandlesUtil.DrawFreeMoveHandle(ref relativeTargetPosition, ColorUtil.gold, null,
-                HandlesUtil.CrossedCircleHandleCap, 2f);
+
+            HandlesUtil.DrawSlider2D(ref relativeTargetPosition, ColorUtil.gold,
+                capFunction: HandlesUtil.CrossedCircleHandleCap, screenSizeScale: 2f);
 
             if (check.changed)
             {
@@ -46,19 +47,19 @@ public class Action_MoveFlyingByEditor : BehaviourActionEditor
             // Apply factor to draw speed handle closer to center
             float speedHandleDistance = SPEED_HANDLE_DISTANCE_FACTOR * script.Speed;
             Vector2 speedHandlePosition = startPosition + speedHandleDistance * moveDirection;
-            
+
             // Velocity arrow
             HandlesUtil.DrawArrow2D(startPosition, speedHandlePosition, Color.magenta);
 
             // Circle that contains the speed handle for easier visualization of magnitude
             HandlesUtil.DrawCircle2D(startPosition, speedHandleDistance, Color.magenta);
-            
+
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 // Speed handle
                 // Snap is less relevant when moving a point along a radial direction
-                HandlesUtil.DrawFreeMoveHandle(ref speedHandlePosition, Color.magenta, null,
-                    HandlesUtil.CrossedCircleHandleCap, 1.5f);
+                HandlesUtil.DrawSlider2D(ref speedHandlePosition, Color.magenta,
+                    capFunction: HandlesUtil.CrossedCircleHandleCap, screenSizeScale: 1.5f);
 
                 if (check.changed)
                 {

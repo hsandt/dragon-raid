@@ -50,7 +50,7 @@ public class Action_MoveFlyingTowardEditor : BehaviourActionEditor
         {
             // Speed handle
             // Snap is less relevant when moving a point along a radial direction
-            HandlesUtil.DrawFreeMoveHandle(ref speedHandlePosition, Color.magenta, null,
+            HandlesUtil.DrawSlider2D(ref speedHandlePosition, Color.magenta, null,
                 HandlesUtil.CrossedCircleHandleCap, 1.5f);
 
             if (check.changed)

@@ -18,13 +18,13 @@ public class EnemyWaveEditor : Editor
 
     /// Color used for spawn point debug and enemy label
     private readonly Color spawnPointColor = new Color(0.78f, 0.21f, 0.42f);
-    
+
     /// Color used for the handle that allows to batch move all spawn points at the same time
     private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
-    
+
     /// Color used for spawn point debug and enemy label for chain spawn
     private readonly Color chainSpawnPointColor = new Color(0.62f, 0.05f, 0.78f);
-    
+
     /// Color used for the handle that allows to batch move all chain spawn points at the same time
     private readonly Color chainBatchHandleColor = new Color(0.78f, 0.66f, 0.23f);
 
@@ -32,14 +32,14 @@ public class EnemyWaveEditor : Editor
     private void OnSceneGUI()
     {
         var script = (EnemyWave) target;
-        
+
         // Scale offset with handle size so it remains constant on screen
         float handleSize = HandlesUtil.Get2DPixelSize();
 
         // We're modifying indirect (deep) members of the script, and besides applying custom rounding,
         // so changes are not trivial and need Undo Record Object
         Undo.RecordObject(script, "Changed Enemy Wave Data");
-        
+
         DrawEnemySpawnHandles(script, handleSize);
         DrawChainSpawnHandles(script, handleSize);
     }
@@ -84,7 +84,7 @@ public class EnemyWaveEditor : Editor
 
         DrawBatchMoveHandle(handleSize, boundingBox, script.EnemySpawnDataArray);
     }
-    
+
     private void DrawChainSpawnHandles(EnemyWave script, float handleSize)
     {
         Rect chainSpawnBoundingBox = new Rect
@@ -132,11 +132,11 @@ public class EnemyWaveEditor : Editor
         DrawBatchMoveHandle(handleSize, chainSpawnBoundingBox, script.EnemyChainSpawnDataArray);
     }
 
-    private void DrawSpawnPositionHandle<TSpawnData>(TSpawnData enemyChainSpawnData) where TSpawnData : EnemyBaseSpawnData 
+    private void DrawSpawnPositionHandle<TSpawnData>(TSpawnData enemyChainSpawnData) where TSpawnData : EnemyBaseSpawnData
     {
         using (var check = new EditorGUI.ChangeCheckScope())
         {
-            HandlesUtil.DrawFreeMoveHandle(ref enemyChainSpawnData.spawnPosition, chainSpawnPointColor,
+            HandlesUtil.DrawSlider2D(ref enemyChainSpawnData.spawnPosition, chainSpawnPointColor,
                 manualSnapValue * Vector2.one, HandlesUtil.CrossedCircleHandleCap, 2f);
 
             if (check.changed)
@@ -147,7 +147,7 @@ public class EnemyWaveEditor : Editor
         }
     }
 
-    private void DrawBatchMoveHandle<TSpawnData>(float handleSize, Rect chainSpawnBoundingBox, IEnumerable<TSpawnData> spawnDataArray) where TSpawnData : EnemyBaseSpawnData 
+    private void DrawBatchMoveHandle<TSpawnData>(float handleSize, Rect chainSpawnBoundingBox, IEnumerable<TSpawnData> spawnDataArray) where TSpawnData : EnemyBaseSpawnData
     {
         // Ignore infinite bounding box (only happens when EnemySpawnDataArray is empty)
         if (!float.IsInfinity(chainSpawnBoundingBox.width) && !float.IsInfinity(chainSpawnBoundingBox.height))
@@ -160,7 +160,7 @@ public class EnemyWaveEditor : Editor
 
             using (var check = new EditorGUI.ChangeCheckScope())
             {
-                HandlesUtil.DrawFreeMoveHandle(ref batchMoveHandleCurrentPosition, batchHandleColor,
+                HandlesUtil.DrawSlider2D(ref batchMoveHandleCurrentPosition, batchHandleColor,
                     manualSnapValue * Vector2.one, Handles.RectangleHandleCap, 2f);
 
                 if (check.changed)
