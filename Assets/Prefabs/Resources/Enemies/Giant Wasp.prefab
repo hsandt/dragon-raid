@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bezierPath2DComponent: {fileID: 8142269489432822194}
-  duration: 1
+  speed: 4
 --- !u!114 &8142269489432822194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bezierPath2DComponent: {fileID: 4698221568547279185}
-  duration: 1
+  speed: 4
 --- !u!114 &4698221568547279185
 MonoBehaviour:
   m_ObjectHideFlags: 0
