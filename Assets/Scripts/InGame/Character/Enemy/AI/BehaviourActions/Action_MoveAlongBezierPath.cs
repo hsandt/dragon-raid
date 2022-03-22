@@ -6,6 +6,11 @@ using CommonsHelper;
 
 /// Action to move flying character along a relative Bezier path
 /// at constant curvilinear (path parameter) speed
+/// Note that this ignores the Is Relative flag on the associated Bezier Path 2D Component.
+/// Instead, the movement will always start from the character position at the start of the action,
+/// as long as the first point coordinate is (0, 0).
+/// We still recommend to set this flag as it's more convenient to edit a curve from a visible character
+/// than around the origin.
 [AddComponentMenu("Game/Action: Move Along Bezier Path")]
 public class Action_MoveAlongBezierPath : BehaviourAction
 {
@@ -29,6 +34,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
 
     /* Owner sibling components */
 
+    private MoveFlying m_MoveFlying;
     private MoveFlyingIntention m_MoveFlyingIntention;
 
 
@@ -46,13 +52,18 @@ public class Action_MoveAlongBezierPath : BehaviourAction
     /// Start position: either spawn position or end position of the previous action
     private Vector2 m_StartPosition;
 
+    /// Accumulated scrolling motion since the start of the action, used to adjust the target position
+    /// in case entity is moving relatively to screen
+    private Vector2 m_AccumulatedScrolling;
+
     /// Current parameter on the Bezier path (between 0 and #curves, +1 for every curve completed)
     private float m_CurrentParameter;
 
 
     protected override void OnInit()
     {
-        m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
+        m_MoveFlying = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlying>();
+        m_MoveFlyingIntention = m_MoveFlying.MoveFlyingIntention;
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(bezierPath2DComponent, this,
@@ -68,7 +79,20 @@ public class Action_MoveAlongBezierPath : BehaviourAction
     public override void OnStart ()
     {
         m_StartPosition = (Vector2) m_MoveFlyingIntention.transform.position;
+        m_AccumulatedScrolling = Vector2.zero;
         m_CurrentParameter = 0f;
+    }
+
+    private Vector2 InterpolatePathByParameterWithOffset(float parameter)
+    {
+        // There is already a method bezierPath2DComponent.InterpolatePathByParameter adds
+        // its owner transform position as offset. However, Action nodes are often placed under
+        // the moving entity itself, which means the owner position would change over time,
+        // causing the path to be unstable. Therefore, we must add the stored start position instead.
+        // In addition, we must add any accumulated scrolling due to moving relatively to screen,
+        // so we are targeting the right position on screen (if m_MoveFlying.moveFlyingParameters.moveRelativelyToScreen
+        // is false, m_AccumulatedScrolling = 0).
+        return m_StartPosition + m_AccumulatedScrolling + bezierPath2DComponent.Path.InterpolatePathByParameter(parameter);
     }
 
     public override void RunUpdate ()
@@ -81,7 +105,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
         // || position_delta || / parameter_delta where delta values are small.
         var currentPosition = (Vector2) m_MoveFlyingIntention.transform.position;
         float nearFutureParameter = Mathf.Min(m_CurrentParameter + PARAMETER_EPSILON, m_CurvesCount);
-        Vector2 nearFuturePosition = m_StartPosition + bezierPath2DComponent.Path.InterpolatePathByParameter(nearFutureParameter);
+        Vector2 nearFuturePosition = InterpolatePathByParameterWithOffset(nearFutureParameter);
         Vector2 localPositionDelta = nearFuturePosition - currentPosition;
         float parametricSpeed = localPositionDelta.magnitude / PARAMETER_EPSILON;
 
@@ -106,7 +130,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
 
         // Determine target position for this new parameter
         // Remember that Bezier path is relative, so add start position
-        Vector2 target = m_StartPosition + bezierPath2DComponent.Path.InterpolatePathByParameter(m_CurrentParameter);
+        Vector2 target = InterpolatePathByParameterWithOffset(m_CurrentParameter);
 
         // Calculate vector from current position to target and set velocity so we arrive just on target next frame.
         // We assume we have a proper path that starts at (relative) (0, 0), so the entity position is continuous,
@@ -118,6 +142,14 @@ public class Action_MoveAlongBezierPath : BehaviourAction
         Vector2 nextVelocity = toTarget / Time.deltaTime;
 
         m_MoveFlyingIntention.moveVelocity = nextVelocity;
+
+        // Since MoveFlying with moveRelativelyToScreen: true adds scrolling speed to velocity each frame
+        // to make the character move with the screen, we must take this into account in the final target position,
+        // else the character will deviate as if following the world, not screen (see InterpolatePathByParameterWithOffset).
+        if (m_MoveFlying.moveFlyingParameters.moveRelativelyToScreen)
+        {
+            m_AccumulatedScrolling += ScrollingManager.Instance.ScrollingSpeed * Vector2.right * Time.deltaTime;
+        }
     }
 
     protected override bool IsOver()

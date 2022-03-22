@@ -13,19 +13,19 @@ public class MoveFlying : ClearableBehaviour
     [Tooltip("Move Flying Parameters Data")]
     public MoveFlyingParameters moveFlyingParameters;
 
-    
+
     /* Sibling components */
-    
+
     private Rigidbody2D m_Rigidbody2D;
     private MoveFlyingIntention m_MoveFlyingIntention;
-    
-    
+    public MoveFlyingIntention MoveFlyingIntention => m_MoveFlyingIntention;
+
     private void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(moveFlyingParameters != null, this, "[MoveFlying] Awake: Move Flying Parameters not set on {0}", this);
         #endif
-        
+
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
         m_MoveFlyingIntention = this.GetComponentOrFail<MoveFlyingIntention>();
     }
