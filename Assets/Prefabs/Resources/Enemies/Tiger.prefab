@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -1.0625, y: 0.0625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 581364396840778214}
   m_RootOrder: 2
@@ -69,6 +70,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5458099435760143237}
   - {fileID: 4094381299979211193}
@@ -115,7 +117,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1543734271
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,7 +132,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &8994827401195710385
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,6 +145,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -209,6 +212,7 @@ MonoBehaviour:
   addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
+  slaveRigidbody2D: {fileID: 0}
   slaveParticles: []
 --- !u!114 &581364396840778221
 MonoBehaviour:
@@ -343,6 +347,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 581364396840778214}
   m_RootOrder: 1
@@ -400,6 +405,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 581364396840778214}
   m_RootOrder: 0

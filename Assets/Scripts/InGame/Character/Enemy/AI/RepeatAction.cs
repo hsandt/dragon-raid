@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using CommonsDebug;
 using CommonsHelper;
 
 /// Action to repeat the decorated action N times (or indefinitely)
@@ -37,11 +38,14 @@ public class RepeatAction : BehaviourAction
         {
             m_RepeatedAction = transform.GetChild(0).GetComponentOrFail<BehaviourAction>();
 
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            Debug.AssertFormat(childCount == 1, this,
+            DebugUtil.AssertFormat(childCount == 1, this,
                 "[RepeatAction] There are {0} children, expected 1. Only the first child will be repeated.",
                 childCount);
-            #endif
+        }
+        else
+        {
+            DebugUtil.LogError("[RepeatAction] There are no children, expected 1. " +
+                "Cannot register repeated action, further execution will cause null reference exceptions.", this);
         }
     }
 

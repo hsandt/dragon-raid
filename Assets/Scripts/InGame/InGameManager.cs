@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using CommonsDebug;
-using CommonsHelper;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using UnityConstants;
+using CommonsDebug;
+using CommonsHelper;
 using CommonsPattern;
-using UnityEngine.SceneManagement;
 
 /// In-game manager
 /// SEO:
@@ -87,7 +87,7 @@ public class InGameManager : SingletonManager<InGameManager>
         base.Init();
 
         Camera mainCameraNativeScript = Camera.main;
-        AssertUtil.Assert(mainCameraNativeScript != null, "[InGameManager] No Main Camera found in scene");
+        DebugUtil.Assert(mainCameraNativeScript != null, "[InGameManager] No Main Camera found in scene");
         m_InGameCamera = mainCameraNativeScript.GetComponentOrFail<InGameCamera>();
 
         // Find player character spawn position

@@ -11,8 +11,8 @@ public class EnemySpawnData : EnemyBaseSpawnData
              "If chaining multiple enemies at the same position, prefer Enemy Chain Spawn Data.")]
     public float delay = 0f;
 
-    [Tooltip("Optional root action used to override the default one on this specific enemy. " +
+    [Tooltip("Optional root used to override the default one on this specific enemy. " +
              "It actually represents the whole Behaviour Tree made by this root and all its children ." +
              "Useful to customize enemy behavior, by either only changing parameters or the full behaviour tree.")]
-    public BehaviourAction overrideRootAction = null;
+    public BehaviourTreeRoot overrideRoot = null;
 }

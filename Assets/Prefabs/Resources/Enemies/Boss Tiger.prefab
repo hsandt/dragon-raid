@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 525530518}
   - component: {fileID: 525530519}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: RepeatAction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525530517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 741018633}
-  m_Father: {fileID: 581364396840778214}
-  m_RootOrder: 3
+  m_Father: {fileID: 491588857700755980}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &525530519
 MonoBehaviour:
@@ -320,7 +320,7 @@ Transform:
   - {fileID: 5458099435760143237}
   - {fileID: 4094381299979211193}
   - {fileID: 581364395923855623}
-  - {fileID: 525530518}
+  - {fileID: 491588857700755980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fff70ec45b042077933eaa5bd9659eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultRootAction: {fileID: 525530519}
+  defaultRoot: {fileID: 656568827276144367}
 --- !u!1 &800988477633653212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1346,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   repeatCount: 3
+--- !u!1 &7768770084974648287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 491588857700755980}
+  - component: {fileID: 656568827276144367}
+  m_Layer: 0
+  m_Name: BT Root Boss Tiger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &491588857700755980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768770084974648287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 525530518}
+  m_Father: {fileID: 581364396840778214}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &656568827276144367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768770084974648287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1fbe7a3ff9889488374dcc9e7d252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7852560481182250299
 GameObject:
   m_ObjectHideFlags: 0

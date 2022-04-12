@@ -11,25 +11,25 @@ public class EnemyWave : MonoBehaviour
     {
         private readonly EnemyData m_EnemyData;
         public EnemyData EnemyData => m_EnemyData;
-        
-        private Vector2 m_SpawnPosition;
-        public Vector2 SpawnPosition => m_SpawnPosition;
-    
-        private BehaviourAction m_OverrideRootAction;
-        public BehaviourAction OverrideRootAction => m_OverrideRootAction;
 
-        
+        private readonly Vector2 m_SpawnPosition;
+        public Vector2 SpawnPosition => m_SpawnPosition;
+
+        private readonly BehaviourTreeRoot m_OverrideRoot;
+        public BehaviourTreeRoot OverrideRoot => m_OverrideRoot;
+
+
         private float m_TimeLeft;
 
-        public DelayedEnemySpawnInfo(EnemyData enemyData, Vector2 spawnPosition, BehaviourAction overrideRootAction,
+        public DelayedEnemySpawnInfo(EnemyData enemyData, Vector2 spawnPosition, BehaviourTreeRoot overrideRoot,
             float delay)
         {
             m_EnemyData = enemyData;
             m_SpawnPosition = spawnPosition;
-            m_OverrideRootAction = overrideRootAction;
+            m_OverrideRoot = overrideRoot;
             m_TimeLeft = delay;
         }
-        
+
         /// Countdown the time by deltaTime, and return true if timer reached 0
         /// Must be called in FixedUpdate
         public bool CountDown(float deltaTime)
@@ -41,34 +41,34 @@ public class EnemyWave : MonoBehaviour
             return m_TimeLeft <= 0;
         }
     }
-    
+
     [Header("Parameters")]
-    
+
     [SerializeField, Tooltip("Array of enemy spawn data. All enemies will be spawned when this wave is triggered.")]
     private EnemySpawnData[] enemySpawnDataArray;
-    
+
     /// Array of enemy spawn data. All enemies will be spawned when this wave is triggered.
     public EnemySpawnData[] EnemySpawnDataArray => enemySpawnDataArray;
 
     [SerializeField, Tooltip("Array of enemy chain spawn data. Allows chaining enemies of the same type.")]
     private EnemyChainSpawnData[] enemyChainSpawnDataArray;
-    
+
     /// Array of enemy spawn data. All enemies will be spawned when this wave is triggered.
     public EnemyChainSpawnData[] EnemyChainSpawnDataArray => enemyChainSpawnDataArray;
 
-    
+
     /* Dynamic external references */
 
     /// Optional wave cleared event effect, triggered when all enemies spawned from this wave have died or exited
     private IEventEffect m_OnWaveClearedEventEffect;
-    
-    
+
+
     /* State */
-    
+
     /// Tracked count of enemies spawned during current wave
     /// When this count is decremented back to 0, the associated Event Effect is triggered.
     private int m_TrackedEnemiesCount;
-    
+
     /// List of delayed enemy spawn info
     /// Allows to manually update delay spawn timers and pause them on game pause
     /// (we cannot just use coroutines because they are not paused when script is disabled)
@@ -80,30 +80,30 @@ public class EnemyWave : MonoBehaviour
     /// searching and removing them costs O(N), which is okay but can stack quickly in an action game
     /// with frequent destruction. So we use m_TrackedEnemiesCount in production for performance,
     /// but track spawned enemies in development to detect Desync immediately (see CheckDesync).
-    private readonly List<EnemyCharacterMaster> m_SpawnedEnemies = new List<EnemyCharacterMaster>();
+    private readonly List<EnemyCharacterMaster> m_DebugSpawnedEnemies = new List<EnemyCharacterMaster>();
     #endif
-    
-    
+
+
     public void Setup()
     {
         m_TrackedEnemiesCount = 0;
     }
-    
+
     public void Clear()
     {
         // Exceptionally clear the count on Clear too, not just Setup, just to get in sync
         m_TrackedEnemiesCount = 0;
         m_DelayedEnemySpawnInfoList.Clear();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        m_SpawnedEnemies.Clear();
+        m_DebugSpawnedEnemies.Clear();
         CheckDesync();
         #endif
     }
-    
-    private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, BehaviourAction overrideRootAction = null)
+
+    private void SpawnEnemy(EnemyData enemyData, Vector2 spawnPosition, BehaviourTreeRoot overrideRoot = null)
     {
-        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemyData.enemyName, spawnPosition, this, overrideRootAction);
+        EnemyCharacterMaster enemyCharacterMaster = EnemyPoolManager.Instance.SpawnCharacter(enemyData.enemyName, spawnPosition, this, overrideRoot);
         if (enemyCharacterMaster == null)
         {
             // Spawning failed, immediately stop tracking
@@ -125,7 +125,7 @@ public class EnemyWave : MonoBehaviour
             "Make sure to Setup every wave on Level Restart, and not Starting the same wave again before it is cleared.",
             m_TrackedEnemiesCount);
         #endif
-        
+
         foreach (var enemySpawnData in enemySpawnDataArray)
         {
             if (enemySpawnData.enemyData)
@@ -138,17 +138,17 @@ public class EnemyWave : MonoBehaviour
 
                 if (enemySpawnData.delay <= 0f)
                 {
-                    SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideRootAction);
+                    SpawnEnemy(enemySpawnData.enemyData, enemySpawnData.spawnPosition, enemySpawnData.overrideRoot);
                 }
                 else
                 {
                     m_DelayedEnemySpawnInfoList.Add(new DelayedEnemySpawnInfo(
                         enemySpawnData.enemyData,
                         enemySpawnData.spawnPosition,
-                        enemySpawnData.overrideRootAction,
+                        enemySpawnData.overrideRoot,
                         enemySpawnData.delay));
                 }
-                
+
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 CheckDesync();
                 #endif
@@ -160,14 +160,14 @@ public class EnemyWave : MonoBehaviour
             }
             #endif
         }
-        
+
         foreach (var enemyChainSpawnData in enemyChainSpawnDataArray)
         {
             if (enemyChainSpawnData.enemyData)
             {
                 // Track all chained enemies now for the same reason as above
                 m_TrackedEnemiesCount += enemyChainSpawnData.spawnCount;
-                
+
                 // Spawn first enemy of the chain now
                 SpawnEnemy(enemyChainSpawnData.enemyData, enemyChainSpawnData.spawnPosition);
 
@@ -200,12 +200,12 @@ public class EnemyWave : MonoBehaviour
             DelayedEnemySpawnInfo delayedEnemySpawnInfo = m_DelayedEnemySpawnInfoList[i];
             if (delayedEnemySpawnInfo.CountDown(Time.deltaTime))
             {
-                SpawnEnemy(delayedEnemySpawnInfo.EnemyData, delayedEnemySpawnInfo.SpawnPosition, delayedEnemySpawnInfo.OverrideRootAction);
+                SpawnEnemy(delayedEnemySpawnInfo.EnemyData, delayedEnemySpawnInfo.SpawnPosition, delayedEnemySpawnInfo.OverrideRoot);
                 m_DelayedEnemySpawnInfoList.RemoveAt(i);  // safe thanks to reverse loop
             }
         }
     }
-    
+
     public void RegisterOnWaveClearedEventEffect(IEventEffect eventEffect)
     {
         m_OnWaveClearedEventEffect = eventEffect;
@@ -216,7 +216,7 @@ public class EnemyWave : MonoBehaviour
         if (m_TrackedEnemiesCount > 0)
         {
             --m_TrackedEnemiesCount;
-            
+
             if (m_TrackedEnemiesCount == 0)
             {
                 // Last enemy cleared, trigger wave cleared event effect, if any
@@ -231,16 +231,16 @@ public class EnemyWave : MonoBehaviour
         }
         #endif
     }
-    
+
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     private void RegisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
     {
-        m_SpawnedEnemies.Add(enemyCharacterMaster);
+        m_DebugSpawnedEnemies.Add(enemyCharacterMaster);
     }
-    
+
     public void UnregisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
     {
-        bool success = m_SpawnedEnemies.Remove(enemyCharacterMaster);
+        bool success = m_DebugSpawnedEnemies.Remove(enemyCharacterMaster);
         if (!success)
         {
             Debug.LogFormat(this, "[EnemyWave] Enemy wave {0} could not remove enemy {1}, " +
@@ -252,13 +252,13 @@ public class EnemyWave : MonoBehaviour
     public void CheckDesync()
     {
         // Remember we track enemies to spawn in advance, so the tracked enemies count include delayed enemies to spawn
-        if (m_SpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count != m_TrackedEnemiesCount)
+        if (m_DebugSpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count != m_TrackedEnemiesCount)
         {
             Debug.LogErrorFormat(this, "[EnemyWave] Desync on enemy wave {0}: " +
                                        "Spawned Enemies count ({1}) + Delayed Spawn Queue count ({2}) = {3}, " +
                                        "it doesn't match Tracked Enemies count ({4})",
                 this,
-                m_SpawnedEnemies.Count, m_DelayedEnemySpawnInfoList.Count, m_SpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count,
+                m_DebugSpawnedEnemies.Count, m_DelayedEnemySpawnInfoList.Count, m_DebugSpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count,
                 m_TrackedEnemiesCount);
         }
     }
