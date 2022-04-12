@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using UnityEngine.Serialization;
 
-/// Action to move flying character along a relative Bezier path
-/// at constant curvilinear (path parameter) speed
-/// Note that this ignores the Is Relative flag on the associated Bezier Path 2D Component.
+/// Action to move flying character along a relative path at constant world speed (not parameter speed).
+/// It supports any child class of Path 2D Component.
+/// Note that this ignores the Is Relative flag on the associated Path 2D Component.
 /// Instead, the movement will always start from the character position at the start of the action,
 /// as long as the first point coordinate is (0, 0).
 /// We still recommend to set this flag as it's more convenient to edit a curve from a visible character
 /// than around the origin.
-[AddComponentMenu("Game/Action: Move Along Bezier Path")]
-public class Action_MoveAlongBezierPath : BehaviourAction
+[AddComponentMenu("Game/Action: Move Along Path")]
+public class Action_MoveAlongPath : BehaviourAction
 {
     /// Small value (compared to 1) used to predict a point on the path in the near future,
-    /// in order to estimate the natural point speed along the path when parameter
+    /// in order to estimate the natural point speed along the path for current parameter
     private const float PARAMETER_EPSILON = 0.1f;
+
 
     [Header("Parameters")]
 
-    [Tooltip("Component containing Bezier path to follow")]
-    public BezierPath2DComponent bezierPath2DComponent;
+    [Tooltip("Component containing path to follow")]
+    [FormerlySerializedAs("bezierPath2DComponent")]
+    public Path2DComponent path2DComponent;
 
     [SerializeField, Tooltip("Motion speed (m/s)")]
     [Min(0f)]
@@ -40,7 +43,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
 
     /* Derived parameters */
 
-    /// Number of curves in the Bezier path
+    /// Number of curves in the path
     /// We could only work with Normalized Parameter so we don't have to use this, but it's a little easier
     /// to read a non-normalized parameter in debug (1 means we finished the first curve)
     /// than a normalized one (0.333... means we finished the first curve, if there are 3 curves...).
@@ -56,7 +59,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
     /// in case entity is moving relatively to screen
     private Vector2 m_AccumulatedScrolling;
 
-    /// Current parameter on the Bezier path (between 0 and #curves, +1 for every curve completed)
+    /// Current parameter on the path (between 0 and #curves, +1 for every curve completed)
     private float m_CurrentParameter;
 
 
@@ -66,14 +69,14 @@ public class Action_MoveAlongBezierPath : BehaviourAction
         m_MoveFlyingIntention = m_MoveFlying.MoveFlyingIntention;
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(bezierPath2DComponent, this,
-            "[Action_MoveAlongBezierPath] Bezier Path 2D Component not set on {0}", this);
+        Debug.AssertFormat(path2DComponent, this,
+            "[Action_MoveAlongPath] Path 2D Component not set on {0}", this);
         #endif
 
         // We are working with non-normalized path parameter, which evolves from 0 to #curves
         // Since we cached derived parameters on Init, do not add/remove key points while Behaviour Tree is running
         // (moving key points is okay, but may lead to high speed motions for catch-up)
-        m_CurvesCount = bezierPath2DComponent.Path.GetCurvesCount();
+        m_CurvesCount = path2DComponent.Path.GetCurvesCount();
     }
 
     public override void OnStart ()
@@ -85,21 +88,21 @@ public class Action_MoveAlongBezierPath : BehaviourAction
 
     private Vector2 InterpolatePathByParameterWithOffset(float parameter)
     {
-        // There is already a method bezierPath2DComponent.InterpolatePathByParameter adds
+        // There is already a method Path2DComponent.InterpolatePathByParameter that adds
         // its owner transform position as offset. However, Action nodes are often placed under
         // the moving entity itself, which means the owner position would change over time,
         // causing the path to be unstable. Therefore, we must add the stored start position instead.
         // In addition, we must add any accumulated scrolling due to moving relatively to screen,
         // so we are targeting the right position on screen (if m_MoveFlying.moveFlyingParameters.moveRelativelyToScreen
         // is false, m_AccumulatedScrolling = 0).
-        return m_StartPosition + m_AccumulatedScrolling + bezierPath2DComponent.Path.InterpolatePathByParameter(parameter);
+        return m_StartPosition + m_AccumulatedScrolling + path2DComponent.Path.InterpolatePathByParameter(parameter);
     }
 
     public override void RunUpdate ()
     {
         // To make our entity move at uniform speed, we must take into account the parametric speed,
-        // i.e. the "natural speed" of a point along the Bezier path, when the parameter increases at constant rate.
-        // Mathematically, this is the norm of the derivative of the Bezier point position relative to the parameter,
+        // i.e. the "natural speed" of a point along the path, when the parameter increases at constant rate.
+        // Mathematically, this is the norm of the derivative of the point position relative to the parameter,
         // and since no time is involved, its unit is m/1.
         // To avoid using the exact derivative formula, we just estimate the derivative by computing:
         // || position_delta || / parameter_delta where delta values are small.
@@ -110,7 +113,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
         float parametricSpeed = localPositionDelta.magnitude / PARAMETER_EPSILON;
 
         // IsOver avoids the case where parameter has reached the end and nearFutureParameter == m_CurrentParameter
-        // causing parametricSpeed == 0f. But it may still be 0 if the Bezier path is degenerated (control points at the
+        // causing parametricSpeed == 0f. But it may still be 0 if the path is degenerated (control points at the
         // same position), or simply very small if the parameter was very close the end (m_CurvesCount), so check this.
         if (parametricSpeed < float.Epsilon)
         {
@@ -129,7 +132,7 @@ public class Action_MoveAlongBezierPath : BehaviourAction
         m_CurrentParameter = Mathf.Clamp(m_CurrentParameter + parameterIncrease, 0f, m_CurvesCount);
 
         // Determine target position for this new parameter
-        // Remember that Bezier path is relative, so add start position
+        // Remember that path is relative, so add start position
         Vector2 target = InterpolatePathByParameterWithOffset(m_CurrentParameter);
 
         // Calculate vector from current position to target and set velocity so we arrive just on target next frame.
