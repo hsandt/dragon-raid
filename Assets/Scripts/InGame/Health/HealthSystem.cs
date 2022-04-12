@@ -10,84 +10,84 @@ using CommonsPattern;
 public class HealthSystem : ClearableBehaviour
 {
     [Header("Parameters data")]
-    
+
     [Tooltip("Health Parameters Data")]
     public HealthParameters healthParameters;
 
     [Tooltip("Health Aesthetic Parameters Data")]
     public HealthAestheticParameters healthAestheticParameters;
 
-    
+
     /* Cached asset references */
 
-    private HealthSharedParameters m_healthSharedParameters;
+    private HealthSharedParameters m_HealthSharedParameters;
 
-    
+
     /* Dynamic external references */
-    
+
     /// List of health gauges observing health data
     private readonly List<GaugeHealth> m_GaugeHealthList = new List<GaugeHealth>();
-    
+
     /// Optional death event effect
     /// A given type of entity always has the same death event effect, set once on EventTrigger_EntityDeath.Awake,
     /// this is not reset on Clear so it can still be valid after despawn and respawn.
     private IEventEffect m_OnDeathEventEffect;
 
-    
+
     /* Sibling components (required) */
 
     private IPooledObject m_PooledObject;
     private Health m_Health;
     private Brighten m_Brighten;
-    
-    
+
+
     /* Sibling components (optional) */
 
     private CharacterMaster m_CharacterMaster;
     private PreCookSystem m_PreCookSystem;
-    
-    
+
+
     /* State */
-    
+
     /// Timer counting down toward end of invincibility
     private Timer m_InvincibilityTimer;
 
     /// Is the character invincible?
     private bool IsInvincible => m_InvincibilityTimer.HasTimeLeft;
-    
-    
+
+
     private void Awake()
     {
         // Currently, all objects with a Health system are released via pooling
         m_PooledObject = GetComponent<IPooledObject>();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, this,
             "[HealthSystem] No component implementing IPooledObject found on {0}", gameObject);
-        
+
         Debug.AssertFormat(healthParameters != null, this, "[HealthSystem] No Health Parameters asset set on {0}", this);
         #endif
-        
+
         m_Health = this.GetComponentOrFail<Health>();
         m_Health.maxValue = healthParameters.maxHealth;
-        
+
         m_Brighten = this.GetComponentOrFail<Brighten>();
 
         m_CharacterMaster = GetComponent<CharacterMaster>();
         m_PreCookSystem = GetComponent<PreCookSystem>();
-        
+
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
-        
+
         // Relies on InGameManager being ready, thanks to its SEO being before Character Pool Managers who will
         // Awake this component immediately on pooled object creation in their Init
-        m_healthSharedParameters = InGameManager.Instance.healthSharedParameters;
+        m_HealthSharedParameters = InGameManager.Instance.healthSharedParameters;
     }
 
     public override void Setup()
     {
         m_Health.value = m_Health.maxValue;
         NotifyValueChangeToObservers();  // only needed on Respawn
-        
+
         m_InvincibilityTimer.Stop();
     }
 
@@ -106,6 +106,20 @@ public class HealthSystem : ClearableBehaviour
         return (float) m_Health.value / m_Health.maxValue;
     }
 
+    private void StartInvincibility(float invincibilityDuration, float brightness)
+    {
+        m_InvincibilityTimer.SetTime(invincibilityDuration);
+
+        // Set the brightness without timer: the invincibility timer will take care of resetting it
+        m_Brighten.SetBrightness(brightness);
+    }
+
+    public void StartRespawnInvincibility()
+    {
+        StartInvincibility(m_HealthSharedParameters.postRespawnInvincibilityDuration,
+            m_HealthSharedParameters.damagedBrightness);
+    }
+
     /// Low-level function to deal damage, check death and update observers
     /// This is private as you should always check for invincibility and apply visual feedback
     /// via the Try...Damage methods
@@ -114,7 +128,7 @@ public class HealthSystem : ClearableBehaviour
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(CanBeDamaged());
         #endif
-        
+
         if (value > 0)
         {
             // If this entity is cookable and damaged by fire, advance cook progress to prepare spawning cooked enemy
@@ -126,7 +140,7 @@ public class HealthSystem : ClearableBehaviour
                 // This way, an overkill attack on an enemy with low HP will still cook a lot!
                 m_PreCookSystem.AdvanceCookProgress(value);
             }
-            
+
             m_Health.value -= value;
 
             if (m_Health.value <= 0)
@@ -134,7 +148,7 @@ public class HealthSystem : ClearableBehaviour
                 m_Health.value = 0;
                 Die();
             }
-    
+
             NotifyValueChangeToObservers();
         }
     }
@@ -147,7 +161,7 @@ public class HealthSystem : ClearableBehaviour
         {
             return;
         }
-        
+
         TakeDamage(m_Health.value, ElementType.Neutral);
     }
     #endif
@@ -161,11 +175,11 @@ public class HealthSystem : ClearableBehaviour
         }
 
         TakeDamage(value, elementType);
-        
+
         if (m_Health.value > 0)
         {
             // Entity survived, so play damage feedback
-            m_Brighten.SetBrightnessForDuration(m_healthSharedParameters.damagedBrightness, m_healthSharedParameters.damagedBrightnessDuration);
+            m_Brighten.SetBrightnessForDuration(m_HealthSharedParameters.damagedBrightness, m_HealthSharedParameters.damagedBrightnessDuration);
         }
 
         return true;
@@ -178,9 +192,9 @@ public class HealthSystem : ClearableBehaviour
         {
             return false;
         }
-        
+
         TakeDamage(value, elementType);
-        
+
         if (m_Health.value > 0)
         {
             // Entity survived, so start invincibility phase
@@ -191,10 +205,10 @@ public class HealthSystem : ClearableBehaviour
             // danger zone because it helps you not getting hit by many projectiles.
             // This can be avoided by always allowing one-shot damages, but currently periodic invincibility
             // applies to all further incoming damages.
-            m_InvincibilityTimer.SetTime(m_healthSharedParameters.postPeriodicDamageInvincibilityDuration);
-            
-            // Set the brightness without timer: the invincibility timer will take care of resetting it
-            m_Brighten.SetBrightness(m_healthSharedParameters.damagedBrightness);
+            // However, you'd need to distinguish the different types of invincibility, as respawn invincibility
+            // should protected from all types of damage
+            StartInvincibility(m_HealthSharedParameters.postPeriodicDamageInvincibilityDuration,
+                m_HealthSharedParameters.damagedBrightness);
         }
 
         return true;
@@ -222,7 +236,7 @@ public class HealthSystem : ClearableBehaviour
         {
             m_CharacterMaster.OnDeathOrExit();
         }
-        
+
         if (healthAestheticParameters != null)
         {
             if (healthAestheticParameters.fxDeath != null)
@@ -232,19 +246,19 @@ public class HealthSystem : ClearableBehaviour
                 // but we keep fxDeath as a GameObject field to force designer to select an existing object
                 FXPoolManager.Instance.SpawnFX(healthAestheticParameters.fxDeath.name, transform.position);
             }
-            
+
             if (healthAestheticParameters.sfxDeath != null)
             {
                 // Audio: play death SFX
                 SfxPoolManager.Instance.PlaySfx(healthAestheticParameters.sfxDeath);
             }
         }
-        
+
         m_OnDeathEventEffect?.Trigger();
-        
+
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
-        
+
         // If cookable and cooked enough, spawn cooked enemy with randomness
         if (m_PreCookSystem != null)
         {
@@ -260,22 +274,22 @@ public class HealthSystem : ClearableBehaviour
 
         // Recover health up to max value
         m_Health.value = Mathf.Min(m_Health.value + value, m_Health.maxValue);
-        
+
         NotifyValueChangeToObservers();
     }
-    
+
     public void TryRecover(int value)
     {
         if (!CanRecover())
         {
             return;
         }
-        
+
         Recover(value);
     }
-    
+
     /* Observer pattern */
-    
+
     public void RegisterObserver(GaugeHealth gaugeHealth)
     {
         if (!m_GaugeHealthList.Contains(gaugeHealth))
@@ -283,7 +297,7 @@ public class HealthSystem : ClearableBehaviour
              m_GaugeHealthList.Add(gaugeHealth);
         }
     }
-    
+
     public void UnregisterObserver(GaugeHealth gaugeHealth)
     {
         if (m_GaugeHealthList.Contains(gaugeHealth))
@@ -291,7 +305,7 @@ public class HealthSystem : ClearableBehaviour
             m_GaugeHealthList.Remove(gaugeHealth);
         }
     }
-    
+
     private void NotifyValueChangeToObservers()
     {
         foreach (GaugeHealth gaugeHealth in m_GaugeHealthList)

@@ -183,6 +183,10 @@ public class InGameManager : SingletonManager<InGameManager>
             // Respawn character at determined position relative to camera
             // (we could also respawn at the last position before death depending on design)
             m_PlayerCharacterMaster = PlayerCharacterPoolManager.Instance.SpawnCharacter(m_InGameCamera.playerRespawnPosition.position);
+
+            // Start respawn invincibility (with visual feedback)
+            var playerCharacterHealthSystem = m_PlayerCharacterMaster.GetComponentOrFail<HealthSystem>();
+            playerCharacterHealthSystem.StartRespawnInvincibility();
         }
     }
 

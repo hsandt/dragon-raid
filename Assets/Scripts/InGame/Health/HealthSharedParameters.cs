@@ -9,17 +9,21 @@ public class HealthSharedParameters : ScriptableObject
 {
     [Header("Gameplay")]
 
+    [Tooltip("Duration of invincibility after respawn (to avoid getting damaged immediately on comeback)")]
+    [Range(0f, 4f)]
+    public float postRespawnInvincibilityDuration = 2f;
+
     [Tooltip("Duration of invincibility after receiving a periodic damage (to avoid attack stacking)")]
     [Range(0f, 2f)]
     public float postPeriodicDamageInvincibilityDuration = 1f;
-    
-    
+
+
     [Header("Aesthetics")]
-    
+
     [Tooltip("Brightness value when entity is damaged. 0f to keep original color, 1f for full white.")]
     [Range(0f, 1f)]
     public float damagedBrightness = 0.2f;
-    
+
     [Tooltip("Duration of brightness effect when entity is damaged (s)")]
     [Range(0f, 0.2f)]
     public float damagedBrightnessDuration = 0.1f;
