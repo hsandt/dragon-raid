@@ -22,7 +22,7 @@ public class EnemyBehaviour_IspolinEditor : Editor
             Vector2 detectionOrigin = (Vector2)script.throwDetectionOrigin.position;
             Vector2 upwardDelta = 5f * VectorUtil.Rotate(Vector2.left, - script.detectionThrowAiParameters.maxDetectionUpwardAngle);
             Vector2 detectionUpwardAngleHandlePos = detectionOrigin + upwardDelta;
-            HandlesUtil.DrawLine(detectionOrigin, detectionUpwardAngleHandlePos, ColorUtil.orange);
+            HandlesUtil.DrawLine2D(detectionOrigin, detectionUpwardAngleHandlePos, ColorUtil.orange);
             using (var check = new EditorGUI.ChangeCheckScope())
             {
                 HandlesUtil.DrawSlider2D(ref detectionUpwardAngleHandlePos, ColorUtil.orange);

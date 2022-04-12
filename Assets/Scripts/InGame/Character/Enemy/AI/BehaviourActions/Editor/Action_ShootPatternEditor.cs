@@ -22,7 +22,7 @@ public class Action_ShootPatternEditor : BehaviourActionEditor
         {
             return;
         }
-        
+
         // We don't know where the owner is located, so search Shoot component on parents
         // as Actions are often part of a Behaviour Tree under the character root.
         // TODO: support Override BT under Enemy Spawn Wave too, but retrieving an Enemy Prefab may be costly,
@@ -51,7 +51,7 @@ public class Action_ShootPatternEditor : BehaviourActionEditor
             // Read-only: show each bullet, based on bullet count, with a line indicating the fire angle
             foreach (float fireAngle in script.ComputeFireAngles(0, shootPattern.bulletCount))
             {
-                HandlesUtil.DrawLine(startPosition, startPosition + VectorUtil.Rotate(baseFireDirection, fireAngle), Color.yellow);
+                HandlesUtil.DrawLine2D(startPosition, startPosition + VectorUtil.Rotate(baseFireDirection, fireAngle), Color.yellow);
             }
 
             if (check.changed)
