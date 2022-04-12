@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740cbd6a8dae4ccb8b52c2cae7648fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bezierPath2DComponent: {fileID: 8142269489432822194}
+  path2DComponent: {fileID: 8142269489432822194}
   speed: 4
 --- !u!114 &8142269489432822194
 MonoBehaviour:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740cbd6a8dae4ccb8b52c2cae7648fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bezierPath2DComponent: {fileID: 4698221568547279185}
+  path2DComponent: {fileID: 4698221568547279185}
   speed: 4
 --- !u!114 &4698221568547279185
 MonoBehaviour:
