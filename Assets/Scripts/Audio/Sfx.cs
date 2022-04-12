@@ -9,16 +9,19 @@ using CommonsPattern;
 public class Sfx : MonoBehaviour, IPooledObject
 {
     /* Sibling components */
-    
+
     private AudioSource m_AudioSource;
-    
-    
-    /* IPooledObject interface */
-    
-    public void InitPooled()
+
+
+    private void Awake()
     {
         m_AudioSource = this.GetComponentOrFail<AudioSource>();
     }
+
+
+    /* IPooledObject interface */
+
+    public void Acquire() {}
 
     public bool IsInUse()
     {
@@ -29,8 +32,8 @@ public class Sfx : MonoBehaviour, IPooledObject
     {
         m_AudioSource.Stop();
     }
-    
-    
+
+
     /* Own methods */
 
     public void PlayOneShot(AudioClip clip)

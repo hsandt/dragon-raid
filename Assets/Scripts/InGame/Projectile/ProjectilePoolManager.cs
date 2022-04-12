@@ -22,24 +22,24 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     /// Spawn projectile whose prefab is named `resourceName`
     public Projectile SpawnProjectile(string resourceName, Vector2 position, Vector2 velocity)
     {
-        Projectile projectile = GetObject(resourceName);
-        
+        Projectile projectile = AcquireFreeObject(resourceName);
+
         if (projectile != null)
         {
-            projectile.Spawn(position, velocity);
+            projectile.WarpAndSetup(position, velocity);
             return projectile;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogErrorFormat("[ProjectilePoolManager] SpawnProjectile: Cannot spawn projectile '{0}' due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "instantiateNewObjectOnStarvation: true on ProjectilePoolManager, or increasing its pool size.",
             resourceName);
         #endif
-        
+
         return null;
     }
-    
+
     public void PauseAllProjectiles()
     {
         foreach (Projectile projectile in GetObjectsInUseInAllPools())
@@ -47,7 +47,7 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
             projectile.Pause();
         }
     }
-    
+
     public void ResumeAllProjectiles()
     {
         foreach (Projectile projectile in GetObjectsInUseInAllPools())

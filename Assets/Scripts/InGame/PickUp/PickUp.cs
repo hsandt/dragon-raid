@@ -9,20 +9,20 @@ using CommonsPattern;
 public class PickUp : MonoBehaviour, IPooledObject
 {
     /* Sibling components */
-    
+
     private IPickUpEffect m_PickUpEffect;
-    
-    
+
+
     private void Awake()
     {
         m_PickUpEffect = GetComponent<IPickUpEffect>();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PickUpEffect != null, gameObject,
             "[PickUp] No component implemented IPickUpEffect found on {0}", gameObject);
         #endif
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check that item is still alive, to avoid being picked twice in the same frame
@@ -45,10 +45,10 @@ public class PickUp : MonoBehaviour, IPooledObject
 
 
     /* IPooledObject interface */
-    
-    public void InitPooled()
+
+    public void Acquire()
     {
-        // Nothing special for now
+        gameObject.SetActive(true);
     }
 
     public bool IsInUse()
@@ -60,14 +60,12 @@ public class PickUp : MonoBehaviour, IPooledObject
     {
         gameObject.SetActive(false);
     }
-    
-    
+
+
     /* Own methods */
 
-    public void Spawn(Vector2 position)
+    public void Warp(Vector2 position)
     {
-        gameObject.SetActive(true);
-        
         transform.position = position;
     }
 }

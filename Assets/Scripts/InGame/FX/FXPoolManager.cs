@@ -22,11 +22,11 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     /// Spawn FX whose prefab is named `resourceName`
     public FX SpawnFX(string resourceName, Vector2 position)
     {
-        FX fx = GetObject(resourceName);
+        FX fx = AcquireFreeObject(resourceName);
         
         if (fx != null)
         {
-            fx.Spawn(position);
+            fx.Warp(position);
             return fx;
         }
         

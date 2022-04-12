@@ -11,9 +11,10 @@ using CommonsPattern;
 public class FX : MasterBehaviour, IPooledObject
 {
     /* IPooledObject interface */
-    
-    public void InitPooled()
+
+    public void Acquire()
     {
+        gameObject.SetActive(true);
     }
 
     public bool IsInUse()
@@ -25,14 +26,12 @@ public class FX : MasterBehaviour, IPooledObject
     {
         gameObject.SetActive(false);
     }
-    
-    
+
+
     /* Own methods */
 
-    public void Spawn(Vector2 position)
+    public void Warp(Vector2 position)
     {
-        gameObject.SetActive(true);
-        
         transform.position = position;
     }
 }

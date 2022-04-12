@@ -22,24 +22,24 @@ public class PickUpPoolManager : MultiPoolManager<PickUp, PickUpPoolManager>
     /// Spawn PickUp whose prefab is named `resourceName`
     public PickUp SpawnPickUp(string resourceName, Vector2 position)
     {
-        PickUp pickUp = GetObject(resourceName);
-        
+        PickUp pickUp = AcquireFreeObject(resourceName);
+
         if (pickUp != null)
         {
-            pickUp.Spawn(position);
+            pickUp.Warp(position);
             return pickUp;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[PickUpPoolManager] SpawnPickUp: Cannot spawn PickUp '{0}' due to either " + 
+        Debug.LogErrorFormat("[PickUpPoolManager] SpawnPickUp: Cannot spawn PickUp '{0}' due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on PickUpPoolManager, or increasing its pool size.",
             resourceName);
         #endif
-        
+
         return null;
     }
-    
+
     public void PauseAllPickUp()
     {
         foreach (PickUp pickUp in GetObjectsInUseInAllPools())
@@ -48,7 +48,7 @@ public class PickUpPoolManager : MultiPoolManager<PickUp, PickUpPoolManager>
             // pickUp.Pause();
         }
     }
-    
+
     public void ResumeAllPickUp()
     {
         foreach (PickUp pickUp in GetObjectsInUseInAllPools())

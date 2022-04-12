@@ -12,20 +12,20 @@ public class Projectile : MasterBehaviour, IPooledObject
 
     [Tooltip("Projectile Parameters Data")]
     public ProjectileParameters projectileParameters;
-    
+
     [Tooltip("Projectile Aesthetic Parameters Data")]
     public ProjectileAestheticParameters projectileAestheticParameters;
-    
-    
+
+
     /* Sibling components */
-    
+
     private Rigidbody2D m_Rigidbody2D;
 
-    
+
     protected override void Init()
     {
         base.Init();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(projectileParameters, this,
             "[Projectile] Projectile Parameters not set on projectile {0}", this);
@@ -62,7 +62,7 @@ public class Projectile : MasterBehaviour, IPooledObject
                 {
                     Impact(targetHealthSystem);
                 }
-                
+
                 var targetCookedEnemy = targetRigidbody.GetComponent<CookedEnemy>();
                 if (targetCookedEnemy != null)
                 {
@@ -71,20 +71,17 @@ public class Projectile : MasterBehaviour, IPooledObject
             }
         }
     }
-    
-    
+
+
     /* Own methods */
 
-    public void Spawn(Vector2 position, Vector2 velocity)
+    public void WarpAndSetup(Vector2 position, Vector2 velocity)
     {
-        // Set active first, or rigidbody setup will be ignored
-        gameObject.SetActive(true);
-
         // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
         // due to pixel perfect camera, use this code to synchronize the sub-pixel at which they are spawned base on
         // current Time
         /*
-        float offsetX = velocity.x * Time.time; 
+        float offsetX = velocity.x * Time.time;
         offsetX = offsetX % (1f/16f);
         position.x = Mathf.Round(position.x * 16f) / 16f + offsetX;
         */
@@ -98,11 +95,11 @@ public class Projectile : MasterBehaviour, IPooledObject
         // but in case it is not, to be safe, we set transform position directly.
         transform.position = (Vector3) position;
         m_Rigidbody2D.velocity = velocity;
-        
+
         // Setup can be done before setting transform position, but to follow CharacterMaster we do it after
         // (in case we add components whose Setup rely on master position later)
         Setup();
-        
+
         if (projectileAestheticParameters != null && projectileAestheticParameters.sfxSpawn != null)
         {
             // Audio: play spawn SFX
@@ -126,12 +123,12 @@ public class Projectile : MasterBehaviour, IPooledObject
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility
             // (with some enum member) like Smash.
             Release();
-    
+
             if (projectileAestheticParameters != null)
             {
                 // Visual: impact FX appears centered on projectile's last position
                 FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
-                
+
                 if (projectileAestheticParameters.sfxImpact != null)
                 {
                     // Audio: play impact SFX
@@ -152,12 +149,12 @@ public class Projectile : MasterBehaviour, IPooledObject
         if (didDamage)
         {
             Release();
-    
+
             if (projectileAestheticParameters != null)
             {
                 // Visual: impact FX appears centered on projectile's last position
                 FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
-                
+
                 if (projectileAestheticParameters.sfxImpact != null)
                 {
                     // Audio: play impact SFX
@@ -169,12 +166,10 @@ public class Projectile : MasterBehaviour, IPooledObject
 
 
     /* IPooledObject interface */
-    
-    public void InitPooled()
+
+    public void Acquire()
     {
-        // InitPooled is redundant with Init as long as the object is instantiated via pooling
-        // If pre-created in the scene (e.g. for Workshop), then only Init is called, but both should work for
-        // normal pooled objects.
+        gameObject.SetActive(true);
     }
 
     public bool IsInUse()
