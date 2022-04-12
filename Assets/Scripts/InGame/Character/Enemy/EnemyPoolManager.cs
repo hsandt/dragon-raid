@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CommonsDebug;
 using UnityEngine;
 
 using UnityConstants;
@@ -14,49 +15,46 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.CharacterPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(Tags.EnemyPool)?.transform;
         }
 
         base.Init();
     }
 
     /// Spawn character at position
-    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave, BehaviourAction overrideRootAction)
+    public EnemyCharacterMaster SpawnCharacter(string enemyName, Vector2 position, EnemyWave enemyWave, BehaviourTreeRoot overrideRoot)
     {
-        EnemyCharacterMaster enemyCharacter = GetObject(enemyName);
-        
+        EnemyCharacterMaster enemyCharacter = AcquireFreeObject(enemyName);
+
         if (enemyCharacter != null)
         {
-            enemyCharacter.Spawn(position);
+            enemyCharacter.WarpAndSetup(position);
             enemyCharacter.SetEnemyWave(enemyWave);
 
             var behaviourTreePlayer = enemyCharacter.GetComponent<BehaviourTreePlayer>();
             if (behaviourTreePlayer != null)
             {
-                behaviourTreePlayer.StartBehaviourTree(overrideRootAction);
+                behaviourTreePlayer.StartBehaviourTree(overrideRoot);
             }
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            else if (overrideRootAction != null)
+            else
             {
-                Debug.LogErrorFormat(enemyWave, "[EnemyPoolManager] SpawnCharacter: Override Root Action {0} was passed " +
+                DebugUtil.AssertFormat(overrideRoot == null, enemyWave,
+                    "[EnemyPoolManager] SpawnCharacter: Override Root {0} was passed " +
                     "to spawn enemy {1} for wave {2}, but this enemy has no BehaviourTreePlayer component.",
-                    overrideRootAction, enemyName, enemyWave);
+                    overrideRoot, enemyName, enemyWave);
             }
-            #endif
-            
+
             return enemyCharacter;
         }
-        
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: Cannot spawn enemy '{0}' for wave {1} due to either " +
+
+        DebugUtil.LogErrorFormat(this, "[EnemyPoolManager] SpawnCharacter: Cannot spawn enemy '{0}' for wave {1} due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on EnemyPoolManager, or increasing its pool size.",
             enemyName, enemyWave);
-        #endif
-        
+
         return null;
     }
-    
+
     public void PauseAllEnemies()
     {
         foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
@@ -64,7 +62,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
             activeEnemy.Pause();
         }
     }
-    
+
     public void ResumeAllEnemies()
     {
         foreach (EnemyCharacterMaster activeEnemy in GetObjectsInUseInAllPools())
@@ -72,7 +70,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
             activeEnemy.Resume();
         }
     }
-    
+
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public void KillAllEnemies()
     {

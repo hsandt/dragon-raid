@@ -1853,7 +1853,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 683363028}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503915491
 GameObject:
@@ -1905,6 +1905,7 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: 4cb44594bb39ada7dbf93e468ceac05e, type: 2}
     spawnPosition: {x: 10.9375, y: -5}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &503915494
@@ -2076,14 +2077,17 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 15, y: 1.25}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 15, y: 2.5}
     delay: 0.2
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 15, y: 0.5625}
     delay: 0.2
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &579508133
@@ -2205,37 +2209,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 466737199695147803, guid: 1b54c39f890e24e61bb4b3f8d1e748f6, type: 3}
   m_PrefabInstance: {fileID: 466737200167305336}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &608500859
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 608500860}
-  m_Layer: 0
-  m_Name: _CharacterPool
-  m_TagString: CharacterPool
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &608500860
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608500859}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 683363028}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &617531699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8734382657320038633, guid: d1e2e62754032b756800e347209f9a75, type: 3}
@@ -2331,7 +2304,8 @@ Transform:
   - {fileID: 2028876846}
   - {fileID: 984149951}
   - {fileID: 2113426032}
-  - {fileID: 608500860}
+  - {fileID: 1053879845}
+  - {fileID: 1123203427}
   - {fileID: 500391801}
   - {fileID: 804306203}
   - {fileID: 1183638005}
@@ -2393,10 +2367,12 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 12, y: -0.75}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 12, y: 0.625}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &685856070
@@ -2642,6 +2618,7 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: f97b4eecc9e3c5f3c87ee8715c3c726b, type: 2}
     spawnPosition: {x: 11, y: -4.75}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &714263311
@@ -2866,7 +2843,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 683363028}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809309727
 GameObject:
@@ -3202,10 +3179,12 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 14, y: -0.75}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 14, y: 0.625}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &992415318
@@ -3542,6 +3521,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1053879844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053879845}
+  m_Layer: 0
+  m_Name: _PlayerCharacterPool
+  m_TagString: PlayerCharacterPool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053879845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053879844}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 683363028}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1113795270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,6 +3672,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6480756205955590197, guid: c7ff0cea8b35401b9b29fc7c355713a7, type: 3}
   m_PrefabInstance: {fileID: 6480756204839701221}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1123203426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1123203427}
+  m_Layer: 0
+  m_Name: _EnemyPool
+  m_TagString: EnemyPool
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1123203427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123203426}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 683363028}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1130476065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,7 +4020,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 683363028}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1184218582
 GameObject:
@@ -4800,10 +4841,12 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 2.25}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 3.625}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &1437443664
@@ -6169,10 +6212,12 @@ MonoBehaviour:
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 2.25}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 3.625}
     delay: 0
+    overrideRoot: {fileID: 0}
     overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &1905432385
@@ -8586,7 +8631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137787402837325351, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}
       propertyPath: initialScrolling
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}

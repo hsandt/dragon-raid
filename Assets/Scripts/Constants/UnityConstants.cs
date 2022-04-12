@@ -41,10 +41,6 @@ namespace UnityConstants
         /// </summary>
         public const string FXPool = "FXPool";
         /// <summary>
-        /// Name of tag 'CharacterPool'.
-        /// </summary>
-        public const string CharacterPool = "CharacterPool";
-        /// <summary>
         /// Name of tag 'PlayerSpawnPosition'.
         /// </summary>
         public const string PlayerSpawnPosition = "PlayerSpawnPosition";
@@ -84,6 +80,14 @@ namespace UnityConstants
         /// Name of tag 'PickUpPool'.
         /// </summary>
         public const string PickUpPool = "PickUpPool";
+        /// <summary>
+        /// Name of tag 'PlayerCharacterPool'.
+        /// </summary>
+        public const string PlayerCharacterPool = "PlayerCharacterPool";
+        /// <summary>
+        /// Name of tag 'EnemyPool'.
+        /// </summary>
+        public const string EnemyPool = "EnemyPool";
     }
 
     public static class SortingLayers

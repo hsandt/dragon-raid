@@ -16,33 +16,33 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.CharacterPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerCharacterPool)?.transform;
         }
 
         base.Init();
     }
-    
+
 
     /// Spawn character at position
     public PlayerCharacterMaster SpawnCharacter(Vector2 position)
     {
-        PlayerCharacterMaster playerCharacter = GetObject();
-        
+        PlayerCharacterMaster playerCharacter = AcquireFreeObject();
+
         if (playerCharacter != null)
         {
-            playerCharacter.Spawn(position);
+            playerCharacter.WarpAndSetup(position);
             return playerCharacter;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[PlayerCharacterPoolManager] SpawnCharacter: Cannot spawn player character due to either " + 
+        Debug.LogErrorFormat("[PlayerCharacterPoolManager] SpawnCharacter: Cannot spawn player character due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on PlayerCharacterPoolManager, or increasing its pool size.");
         #endif
-        
+
         return null;
     }
-    
+
     public void PauseCharacter()
     {
         foreach (PlayerCharacterMaster playerCharacter in GetObjectsInUse())
@@ -50,7 +50,7 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
             playerCharacter.Pause();
         }
     }
-    
+
     public void ResumeCharacter()
     {
         foreach (PlayerCharacterMaster playerCharacter in GetObjectsInUse())
@@ -58,7 +58,7 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
             playerCharacter.Resume();
         }
     }
-    
+
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     public void Cheat_KillPlayerCharacter()
     {

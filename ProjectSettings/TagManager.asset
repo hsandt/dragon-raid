@@ -6,7 +6,6 @@ TagManager:
   tags:
   - ProjectilePool
   - FXPool
-  - CharacterPool
   - PlayerSpawnPosition
   - LevelIdentifier
   - SpatialEvents
@@ -17,6 +16,8 @@ TagManager:
   - CanvasLevel
   - CameraStartPosition
   - PickUpPool
+  - PlayerCharacterPool
+  - EnemyPool
   layers:
   - Default
   - TransparentFX
