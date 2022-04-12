@@ -57,16 +57,18 @@ public class Projectile : MasterBehaviour, IPooledObject
             Rigidbody2D targetRigidbody = other.attachedRigidbody;
             if (targetRigidbody != null)
             {
-                var targetHealthSystem = targetRigidbody.GetComponent<HealthSystem>();
-                if (targetHealthSystem != null)
+                if (targetRigidbody.GetComponent<HealthSystem>() is {} targetHealthSystem && targetHealthSystem != null)
                 {
                     Impact(targetHealthSystem);
                 }
-
-                var targetCookedEnemy = targetRigidbody.GetComponent<CookedEnemy>();
-                if (targetCookedEnemy != null)
+                else if (targetRigidbody.GetComponent<CookedEnemy>() is {} targetCookedEnemy && targetCookedEnemy != null)
                 {
                     Impact(targetCookedEnemy);
+                }
+                else if (targetRigidbody.GetComponent<DamagingEnvironment>() is {} targetDamagingEnvironment && targetDamagingEnvironment != null)
+                {
+                    // We cannot damage damaging environment that has no health system, but destroy projectile
+                    ReleaseWithImpactFeedback();
                 }
             }
         }
@@ -110,6 +112,23 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
+    public void ReleaseWithImpactFeedback()
+    {
+        Release();
+
+        if (projectileAestheticParameters != null)
+        {
+            // Visual: impact FX appears centered on projectile's last position
+            FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxImpactName, transform.position);
+
+            if (projectileAestheticParameters.sfxImpact != null)
+            {
+                // Audio: play impact SFX
+                SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
+            }
+        }
+    }
+
     /// Impact on target health: damage it and self-destruct
     private void Impact(HealthSystem targetHealthSystem)
     {
@@ -122,19 +141,7 @@ public class Projectile : MasterBehaviour, IPooledObject
             // safety mechanic. In some cases, it may look better to make them block the projectiles
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility
             // (with some enum member) like Smash.
-            Release();
-
-            if (projectileAestheticParameters != null)
-            {
-                // Visual: impact FX appears centered on projectile's last position
-                FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
-
-                if (projectileAestheticParameters.sfxImpact != null)
-                {
-                    // Audio: play impact SFX
-                    SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
-                }
-            }
+            ReleaseWithImpactFeedback();
         }
     }
 
@@ -148,19 +155,7 @@ public class Projectile : MasterBehaviour, IPooledObject
 
         if (didDamage)
         {
-            Release();
-
-            if (projectileAestheticParameters != null)
-            {
-                // Visual: impact FX appears centered on projectile's last position
-                FXPoolManager.Instance.SpawnFX(projectileAestheticParameters.fxName, transform.position);
-
-                if (projectileAestheticParameters.sfxImpact != null)
-                {
-                    // Audio: play impact SFX
-                    SfxPoolManager.Instance.PlaySfx(projectileAestheticParameters.sfxImpact);
-                }
-            }
+            ReleaseWithImpactFeedback();
         }
     }
 
