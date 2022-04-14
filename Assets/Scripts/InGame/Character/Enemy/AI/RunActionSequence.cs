@@ -5,7 +5,7 @@ using UnityEngine;
 
 using CommonsDebug;
 
-/// Behaviour Action than runs a sequence of actions, stored as children
+/// Composite node: Behaviour Action that runs a sequence of actions, stored as children
 public class RunActionSequence : BehaviourAction
 {
     /* Cached child references */

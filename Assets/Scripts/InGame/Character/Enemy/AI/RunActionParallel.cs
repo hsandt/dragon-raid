@@ -4,7 +4,7 @@ using UnityEngine;
 
 using CommonsDebug;
 
-/// Behaviour Action than runs multiple actions in parallel, stored as children
+/// Composite node: Behaviour Action that runs multiple actions in parallel, stored as children
 public class RunActionParallel : BehaviourAction
 {
     /* Cached child references */

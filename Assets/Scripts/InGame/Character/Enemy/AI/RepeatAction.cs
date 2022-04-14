@@ -5,7 +5,7 @@ using UnityEngine;
 using CommonsDebug;
 using CommonsHelper;
 
-/// Action to repeat the decorated action N times (or indefinitely)
+/// Decorator node: Behaviour Action that repeats the decorated action N times (or indefinitely)
 public class RepeatAction : BehaviourAction
 {
     [Header("Parameters")]
