@@ -10,7 +10,7 @@ public abstract class BehaviourAction : MonoBehaviour
     protected EnemyCharacterMaster m_EnemyCharacterMaster;
 
 
-    /// Initialize: set owner
+    /// Initialize: set owner and call OnInit
     public void Init(EnemyCharacterMaster enemyCharacterMaster)
     {
         m_EnemyCharacterMaster = enemyCharacterMaster;
@@ -20,13 +20,17 @@ public abstract class BehaviourAction : MonoBehaviour
 
     /// Action initialisation callback. Called only once on Init (called recursively), it should
     /// cache references to any required components, and do any other preprocessing we'd rather avoid later
-    /// (this is still be called in-game at enemy spawn time as we cannot predict action sequence override)
+    /// (this is called in-game at enemy spawn time as we cannot predict BT override).
+    /// It should be called without failure even if the action object is inactive (in case we activate it later
+    /// at runtime, so we get the preprocessing we need). Therefore, it is recommended to put all initialization code
+    /// in OnInit, rather than split across Awake and OnInit, as Awake is not called if the object is inactive.
     protected virtual void OnInit() {}
 
     /// Action start callback. Useful to setup and cache info (optional)
     public virtual void OnStart() {}
 
     /// Run Update callback (called every frame while action is active)
+    /// This assumes that IsOver returns false before RunUpdate is called.
     public virtual void RunUpdate() {}
 
     /// Return true iff action is over or deactivated. Allows to manually deactivate action objects in the editor

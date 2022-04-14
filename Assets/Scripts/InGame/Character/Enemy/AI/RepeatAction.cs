@@ -31,7 +31,7 @@ public class RepeatAction : BehaviourAction
     private int m_CompletedRunCount;
 
 
-    private void Awake()
+    protected override void OnInit()
     {
         int childCount = transform.childCount;
         if (childCount > 0)
@@ -47,10 +47,7 @@ public class RepeatAction : BehaviourAction
             DebugUtil.LogError("[RepeatAction] There are no children, expected 1. " +
                 "Cannot register repeated action, further execution will cause null reference exceptions.", this);
         }
-    }
 
-    protected override void OnInit()
-    {
         // Recurse Init on child
         m_RepeatedAction.Init(m_EnemyCharacterMaster);
     }

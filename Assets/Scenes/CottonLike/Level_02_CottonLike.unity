@@ -1903,10 +1903,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpawnDataArray:
   - enemyData: {fileID: 11400000, guid: 4cb44594bb39ada7dbf93e468ceac05e, type: 2}
-    spawnPosition: {x: 10.9375, y: -5}
+    spawnPosition: {x: 34.5, y: -3.1875}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &503915494
 MonoBehaviour:
@@ -2078,17 +2077,14 @@ MonoBehaviour:
     spawnPosition: {x: 15, y: 1.25}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 15, y: 2.5}
     delay: 0.2
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 15, y: 0.5625}
     delay: 0.2
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &579508133
 MonoBehaviour:
@@ -2368,12 +2364,10 @@ MonoBehaviour:
     spawnPosition: {x: 12, y: -0.75}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 12, y: 0.625}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &685856070
 MonoBehaviour:
@@ -2619,7 +2613,6 @@ MonoBehaviour:
     spawnPosition: {x: 11, y: -4.75}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &714263311
 MonoBehaviour:
@@ -3180,12 +3173,10 @@ MonoBehaviour:
     spawnPosition: {x: 14, y: -0.75}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 14, y: 0.625}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &992415318
 MonoBehaviour:
@@ -4842,12 +4833,10 @@ MonoBehaviour:
     spawnPosition: {x: 13, y: 2.25}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 3.625}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &1437443664
 MonoBehaviour:
@@ -6213,12 +6202,10 @@ MonoBehaviour:
     spawnPosition: {x: 13, y: 2.25}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   - enemyData: {fileID: 11400000, guid: eb8f684871d78d739aff086e4bd83e88, type: 2}
     spawnPosition: {x: 13, y: 3.625}
     delay: 0
     overrideRoot: {fileID: 0}
-    overrideRootAction: {fileID: 0}
   enemyChainSpawnDataArray: []
 --- !u!114 &1905432385
 MonoBehaviour:
@@ -8631,7 +8618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137787402837325351, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}
       propertyPath: initialScrolling
-      value: 0
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5582f483c5b843bccaca490db9b7dd5f, type: 3}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-using CommonsHelper;
+using CommonsDebug;
 
 /// Behaviour Action than runs a sequence of actions, stored as children
 public class RunActionSequence : BehaviourAction
@@ -12,6 +12,7 @@ public class RunActionSequence : BehaviourAction
 
     /// List of behaviour actions on children
     private List<BehaviourAction> m_BehaviourActions;
+
 
     /* State vars */
 
@@ -22,18 +23,24 @@ public class RunActionSequence : BehaviourAction
     private int m_CurrentActionIndex;
 
 
-    private void Awake()
-    {
-        // Linq statement to iterate on all children, get BehaviourAction component and generate a list
-        m_BehaviourActions = transform.Cast<Transform>().Select(tr => tr.GetComponentOrFail<BehaviourAction>()).ToList();
-    }
-
     protected override void OnInit()
     {
-        // Recurse Init on every child
-        foreach (var action in m_BehaviourActions)
+        m_BehaviourActions = new List<BehaviourAction>(transform.childCount);
+
+        // Store and init every child action (even if inactive at this point)
+        foreach (Transform child in transform)
         {
-            action.Init(m_EnemyCharacterMaster);
+            var action = child.GetComponent<BehaviourAction>();
+            if (action != null)
+            {
+                m_BehaviourActions.Add(action);
+                action.Init(m_EnemyCharacterMaster);
+            }
+            else
+            {
+                DebugUtil.LogErrorFormat(child, "[RunActionSequence] Awake: '{0}' has child '{1}' with no BehaviourAction",
+                    this, child);
+            }
         }
     }
 

@@ -13,14 +13,14 @@ public class Action_Jump : BehaviourAction
     [SerializeField, Tooltip("Jump speed impulse (m/s)")]
     [Min(0f)]
     private float jumpSpeedImpulse = 0f;
-    
+
     #if UNITY_EDITOR
     public float JumpSpeedImpulse { get => jumpSpeedImpulse; set => jumpSpeedImpulse = value; }
     #endif
-    
-    
+
+
     /* Owner sibling components */
-    
+
     private MoveGroundedIntention m_MoveGroundedIntention;
 
 
@@ -28,13 +28,13 @@ public class Action_Jump : BehaviourAction
 
     /// True when character has ordered jump
     private bool m_HasOrderedJump;
-    
-    
+
+
     protected override void OnInit()
     {
         m_MoveGroundedIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveGroundedIntention>();
     }
-    
+
     public override void OnStart()
     {
         m_HasOrderedJump = false;
@@ -42,6 +42,8 @@ public class Action_Jump : BehaviourAction
 
     public override void RunUpdate()
     {
+        // REFACTOR: we could also set this OnStart so we can let IsOver return true like Action_StartMoveGroundedToward
+        // in a fire-and-forget way, without needing any flag; although that means that OnStart will have a side effect.
         m_MoveGroundedIntention.jumpSpeedImpulse = jumpSpeedImpulse;
         m_HasOrderedJump = true;
     }
