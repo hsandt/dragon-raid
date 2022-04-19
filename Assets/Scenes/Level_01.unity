@@ -7763,6 +7763,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 234575338578617143, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 234575338578617143, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705594498560659032, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705594498560659032, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2348865195157803640, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2348865195157803640, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433503916544161550, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433503916544161550, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809967391085028967, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2809967391085028967, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3707536571162165712, guid: 19c917f70c3e862098e1719912f71759, type: 3}
       propertyPath: m_Name
       value: Canvas HUD
@@ -7871,6 +7911,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5931717586442349941, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931717586442349941, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8756710503757814446, guid: 19c917f70c3e862098e1719912f71759, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7885,6 +7933,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8756710503757814446, guid: 19c917f70c3e862098e1719912f71759, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050106623059066641, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050106623059066641, guid: 19c917f70c3e862098e1719912f71759, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
