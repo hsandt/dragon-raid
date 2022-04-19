@@ -134,6 +134,7 @@ public class InGameManager : SingletonManager<InGameManager>
         ScrollingManager.Instance.Setup();
         SpatialEventManager.Instance.Setup();
         EnemyWaveManager.Instance.Setup();
+        HUD.Instance.Setup();
 
         if (m_LevelData != null)
         {

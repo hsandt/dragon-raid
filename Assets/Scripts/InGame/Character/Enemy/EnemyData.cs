@@ -10,9 +10,12 @@ public class EnemyData : ScriptableObject
 {
     [Tooltip("Name of enemy prefab located in Resources/Enemies")]
     public string enemyName;
-    
+
 #if UNITY_EDITOR
-    [Tooltip(" enemy prefab located in Resources/Enemies")]
+    [Tooltip("Preview Texture shown on Handles")]
     public Texture editorSpawnPreviewTexture;
 #endif
+
+    [Tooltip("Is the enemy a boss?")]
+    public bool isBoss;
 }

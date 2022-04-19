@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Boss Ispolin
   editorSpawnPreviewTexture: {fileID: 2800000, guid: 037ce034154013c0d9237de8b5ca31d1, type: 3}
+  isBoss: 1

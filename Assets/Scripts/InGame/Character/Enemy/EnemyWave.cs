@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+
+using CommonsHelper;
 
 /// Component data for enemy wave
 /// Combine with EventTrigger_SpatialProgress and EventEffect_StartEnemyWave to trigger a timely wave
@@ -72,7 +73,7 @@ public class EnemyWave : MonoBehaviour
     /// List of delayed enemy spawn info
     /// Allows to manually update delay spawn timers and pause them on game pause
     /// (we cannot just use coroutines because they are not paused when script is disabled)
-    private readonly List<DelayedEnemySpawnInfo> m_DelayedEnemySpawnInfoList = new List<DelayedEnemySpawnInfo>();
+    private readonly List<DelayedEnemySpawnInfo> m_DelayedEnemySpawnInfoList = new();
 
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
     /// Dev-only enemy tracker
@@ -80,7 +81,7 @@ public class EnemyWave : MonoBehaviour
     /// searching and removing them costs O(N), which is okay but can stack quickly in an action game
     /// with frequent destruction. So we use m_TrackedEnemiesCount in production for performance,
     /// but track spawned enemies in development to detect Desync immediately (see CheckDesync).
-    private readonly List<EnemyCharacterMaster> m_DebugSpawnedEnemies = new List<EnemyCharacterMaster>();
+    private readonly List<EnemyCharacterMaster> m_DebugSpawnedEnemies = new();
     #endif
 
 
@@ -97,7 +98,7 @@ public class EnemyWave : MonoBehaviour
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         m_DebugSpawnedEnemies.Clear();
-        CheckDesync();
+        DebugCheckDesync();
         #endif
     }
 
@@ -109,12 +110,17 @@ public class EnemyWave : MonoBehaviour
             // Spawning failed, immediately stop tracking
             --m_TrackedEnemiesCount;
         }
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
         {
-            RegisterSpawnedEnemy(enemyCharacterMaster);
+            #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            DebugRegisterSpawnedEnemy(enemyCharacterMaster);
+            #endif
+
+            if (enemyData.isBoss)
+            {
+                HUD.Instance.ShowAndAssignGaugeBossTo(enemyCharacterMaster.GetComponentOrFail<HealthSystem>());
+            }
         }
-        #endif
     }
 
     public void StartWave()
@@ -150,7 +156,7 @@ public class EnemyWave : MonoBehaviour
                 }
 
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                CheckDesync();
+                DebugCheckDesync();
                 #endif
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -233,12 +239,12 @@ public class EnemyWave : MonoBehaviour
     }
 
     #if UNITY_EDITOR || DEVELOPMENT_BUILD
-    private void RegisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
+    private void DebugRegisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
     {
         m_DebugSpawnedEnemies.Add(enemyCharacterMaster);
     }
 
-    public void UnregisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
+    public void DebugUnregisterSpawnedEnemy(EnemyCharacterMaster enemyCharacterMaster)
     {
         bool success = m_DebugSpawnedEnemies.Remove(enemyCharacterMaster);
         if (!success)
@@ -249,7 +255,7 @@ public class EnemyWave : MonoBehaviour
         }
     }
 
-    public void CheckDesync()
+    public void DebugCheckDesync()
     {
         // Remember we track enemies to spawn in advance, so the tracked enemies count include delayed enemies to spawn
         if (m_DebugSpawnedEnemies.Count + m_DelayedEnemySpawnInfoList.Count != m_TrackedEnemiesCount)

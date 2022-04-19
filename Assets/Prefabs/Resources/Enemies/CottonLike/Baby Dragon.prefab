@@ -159,6 +159,7 @@ MonoBehaviour:
   slaveAnimator: {fileID: 0}
   slaveRigidbody2D: {fileID: 0}
   slaveParticles: []
+  enemyData: {fileID: 11400000, guid: 99b4c8234578b5144960e8b1e8121c42, type: 2}
 --- !u!114 &1991456190773342602
 MonoBehaviour:
   m_ObjectHideFlags: 0

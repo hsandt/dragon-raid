@@ -15,6 +15,12 @@ public class GaugeHealth : Gauge
         RefreshGauge();
     }
 
+    public void UnregisterHealthSystem()
+    {
+        m_TrackedHealthSystem.UnregisterObserver(this);
+        m_TrackedHealthSystem = null;
+    }
+
     private void OnDestroy()
     {
         if (m_TrackedHealthSystem != null)
@@ -27,7 +33,7 @@ public class GaugeHealth : Gauge
     {
         return m_TrackedHealthSystem.GetRatio();
     }
-    
+
     protected override string GetValueAsString()
     {
         return m_TrackedHealthSystem.GetValue().ToString("0");

@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using CommonsHelper;
-using CommonsPattern;
+using CommonsDebug;
 
 /// Master behaviour for an enemy character
 public class EnemyCharacterMaster : CharacterMaster
 {
+    [Header("Parameters")]
+
+    [Tooltip("Reference to Enemy Data")]
+    public EnemyData enemyData;
+
+
     /* Parameter references */
-    
+
     /// Enemy wave that spawned this enemy
     private EnemyWave m_EnemyWave;
 
+
+    protected override void Init()
+    {
+        base.Init();
+
+        DebugUtil.AssertFormat(enemyData != null, this, "[EnemyCharacterMaster] Init: Enemy Data not set on {0}", this);
+    }
 
     public override void Clear()
     {
@@ -23,11 +35,9 @@ public class EnemyCharacterMaster : CharacterMaster
 
     public void SetEnemyWave(EnemyWave enemyWave)
     {
-        #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(m_EnemyWave == null, this, "[EnemyCharacterMaster] m_EnemyWave already set on {0} as {1}, " +
+        DebugUtil.AssertFormat(m_EnemyWave == null, this, "[EnemyCharacterMaster] SetEnemyWave: m_EnemyWave already set on {0} as {1}, " +
             "it will be replaced with {2}. Make sure to clear reference on Clear.", this, m_EnemyWave, enemyWave);
-        #endif
-        
+
          m_EnemyWave = enemyWave;
     }
 
@@ -40,10 +50,20 @@ public class EnemyCharacterMaster : CharacterMaster
         if (m_EnemyWave)
         {
             m_EnemyWave.DecrementTrackedEnemiesCount();
+
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            m_EnemyWave.UnregisterSpawnedEnemy(this);
-            m_EnemyWave.CheckDesync();
+            m_EnemyWave.DebugUnregisterSpawnedEnemy(this);
+            m_EnemyWave.DebugCheckDesync();
             #endif
+
+            if (enemyData.isBoss)
+            {
+                // Boss was defeated, hide and unassign boss health gauge
+                // Note that at once, we don't work from individual components (in this case, HealthSystem),
+                // because the Boss gauge is a bit special, it's unique and we may want to plug an animation
+                // on hide, etc.
+                HUD.Instance.HideAndUnassignGaugeBoss();
+            }
         }
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         else
