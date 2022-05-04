@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+using UnityConstants;
 using CommonsHelper;
 
 [CustomEditor(typeof(EnemyWave))]
@@ -19,15 +20,37 @@ public class EnemyWaveEditor : Editor
     /// Color used for spawn point debug and enemy label
     private readonly Color spawnPointColor = new Color(0.78f, 0.21f, 0.42f);
 
-    /// Color used for the handle that allows to batch move all spawn points at the same time
-    private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
-
     /// Color used for spawn point debug and enemy label for chain spawn
     private readonly Color chainSpawnPointColor = new Color(0.62f, 0.05f, 0.78f);
 
-    /// Color used for the handle that allows to batch move all chain spawn points at the same time
-    private readonly Color chainBatchHandleColor = new Color(0.78f, 0.66f, 0.23f);
+    /// Color used for the handle that allows to batch move all spawn points (single or chained) at the same time
+    private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
 
+    /// Color used for the rectangle that represents the camera at time of event trigger
+    private readonly Color triggerCameraColor = new Color(0.78f, 0.66f, 0.23f);
+
+
+    /* Cached scene references */
+
+    /// Cached camera start position reference
+    private Transform m_CameraStartTransform;
+
+
+    private void CacheSceneReferences()
+    {
+        // We cache scene references on window open, but also on scene change.
+        // In addition, if a tagged object found previously has been destroyed, we will search for a tagged object
+        // one last time and return early if we still find nothing. So we are safe against missing object null references.
+        // However, if you retag objects after opening this window, this will not be detected, and our references may
+        // be outdated (e.g. using the wrong transform). This should be a rare case, so just reopen the window,
+        // or make sure that the previously tagged object was destroyed, to force cache reference refresh.
+
+        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition)?.transform;
+        if (m_CameraStartTransform == null)
+        {
+            Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");
+        }
+    }
 
     private void OnSceneGUI()
     {
@@ -40,8 +63,40 @@ public class EnemyWaveEditor : Editor
         // so changes are not trivial and need Undo Record Object
         Undo.RecordObject(script, "Changed Enemy Wave Data");
 
+        DrawSpatialProgressCameraBounds(script);
         DrawEnemySpawnHandles(script, handleSize);
         DrawChainSpawnHandles(script, handleSize);
+    }
+
+    private void DrawSpatialProgressCameraBounds(EnemyWave script)
+    {
+        if (m_CameraStartTransform == null)
+        {
+            CacheSceneReferences();
+
+            if (m_CameraStartTransform == null)
+            {
+                return;
+            }
+        }
+
+        var eventTriggerSpatialProgress = script.GetComponent<EventTrigger_SpatialProgress>();
+        Camera camera = Camera.main;
+
+        if (eventTriggerSpatialProgress != null && camera != null)
+        {
+            // Get camera view dimensions
+            float cameraHalfHeight = camera.orthographicSize;
+            float cameraHalfWidth = camera.aspect * cameraHalfHeight;
+            Vector2 cameraHalfExtent = new Vector2(cameraHalfWidth, cameraHalfHeight);
+
+            // Only support scrolling to the right for now
+            Vector2 triggerCameraPosition = (Vector2) m_CameraStartTransform.position + eventTriggerSpatialProgress.RequiredSpatialProgress * Vector2.right;
+
+            // Draw rectangle representing camera at the time of event trigger
+            Rect rect = new Rect( triggerCameraPosition - cameraHalfExtent, 2f * cameraHalfExtent);
+            HandlesUtil.DrawRect(rect, triggerCameraColor);
+        }
     }
 
     private void DrawEnemySpawnHandles(EnemyWave script, float handleSize)
@@ -179,7 +234,7 @@ public class EnemyWaveEditor : Editor
 
             HandlesUtil.Label2D(
                 new Vector3(batchMoveHandleCurrentPosition.x - 63f * handleSize,
-                    batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, chainBatchHandleColor);
+                    batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, batchHandleColor);
         }
     }
 }
