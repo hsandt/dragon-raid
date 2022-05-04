@@ -21,6 +21,35 @@ public class BehaviourTreeEditor : EditorWindow
         wnd.titleContent = new GUIContent("Behaviour Tree Editor");
     }
 
+    private void OnEnable()
+    {
+        Undo.undoRedoPerformed += UndoRedoPerformed;
+    }
+
+    private void OnDisable()
+    {
+        Undo.undoRedoPerformed -= UndoRedoPerformed;
+    }
+
+    private static void UndoRedoPerformed()
+    {
+        RefreshWindowIfAny();
+    }
+
+    public static void RefreshWindowIfAny()
+    {
+        if (HasOpenInstances<BehaviourTreeEditor>())
+        {
+            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+            wnd.Refresh();
+        }
+    }
+
+    private void Refresh()
+    {
+        m_BehaviourTreeView?.RefreshNodeNames();
+    }
+
     private void CreateGUI()
     {
         VisualElement root = rootVisualElement;

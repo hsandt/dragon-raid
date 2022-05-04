@@ -27,9 +27,20 @@ public class BehaviourTreeView : VisualElement
         }
     }
 
+    public void RefreshNodeNames()
+    {
+        foreach (VisualElement child in Children())
+        {
+            if (child is Button { userData: BehaviourAction action } button)
+            {
+                button.text = action.GetNodeName();
+            }
+        }
+    }
+
     private void AddBehaviourActionButton(int indentLevel, BehaviourAction behaviourAction)
     {
-        string text = behaviourAction.ToString();
+        string text = behaviourAction.GetNodeName();
         AddButton(indentLevel, text, behaviourAction);
 
         foreach (Transform child in behaviourAction.transform)
@@ -69,7 +80,9 @@ public class BehaviourTreeView : VisualElement
         Length marginLeft = new Length(INDENT_FACTOR * indentLevel, LengthUnit.Pixel);
         actionButton.style.marginLeft = marginLeft;
 
-        // Bind behaviour to select game object on button click
+        // Bind target as user data and define behaviour to select game object on button click
+        // Note that target may be either a BehaviourAction (for valid button) or GameObject (for invalid button)
+        actionButton.userData = target;
         actionButton.clickable.clicked += () => { Selection.activeObject = target; };
 
         Add(actionButton);

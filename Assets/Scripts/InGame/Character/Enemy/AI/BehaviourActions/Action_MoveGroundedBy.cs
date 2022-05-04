@@ -81,4 +81,11 @@ public class Action_MoveGroundedBy : BehaviourAction
     {
         m_MoveGroundedIntention.signedGroundSpeed = 0f;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Move Grounded By {signedDistance} m at {speed} m/s";
+    }
+    #endif
 }

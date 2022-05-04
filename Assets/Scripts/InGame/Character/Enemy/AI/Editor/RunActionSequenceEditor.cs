@@ -82,9 +82,10 @@ public class RunActionSequenceEditor : BehaviourActionEditor
                     // methods to override DrawHandles and ComputeEndPosition on the action Editor class for better
                     // code separation. In fact, we could totally move those methods to the runtime class,
                     // between #if UNITY_EDITOR preprocessing (because HandlesUtil is in CommonsHelper and can be
-                    // referenced by runtime scripts; it was moved there precisely for this reason).
-                    // But since caching is enough, we decided to keep the handles code in the Editor classes for
-                    // clarity.
+                    // referenced by runtime scripts; it was moved there precisely for this reason). This would also
+                    // remove the issue of high CPU usage by CreateEditor.
+                    // But since caching is enough to solve the CPU issue, we decided to keep the handles code in the
+                    // Editor classes for clarity.
                     actionEditor = CreateEditor(behaviourAction) as BehaviourActionEditor;
                     m_CachedEditors.Add(behaviourAction.GetInstanceID(), actionEditor);
                 }
@@ -97,7 +98,6 @@ public class RunActionSequenceEditor : BehaviourActionEditor
                     // Handles specific to this action
                     actionEditor.DrawHandles(currentPosition);
                     Vector2 nextPosition = actionEditor.ComputeEndPosition(currentPosition);
-                    // DestroyImmediate(actionEditor);
 
                     if (nextPosition == currentPosition)
                     {

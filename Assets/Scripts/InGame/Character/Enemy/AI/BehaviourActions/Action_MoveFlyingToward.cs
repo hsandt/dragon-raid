@@ -22,25 +22,25 @@ public class Action_MoveFlyingToward : BehaviourAction
     public float Angle { get => angle; set => angle = value; }
     public float Speed { get => speed; set => speed = value; }
     #endif
-    
-    
+
+
     /* Owner sibling components */
-    
+
     private MoveFlyingIntention m_MoveFlyingIntention;
 
-    
+
     /* Derived parameters */
 
     /// Target position = start position + move vector
     /// It is important to store on Setup as the start position is not remembered
     private Vector2 m_TargetPosition;
-    
-    
+
+
     protected override void OnInit()
     {
         m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
     }
-    
+
     public override void RunUpdate()
     {
         m_MoveFlyingIntention.moveVelocity = speed * VectorUtil.Rotate(Vector2.left, angle);
@@ -53,4 +53,11 @@ public class Action_MoveFlyingToward : BehaviourAction
         // For this reason, we don't override OnEnd to reset the velocity intention.
         return false;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Move Flying Toward {angle} degrees at {speed}";
+    }
+    #endif
 }

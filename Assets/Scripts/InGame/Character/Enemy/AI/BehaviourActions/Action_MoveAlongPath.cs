@@ -164,4 +164,11 @@ public class Action_MoveAlongPath : BehaviourAction
     {
         m_MoveFlyingIntention.moveVelocity = Vector2.zero;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Move Along Path at {speed} m/s";
+    }
+    #endif
 }

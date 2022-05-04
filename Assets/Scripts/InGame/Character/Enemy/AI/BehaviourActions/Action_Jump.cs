@@ -52,4 +52,11 @@ public class Action_Jump : BehaviourAction
     {
         return m_HasOrderedJump;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Jump at {jumpSpeedImpulse} m/s";
+    }
+    #endif
 }

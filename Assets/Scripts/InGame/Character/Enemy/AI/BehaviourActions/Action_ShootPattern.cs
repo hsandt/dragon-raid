@@ -10,17 +10,17 @@ using CommonsHelper;
 public class Action_ShootPattern : BehaviourAction
 {
     [Header("Parameters data")]
-    
+
     [InspectInline(canEditRemoteTarget = true)]
     public ShootPattern shootPattern;
-    
-    
+
+
     /* Owner sibling components */
-    
+
     private Shoot m_Shoot;
     private ShootIntention m_ShootIntention;
 
-    
+
     /* State */
 
     /// Time since action start, used to temporize the shots
@@ -29,18 +29,18 @@ public class Action_ShootPattern : BehaviourAction
     /// Number of shots already ordered (set intention for them)
     /// The action is over when all shots have been ordered
     private int m_OrderedShotsCount;
-    
-    
+
+
     protected override void OnInit()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(shootPattern != null, this, "[Action_ShootPattern] OnInit: Shoot Pattern not set on {0}", this);
         #endif
-        
+
         m_Shoot = m_EnemyCharacterMaster.GetComponentOrFail<Shoot>();
         m_ShootIntention = m_Shoot.ShootIntention;
     }
-    
+
     public override void OnStart()
     {
         m_Time = 0f;
@@ -53,7 +53,7 @@ public class Action_ShootPattern : BehaviourAction
 
         // From the time, determine the total number of shots we should have ordered and done by the end of the frame
         int shotsToOrderTotalCount;
-        
+
         if (shootPattern.duration <= 0f)
         {
             // instant pattern: shoot all bullets at once
@@ -64,7 +64,7 @@ public class Action_ShootPattern : BehaviourAction
             // compute total progress over time
             // (clamp to avoid trying to shoot more bullets than requested by the pattern)
             float timeProgressRatio = Mathf.Min(m_Time / shootPattern.duration, 1f);
-            
+
             // the first bullet is always shot at time 0, so start with 1
             // then add 1 bullet for every bullet time interval = shootPattern.duration / (shootPattern.bulletCount - 1)
             // until the last one is shot after shootPattern.duration
@@ -84,7 +84,7 @@ public class Action_ShootPattern : BehaviourAction
             {
                 m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, fireAngle));
             }
-            
+
             // update the count of ordered shots
             m_OrderedShotsCount = shotsToOrderTotalCount;
         }
@@ -127,4 +127,11 @@ public class Action_ShootPattern : BehaviourAction
     }
 
     // no need to clear m_ShootIntention.fireDirections in OnEnd, as it is consumed by Shoot
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Shoot Pattern with {shootPattern.bulletCount} bullets over {shootPattern.duration} s";
+    }
+    #endif
 }

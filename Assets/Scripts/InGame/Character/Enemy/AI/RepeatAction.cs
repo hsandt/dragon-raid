@@ -100,4 +100,11 @@ public class RepeatAction : BehaviourAction
         // Else, end after the wanted number of repetitions
         return repeatCount > 0 && m_CompletedRunCount >= repeatCount;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Repeat Action {(repeatCount > 0 ? $"{repeatCount} times" : "forever")}";
+    }
+    #endif
 }

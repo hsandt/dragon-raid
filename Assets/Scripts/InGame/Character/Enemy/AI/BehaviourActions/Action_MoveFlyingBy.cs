@@ -12,7 +12,7 @@ public class Action_MoveFlyingBy : BehaviourAction
 
     [SerializeField, Tooltip("Vector to move by, from the last position")]
     private Vector2 moveVector = Vector2.zero;
-    
+
     [SerializeField, Tooltip("Motion speed (m/s)")]
     [Min(0f)]
     private float speed = 1f;
@@ -21,10 +21,10 @@ public class Action_MoveFlyingBy : BehaviourAction
     public Vector2 MoveVector { get => moveVector; set => moveVector = value; }
     public float Speed { get => speed; set => speed = value; }
     #endif
-    
-    
+
+
     /* Owner sibling components */
-    
+
     private MoveFlyingIntention m_MoveFlyingIntention;
 
 
@@ -32,26 +32,26 @@ public class Action_MoveFlyingBy : BehaviourAction
 
     /// Move distance
     private float m_MoveDistance;
-    
+
     /// Normalized move direction
     private Vector2 m_MoveDirection;
-    
-    
+
+
     /* State */
-    
+
     /// Signed distance left to travel
     private float m_DistanceLeft;
-    
-    
+
+
     protected override void OnInit()
     {
         m_MoveFlyingIntention = m_EnemyCharacterMaster.GetComponentOrFail<MoveFlyingIntention>();
-        
+
         // Precompute derived parameters
         m_MoveDistance = moveVector.magnitude;
         m_MoveDirection = moveVector / m_MoveDistance;
     }
-    
+
     public override void OnStart()
     {
         m_DistanceLeft = m_MoveDistance;
@@ -75,18 +75,18 @@ public class Action_MoveFlyingBy : BehaviourAction
         {
             // Target is more than 1 frame ahead, go full speed
             nextVelocity = m_MoveDirection * speed;
-            
+
             // Decrease signed distance left by the progress done this frame
             m_DistanceLeft = Mathf.MoveTowards(m_DistanceLeft, 0f, speed * Time.deltaTime);
         }
-        
+
         m_MoveFlyingIntention.moveVelocity = nextVelocity;
     }
 
     protected override bool IsOver()
     {
         // Consider move over when character needs to move by less than a frame's move distance
-        // Note that the higher the speed is, the less precise 
+        // Note that the higher the speed is, the less precise
         return m_DistanceLeft == 0f;
     }
 
@@ -94,4 +94,11 @@ public class Action_MoveFlyingBy : BehaviourAction
     {
         m_MoveFlyingIntention.moveVelocity = Vector2.zero;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Move Flying By {moveVector} m at {speed} m/s";
+    }
+    #endif
 }

@@ -17,26 +17,26 @@ public class Action_Throw : BehaviourAction
     #if UNITY_EDITOR
     public float Angle { get => angle; set => angle = value; }
     #endif
-    
-    
+
+
     /* Owner sibling components */
-    
+
     private Throw m_Throw;
     private ThrowIntention m_ThrowIntention;
 
-    
+
     /* State */
 
     /// True when action has ordered throw
     private bool hasOrderedThrow;
-    
-    
+
+
     protected override void OnInit()
     {
         m_Throw = m_EnemyCharacterMaster.GetComponentOrFail<Throw>();
         m_ThrowIntention = m_Throw.ThrowIntention;
     }
-    
+
     public override void OnStart()
     {
         hasOrderedThrow = false;
@@ -47,12 +47,19 @@ public class Action_Throw : BehaviourAction
         m_ThrowIntention.startThrow = true;
         // angle is CW, so we rotate by -angle
         m_ThrowIntention.throwDirection = VectorUtil.Rotate(Vector2.left, -angle);
-        
+
         hasOrderedThrow = true;
     }
-    
+
     protected override bool IsOver()
     {
         return hasOrderedThrow;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Throw at {angle} degrees";
+    }
+    #endif
 }

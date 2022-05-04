@@ -145,4 +145,11 @@ public class RunActionSequence : BehaviourAction
     {
         return !m_IsRunning;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Run Action Sequence";
+    }
+    #endif
 }

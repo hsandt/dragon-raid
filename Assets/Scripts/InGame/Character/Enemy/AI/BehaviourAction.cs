@@ -47,4 +47,9 @@ public abstract class BehaviourAction : MonoBehaviour
     /// Action end callback. Useful to clear any remaining continuous intention not automatically consumed
     /// (optional)
     public virtual void OnEnd() {}
+
+    #if UNITY_EDITOR
+    /// Return node name to display in Behaviour Tree Editor / View
+    public abstract string GetNodeName();
+    #endif
 }

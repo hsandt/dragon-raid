@@ -80,7 +80,15 @@ public class RunActionParallel : BehaviourAction
 
     protected override bool IsOver()
     {
-        // This meta-action is over when no sub-actions are still running
+        // For now, no parameter to choose to end when Any or All sub-actions are over,
+        // we always end when All sub-actions are over, i.e. when no sub-actions are still running
         return !m_IsActionRunningPerActionIndex.Contains(true);
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Run Action Parallel";
+    }
+    #endif
 }

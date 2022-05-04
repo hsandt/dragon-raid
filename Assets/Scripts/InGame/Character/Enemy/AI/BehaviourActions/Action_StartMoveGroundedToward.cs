@@ -44,4 +44,11 @@ public class Action_StartMoveGroundedToward : BehaviourAction
         // to run this action at all
         return true;
     }
+
+    #if UNITY_EDITOR
+    public override string GetNodeName()
+    {
+        return $"Start Move Grounded Toward {signedSpeed} m/s";
+    }
+    #endif
 }
