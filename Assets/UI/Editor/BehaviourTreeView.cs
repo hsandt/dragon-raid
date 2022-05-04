@@ -6,14 +6,25 @@ using UnityEngine.UIElements;
 
 public class BehaviourTreeView : VisualElement
 {
-    private float INDENT_FACTOR = 40;
+    private const float INDENT_FACTOR = 40;
 
     public new class UxmlFactory : UxmlFactory<BehaviourTreeView> {}
 
-    public void PopulateView(BehaviourAction rootAction)
+    public void PopulateView(BehaviourTreeRoot behaviourTreeRoot)
     {
         Clear();
-        AddBehaviourActionButton(0, rootAction);
+
+        BehaviourAction rootAction = behaviourTreeRoot.GetRootAction();
+        if (rootAction != null)
+        {
+            AddBehaviourActionButton(0, rootAction);
+        }
+        else
+        {
+            Debug.LogErrorFormat(behaviourTreeRoot, "[BehaviourTreeView] PopulateView: No Root Action found on {0}. " +
+                "Expected 1 child with a BehaviourAction component. Further execution will cause null reference exceptions.",
+                behaviourTreeRoot);
+        }
     }
 
     private void AddBehaviourActionButton(int indentLevel, BehaviourAction behaviourAction)
@@ -35,7 +46,7 @@ public class BehaviourTreeView : VisualElement
             }
         }
     }
-    
+
     private void AddInvalidActionButton(int indentLevel, GameObject child)
     {
         string text = $"{child.name} (Invalid)";
@@ -62,7 +73,7 @@ public class BehaviourTreeView : VisualElement
         actionButton.clickable.clicked += () => { Selection.activeObject = target; };
 
         Add(actionButton);
-        
+
         return actionButton;
     }
 }
