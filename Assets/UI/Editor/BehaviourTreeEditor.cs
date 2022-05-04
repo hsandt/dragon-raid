@@ -125,7 +125,8 @@ public class BehaviourTreeEditor : EditorWindow
     {
         if (HasOpenInstances<BehaviourTreeEditor>())
         {
-            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+            // Make sure to pass focus: false to avoid losing current focus, esp. when editing an inspector field
+            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>(false, null, false);
             wnd.RefreshNodeNames(targetAction);
         }
     }
