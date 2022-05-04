@@ -74,6 +74,14 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         StartScrollingAtLevelNormalSpeed();
     }
 
+    public void Clear()
+    {
+        // We could call this on Setup too, but as long as layers are properly set at the origin in the scene,
+        // and InstantiateDuplicateParallaxLayers already places the duplicates at their offset positions,
+        // we don't need this on first Setup, only on Restart, therefore it's more efficient to do it on Clear.
+        m_Background.ResetAllLayersPosition();
+    }
+
     public void Pause()
     {
         enabled = false;

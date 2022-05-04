@@ -206,6 +206,9 @@ public class InGameManager : SingletonManager<InGameManager>
         m_PlayerCharacterMaster = null;
         InGameInputManager.Instance.SetPlayerCharacterController(null);
 
+        // Setup does most of the job, so this is just to reset layer positions
+        ScrollingManager.Instance.Clear();
+
         // Clear all waves (this only clears wave information, we need to despawn all enemies below so things stay synced)
         EnemyWaveManager.Instance.Clear();
 
