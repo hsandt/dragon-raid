@@ -21,6 +21,23 @@ public class BehaviourTreeEditor : EditorWindow
         wnd.titleContent = new GUIContent("Behaviour Tree Editor");
     }
 
+    private void CreateGUI()
+    {
+        VisualElement root = rootVisualElement;
+
+        // Import UXML
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/BehaviourTreeEditor.uxml");
+        visualTree.CloneTree(root);
+
+        // Query existing elements
+        m_BehaviourTreeName = root.Q<Label>();
+        Debug.AssertFormat(m_BehaviourTreeName != null, "[BehaviourTreeEditor] No Label (BehaviourTreeName) found on Behaviour Tree Editor UXML");
+        m_BehaviourTreeView = root.Q<BehaviourTreeView>();
+        Debug.AssertFormat(m_BehaviourTreeView != null, "[BehaviourTreeEditor] No BehaviourTreeView found on Behaviour Tree Editor UXML");
+
+        PopulateViewFromSelection();
+    }
+
     private void OnEnable()
     {
         Undo.undoRedoPerformed += UndoRedoPerformed;
@@ -36,36 +53,12 @@ public class BehaviourTreeEditor : EditorWindow
         RefreshNodeNamesInWindowIfAny();
     }
 
-    public static void RefreshNodeNamesInWindowIfAny(BehaviourAction targetAction = null)
-    {
-        if (HasOpenInstances<BehaviourTreeEditor>())
-        {
-            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
-            wnd.RefreshNodeNames(targetAction);
-        }
-    }
-
-    private void RefreshNodeNames(BehaviourAction targetAction = null)
-    {
-        m_BehaviourTreeView?.RefreshNodeNames(targetAction);
-    }
-
-    private void CreateGUI()
-    {
-        VisualElement root = rootVisualElement;
-
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/BehaviourTreeEditor.uxml");
-        visualTree.CloneTree(root);
-
-        // Query existing elements
-        m_BehaviourTreeName = root.Q<Label>();
-        Debug.AssertFormat(m_BehaviourTreeName != null, "[BehaviourTreeEditor] No Label (BehaviourTreeName) found on Behaviour Tree Editor UXML");
-        m_BehaviourTreeView = root.Q<BehaviourTreeView>();
-        Debug.AssertFormat(m_BehaviourTreeView != null, "[BehaviourTreeEditor] No BehaviourTreeView found on Behaviour Tree Editor UXML");
-    }
-
     private void OnSelectionChange()
+    {
+        PopulateViewFromSelection();
+    }
+
+    private void PopulateViewFromSelection()
     {
         var selectedTransform = Selection.activeTransform;
         if (selectedTransform != null)
@@ -96,7 +89,8 @@ public class BehaviourTreeEditor : EditorWindow
                     if (previousAction != null)
                     {
                         // We found some action(s) previously so it's weird that we got no action nor root
-                        Debug.LogWarningFormat(currentTransform, "[BehaviourTreeEditor] OnSelectionChange: action {0} parent {1} has " +
+                        Debug.LogWarningFormat(currentTransform,
+                            "[BehaviourTreeEditor] OnSelectionChange: action {0} parent {1} has " +
                             "no BehaviourAction nor BehaviourTreeRoot component, which means that there is a " +
                             "\"hole\" in the action tree.",
                             previousAction, currentTransform);
@@ -125,5 +119,19 @@ public class BehaviourTreeEditor : EditorWindow
                 m_BehaviourTreeView?.Clear();
             }
         }
+    }
+
+    public static void RefreshNodeNamesInWindowIfAny(BehaviourAction targetAction = null)
+    {
+        if (HasOpenInstances<BehaviourTreeEditor>())
+        {
+            BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+            wnd.RefreshNodeNames(targetAction);
+        }
+    }
+
+    private void RefreshNodeNames(BehaviourAction targetAction = null)
+    {
+        m_BehaviourTreeView?.RefreshNodeNames(targetAction);
     }
 }
