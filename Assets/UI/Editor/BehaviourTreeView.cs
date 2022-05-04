@@ -27,13 +27,19 @@ public class BehaviourTreeView : VisualElement
         }
     }
 
-    public void RefreshNodeNames()
+    /// If targetAction is null, refresh all node names (done for Undo/Redo which doesn't know what changed)
+    /// Else, refresh only the node name associated to target action
+    public void RefreshNodeNames(BehaviourAction targetAction = null)
     {
         foreach (VisualElement child in Children())
         {
             if (child is Button { userData: BehaviourAction action } button)
             {
-                button.text = action.GetNodeName();
+                if (targetAction == null || targetAction == action)
+                {
+                    Debug.LogFormat("Rename {0} to {1}", button.text, action.GetNodeName());
+                    button.text = action.GetNodeName();
+                }
             }
         }
     }

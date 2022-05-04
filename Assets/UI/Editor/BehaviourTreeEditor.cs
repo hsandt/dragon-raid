@@ -33,21 +33,21 @@ public class BehaviourTreeEditor : EditorWindow
 
     private static void UndoRedoPerformed()
     {
-        RefreshWindowIfAny();
+        RefreshNodeNamesInWindowIfAny();
     }
 
-    public static void RefreshWindowIfAny()
+    public static void RefreshNodeNamesInWindowIfAny(BehaviourAction targetAction = null)
     {
         if (HasOpenInstances<BehaviourTreeEditor>())
         {
             BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
-            wnd.Refresh();
+            wnd.RefreshNodeNames(targetAction);
         }
     }
 
-    private void Refresh()
+    private void RefreshNodeNames(BehaviourAction targetAction = null)
     {
-        m_BehaviourTreeView?.RefreshNodeNames();
+        m_BehaviourTreeView?.RefreshNodeNames(targetAction);
     }
 
     private void CreateGUI()

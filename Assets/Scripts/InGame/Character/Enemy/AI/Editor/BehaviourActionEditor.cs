@@ -22,7 +22,7 @@ public abstract class BehaviourActionEditor : Editor
                 // Some property changes, so refresh node name for this action
                 // (this is only useful if node name is dynamic and uses the changed property, but to simplify,
                 // just refresh anyway)
-                BehaviourTreeEditor.RefreshWindowIfAny();
+                BehaviourTreeEditor.RefreshNodeNamesInWindowIfAny((BehaviourAction) target);
             }
         }
     }
