@@ -72,7 +72,7 @@ public class Projectile : MasterBehaviour, IPooledObject
                 {
                     Impact(targetCookedEnemy);
                 }
-                else if ((1 << targetRigidbody.gameObject.layer & (Layers.SolidEnvironmentMask | Layers.DamagingEnvironmentMask)) != 0)
+                else if (targetRigidbody.gameObject.IsInLayerMask(Layers.SolidEnvironmentMask | Layers.DamagingEnvironmentMask))
                 {
                     // We cannot damage solid/damaging environment that has no health system, but destroy projectile
                     ReleaseWithImpactFeedback();
