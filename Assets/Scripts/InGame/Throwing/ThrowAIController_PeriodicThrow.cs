@@ -18,29 +18,28 @@ public class ThrowAIController_PeriodicThrow : ClearableBehaviour
     [Tooltip("Periodic Throw AI Parameters Data")]
     [InspectInline(canEditRemoteTarget = true)]
     public PeriodicThrowAIParameters periodicThrowAiParameters;
-    
-    
+
+
     /* Sibling components */
-    
+
     private ThrowIntention m_ThrowIntention;
-    private Throw m_Throw;
-    
-    
+
+
     /* State */
 
     private Timer m_ThrowTimer;
-    
+
     private void Awake()
     {
         m_ThrowIntention = this.GetComponentOrFail<ThrowIntention>();
-        m_Throw = this.GetComponentOrFail<Throw>();
         m_ThrowTimer = new Timer(callback: OrderThrow);
     }
-    
+
     public override void Setup()
     {
         m_ThrowIntention.startThrow = false;
         m_ThrowIntention.throwDirection = Vector2.zero;
+        m_ThrowIntention.throwSpeed = 0f;
 
         m_ThrowTimer.SetTime(periodicThrowAiParameters.initialDelay);
     }
@@ -53,10 +52,11 @@ public class ThrowAIController_PeriodicThrow : ClearableBehaviour
     private void OrderThrow()
     {
         m_ThrowIntention.startThrow = true;
-        
+
         // angle is CW, so we rotate by -angle
         m_ThrowIntention.throwDirection = VectorUtil.Rotate(Vector2.left, -periodicThrowAiParameters.angle);
-        
+        m_ThrowIntention.throwSpeed = periodicThrowAiParameters.throwSpeed;
+
         // reset timer to prepare next throw)
         m_ThrowTimer.SetTime(periodicThrowAiParameters.period);
     }

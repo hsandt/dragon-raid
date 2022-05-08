@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShootPattern_BossTiger_1
   m_EditorClassIdentifier: 
   shootDirectionMode: 0
-  angleStart: 22.353752
-  angleEnd: -32.818546
-  bulletCount: 6
-  duration: 0.5
+  angleStart: 0
+  angleEnd: -180
+  bulletCount: 1
+  duration: 2

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 45
+  throwSpeed: 6
 --- !u!1 &957513562165744737
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startThrow: 0
   throwDirection: {x: 0, y: 0}
+  throwSpeed: 0
 --- !u!114 &1950316328985743418
 MonoBehaviour:
   m_ObjectHideFlags: 0

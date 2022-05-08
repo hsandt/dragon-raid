@@ -15,3 +15,4 @@ MonoBehaviour:
   initialDelay: 1
   period: 2
   angle: 45
+  throwSpeed: 12

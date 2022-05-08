@@ -12,7 +12,7 @@ public class Action_Jump : BehaviourAction
 
     [SerializeField, Tooltip("Jump speed impulse (m/s)")]
     [Min(0f)]
-    private float jumpSpeedImpulse = 0f;
+    private float jumpSpeedImpulse = 10f;
 
     #if UNITY_EDITOR
     public float JumpSpeedImpulse { get => jumpSpeedImpulse; set => jumpSpeedImpulse = value; }

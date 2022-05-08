@@ -19,53 +19,54 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
     [Tooltip("Detection Throw AI Parameters Data")]
     [InspectInline(canEditRemoteTarget = true)]
     public DetectionThrowAIParameters detectionThrowAiParameters;
-    
+
     [Header("Child references")]
-    
+
     [Tooltip("Position from which we cast the detection upper cone to find Throw target. Should be at eye level.")]
     public Transform throwDetectionOrigin;
 
-    
+
     /* Sibling components */
-    
+
     private MeleeAttack m_MeleeAttack;
     private MeleeAttackIntention m_MeleeAttackIntention;
 
     private Throw m_Throw;
     private ThrowIntention m_ThrowIntention;
 
-    
+
     #if UNITY_EDITOR
-    
+
     /* Debug */
 
     /// Last AI behaviour chosen by this controller
     private string m_DebugLastAIBehaviourResult = "None";
     public string DebugLastAIBehaviourResult => m_DebugLastAIBehaviourResult;
-    
+
     #endif
-    
-        
+
+
     private void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(detectionThrowAiParameters, this, "[BodyAttack] Throw AI Parameters not set on Enemy Behaviour: Ispolin component {0}", this);
         #endif
-        
+
         m_MeleeAttack = this.GetComponentOrFail<MeleeAttack>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
         m_Throw = this.GetComponentOrFail<Throw>();
         m_ThrowIntention = this.GetComponentOrFail<ThrowIntention>();
     }
-    
+
     public override void Setup()
     {
         m_MeleeAttackIntention.startAttack = false;
-        
+
         m_ThrowIntention.startThrow = false;
         m_ThrowIntention.throwDirection = Vector2.zero;
+        m_ThrowIntention.throwSpeed = 0f;
     }
-    
+
     private void FixedUpdate()
     {
         // Only attack if can start new action (not already attacking, or attacking but can cancel)
@@ -103,7 +104,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
                 // area normally out of detection zone. This may lead to unnatural throwing!
                 // Reduce detection area and spawn projectile lag, or store target position at detection time to fix it!
                 Vector2 throwDirection = CalculateThrowDirectionToHit(targetPosition);
-                OrderThrow(throwDirection);
+                OrderThrow(throwDirection, detectionThrowAiParameters.throwSpeed);
 
                 #if UNITY_EDITOR
                 m_DebugLastAIBehaviourResult = "Throw Rock";
@@ -136,7 +137,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
             // target is behind, or on front but too close on X
             return false;
         }
-        
+
         if (toTarget.y <= 0f)
         {
             // target is below eye level, Y is OK
@@ -158,18 +159,18 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
     }
 
     /// Ballistic method that calculates the direction required to hit a target at a given position,
-    /// given the current throw speed parameter 
+    /// given the current throw speed parameter
     private Vector2 CalculateThrowDirectionToHit(Vector2 targetPosition)
     {
         // Unfortunately we cannot easily access the gravity scale of the Rock projectile because we defined it by name on Throw (projectileName)
         // To access the Rigidbody2D component of the Rock, we'd either need to define a reference to prefab (from which we can still get the name for pooling),
         // then get the component directly from the prefab; or get a pooled instance of the Rock. For now, gravity scale of the rock is 1 so we don't need to get that
         // and simply use the physics gravity. Note that we pass the gravity vector directly as our formula takes general gravity, although we don't use gravity on X.
-        
+
         // The method CalculateFiringSolution is basically working, but we decided it was too risky for now,
         // so throw in straight line + small upward offset until we can fix all edge cases and assertions
         return new Vector2(-1f, 1f);
-        
+
         /*
         Vector2 toTarget = targetPosition - (Vector2) m_Throw.throwAnchor.position;
         if (toTarget.y <= 0f)
@@ -180,7 +181,7 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         {
             return toTarget + Vector2.up * 2f;
         }
-        
+
         bool result = PhysicsPrediction.CalculateFiringSolution(m_Throw.throwAnchor.position, targetPosition, detectionThrowAiParameters.projectileSpeed, Physics2D.gravity, out Vector2 aimDirection);
         if (result)
         {
@@ -201,9 +202,10 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         m_MeleeAttackIntention.startAttack = true;
     }
 
-    private void OrderThrow(Vector2 aimDirection)
+    private void OrderThrow(Vector2 aimDirection, float throwSpeed)
     {
         m_ThrowIntention.startThrow = true;
         m_ThrowIntention.throwDirection = aimDirection;
+        m_ThrowIntention.throwSpeed = throwSpeed;
     }
 }

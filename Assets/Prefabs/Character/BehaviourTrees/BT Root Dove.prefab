@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6764f72dcf4c378b1f8a96158fdd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: -12.735118
+  angle: -52.188488
   speed: 6.296256
 --- !u!1 &4159303262242916722
 GameObject:

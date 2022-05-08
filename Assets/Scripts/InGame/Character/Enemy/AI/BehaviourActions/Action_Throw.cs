@@ -14,8 +14,13 @@ public class Action_Throw : BehaviourAction
     [Range(-180f, 180f)]
     private float angle;
 
+    [Tooltip("Initial projectile speed (m/s)")]
+    [Min(0f)]
+    public float throwSpeed = 6f;
+
     #if UNITY_EDITOR
     public float Angle { get => angle; set => angle = value; }
+    public float ThrowSpeed { get => throwSpeed; set => throwSpeed = value; }
     #endif
 
 
@@ -47,6 +52,7 @@ public class Action_Throw : BehaviourAction
         m_ThrowIntention.startThrow = true;
         // angle is CW, so we rotate by -angle
         m_ThrowIntention.throwDirection = VectorUtil.Rotate(Vector2.left, -angle);
+        m_ThrowIntention.throwSpeed = throwSpeed;
 
         hasOrderedThrow = true;
     }

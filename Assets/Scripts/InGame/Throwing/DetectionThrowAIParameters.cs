@@ -8,10 +8,14 @@ public class DetectionThrowAIParameters : ScriptableObject
 {
     [Tooltip("Maximum upward angle where Ispolin can detect a target, from Throw Detection Origin (he can detect anything below)")]
     public float maxDetectionUpwardAngle = 45f;
-    
+
     [Tooltip("Minimum forward distance to target on X required to detect it")]
     public float minDetectionDistanceX = 2f;
-    
+
     [Tooltip("Maximum distance where Ispolin can detect a target")]
     public float maxDetectionDistance = 8f;
+
+    [Tooltip("Initial projectile speed (m/s)")]
+    [Min(0f)]
+    public float throwSpeed = 6f;
 }

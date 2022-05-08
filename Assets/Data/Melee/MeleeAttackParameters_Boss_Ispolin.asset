@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9568f61f74f614b21ad1e3896ec397c9, type: 3}
-  m_Name: DetectionThrowAIParameters_Ispolin
+  m_Script: {fileID: 11500000, guid: 4b963815240529b93baa52f565358ec0, type: 3}
+  m_Name: MeleeAttackParameters_Boss_Ispolin
   m_EditorClassIdentifier: 
-  maxDetectionUpwardAngle: 54.3884
-  minDetectionDistanceX: 2
-  maxDetectionDistance: 12
-  throwSpeed: 9
+  damage: 3

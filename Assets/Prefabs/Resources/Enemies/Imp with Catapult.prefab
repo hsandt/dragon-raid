@@ -588,6 +588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startThrow: 0
   throwDirection: {x: 0, y: 0}
+  throwSpeed: 0
 --- !u!114 &7611444505608296638
 MonoBehaviour:
   m_ObjectHideFlags: 0
