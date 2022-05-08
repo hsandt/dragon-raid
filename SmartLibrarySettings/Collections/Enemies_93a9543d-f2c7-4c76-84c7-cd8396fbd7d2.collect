@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f6edf7219569c4ca5c598f8a320068, type: 3}
+  m_Name: Enemies
+  m_EditorClassIdentifier: 
+  _root: {fileID: 0}
+  _parent: {fileID: 0}
+  _parentID:
+    _serializedGuid: 9da3c07f512fdf48999b76b9f872e60d
+  _subcollections: []
+  _subcollectionIDs: []
+  _collectionName: Enemies
+  _id:
+    _serializedGuid: 3d54a993c7f2764c84c7cd8396fbd7d2
+  _icon: {fileID: 0}
+  _rules:
+    _rules: []
+  _items:
+    _hashSetList:
+    - 02b5bd0b5363744398297cf9b997523d
+    - 005bcd40b9abaf9fea76f5964c2c7504
+    - a79566137606a5d09a35cd2e6d6f55b2
+    - bd4cfff3a5d8c59b9bdf7336d4c4734c
+    - 1a3c839c417390e4b89dec2dc43b674f
+    - b27930d1618dde2c6b7a923da56b346c
+    - 419ce24c4e0d8fa4ba70d19cef9cfcdc
+    - 9bd6f32ea73a1d3cca1d17d027778275
+    - f945927988173bb549359fdc78123828
+    - 2f6a606db16453b548094d64e03b4f3d
+    - 3458cd92fa6b51822b04360b19edde2e
+    - 364d99e2a461fc720b00c26a1e3244f7
+    - 53d51ab551b44b3f3990323bdc5790b2
+    - 02540fec415976277bc0b22ca0acf6cf
+  _itemDisplaySize: 100
+  _viewStyle: 0
+  _useCollectionViewSettings: 0
+  _folders:
+  - _matchOption: 0
+    _folderGuid: 805a0760a3024c3caab4ee5ac5b15624
+    _doInclude: 1
+  references:
+    version: 2
+    RefIds: []
