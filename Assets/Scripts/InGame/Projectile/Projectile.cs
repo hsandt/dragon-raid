@@ -72,9 +72,9 @@ public class Projectile : MasterBehaviour, IPooledObject
                 {
                     Impact(targetCookedEnemy);
                 }
-                else if (targetRigidbody.GetComponent<DamagingEnvironment>() is {} targetDamagingEnvironment && targetDamagingEnvironment != null)
+                else if ((1 << targetRigidbody.gameObject.layer & (Layers.SolidEnvironmentMask | Layers.DamagingEnvironmentMask)) != 0)
                 {
-                    // We cannot damage damaging environment that has no health system, but destroy projectile
+                    // We cannot damage solid/damaging environment that has no health system, but destroy projectile
                     ReleaseWithImpactFeedback();
                 }
             }
@@ -145,7 +145,7 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
-    public void ReleaseWithImpactFeedback()
+    private void ReleaseWithImpactFeedback()
     {
         Release();
 
