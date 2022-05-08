@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 /// It manages MeleeAttackIntention and ThrowIntention is therefore responsible for their Setup.
 /// SEO: before MeleeAttack and Throw
 [AddComponentMenu("Game/Enemy Behaviour: Ispolin")]
-public class EnemyBehaviour_Ispolin : ClearableBehaviour
+public class EnemyBehaviour_Ispolin : MonoBehaviour
 {
     [Header("Parameters data")]
 
@@ -56,15 +56,6 @@ public class EnemyBehaviour_Ispolin : ClearableBehaviour
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
         m_Throw = this.GetComponentOrFail<Throw>();
         m_ThrowIntention = this.GetComponentOrFail<ThrowIntention>();
-    }
-
-    public override void Setup()
-    {
-        m_MeleeAttackIntention.startAttack = false;
-
-        m_ThrowIntention.startThrow = false;
-        m_ThrowIntention.throwDirection = Vector2.zero;
-        m_ThrowIntention.throwSpeed = 0f;
     }
 
     private void FixedUpdate()

@@ -12,30 +12,20 @@ public class PlayerCharacterController : ClearableBehaviour
 
     [Tooltip("Move Parameters Data")]
     public PlayerMoveFlyingParameters playerMoveFlyingParameters;
-    
-    
+
+
     /* Sibling components */
-    
+
     private MoveFlyingIntention m_MoveFlyingIntention;
     private ShootIntention m_ShootIntention;
     private MeleeAttackIntention m_MeleeAttackIntention;
-    
-    
+
+
     private void Awake()
     {
         m_MoveFlyingIntention = this.GetComponentOrFail<MoveFlyingIntention>();
         m_ShootIntention = this.GetComponentOrFail<ShootIntention>();
         m_MeleeAttackIntention = this.GetComponentOrFail<MeleeAttackIntention>();
-    }
-    
-    public override void Setup()
-    {
-        m_MoveFlyingIntention.moveVelocity = Vector2.zero;
-    
-        m_ShootIntention.holdFire = false;
-        m_ShootIntention.fireDirections.Clear();
-        
-        m_MeleeAttackIntention.startAttack = false;
     }
 
     /// PlayerInput action message callback for Move, called via InGameInputManager
@@ -49,10 +39,10 @@ public class PlayerCharacterController : ClearableBehaviour
     public void OnFire(bool fireInput)
     {
         // When holding fire, do not Add fire directions to the intention.
-        // Instead, Shoot will compute fire direction live for each shot.     
+        // Instead, Shoot will compute fire direction live for each shot.
         m_ShootIntention.holdFire = fireInput;
     }
-    
+
     /// PlayerInput action message callback for Melee Attack, called via InGameInputManager
     public void OnMeleeAttack()
     {

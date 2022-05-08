@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using CommonsPattern;
 
 /// Throw intention data component
-public class ThrowIntention : MonoBehaviour
+public class ThrowIntention : ClearableBehaviour
 {
     [ReadOnlyField, Tooltip("Does the character want to throw a projectile?")]
     public bool startThrow;
@@ -16,4 +17,11 @@ public class ThrowIntention : MonoBehaviour
 
     [ReadOnlyField, Tooltip("Initial projectile speed (m/s)")]
     public float throwSpeed;
+
+    public override void Clear()
+    {
+        startThrow = false;
+        throwDirection = Vector2.zero;
+        throwSpeed = 0f;
+    }
 }

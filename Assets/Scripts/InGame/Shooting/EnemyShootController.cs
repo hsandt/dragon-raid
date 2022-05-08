@@ -8,12 +8,6 @@ using CommonsPattern;
 /// SEO: before Shoot
 public class EnemyShootController : BaseShootController
 {
-    [Header("Parameters data")]
-    
-    [Tooltip("Enemy Shoot Parameters Data")]
-    public EnemyShootParameters enemyShootParameters;
-
-        
     private void FixedUpdate()
     {
         // When holding fire, do not Add fire directions to the intention.

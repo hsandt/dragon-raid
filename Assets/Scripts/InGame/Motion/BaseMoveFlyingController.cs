@@ -10,12 +10,12 @@ using CommonsPattern;
 /// It manages MoveFlyingIntention and is therefore responsible for its Setup.
 /// SEO for concrete child classes: before MoveFlying
 public abstract class BaseMoveFlyingController : ClearableBehaviour
-{ 
+{
     /* Sibling components */
-    
+
     protected MoveFlyingIntention m_MoveFlyingIntention;
-    
-    
+
+
     private void Awake()
     {
         m_MoveFlyingIntention = this.GetComponentOrFail<MoveFlyingIntention>();
@@ -25,9 +25,4 @@ public abstract class BaseMoveFlyingController : ClearableBehaviour
 
     /// Override this method to customize Awake behavior while preserving base logic
     protected virtual void Init() {}
-
-    public override void Setup()
-    {
-        m_MoveFlyingIntention.moveVelocity = Vector2.zero;
-    }
 }

@@ -37,10 +37,6 @@ public class ThrowAIController_PeriodicThrow : ClearableBehaviour
 
     public override void Setup()
     {
-        m_ThrowIntention.startThrow = false;
-        m_ThrowIntention.throwDirection = Vector2.zero;
-        m_ThrowIntention.throwSpeed = 0f;
-
         m_ThrowTimer.SetTime(periodicThrowAiParameters.initialDelay);
     }
 

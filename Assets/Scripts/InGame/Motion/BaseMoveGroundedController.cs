@@ -15,13 +15,13 @@ public abstract class BaseMoveGroundedController : ClearableBehaviour
 
     [Tooltip("Move Grounded Parameters Data (must match the one on Move Grounded component)")]
     public MoveGroundedParameters moveGroundedParameters;
-    
-    
+
+
     /* Sibling components */
-    
+
     protected MoveGroundedIntention m_MoveGroundedIntention;
-    
-    
+
+
     private void Awake()
     {
         m_MoveGroundedIntention = this.GetComponentOrFail<MoveGroundedIntention>();
@@ -31,10 +31,4 @@ public abstract class BaseMoveGroundedController : ClearableBehaviour
 
     /// Override this method to customize Awake behavior while preserving base logic
     protected virtual void Init() {}
-
-    public override void Setup()
-    {
-        m_MoveGroundedIntention.signedGroundSpeed = 0f;
-        m_MoveGroundedIntention.jumpSpeedImpulse = 0f;
-    }
 }
