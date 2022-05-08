@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Flying Imp
   editorSpawnPreviewTexture: {fileID: 2800000, guid: 2c8eaf7fb5e32ae68b8a2009d0d448ca, type: 3}
+  isBoss: 0

@@ -15,5 +15,7 @@ MonoBehaviour:
   fadeInDuration: 0.5
   performanceAssessmentDelay: 1
   loadNextLevelDelay: 1
+  respawnDelay: 1
   gameOverDelay: 1.5
   gameOverFadeOutDuration: 0.5
+  menuRestartFadeOutDuration: 1

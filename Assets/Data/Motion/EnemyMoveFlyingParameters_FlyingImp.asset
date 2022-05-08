@@ -17,3 +17,6 @@ MonoBehaviour:
   waveHorizontalSpeed: 3
   waveHalfHeight: 2
   wavePeriod: 3
+  diveAngle: 90
+  diveSpeed: 4
+  diveDuration: 1

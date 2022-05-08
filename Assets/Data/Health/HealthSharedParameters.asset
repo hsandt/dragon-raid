@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8b096f42db7641facdcdcf4d39dc18, type: 3}
   m_Name: HealthSharedParameters
   m_EditorClassIdentifier: 
+  postRespawnInvincibilityDuration: 2
   postPeriodicDamageInvincibilityDuration: 1
   damagedBrightness: 0.2
   damagedBrightnessDuration: 0.1
