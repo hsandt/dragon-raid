@@ -8,6 +8,17 @@ using CommonsHelper;
 [AddComponentMenu("Game/Event Effect: Spawn Projectiles on Directional Damage")]
 public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_SpawnProjectilesBase, IEventEffectOnDamage
 {
+    [Header("Parameters")]
+
+    [Tooltip("Damage range input for linear mapping to projectile spawn speed scaling (clamped beyond this range)")]
+    [SerializeField, MinMaxSlider(1f, 10f)]
+    private Vector2Int damageInputRange = new Vector2Int(1, 2);
+
+    [Tooltip("Range of projectile spawn speed the damage range input maps to")]
+    [SerializeField, MinMaxSlider(0f, 20f)]
+    private Vector2 spawnSpeedRange = new Vector2(4f, 8f);
+
+
     /* IEventEffectOnDamage */
 
     public void Trigger(DamageInfo damageInfo)
@@ -21,7 +32,7 @@ public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_Spawn
         foreach (ProjectileSpawnSerializedParameters spawnSerializedParameter in spawnSerializedParameters)
         {
             Vector2 spawnRelativePosition = spawnSerializedParameter.relativePosition;
-            Vector2 spawnVelocity = spawnSerializedParameter.velocity;
+            Vector2 spawnVelocity = spawnSerializedParameter.direction.normalized;
 
             // Mirror spawn relative position and velocity if hit direction is Left, as we always define
             // them for a Right hit.
@@ -30,6 +41,13 @@ public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_Spawn
                 spawnRelativePosition.x *= -1f;
                 spawnVelocity.x *= -1f;
             }
+
+            // Make spawned projectiles fly faster based on damage
+            // Increase velocity from spawnSpeedRange min to max when damage increases from damageInputRange min to max
+            // (clamped)
+            float spawnSpeed = MathUtil.Remap(damageInputRange.x, damageInputRange.y,
+                spawnSpeedRange.x, spawnSpeedRange.y, damageInfo.damage);
+            spawnVelocity *= spawnSpeed;
 
             ProjectilePoolManager.Instance.SpawnProjectile(
                 spawnSerializedParameter.projectilePrefab.name,

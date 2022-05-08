@@ -14,5 +14,5 @@ public struct ProjectileSpawnSerializedParameters
 
     [Tooltip("Initial velocity. If this is used by an Event Effect " +
         "on Damage, define it for a hit in the Right direction.")]
-    public Vector2 velocity;
+    public Vector2 direction;
 }
