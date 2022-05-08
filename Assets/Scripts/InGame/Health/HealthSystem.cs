@@ -31,7 +31,7 @@ public class HealthSystem : ClearableBehaviour
     /// Optional death event effect
     /// A given type of entity always has the same death event effect, set once on EventTrigger_EntityDeath.Awake,
     /// this is not reset on Clear so it can still be valid after despawn and respawn.
-    private IEventEffect m_OnDeathEventEffect;
+    private IEventEffectOnDamage m_OnDeathEventEffect;
 
 
     /* Sibling components (required) */
@@ -123,30 +123,30 @@ public class HealthSystem : ClearableBehaviour
     /// Low-level function to deal damage, check death and update observers
     /// This is private as you should always check for invincibility and apply visual feedback
     /// via the Try...Damage methods
-    private void TakeDamage(int value, ElementType elementType)
+    private void TakeDamage(DamageInfo damageInfo)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(CanBeDamaged());
         #endif
 
-        if (value > 0)
+        if (damageInfo.damage > 0)
         {
             // If this entity is cookable and damaged by fire, advance cook progress to prepare spawning cooked enemy
             // (hence *pre*-cook system).
             // We must do this before death check as death must spawn cooked enemy based on the latest cook progress
-            if (m_PreCookSystem != null && elementType == ElementType.Fire)
+            if (m_PreCookSystem != null && damageInfo.elementType == ElementType.Fire)
             {
                 // Note that this is the unclamped value
                 // This way, an overkill attack on an enemy with low HP will still cook a lot!
-                m_PreCookSystem.AdvanceCookProgress(value);
+                m_PreCookSystem.AdvanceCookProgress(damageInfo.damage);
             }
 
-            m_Health.value -= value;
+            m_Health.value -= damageInfo.damage;
 
             if (m_Health.value <= 0)
             {
                 m_Health.value = 0;
-                Die();
+                Die(damageInfo);
             }
 
             NotifyValueChangeToObservers();
@@ -162,19 +162,25 @@ public class HealthSystem : ClearableBehaviour
             return;
         }
 
-        TakeDamage(m_Health.value, ElementType.Neutral);
+        DamageInfo damageInfo = new DamageInfo
+        {
+            damage = m_Health.value
+        };
+        TakeDamage(damageInfo);
     }
     #endif
 
     /// Apply one-shot damage and return whether it worked or not
-    public bool TryTakeOneShotDamage(int value, ElementType elementType)
+    /// Pass element type and hit direction of the attack that dealt damage
+    /// (if nothing specific, just pass ElementType.Neutral and HorizontalDirection.None)
+    public bool TryTakeOneShotDamage(DamageInfo damageInfo)
     {
         if (!CanBeDamaged())
         {
             return false;
         }
 
-        TakeDamage(value, elementType);
+        TakeDamage(damageInfo);
 
         if (m_Health.value > 0)
         {
@@ -193,7 +199,12 @@ public class HealthSystem : ClearableBehaviour
             return false;
         }
 
-        TakeDamage(value, elementType);
+        DamageInfo damageInfo = new DamageInfo
+        {
+            damage = value,
+            elementType = elementType
+        };
+        TakeDamage(damageInfo);
 
         if (m_Health.value > 0)
         {
@@ -230,7 +241,7 @@ public class HealthSystem : ClearableBehaviour
         return m_PooledObject.IsInUse() && InGameManager.Instance.CanAnyEntityBeDamagedOrHealed;
     }
 
-    private void Die()
+    private void Die(DamageInfo lastDamageInfo)
     {
         if (m_CharacterMaster)
         {
@@ -254,7 +265,7 @@ public class HealthSystem : ClearableBehaviour
             }
         }
 
-        m_OnDeathEventEffect?.Trigger();
+        m_OnDeathEventEffect?.Trigger(lastDamageInfo);
 
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
@@ -314,8 +325,8 @@ public class HealthSystem : ClearableBehaviour
         }
     }
 
-    public void RegisterOnDeathEventEffect(IEventEffect eventEffect)
+    public void RegisterOnDeathEventEffect(IEventEffectOnDamage eventEffectOnDamage)
     {
-        m_OnDeathEventEffect = eventEffect;
+        m_OnDeathEventEffect = eventEffectOnDamage;
     }
 }

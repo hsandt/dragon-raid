@@ -13,4 +13,3 @@ MonoBehaviour:
   m_Name: ThrowParameters_Boss_Ispolin
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5044091037476376184, guid: 5b16b6e5246b1d7998bbc0113d5c9599, type: 3}
-  projectileSpeed: 15

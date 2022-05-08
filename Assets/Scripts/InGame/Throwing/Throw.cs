@@ -32,6 +32,7 @@ public class Throw : ClearableBehaviour
     /* Sibling components */
 
     private Animator m_Animator;
+    private CharacterMaster m_CharacterMaster;
     private ThrowIntention m_ThrowIntention;
     public ThrowIntention ThrowIntention => m_ThrowIntention;
 
@@ -53,6 +54,7 @@ public class Throw : ClearableBehaviour
         #endif
 
         m_Animator = this.GetComponentOrFail<Animator>();
+        m_CharacterMaster = this.GetComponentOrFail<CharacterMaster>();
         m_ThrowIntention = this.GetComponentOrFail<ThrowIntention>();
     }
 
@@ -87,7 +89,8 @@ public class Throw : ClearableBehaviour
     public void ThrowEvent_SpawnProjectile()
     {
         Vector2 projectileVelocity = m_ThrowIntention.throwSpeed * m_ThrowIntention.throwDirection.normalized;
-        ProjectilePoolManager.Instance.SpawnProjectile(throwParameters.projectilePrefab.name, throwAnchor.position, projectileVelocity);
+        ProjectilePoolManager.Instance.SpawnProjectile(throwParameters.projectilePrefab.name, throwAnchor.position,
+            projectileVelocity, m_CharacterMaster.GetFaction());
 
         if (throwAestheticParameters != null && throwAestheticParameters.sfxSpawnProjectile != null)
         {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
-using CommonsPattern;
 
 /// Master behaviour for player character
 public class PlayerCharacterMaster : CharacterMaster
@@ -16,8 +15,13 @@ public class PlayerCharacterMaster : CharacterMaster
     protected override void Init()
     {
         base.Init();
-        
+
         m_ExtraLivesSystem = this.GetComponentOrFail<ExtraLivesSystem>();
+    }
+
+    public override Faction GetFaction()
+    {
+        return Faction.Player;
     }
 
     public override void OnDeathOrExit()

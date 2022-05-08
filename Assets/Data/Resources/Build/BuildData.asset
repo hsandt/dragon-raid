@@ -16,4 +16,6 @@ MonoBehaviour:
   majorVersion: 0
   minorVersion: 1
   stageVersion: 5
-  workInProgress: 1
+  workInProgress: 0
+  devBuildStrippingLevel: 2
+  releaseBuildStrippingLevel: 3

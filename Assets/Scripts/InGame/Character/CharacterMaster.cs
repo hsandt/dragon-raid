@@ -6,7 +6,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// Master behaviour for a character
-public class CharacterMaster : MasterBehaviour, IPooledObject
+public abstract class CharacterMaster : MasterBehaviour, IPooledObject
 {
     /* Sibling components */
 
@@ -26,6 +26,8 @@ public class CharacterMaster : MasterBehaviour, IPooledObject
 
 
     /* Own methods */
+
+    public abstract Faction GetFaction();
 
     /// Teleport character to passed position and setup
     /// This is like a Spawn, except it doesn't activate the game object: AcquireFreeObject is responsible for it.

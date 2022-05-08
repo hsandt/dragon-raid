@@ -13,4 +13,3 @@ MonoBehaviour:
   m_Name: ThrowParameters_Dwarf
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
-  projectileSpeed: 6

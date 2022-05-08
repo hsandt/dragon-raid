@@ -20,13 +20,13 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     }
 
     /// Spawn projectile whose prefab is named `resourceName`
-    public Projectile SpawnProjectile(string resourceName, Vector2 position, Vector2 velocity)
+    public Projectile SpawnProjectile(string resourceName, Vector2 position, Vector2 velocity, Faction attackerFaction)
     {
         Projectile projectile = AcquireFreeObject(resourceName);
 
         if (projectile != null)
         {
-            projectile.WarpAndSetup(position, velocity);
+            projectile.WarpAndSetup(position, velocity, attackerFaction);
             return projectile;
         }
 

@@ -267,9 +267,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeHitBox: {fileID: 5291102921139454388}
-  bodyAttackParameters: {fileID: 11400000, guid: 8caa317eb98e179b7919e67468650ca2, type: 2}
-  bodyAttackAestheticParameters: {fileID: 11400000, guid: eb3c52968dc7bf1cbb1a5de1fad6f470, type: 2}
-  m_AttackerFaction: 1
+  meleeAttackParameters: {fileID: 11400000, guid: 8caa317eb98e179b7919e67468650ca2, type: 2}
+  meleeAttackAestheticParameters: {fileID: 11400000, guid: eb3c52968dc7bf1cbb1a5de1fad6f470, type: 2}
+  hitDirection: -1
 --- !u!114 &4283696875775711549
 MonoBehaviour:
   m_ObjectHideFlags: 0

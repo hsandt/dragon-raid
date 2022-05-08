@@ -26,6 +26,11 @@ public class EnemyCharacterMaster : CharacterMaster
         DebugUtil.AssertFormat(enemyData != null, this, "[EnemyCharacterMaster] Init: Enemy Data not set on {0}", this);
     }
 
+    public override Faction GetFaction()
+    {
+        return Faction.Enemy;
+    }
+
     public override void Clear()
     {
         base.Clear();

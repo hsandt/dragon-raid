@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityConstants;
+using CommonsDebug;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -15,6 +17,11 @@ public class Projectile : MasterBehaviour, IPooledObject
 
     [Tooltip("Projectile Aesthetic Parameters Data")]
     public ProjectileAestheticParameters projectileAestheticParameters;
+
+
+    /* Dynamic parameters */
+
+    private Faction m_AttackerFaction;
 
 
     /* Sibling components */
@@ -77,7 +84,7 @@ public class Projectile : MasterBehaviour, IPooledObject
 
     /* Own methods */
 
-    public void WarpAndSetup(Vector2 position, Vector2 velocity)
+    public void WarpAndSetup(Vector2 position, Vector2 velocity, Faction attackerFaction)
     {
         // Experimental hotfix: if you notice relative jittering between projectiles spawned frequently at the same speed,
         // due to pixel perfect camera, use this code to synchronize the sub-pixel at which they are spawned base on
@@ -97,6 +104,32 @@ public class Projectile : MasterBehaviour, IPooledObject
         // but in case it is not, to be safe, we set transform position directly.
         transform.position = (Vector3) position;
         m_Rigidbody2D.velocity = velocity;
+
+        m_AttackerFaction = attackerFaction;
+
+        // Set layer dynamically based on attacker faction and tangibility
+        // This means that the projectile prefab layer is merely indicative, and always overwritten at runtime
+        int layer;
+
+        if (attackerFaction != Faction.None)
+        {
+            if (attackerFaction == Faction.Player)
+            {
+                layer = projectileParameters.isTangible ? Layers.PlayerProjectileTangible : Layers.PlayerProjectileIntangible;
+            }
+            else  // attackerFaction == Faction.Enemy
+            {
+                layer = projectileParameters.isTangible ? Layers.EnemyProjectileTangible : Layers.EnemyProjectileIntangible;
+            }
+        }
+        else
+        {
+            DebugUtil.LogErrorFormat("[Projectile] WarpAndSetup: passed attacker faction is None, cannot set layer " +
+                "properly, default to EnemyProjectileIntangible");
+            layer = Layers.EnemyProjectileIntangible;
+        }
+
+        gameObject.layer = layer;
 
         // Setup can be done before setting transform position, but to follow CharacterMaster we do it after
         // (in case we add components whose Setup rely on master position later)
@@ -132,7 +165,16 @@ public class Projectile : MasterBehaviour, IPooledObject
     /// Impact on target health: damage it and self-destruct
     private void Impact(HealthSystem targetHealthSystem)
     {
-        bool didDamage = targetHealthSystem.TryTakeOneShotDamage(projectileParameters.damage, projectileParameters.elementType);
+        // Define damage info
+        DamageInfo damageInfo = new DamageInfo
+        {
+            damage = projectileParameters.damage,
+            attackerFaction = m_AttackerFaction,
+            elementType = projectileParameters.elementType
+            // Ignore hit direction for projectiles, we could use
+            // velocity but we'd need to consider relative velocity to screen/target
+        };
+        bool didDamage = targetHealthSystem.TryTakeOneShotDamage(damageInfo);
 
         if (didDamage)
         {

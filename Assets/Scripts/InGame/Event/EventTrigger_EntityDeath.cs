@@ -12,7 +12,7 @@ using UnityEngine;
 public class EventTrigger_EntityDeath : MonoBehaviour
 {
     [Header("Parameters")]
-    
+
     [Tooltip("Health system of entity whose death will trigger the event effect. Must be located on the same entity prefab.")]
     public HealthSystem healthSystem;
 
@@ -20,15 +20,15 @@ public class EventTrigger_EntityDeath : MonoBehaviour
     {
         if (healthSystem != null)
         {
-            var eventEffect = GetComponent<IEventEffect>();
-            if (eventEffect != null)
+            var eventEffectOnDamage = GetComponent<IEventEffectOnDamage>();
+            if (eventEffectOnDamage != null)
             {
-                healthSystem.RegisterOnDeathEventEffect(eventEffect);
+                healthSystem.RegisterOnDeathEventEffect(eventEffectOnDamage);
             }
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
             {
-                Debug.LogErrorFormat(this, "{0} has no associated IEventEffect", this);
+                Debug.LogErrorFormat(this, "{0} has no associated IEventEffectOnDamage", this);
             }
             #endif
         }

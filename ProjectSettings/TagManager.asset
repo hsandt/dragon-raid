@@ -26,14 +26,14 @@ TagManager:
   - Water
   - UI
   - PlayerCharacterHurtBox
-  - PlayerProjectile
+  - PlayerProjectileIntangible
   - PlayerMeleeHitBox
   - EnemyHurtBox
   - EnemyProjectileIntangible
   - EnemyBodyHitBox
   - EnemyMeleeHitBox
   - EnemyProjectileTangible
-  - 
+  - PlayerProjectileTangible
   - PlayerCharacterMoveBox
   - EnemyMoveBox
   - 

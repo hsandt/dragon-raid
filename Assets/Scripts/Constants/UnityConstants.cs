@@ -157,9 +157,9 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerCharacterHurtBox = 6;
         /// <summary>
-        /// Index of layer 'PlayerProjectile'.
+        /// Index of layer 'PlayerProjectileIntangible'.
         /// </summary>
-        public const int PlayerProjectile = 7;
+        public const int PlayerProjectileIntangible = 7;
         /// <summary>
         /// Index of layer 'PlayerMeleeHitBox'.
         /// </summary>
@@ -184,6 +184,10 @@ namespace UnityConstants
         /// Index of layer 'EnemyProjectileTangible'.
         /// </summary>
         public const int EnemyProjectileTangible = 13;
+        /// <summary>
+        /// Index of layer 'PlayerProjectileTangible'.
+        /// </summary>
+        public const int PlayerProjectileTangible = 14;
         /// <summary>
         /// Index of layer 'PlayerCharacterMoveBox'.
         /// </summary>
@@ -254,9 +258,9 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerCharacterHurtBoxMask = 1 << 6;
         /// <summary>
-        /// Bitmask of layer 'PlayerProjectile'.
+        /// Bitmask of layer 'PlayerProjectileIntangible'.
         /// </summary>
-        public const int PlayerProjectileMask = 1 << 7;
+        public const int PlayerProjectileIntangibleMask = 1 << 7;
         /// <summary>
         /// Bitmask of layer 'PlayerMeleeHitBox'.
         /// </summary>
@@ -281,6 +285,10 @@ namespace UnityConstants
         /// Bitmask of layer 'EnemyProjectileTangible'.
         /// </summary>
         public const int EnemyProjectileTangibleMask = 1 << 13;
+        /// <summary>
+        /// Bitmask of layer 'PlayerProjectileTangible'.
+        /// </summary>
+        public const int PlayerProjectileTangibleMask = 1 << 14;
         /// <summary>
         /// Bitmask of layer 'PlayerCharacterMoveBox'.
         /// </summary>
