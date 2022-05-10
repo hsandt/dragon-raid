@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,9 +25,14 @@ public class Projectile : MasterBehaviour, IPooledObject
     private Faction m_AttackerFaction;
 
 
-    /* Sibling components */
+    /* Sibling components (required) */
 
     private Rigidbody2D m_Rigidbody2D;
+
+
+    /* Sibling components (optional) */
+
+    private HealthSystem m_HealthSystem;
 
 
     protected override void Init()
@@ -41,6 +47,8 @@ public class Projectile : MasterBehaviour, IPooledObject
         #endif
 
         m_Rigidbody2D = this.GetComponentOrFail<Rigidbody2D>();
+
+        m_HealthSystem = GetComponent<HealthSystem>();
     }
 
 
@@ -66,7 +74,36 @@ public class Projectile : MasterBehaviour, IPooledObject
             {
                 if (targetRigidbody.GetComponent<HealthSystem>() is {} targetHealthSystem && targetHealthSystem != null)
                 {
-                    Impact(targetHealthSystem);
+                    if (targetRigidbody.GetComponent<Projectile>() is { } targetProjectile && targetProjectile != null)
+                    {
+                        if (m_HealthSystem != null)
+                        {
+                            // Projectile with health is hitting another projectile with health:
+                            // resolve dual collision at once by clearing both projectiles
+                            // (we could also just call ReleaseWithImpactFeedback and let the symmetrical
+                            // OnTriggerEnter2D do the same on the other side this frame)
+                            // If we want to allow simple damage without insta-clear and projectile still crossing,
+                            // we should call TryTakeOneShotDamage on both sides (and pass more info like
+                            // hit direction to trigger On Death Events properly if needed) and flag the other side
+                            // not to call it again;
+                            // or only call it on the target, but then we need to store a flag "release at end of frame"
+                            // to delay the actual release on Die, so that the other side can enter this block too
+                            // thx to IsInUse() being true, to do its job just before disappearing at the end of the frame.
+                            ReleaseWithImpactFeedback();
+                            targetProjectile.ReleaseWithImpactFeedback();
+                        }
+                        else
+                        {
+                            // Projectile without health is hitting projectile with health (generally tangible):
+                            // apply normal impact
+                            Impact(targetHealthSystem);
+                        }
+                    }
+                    else
+                    {
+                        // Projectile is hitting a non-projectile with health: apply normal Impact
+                        Impact(targetHealthSystem);
+                    }
                 }
                 else if (targetRigidbody.GetComponent<CookedEnemy>() is {} targetCookedEnemy && targetCookedEnemy != null)
                 {
@@ -145,6 +182,10 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
+    /// Release projectile and play FX/SFX for impact
+    /// Note that unlike HealthSystem.Die (if projectile has a Health system, generally tangible projectiles),
+    /// it doesn't have side effects like running the On Death Event, so use this when the projectile must be
+    /// consumed completely.
     private void ReleaseWithImpactFeedback()
     {
         Release();
@@ -183,6 +224,10 @@ public class Projectile : MasterBehaviour, IPooledObject
             // safety mechanic. In some cases, it may look better to make them block the projectiles
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility
             // (with some enum member) like Smash.
+
+            // Note that we don't call Die, so side effects like On Death Event won't apply.
+            // This is wanted, as Impact should just remove the projectile without further effects like spawning
+            // sub-projectiles.
             ReleaseWithImpactFeedback();
         }
     }
