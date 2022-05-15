@@ -8,7 +8,8 @@ using UnityEditor;
 /// Make sure to define a child class editor for each action whose GetNodeName returns a dynamic node name based on
 /// action properties, even if the class content is empty (no custom handles, etc.), just so OnInspectorGUI can refresh
 /// the node name on property change.
-public abstract class BehaviourActionEditor : Editor
+[CustomEditor(typeof(BehaviourAction), editorForChildClasses: true)]
+public class BehaviourActionEditor : Editor
 {
     public override void OnInspectorGUI()
     {
