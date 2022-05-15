@@ -37,7 +37,6 @@ public class BehaviourTreeView : VisualElement
             {
                 if (targetAction == null || targetAction == action)
                 {
-                    Debug.LogFormat("Rename {0} to {1}", button.text, action.GetNodeName());
                     button.text = action.GetNodeName();
                 }
             }

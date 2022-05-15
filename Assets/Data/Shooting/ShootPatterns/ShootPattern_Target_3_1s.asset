@@ -15,5 +15,5 @@ MonoBehaviour:
   shootDirectionMode: 1
   angleStart: 0
   angleEnd: 0
-  bulletCount: 3
-  duration: 0.7
+  bulletCount: 4
+  duration: 1

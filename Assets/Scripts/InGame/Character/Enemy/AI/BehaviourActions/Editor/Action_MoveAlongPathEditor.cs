@@ -16,6 +16,8 @@ public class Action_MoveAlongPathEditor : BehaviourActionEditor
     public override void DrawHandles(Vector2 startPosition)
     {
         var script = (Action_MoveAlongPath) target;
+
+        // TODO: use existing path editor to draw handles
     }
 
     public override void OnInspectorGUI()
