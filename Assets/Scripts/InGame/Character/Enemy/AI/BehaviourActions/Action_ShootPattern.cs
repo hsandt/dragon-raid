@@ -131,7 +131,7 @@ public class Action_ShootPattern : BehaviourAction
     #if UNITY_EDITOR
     public override string GetNodeName()
     {
-        return $"Shoot Pattern with {shootPattern.bulletCount} bullets over {shootPattern.duration} s";
+        return $"Shoot Pattern {shootPattern.shootDirectionMode} with {shootPattern.bulletCount} bullets over {shootPattern.duration} s";
     }
     #endif
 }

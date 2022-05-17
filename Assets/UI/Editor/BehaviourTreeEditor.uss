@@ -2,7 +2,7 @@
     -unity-text-align: middle-left;
     height: 30px;
     font-size: 14px;
-    width: 350px;
+    width: 450px;
 }
 
 .title {
