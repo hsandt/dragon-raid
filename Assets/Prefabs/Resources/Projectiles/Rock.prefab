@@ -261,13 +261,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnSerializedParameters:
   - projectilePrefab: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
-    relativePosition: {x: 0, y: 0}
+    relativePosition: {x: 0.7, y: 0.7}
     direction: {x: 3, y: 3}
   - projectilePrefab: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
-    relativePosition: {x: 0, y: 0}
+    relativePosition: {x: 1, y: 0}
     direction: {x: 3, y: 1}
   - projectilePrefab: {fileID: 5044091037476376184, guid: 3fcd2963942070685a9dd6c20a17b0ce, type: 3}
-    relativePosition: {x: 0, y: 0}
+    relativePosition: {x: 0.8, y: -0.55}
     direction: {x: 3, y: -2}
   damageInputRange: {x: 2, y: 3}
-  spawnSpeedRange: {x: 10, y: 10}
+  spawnSpeedRange: {x: 10, y: 15}
