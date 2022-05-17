@@ -90,6 +90,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Other crash files
+/*.blob
+
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
