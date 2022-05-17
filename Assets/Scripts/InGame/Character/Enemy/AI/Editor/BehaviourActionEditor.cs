@@ -9,6 +9,7 @@ using UnityEditor;
 /// action properties, even if the class content is empty (no custom handles, etc.), just so OnInspectorGUI can refresh
 /// the node name on property change.
 [CustomEditor(typeof(BehaviourAction), editorForChildClasses: true)]
+[CanEditMultipleObjects]
 public class BehaviourActionEditor : Editor
 {
     public override void OnInspectorGUI()
