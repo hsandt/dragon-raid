@@ -82,7 +82,9 @@ public class Action_ShootPattern : BehaviourAction
             // iterate over bullets to shoot that have not been shot yet
             foreach (float fireAngle in ComputeFireAngles(m_OrderedShotsCount, shotsToOrderTotalCount))
             {
-                m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, fireAngle));
+                Vector2 bulletDirection = VectorUtil.Rotate(referenceDirection, fireAngle);
+                Vector2 bulletVelocity = shootPattern.bulletSpeed * bulletDirection;
+                m_ShootIntention.bulletVelocities.Add(bulletVelocity);
             }
 
             // update the count of ordered shots

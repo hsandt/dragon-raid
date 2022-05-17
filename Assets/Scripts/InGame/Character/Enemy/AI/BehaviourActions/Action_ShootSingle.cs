@@ -18,7 +18,11 @@ public class Action_ShootSingle : BehaviourAction
     [SerializeField, Tooltip("Angle to shoot at, from the reference angle defined by Shoot Direction Mode " +
         "(degrees, 0 for forward, positive CCW)")]
     [Range(-180f, 180f)]
-    private float angle;
+    private float angle = 0f;
+
+    [SerializeField, Tooltip("Bullet speed (m/s)")]
+    private float bulletSpeed = 6f;
+
 
     #if UNITY_EDITOR
     public EnemyShootDirectionMode ShootDirectionMode { get => shootDirectionMode; set => shootDirectionMode = value; }
@@ -55,7 +59,9 @@ public class Action_ShootSingle : BehaviourAction
         m_ShootIntention.fireOnce = true;
 
         Vector2 referenceDirection = Shoot.GetBaseFireDirection(shootDirectionMode, m_Shoot.shootAnchor);
-        m_ShootIntention.fireDirections.Add(VectorUtil.Rotate(referenceDirection, angle));
+        Vector2 bulletDirection = VectorUtil.Rotate(referenceDirection, angle);
+        Vector2 bulletVelocity = bulletSpeed * bulletDirection;
+        m_ShootIntention.bulletVelocities.Add(bulletVelocity);
 
         hasOrderedShot = true;
     }

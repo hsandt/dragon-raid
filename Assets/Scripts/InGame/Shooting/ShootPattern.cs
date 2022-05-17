@@ -15,7 +15,7 @@ public class ShootPattern : ScriptableObject
              "(degrees, 0 for forward, positive CCW)")]
     [Range(-180f, 180f)]
     public float angleStart = 0f;
-    
+
     [Tooltip("Last angle to shoot at (same convention as Angle Start). No wrapping around -180/180.")]
     [Range(-180f, 180f)]
     public float angleEnd = 0f;
@@ -24,6 +24,10 @@ public class ShootPattern : ScriptableObject
              "and those in the middle are spread at regular angle intervals between Start and End.")]
     [Min(1)]
     public int bulletCount = 1;
+
+    [Tooltip("Bullet speed (m/s)")]
+    [Min(0f)]
+    public float bulletSpeed = 6f;
 
     [Tooltip("Duration of the pattern, time between first and last bullet. " +
              "If 0, all bullets are fired simultaneously.")]

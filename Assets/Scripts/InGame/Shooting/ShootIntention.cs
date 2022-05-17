@@ -15,14 +15,13 @@ public class ShootIntention : ClearableBehaviour
     [ReadOnlyField, Tooltip("Does the character want to fire a single bullet? Unlike Hold Fire, gets consumed on usage.")]
     public bool fireOnce;
 
-    [ReadOnlyField, Tooltip("List of shooting directions. Consumed every frame. " +
-        "No need to normalize, they will be normalized on shoot.")]
-    public List<Vector2> fireDirections = new();
+    [ReadOnlyField, Tooltip("List of bullet velocities for each bullet to shoot this frame. Consumed every frame.")]
+    public List<Vector2> bulletVelocities = new();
 
     public override void Clear()
     {
         holdFire = false;
         fireOnce = false;
-        fireDirections.Clear();
+        bulletVelocities.Clear();
     }
 }

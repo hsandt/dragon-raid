@@ -16,4 +16,5 @@ MonoBehaviour:
   angleStart: 0
   angleEnd: 0
   bulletCount: 4
+  bulletSpeed: 6
   duration: 1

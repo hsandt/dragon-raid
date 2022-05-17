@@ -96,7 +96,7 @@ public class Shoot : ClearableBehaviour
                 }
 
                 // spawn projectile with normalized direction and projectile speed
-                Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
+                Vector2 projectileVelocity = shootParameters.holdFireBulletSpeed * fireDirection.normalized;
                 ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position,
                     projectileVelocity, m_CharacterMaster.GetFaction());
             }
@@ -110,16 +110,15 @@ public class Shoot : ClearableBehaviour
             // used or not
             if (!m_ShootIntention.holdFire && CanShoot())
             {
-                foreach (Vector2 fireDirection in m_ShootIntention.fireDirections)
+                foreach (Vector2 bulletVelocity in m_ShootIntention.bulletVelocities)
                 {
                     // single shots do not use the fire cooldown time to allow freestyle patterns
                     // otherwise, same principle as the continuous shot
-                    Vector2 projectileVelocity = shootParameters.projectileSpeed * fireDirection.normalized;
                     ProjectilePoolManager.Instance.SpawnProjectile(defaultProjectileName, shootAnchor.position,
-                        projectileVelocity, m_CharacterMaster.GetFaction());
+                        bulletVelocity, m_CharacterMaster.GetFaction());
                 }
 
-                m_ShootIntention.fireDirections.Clear();
+                m_ShootIntention.bulletVelocities.Clear();
             }
         }
     }

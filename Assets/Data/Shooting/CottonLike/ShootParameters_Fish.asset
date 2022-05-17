@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a5ab708d134959aae6eadf44e9ed90, type: 3}
   m_Name: ShootParameters_Fish
   m_EditorClassIdentifier: 
-  projectileSpeed: 7
+  holdFireBulletSpeed: 7
   fireCooldownDuration: 1

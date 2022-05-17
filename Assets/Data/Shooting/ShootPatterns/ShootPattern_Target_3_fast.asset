@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06445f2d64057676d9748d436a1bbd61, type: 3}
-  m_Name: ShootPattern_Forward_3_1s_high
+  m_Name: ShootPattern_Target_3_fast
   m_EditorClassIdentifier: 
-  shootDirectionMode: 0
-  angleStart: -30
-  angleEnd: 10
-  bulletCount: 4
-  bulletSpeed: 6
-  duration: 0
+  shootDirectionMode: 1
+  angleStart: 0
+  angleEnd: 0
+  bulletCount: 3
+  bulletSpeed: 8
+  duration: 0.5
