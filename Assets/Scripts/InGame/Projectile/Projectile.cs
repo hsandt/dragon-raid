@@ -65,7 +65,8 @@ public class Projectile : MasterBehaviour, IPooledObject
         // The design reason is that if it takes N projectiles to kill 1 enemy of type T,
         // it should take M*N projectiles to kill M enemies of type T, even if they are located at the same place.
         // Of course, if projectiles were considered like AoE bombs, doing multi-hit would make sense.
-        if (IsInUse())
+        // Make sure to check that both this projectile and the target object are active
+        if (IsInUse() && other.gameObject.activeSelf)
         {
             // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
             // This is to allow projectile to find the parent owning the HealthSystem.
