@@ -1659,6 +1659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootDirectionMode: 1
   angle: 0
+  bulletSpeed: 6
 --- !u!1001 &720469235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2585,7 +2586,7 @@ MonoBehaviour:
     parallaxSpeedFactor: 0.3
   - rigidbody: {fileID: 1161848660}
     parallaxSpeedFactor: 0.5
-  midgroundLayerRigidbody: {fileID: 1142105146}
+  midgroundLayer: {fileID: 1142105147}
 --- !u!1 &984149950
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,35 +3029,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1142105147}
-  - component: {fileID: 1142105146}
-  m_Layer: 28
+  m_Layer: 26
   m_Name: MidgroundLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &1142105146
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1142105145}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!4 &1142105147
 Transform:
   m_ObjectHideFlags: 0
@@ -3064,7 +3043,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142105145}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7338,18 +7317,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 614390864288604208, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
-      propertyPath: m_ColliderPaths.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1897169181028075154, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464544517909456578, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5612176500669209464, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -7397,10 +7364,6 @@ PrefabInstance:
     - target: {fileID: 5612176500669209476, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
       propertyPath: m_Name
       value: InGame Main Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5612176500669209476, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b954ef805f8e69b41910c8bc8a8d38bf, type: 3}
