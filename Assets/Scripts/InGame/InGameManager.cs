@@ -230,7 +230,7 @@ public class InGameManager : SingletonManager<InGameManager>
         FXPoolManager.Instance.ReleaseAllObjects();
 
         // Clean up all environment props
-        foreach (Transform environmentPropTransform in ScrollingManager.Instance.GetMidgroundLayer().transform)
+        foreach (Transform environmentPropTransform in ScrollingManager.Instance.GetMidgroundLayer())
         {
             // Remember that all environment props should be pooled, directly or indirectly
             // (e.g. attached to an Enemy, itself pooled), so just deactivate it

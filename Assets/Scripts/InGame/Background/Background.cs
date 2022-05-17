@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
+using UnityConstants;
 
 /// Handles background parallax scrolling
 public class Background : MonoBehaviour
@@ -14,10 +15,13 @@ public class Background : MonoBehaviour
     [Tooltip("Array of parallax layers")]
     public ParallaxLayer[] parallaxLayers;
 
-    [Tooltip("Midground layer is a special layer at parallax speed factor 1 to place visual elements that should " +
-        "move in sync with the scrolling (but not enemies moving on ground with a dedicated script). " +
-        "Unlike parallax layers, it should not cycle as it contains unique elements, and so no duplicate is created.")]
-    public Rigidbody2D midgroundLayerRigidbody;
+    [Tooltip("Midground layer is a special layer that doesn't move at all. Since we are now moving camera and player " +
+        "character across the world, we don't need to move midground layer backward at parallax speed factor 1. " +
+        "Instead, we just use it as a static parent to place Environment Props. In fact, this object should be " +
+        "on the EnvironmentProp layer (more exactly, it's children should be, but it helps if some objects have been" +
+        "added manually). It should not cycle either as it contains unique elements, " +
+        "and so no duplicate is created.")]
+    public Transform midgroundLayer;
 
 
     /* Runtime references */
@@ -48,7 +52,9 @@ public class Background : MonoBehaviour
     void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(midgroundLayerRigidbody != null, this, "[Background] No Midground Layer Rigidbody set {0}.", this);
+        Debug.AssertFormat(midgroundLayer != null, this, "[Background] No Midground Layer set on {0}.", this);
+        Debug.Assert(midgroundLayer.gameObject.layer == Layers.EnvironmentProp,
+            "[Background] Midground Layer is not on EnvironmentProp layer (at least its children should be).", this);
         #endif
 
         // Precompute initial position for duplicate layer:
@@ -89,8 +95,6 @@ public class Background : MonoBehaviour
     /// We assume that all layers are defined in the scene at the origin (their duplicates are offset as usual)
     public void ResetAllLayersPosition()
     {
-        midgroundLayerRigidbody.position = Vector2.zero;
-
         for (int i = 0; i < parallaxLayers.Length; ++i)
         {
             ParallaxLayer parallaxLayer = parallaxLayers[i];
@@ -105,9 +109,6 @@ public class Background : MonoBehaviour
 
     private void SetupAllLayersVelocity()
     {
-        // Midground rigidbody always moves at scrolling speed (factor = 1)
-        midgroundLayerRigidbody.velocity = m_CurrentScrollingSpeed * Vector2.left;
-
         for (int i = 0; i < parallaxLayers.Length; ++i)
         {
             ParallaxLayer parallaxLayer = parallaxLayers[i];
@@ -124,8 +125,6 @@ public class Background : MonoBehaviour
     public void Pause()
     {
         enabled = false;
-
-        midgroundLayerRigidbody.velocity = Vector2.zero;
 
         for (int i = 0; i < parallaxLayers.Length; ++i)
         {

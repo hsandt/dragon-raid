@@ -4272,7 +4272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1266096960}
   - component: {fileID: 1266096959}
-  m_Layer: 28
+  m_Layer: 26
   m_Name: MidgroundLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4904,7 +4904,7 @@ MonoBehaviour:
     parallaxSpeedFactor: 1
   - rigidbody: {fileID: 1144383245}
     parallaxSpeedFactor: 1.5
-  midgroundLayerRigidbody: {fileID: 1266096959}
+  midgroundLayer: {fileID: 1266096960}
 --- !u!4 &1442016844
 Transform:
   m_ObjectHideFlags: 0

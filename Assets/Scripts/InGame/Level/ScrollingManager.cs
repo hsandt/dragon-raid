@@ -170,8 +170,8 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         return - m_ScrollingSpeed + groundSpeed;
     }
 
-    public Rigidbody2D GetMidgroundLayer()
+    public Transform GetMidgroundLayer()
     {
-        return m_Background.midgroundLayerRigidbody;
+        return m_Background.midgroundLayer;
     }
 }
