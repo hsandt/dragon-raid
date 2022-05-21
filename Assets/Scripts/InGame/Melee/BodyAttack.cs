@@ -8,8 +8,8 @@ using UnityEngine;
 /// Collision layers: EnemyBodyHitBox collides with PlayerHurtBox, so only works for enemy hurting player character 
 public class BodyAttack : MonoBehaviour
 {
-    /* Parameters data */
-    
+    [Header("Parameters data")]
+
     [Tooltip("Body Attack Parameters Data")]
     public BodyAttackParameters bodyAttackParameters;
     
@@ -42,7 +42,7 @@ public class BodyAttack : MonoBehaviour
     /// Damage target
     private void TryPeriodicDamage(HealthSystem targetHealthSystem)
     {
-        bool didDamage = targetHealthSystem.TryPeriodicDamage(bodyAttackParameters.damage);
+        bool didDamage = targetHealthSystem.TryTakePeriodicDamage(bodyAttackParameters.damage, ElementType.Neutral);
 
         if (didDamage)
         {

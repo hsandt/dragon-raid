@@ -136,6 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45fb2c623fde616d5b28127a44a91cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addSiblingComponentsAsSlaves: 1
+  slaveBehaviours: []
+  slaveAnimator: {fileID: 0}
+  slaveParticles: []
   projectileParameters: {fileID: 11400000, guid: ac4c1a7c9a566a5d7bd6dd836b284fe3, type: 2}
   projectileAestheticParameters: {fileID: 11400000, guid: cd4255a77a176a939b182fdda3dc918f, type: 2}
 --- !u!114 &4146445330834281364

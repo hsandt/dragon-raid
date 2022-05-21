@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CheatManager : MonoBehaviour
+using CommonsPattern;
+
+public class CheatManager : SingletonManager<CheatManager>
 {
-    private void Update()
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
+    
+    [SerializeField, Tooltip("Scrolling to immediately warp to on Start")]
+    private float initialScrolling = 0f;
+
+    public void OnLevelSetup()
     {
-        // Player Input components cannot share the same device (here: keyboard),
-        // so it's simpler to hardcode cheat keys than reusing the Dragon Player Input for cheats 
-        
-        // Key map:
-        // - press R to restart level
-        // - press F to finish level
-        
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            InGameManager.Instance.RestartLevel();
-        }
-        else if (Keyboard.current.fKey.wasPressedThisFrame)
-        {
-            InGameManager.Instance.FinishLevel();
-        }
+        ScrollingManager.Instance.CheatAdvanceScrolling(initialScrolling);
     }
+    
+    #endif
 }

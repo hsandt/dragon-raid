@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7418868953007328587}
   - component: {fileID: 7418868953007328586}
+  - component: {fileID: 1859030360}
   m_Layer: 0
   m_Name: Main Menu Manager
   m_TagString: Untagged
@@ -43,3 +44,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7f97bfce255c26d823bab139419322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDataList: {fileID: 11400000, guid: 2cd249f618b67658c832c28ec89520ec, type: 2}
+  canvasTitleMenu: {fileID: 0}
+--- !u!114 &1859030360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7418868953007328584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 782a65a590311ba5ab663f4e9da21e7f, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

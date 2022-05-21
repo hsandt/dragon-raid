@@ -14,7 +14,10 @@ GameObject:
   - component: {fileID: 5044091037476376186}
   - component: {fileID: 5044091037476376165}
   - component: {fileID: 3545011676405438348}
-  m_Layer: 7
+  - component: {fileID: 4493306900661241718}
+  - component: {fileID: -2810406232111949794}
+  - component: {fileID: -8217540429721981983}
+  m_Layer: 13
   m_Name: Rock_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.4375, y: -0.375, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,7 +106,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5625
+  m_Radius: 0.5
 --- !u!50 &5044091037476376186
 Rigidbody2D:
   serializedVersion: 4
@@ -118,7 +122,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.5
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -139,6 +143,7 @@ MonoBehaviour:
   addSiblingComponentsAsSlaves: 1
   slaveBehaviours: []
   slaveAnimator: {fileID: 0}
+  slaveRigidbody2D: {fileID: 0}
   slaveParticles: []
   projectileParameters: {fileID: 11400000, guid: a44d8dafcf0804d498e6ed89aec5c295, type: 2}
   projectileAestheticParameters: {fileID: 11400000, guid: b96fa3a4011a8c31eb4a872ba0aa3993, type: 2}
@@ -154,3 +159,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22f8a222a6343ac9968c7c765d1a8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4493306900661241718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044091037476376184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a2c3b1f7f1180878e81de828c3b752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  additionalSpriteRenderers: []
+--- !u!114 &-2810406232111949794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044091037476376184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f61475183c40dfdb5e2079117d986e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxValue: 0
+  value: 0
+--- !u!114 &-8217540429721981983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5044091037476376184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd7b5af6729b7fafb79625c6a565103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthParameters: {fileID: 11400000, guid: bb2d829b9b25d86c7aee3d09e42175d2, type: 2}
+  healthAestheticParameters: {fileID: 11400000, guid: bded07f2e4b022a8bae5e64f4fc2cf55, type: 2}

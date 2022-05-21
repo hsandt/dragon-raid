@@ -12,6 +12,12 @@ public class Brighten : ClearableBehaviour
     private readonly int brightnessPropertyID = Shader.PropertyToID("Brightness");
     
     
+    [Header("Child references")]
+
+    [Tooltip("Additional sprites to apply brighten to")]
+    public SpriteRenderer[] additionalSpriteRenderers;
+
+
     /* Sibling components */
 
     private SpriteRenderer m_SpriteRenderer;
@@ -33,6 +39,22 @@ public class Brighten : ClearableBehaviour
     {
         m_SpriteRenderer = this.GetComponentOrFail<SpriteRenderer>();
         m_BrightnessEndTimer = new Timer(callback: ResetBrightness);
+        
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        if (additionalSpriteRenderers != null)
+        {
+            for (int i = 0; i < additionalSpriteRenderers.Length; i++)
+            {
+                Debug.AssertFormat(additionalSpriteRenderers[i] != null, this,
+                    "[Brighten] additionalSpriteRenderers[{0}] is null on {1}", i, this);
+            }
+        }
+        else
+        {
+            Debug.AssertFormat(additionalSpriteRenderers != null, this,
+                "[Brighten] No additionalSpriteRenderers set on {0}", this);
+        }
+        #endif
     }
 
     public override void Setup()
@@ -51,6 +73,15 @@ public class Brighten : ClearableBehaviour
     private void RefreshSpriteBrightness()
     {
         m_SpriteRenderer.material.SetFloat(brightnessPropertyID, m_Brightness);
+
+        // a priori serialized arrays are never null, but to be safe
+        if (additionalSpriteRenderers != null)
+        {
+            foreach (var additionalSpriteRenderer in additionalSpriteRenderers)
+            {
+                additionalSpriteRenderer.material.SetFloat(brightnessPropertyID, m_Brightness);
+            }
+        }
     }
     
     /// Set sprite material brightness

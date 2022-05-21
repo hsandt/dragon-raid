@@ -11,17 +11,11 @@ using CommonsPattern;
 /// SEO for concrete child classes: before MoveFlying
 public abstract class BaseMoveFlyingController : ClearableBehaviour
 {
-    [Header("Parameters data")]
-
-    [Tooltip("Move Parameters Data")]
-    public MoveFlyingParameters MoveFlyingParameters;
-
-    
     /* Sibling components */
-    
+
     protected MoveFlyingIntention m_MoveFlyingIntention;
-    
-    
+
+
     private void Awake()
     {
         m_MoveFlyingIntention = this.GetComponentOrFail<MoveFlyingIntention>();
@@ -31,9 +25,4 @@ public abstract class BaseMoveFlyingController : ClearableBehaviour
 
     /// Override this method to customize Awake behavior while preserving base logic
     protected virtual void Init() {}
-
-    public override void Setup()
-    {
-        m_MoveFlyingIntention.moveVelocity = Vector2.zero;
-    }
 }

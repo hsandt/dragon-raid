@@ -9,6 +9,8 @@ The project has just started.
 ## Credits
 
 - Programming, Art: Leyn (hsandt)
+- [Unity Tweens](https://github.com/jeffreylanters/unity-tweens) by Jeffrey Lanters 
 - Free font: BitPotion Ext by Joeb Rogers available under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [LICENSE](Assets/Fonts/Resources/BitPotion Full Extended/LICENSE.md)
-- Audio: Free BGM "ハクギン" by MusMus (https://musmus.main.jp/)
+- Audio: Free BGM "ハクギン" by MusMus (https://musmus.main.jp/blog/bgm069/)
 - Thanks to Aubry Hervé and Paul Édouard for the well-done/overcooked grilling mechanic.
+

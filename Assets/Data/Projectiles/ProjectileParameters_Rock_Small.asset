@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: ProjectileParameters_Rock_Small
   m_EditorClassIdentifier: 
   damage: 1
+  isTangible: 1
+  elementType: 0

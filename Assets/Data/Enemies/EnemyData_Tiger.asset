@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Tiger
   editorSpawnPreviewTexture: {fileID: 2800000, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
+  isBoss: 0

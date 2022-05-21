@@ -90,9 +90,26 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# Other crash files
+/*.blob
+
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Paid editor assets (ignored so project can remain open source,
+# and since only editor scripts, project will still run without)
+/[Aa]ssets/Asset Usage Finder.meta
+/[Aa]ssets/Asset Usage Finder/
+/[Aa]ssets/Smart Library.asset
+/[Aa]ssets/Smart Library.asset.meta
+/[Aa]ssets/SmartLibrary.meta
+/[Aa]ssets/SmartLibrary/
+
+# Samples that can be imported with a package
+# They are just here for demonstration and shouldn't be used in the project
+/[Aa]ssets/Samples.meta
+/[Aa]ssets/Samples/

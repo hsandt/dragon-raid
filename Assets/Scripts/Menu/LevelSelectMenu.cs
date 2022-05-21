@@ -1,99 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-using UnityConstants;
+using CommonsHelper;
+using CommonsPattern;
 
 public class LevelSelectMenu : Menu
 {
     [Header("Assets")]
     
-    [Tooltip("Level Data List asset")]
-    public LevelDataList levelDataList;
-    
-    
-    [Header("Scene references")]
-    
-    [Tooltip("List of Start Level buttons")]
-    public List<Button> buttonStartLevelList;
+    [Tooltip("Level Button Prefab")]
+    public GameObject levelButtonPrefab;
 
+
+    [Header("Child references")]
+    
+    [Tooltip("Level Buttons parent")]
+    public Transform levelButtonsParent;
+    
     [Tooltip("Back button")]
     public Button buttonBack;
 
     
+    /* Cached references */
+
+    /// Array of save slot container widgets
+    private LevelButtonWidget[] m_LevelButtonWidgets;
+
     private void Awake()
     {
-        buttonBack.onClick.AddListener(GoBack);
-
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(levelDataList != null, this, "[MainMenu] Awake: Level Data List not set on {0}", this);
+        Debug.AssertFormat(levelButtonPrefab != null, this,
+            "[LevelSelectMenu] Awake: Level Button Prefab not set on {0}", this);
+        Debug.AssertFormat(levelButtonsParent != null, this,
+            "[LevelSelectMenu] Awake: Level Buttons Parent not set on {0}", this);
+        Debug.AssertFormat(buttonBack != null, this, "[LevelSelectMenu] Awake: Button Back not set on {0}", this);
         #endif
-    }
-    
-    private void Start()
-    {
-        for (int i = 0; i < levelDataList.levelDataArray.Length; i++)
+
+        buttonBack.onClick.AddListener(GoBack);
+        
+        // Instance access guaranteed by SEO
+        LevelDataList levelDataList = MainMenuManager.Instance.levelDataList;
+        int levelCount = levelDataList.levelDataArray.Length;
+        m_LevelButtonWidgets = new LevelButtonWidget[levelCount];
+        
+        UIPoolHelper.LazyInstantiateWidgets(levelButtonPrefab, levelCount, levelButtonsParent);
+        
+        for (int i = 0; i < levelCount; i++)
         {
-            // eventually we'll do lazy pooling i.e. create any missing buttons (copying code from Anima) 
-            // but for now we assume the buttons have been manually added
-            if (i < buttonStartLevelList.Count && buttonStartLevelList[i] != null)
-            {
-                // quick trick to pass dynamic callback: copy variable to get constant in closure,
-                // and pass lambda
-                // eventually, we'll have a dedicated StartLevelButton with a member int levelIndex
-                // and its own method StartLevel, so we won't need to pass the level index anymore
-                int closureConstantLevelIndex = i;
-                buttonStartLevelList[i].onClick.AddListener(() => StartLevel(closureConstantLevelIndex));
-            }
-            #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            else
-            {
-                Debug.LogErrorFormat(this, "[LevelSelectMenu] Start: buttonStartLevelList has no entry or null entry " +
-                   "for index {0} yet levelDataList.levelDataArray.Length is {1}",
-                    i, levelDataList.levelDataArray.Length);
-            }
-            #endif
+            Transform saveSlotTransform = levelButtonsParent.GetChild(i);
+            
+            // Initialise widget model and view
+            m_LevelButtonWidgets[i] = saveSlotTransform.GetComponentOrFail<LevelButtonWidget>();
+            m_LevelButtonWidgets[i].Init(i);
         }
     }
-
+    
     private void OnDestroy()
     {
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
 
     public override void Show()
     {
         gameObject.SetActive(true);
+
+        if (m_LevelButtonWidgets.Length > 0)
+        {
+            m_LevelButtonWidgets[0].Select();
+        }
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
     }
 
-    private void StartLevel(int levelIndex)
+    public override bool ShouldShowTitle()
     {
-        if (levelDataList.levelDataArray.Length > levelIndex)
-        {
-            LevelData levelData = levelDataList.levelDataArray[levelIndex];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[LevelSelectMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[LevelSelectMenu] StartGame: Level Data List is empty");
-        }
+        return false;
+    }
+
+    public override bool CanGoBack()
+    {
+        return true;
     }
     
     private void GoBack()

@@ -49,24 +49,42 @@ SpriteAtlas:
     - {fileID: 102900000, guid: 8540dde07220fc3d08ce798164ad636d, type: 3}
     - {fileID: 102900000, guid: c96522c5eb2fa4affae28e858358e66f, type: 3}
     - {fileID: 102900000, guid: a9998fa37a68eade3815fa54c0ce81e7, type: 3}
+    - {fileID: 102900000, guid: d8c9ac89e1b562395b539fa7b5c4ca98, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 21d1b740799a9e3ccac159f749e3b2a3, type: 3}
+  - {fileID: 21300000, guid: d90a9950343d5c17292978c9515085a0, type: 3}
   - {fileID: 21300000, guid: de9c102190b7200b6bebc6d67bffb4bb, type: 3}
   - {fileID: 915010759060351338, guid: 8bbf23313e25be850b2f1041237f6681, type: 3}
+  - {fileID: 1673412750234017441, guid: 9bacdcb1b615eef0da8ab84fe1ba46e8, type: 3}
+  - {fileID: -9144830949931090792, guid: 9bacdcb1b615eef0da8ab84fe1ba46e8, type: 3}
+  - {fileID: 3924423634807704471, guid: 9bacdcb1b615eef0da8ab84fe1ba46e8, type: 3}
   - {fileID: -9104973322047820983, guid: 2e3c0ef1c68ac88b9bfaeeebe8a2b371, type: 3}
   - {fileID: 21300000, guid: 6ac4a9c25032f38ba955da20649835d1, type: 3}
   - {fileID: 21300000, guid: c1bff2034091a5b93851e0c3e2c1a8c5, type: 3}
   - {fileID: 21300000, guid: 6f118683942e20711a48e5a655059416, type: 3}
+  - {fileID: 21300000, guid: 82638ba3b1a93ab69b8764eaf822f392, type: 3}
   - {fileID: -1302870869281104832, guid: f205dba31db259e00b4f1c9040ecc0fc, type: 3}
-  - {fileID: 21300000, guid: 037ce034154013c0d9237de8b5ca31d1, type: 3}
+  - {fileID: 21300000, guid: ccc745b4070870b31be22bb228935e89, type: 3}
+  - {fileID: -4915271014213439901, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: 4956372351157801767, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: -1213049812453395690, guid: 6c444bc458f4517f6a2b2d2f77927c1b, type: 3}
+  - {fileID: -6781088087781141493, guid: df9dbbf58ecdf820d9b1da56e8a09ade, type: 3}
+  - {fileID: 5754833268761509841, guid: df9dbbf58ecdf820d9b1da56e8a09ade, type: 3}
   - {fileID: 21300000, guid: 3bd145a6cab77b46e8bec008d982a87a, type: 3}
   - {fileID: 21300000, guid: a5009fd625c7c42be87adf55c23a5c3a, type: 3}
   - {fileID: 21300000, guid: aacc2467bb5735c29bb78e551f227c05, type: 3}
+  - {fileID: -1961516879713267842, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
+  - {fileID: -7911955526642296718, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
+  - {fileID: 3587858779838700405, guid: 7883ce97be9ba921ba53965fc163b4c1, type: 3}
+  - {fileID: 6240900007677276853, guid: d869b0a7c71e26c9eacda3c0405af4d8, type: 3}
+  - {fileID: -6748485600109523364, guid: d869b0a7c71e26c9eacda3c0405af4d8, type: 3}
   - {fileID: -999378693301200681, guid: c1e92d08f1ba0d91fa4cac626743b0f9, type: 3}
   - {fileID: 21300000, guid: d4786e38d910f95b488b71c82f77fef1, type: 3}
+  - {fileID: 21300000, guid: 7ac181c899bb733ffa887f6799f4598f, type: 3}
   - {fileID: 21300000, guid: ce2422f83b7640924bb7ad77f1492613, type: 3}
   - {fileID: 21300000, guid: db02d0c9595037e9992fef5833a5e0aa, type: 3}
   - {fileID: 4742144298960030944, guid: da74488a9c82a55eebd7ab4dcb0de80b, type: 3}
@@ -75,6 +93,10 @@ SpriteAtlas:
   - {fileID: 8051300766851689350, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
   - {fileID: 6669843986732815514, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
   - {fileID: 8313924796183435041, guid: ccf5b1dab630a24c191c22ca43d980b5, type: 3}
+  - {fileID: 21300000, guid: 8098424b667018af9ac5ff038a434426, type: 3}
+  - {fileID: 7812051119679007272, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
+  - {fileID: 4781553904861370396, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
+  - {fileID: 8982306651567365739, guid: 88edd79b74fc5f848b629f9512485dd2, type: 3}
   - {fileID: 21300000, guid: 461d500c3de1b16d7bb7287f0a274348, type: 3}
   - {fileID: -4830872509790701028, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
   - {fileID: 8571754651483645374, guid: 4ea4f52da3ff17ed78202e1d3f6d004d, type: 3}
@@ -97,22 +119,44 @@ SpriteAtlas:
   - {fileID: -3315804106667708785, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: -2092013694427051649, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
   - {fileID: 6626436987915088659, guid: 6f14c59d2dba4ac28b1b2cbb1b3030bc, type: 3}
+  - {fileID: 21300000, guid: 1a5442bd6a162b521a1b82f574ae306e, type: 3}
   - {fileID: 21300000, guid: 6390253e2593432ab8da95acf3411cb4, type: 3}
+  - {fileID: 2486971594287974987, guid: e472466e40f8f486d9e88efba28d45cd, type: 3}
+  - {fileID: 8587108646636105660, guid: e472466e40f8f486d9e88efba28d45cd, type: 3}
+  - {fileID: 5840973638832434031, guid: e472466e40f8f486d9e88efba28d45cd, type: 3}
   - {fileID: 21300000, guid: d00b9efe55c591799a0582d09be20a65, type: 3}
+  - {fileID: 21300000, guid: 2c8eaf7fb5e32ae68b8a2009d0d448ca, type: 3}
   m_PackedSpriteNamesToIndex:
+  - enemy_imp_with_catapult_catapult_frame_spritesheet
+  - ui_generic_panel
   - fx_melee_attack
   - hud_gauge_frame_0
+  - enemy_imp_with_catapult_restraining_rope_spritesheet_0
+  - enemy_imp_with_catapult_restraining_rope_spritesheet_1
+  - enemy_imp_with_catapult_restraining_rope_spritesheet_2
   - projectile_fireball_spritesheet_0
   - weapon_bat
   - hud_gauge_fill
-  - enemy_bird_spritesheet
+  - enemy_dove_spritesheet
+  - fx_melee_attack_thrust
   - enemy_tiger_spritesheet_0
-  - enemy_ispolin_preview
+  - bg_tree_bg_tiled
+  - enemy_echinemon_spritesheet_0
+  - enemy_echinemon_spritesheet_1
+  - enemy_echinemon_spritesheet_2
+  - environment_soil_spritesheet_0
+  - environment_soil_spritesheet_1
   - bg_cloud_medium
   - bg_cloud_small
   - fx_particle_medium
+  - enemy_imp_with_catapult_catapult_arm_spritesheet_0
+  - enemy_imp_with_catapult_catapult_arm_spritesheet_1
+  - enemy_imp_with_catapult_catapult_arm_spritesheet_2
+  - enemy_giant_wasp_wings_spritesheet_0
+  - enemy_giant_wasp_wings_spritesheet_1
   - projectile_enemy_fireball_spritesheet_0
   - bg_sky
+  - bg_tree_back
   - fx_melee_attack_strong
   - hud_gauge_separator
   - dragon_spritesheet_2
@@ -121,6 +165,10 @@ SpriteAtlas:
   - enemy_ispolin_spritesheet_0
   - enemy_ispolin_spritesheet_1
   - enemy_ispolin_spritesheet_2
+  - bg_tree_front
+  - enemy_giant_wasp_body_spritesheet_2
+  - enemy_giant_wasp_body_spritesheet_0
+  - enemy_giant_wasp_body_spritesheet_1
   - bg_cloud_big
   - projectile_fireball_impact_spritesheet_classic_2
   - projectile_fireball_impact_spritesheet_classic_3
@@ -143,8 +191,13 @@ SpriteAtlas:
   - projectile_fireball_impact_spritesheet_6
   - projectile_fireball_impact_spritesheet_5
   - projectile_fireball_impact_spritesheet_4
+  - dragon_hurtbox
   - projectile_rock
+  - enemy_imp_with_catapult_imp_spritesheet_2
+  - enemy_imp_with_catapult_imp_spritesheet_1
+  - enemy_imp_with_catapult_imp_spritesheet_0
   - fx_particle_medium_orange (superseded by white)
+  - enemy_flying_imp_spritesheet
   m_RenderDataMap: {}
   m_Tag: Sprite Atlas
   m_IsVariant: 0

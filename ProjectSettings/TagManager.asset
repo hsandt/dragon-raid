@@ -6,12 +6,18 @@ TagManager:
   tags:
   - ProjectilePool
   - FXPool
-  - CharacterPool
   - PlayerSpawnPosition
   - LevelIdentifier
   - SpatialEvents
   - EnemyWaves
-  - Menus
+  - CanvasTitleMenu
+  - CanvasPauseMenu
+  - Background
+  - CanvasLevel
+  - CameraStartPosition
+  - PickUpPool
+  - PlayerCharacterPool
+  - EnemyPool
   layers:
   - Default
   - TransparentFX
@@ -20,30 +26,30 @@ TagManager:
   - Water
   - UI
   - PlayerCharacterHurtBox
-  - PlayerProjectile
+  - PlayerProjectileIntangible
   - PlayerMeleeHitBox
   - EnemyHurtBox
   - EnemyProjectileIntangible
   - EnemyBodyHitBox
   - EnemyMeleeHitBox
   - EnemyProjectileTangible
-  - 
+  - PlayerProjectileTangible
   - PlayerCharacterMoveBox
   - EnemyMoveBox
   - 
   - InvisibleWall
-  - 
-  - 
+  - PickUpIntangible
+  - PickUpTangible
   - 
   - LivingZone
   - 
   - SolidEnvironment
+  - DamagingEnvironment
+  - EnvironmentProp
   - 
+  - Background
   - 
-  - 
-  - 
-  - 
-  - 
+  - Camera
   - 
   m_SortingLayers:
   - name: Level_Background
@@ -57,6 +63,9 @@ TagManager:
     locked: 0
   - name: Level_Dragon
     uniqueID: 753183255
+    locked: 0
+  - name: Level_PickUp
+    uniqueID: 151875487
     locked: 0
   - name: Level_ThrowProjectile
     uniqueID: 3040915957

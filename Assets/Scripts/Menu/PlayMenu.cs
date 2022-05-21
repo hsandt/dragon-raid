@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class PlayMenu : Menu
 {
@@ -14,7 +12,7 @@ public class PlayMenu : Menu
     public LevelDataList levelDataList;
     
     
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Story button")]
     public Button buttonStory;
@@ -28,6 +26,9 @@ public class PlayMenu : Menu
     [Tooltip("Back button")]
     public Button buttonBack;
 
+    [Tooltip("Save Slot menu")]
+    public SaveSlotMenu saveSlotMenu;
+    
     [Tooltip("Level Select menu")]
     public LevelSelectMenu levelSelectMenu;
 
@@ -48,60 +49,56 @@ public class PlayMenu : Menu
     {
         if (buttonStory)
         {
-            buttonStory.onClick.RemoveListener(StartGame);
+            buttonStory.onClick.RemoveAllListeners();
         }
         if (buttonArcade)
         {
-            buttonArcade.onClick.RemoveListener(StartArcade);
+            buttonArcade.onClick.RemoveAllListeners();
         }
         if (buttonLevelSelect)
         {
-            buttonLevelSelect.onClick.RemoveListener(EnterLevelSelect);
+            buttonLevelSelect.onClick.RemoveAllListeners();
         }
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
     
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        buttonStory.Select();
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
+    }
+
+    public override bool ShouldShowTitle()
+    {
+        return true;
+    }
+    
+    public override bool CanGoBack()
+    {
+        return true;
     }
 
     private void StartStory()
     {
-        StartGame();
+        saveSlotMenu.SavedPlayMode = SavedPlayMode.Story;
+        MainMenuManager.Instance.EnterMenu(saveSlotMenu);
     }
 
     private void StartArcade()
     {
-        StartGame();
-    }
-        
-    private void StartGame()
-    {
-        if (levelDataList.levelDataArray.Length > 0)
-        {
-            LevelData levelData = levelDataList.levelDataArray[0];
-            if (levelData != null)
-            {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
-            }
-            else
-            {
-                Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List first entry is null");
-            }
-        }
-        else
-        {
-            Debug.LogErrorFormat(levelDataList, "[MainMenu] StartGame: Level Data List is empty");
-        }
+        saveSlotMenu.SavedPlayMode = SavedPlayMode.Arcade;
+        MainMenuManager.Instance.EnterMenu(saveSlotMenu);
     }
 
     private void EnterLevelSelect()

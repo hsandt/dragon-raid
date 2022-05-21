@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304d59725385470bb551224059c4c160, type: 3}
   m_Name: ProjectileAestheticParameters_EnemyFireball
   m_EditorClassIdentifier: 
-  fxName: FireballImpact
+  fxImpactName: FireballImpact
   sfxSpawn: {fileID: 8300000, guid: a62e812cba88e985d9f456e6a46fd206, type: 3}
   sfxImpact: {fileID: 8300000, guid: c2663eb58db8722d2aefc977ce8fdb98, type: 3}

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ProjectileParameters_EnemyFireball
   m_EditorClassIdentifier: 
   damage: 1
+  elementType: 0

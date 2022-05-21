@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class OptionsMenu : Menu
 {
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Back button")]
     public Button buttonBack;
@@ -23,18 +21,32 @@ public class OptionsMenu : Menu
     {
         if (buttonBack)
         {
-            buttonBack.onClick.RemoveListener(GoBack);
+            buttonBack.onClick.RemoveAllListeners();
         }
     }
     
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        buttonBack.Select();
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
+    }
+    
+    public override bool ShouldShowTitle()
+    {
+        return true;
+    }
+    
+    public override bool CanGoBack()
+    {
+        return true;
     }
 
     private void GoBack()

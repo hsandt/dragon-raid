@@ -41,10 +41,6 @@ namespace UnityConstants
         /// </summary>
         public const string FXPool = "FXPool";
         /// <summary>
-        /// Name of tag 'CharacterPool'.
-        /// </summary>
-        public const string CharacterPool = "CharacterPool";
-        /// <summary>
         /// Name of tag 'PlayerSpawnPosition'.
         /// </summary>
         public const string PlayerSpawnPosition = "PlayerSpawnPosition";
@@ -61,9 +57,37 @@ namespace UnityConstants
         /// </summary>
         public const string EnemyWaves = "EnemyWaves";
         /// <summary>
-        /// Name of tag 'Menus'.
+        /// Name of tag 'CanvasTitleMenu'.
         /// </summary>
-        public const string Menus = "Menus";
+        public const string CanvasTitleMenu = "CanvasTitleMenu";
+        /// <summary>
+        /// Name of tag 'CanvasPauseMenu'.
+        /// </summary>
+        public const string CanvasPauseMenu = "CanvasPauseMenu";
+        /// <summary>
+        /// Name of tag 'Background'.
+        /// </summary>
+        public const string Background = "Background";
+        /// <summary>
+        /// Name of tag 'CanvasLevel'.
+        /// </summary>
+        public const string CanvasLevel = "CanvasLevel";
+        /// <summary>
+        /// Name of tag 'CameraStartPosition'.
+        /// </summary>
+        public const string CameraStartPosition = "CameraStartPosition";
+        /// <summary>
+        /// Name of tag 'PickUpPool'.
+        /// </summary>
+        public const string PickUpPool = "PickUpPool";
+        /// <summary>
+        /// Name of tag 'PlayerCharacterPool'.
+        /// </summary>
+        public const string PlayerCharacterPool = "PlayerCharacterPool";
+        /// <summary>
+        /// Name of tag 'EnemyPool'.
+        /// </summary>
+        public const string EnemyPool = "EnemyPool";
     }
 
     public static class SortingLayers
@@ -84,6 +108,10 @@ namespace UnityConstants
         /// ID of sorting layer 'Level_Dragon'.
         /// </summary>
         public const int Level_Dragon = 753183255;
+        /// <summary>
+        /// ID of sorting layer 'Level_PickUp'.
+        /// </summary>
+        public const int Level_PickUp = 151875487;
         /// <summary>
         /// ID of sorting layer 'Level_ThrowProjectile'.
         /// </summary>
@@ -129,9 +157,9 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerCharacterHurtBox = 6;
         /// <summary>
-        /// Index of layer 'PlayerProjectile'.
+        /// Index of layer 'PlayerProjectileIntangible'.
         /// </summary>
-        public const int PlayerProjectile = 7;
+        public const int PlayerProjectileIntangible = 7;
         /// <summary>
         /// Index of layer 'PlayerMeleeHitBox'.
         /// </summary>
@@ -157,6 +185,10 @@ namespace UnityConstants
         /// </summary>
         public const int EnemyProjectileTangible = 13;
         /// <summary>
+        /// Index of layer 'PlayerProjectileTangible'.
+        /// </summary>
+        public const int PlayerProjectileTangible = 14;
+        /// <summary>
         /// Index of layer 'PlayerCharacterMoveBox'.
         /// </summary>
         public const int PlayerCharacterMoveBox = 15;
@@ -169,6 +201,14 @@ namespace UnityConstants
         /// </summary>
         public const int InvisibleWall = 18;
         /// <summary>
+        /// Index of layer 'PickUpIntangible'.
+        /// </summary>
+        public const int PickUpIntangible = 19;
+        /// <summary>
+        /// Index of layer 'PickUpTangible'.
+        /// </summary>
+        public const int PickUpTangible = 20;
+        /// <summary>
         /// Index of layer 'LivingZone'.
         /// </summary>
         public const int LivingZone = 22;
@@ -176,6 +216,22 @@ namespace UnityConstants
         /// Index of layer 'SolidEnvironment'.
         /// </summary>
         public const int SolidEnvironment = 24;
+        /// <summary>
+        /// Index of layer 'DamagingEnvironment'.
+        /// </summary>
+        public const int DamagingEnvironment = 25;
+        /// <summary>
+        /// Index of layer 'EnvironmentProp'.
+        /// </summary>
+        public const int EnvironmentProp = 26;
+        /// <summary>
+        /// Index of layer 'Background'.
+        /// </summary>
+        public const int Background = 28;
+        /// <summary>
+        /// Index of layer 'Camera'.
+        /// </summary>
+        public const int Camera = 30;
 
         /// <summary>
         /// Bitmask of layer 'Default'.
@@ -202,9 +258,9 @@ namespace UnityConstants
         /// </summary>
         public const int PlayerCharacterHurtBoxMask = 1 << 6;
         /// <summary>
-        /// Bitmask of layer 'PlayerProjectile'.
+        /// Bitmask of layer 'PlayerProjectileIntangible'.
         /// </summary>
-        public const int PlayerProjectileMask = 1 << 7;
+        public const int PlayerProjectileIntangibleMask = 1 << 7;
         /// <summary>
         /// Bitmask of layer 'PlayerMeleeHitBox'.
         /// </summary>
@@ -230,6 +286,10 @@ namespace UnityConstants
         /// </summary>
         public const int EnemyProjectileTangibleMask = 1 << 13;
         /// <summary>
+        /// Bitmask of layer 'PlayerProjectileTangible'.
+        /// </summary>
+        public const int PlayerProjectileTangibleMask = 1 << 14;
+        /// <summary>
         /// Bitmask of layer 'PlayerCharacterMoveBox'.
         /// </summary>
         public const int PlayerCharacterMoveBoxMask = 1 << 15;
@@ -242,6 +302,14 @@ namespace UnityConstants
         /// </summary>
         public const int InvisibleWallMask = 1 << 18;
         /// <summary>
+        /// Bitmask of layer 'PickUpIntangible'.
+        /// </summary>
+        public const int PickUpIntangibleMask = 1 << 19;
+        /// <summary>
+        /// Bitmask of layer 'PickUpTangible'.
+        /// </summary>
+        public const int PickUpTangibleMask = 1 << 20;
+        /// <summary>
         /// Bitmask of layer 'LivingZone'.
         /// </summary>
         public const int LivingZoneMask = 1 << 22;
@@ -249,6 +317,22 @@ namespace UnityConstants
         /// Bitmask of layer 'SolidEnvironment'.
         /// </summary>
         public const int SolidEnvironmentMask = 1 << 24;
+        /// <summary>
+        /// Bitmask of layer 'DamagingEnvironment'.
+        /// </summary>
+        public const int DamagingEnvironmentMask = 1 << 25;
+        /// <summary>
+        /// Bitmask of layer 'EnvironmentProp'.
+        /// </summary>
+        public const int EnvironmentPropMask = 1 << 26;
+        /// <summary>
+        /// Bitmask of layer 'Background'.
+        /// </summary>
+        public const int BackgroundMask = 1 << 28;
+        /// <summary>
+        /// Bitmask of layer 'Camera'.
+        /// </summary>
+        public const int CameraMask = 1 << 30;
     }
 
     public static class Scenes
@@ -265,6 +349,10 @@ namespace UnityConstants
         /// ID of scene 'Level_01'.
         /// </summary>
         public const int Level_01 = 2;
+        /// <summary>
+        /// ID of scene 'Level_02_CottonLike'.
+        /// </summary>
+        public const int Level_02_CottonLike = 3;
     }
 
     public enum ScenesEnum
@@ -272,6 +360,7 @@ namespace UnityConstants
         Title = 0,
         Level_00 = 1,
         Level_01 = 2,
+        Level_02_CottonLike = 3,
     }
 
     public static class Axes

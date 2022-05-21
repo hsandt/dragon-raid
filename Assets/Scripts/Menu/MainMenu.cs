@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-using UnityConstants;
 
 public class MainMenu : Menu
 {
@@ -14,7 +12,7 @@ public class MainMenu : Menu
     public LevelDataList levelDataList;
     
     
-    [Header("Scene references")]
+    [Header("Child references")]
     
     [Tooltip("Play button")]
     public Button buttonPlay;
@@ -47,26 +45,40 @@ public class MainMenu : Menu
     {
         if (buttonPlay)
         {
-            buttonPlay.onClick.RemoveListener(EnterPlayMenu);
+            buttonPlay.onClick.RemoveAllListeners();
         }
         if (buttonOptions)
         {
-            buttonOptions.onClick.RemoveListener(EnterOptionsMenu);
+            buttonOptions.onClick.RemoveAllListeners();
         }
         if (buttonExit)
         {
-            buttonExit.onClick.RemoveListener(ExitGame);
+            buttonExit.onClick.RemoveAllListeners();
         }
     }
     
     public override void Show()
     {
         gameObject.SetActive(true);
+        
+        buttonPlay.Select();
     }
 
     public override void Hide()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+
         gameObject.SetActive(false);
+    }
+
+    public override bool ShouldShowTitle()
+    {
+        return true;
+    }
+
+    public override bool CanGoBack()
+    {
+        return false;
     }
 
     private void EnterPlayMenu()

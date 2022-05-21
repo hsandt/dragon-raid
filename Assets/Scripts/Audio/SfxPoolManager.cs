@@ -20,15 +20,21 @@ public class SfxPoolManager : PoolManager<Sfx, SfxPoolManager>
     /// Spawn SFX whose prefab is named `resourceName`
     public Sfx PlaySfx(AudioClip clip)
     {
-        Sfx sfx = GetObject();
-        
+        Sfx sfx = AcquireFreeObject();
+
         if (sfx != null)
         {
             sfx.PlayOneShot(clip);
             return sfx;
         }
-        
-        // pool starvation (error is already logged inside GetObject)
+
+        #if UNITY_EDITOR || DEVELOPMENT_BUILD
+        Debug.LogWarningFormat(this, "[SfxPoolManager] PlaySfx: Cannot play clip '{0}' due to either " +
+            "missing prefab or pool starvation. In case of pool starvation, consider setting " +
+            "Consider setting instantiateNewObjectOnStarvation: true on SfxPoolManager, or increasing its pool size.",
+            clip);
+        #endif
+
         return null;
     }
 }

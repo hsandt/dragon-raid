@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityConstants;
@@ -25,18 +26,31 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
     {     
         if (scene.rootCount > 1)
         {
-            var rootGameObjects = new List<GameObject>();
-            scene.GetRootGameObjects(rootGameObjects);
-            GameObject firstRoot = rootGameObjects[0];
-            GameObject managerRoot = rootGameObjects[1];
+            // In theory, we should get objects by using:
+            // var rootGameObjects = new List<GameObject>();
+            // scene.GetRootGameObjects(rootGameObjects);
+            // GameObject go = rootGameObjects.Find(/*predicate*/);
             
-            var levelIdentifier = firstRoot.GetComponent<LevelIdentifier>();
-            var inGameManager = managerRoot.GetComponentInChildren<InGameManager>();
+            // but in practice, the scene has been loaded, so GameObject.Find methods just work fine without
+            // having go through `scene`.
+            
+            GameObject levelIdentifierGameObject = GameObject.FindWithTag(Tags.LevelIdentifier);
+            // alternative:
+            // GameObject levelIdentifierGameObject = rootGameObjects.Find(gameObject => gameObject.tag == Tags.LevelIdentifier);
 
+            if (levelIdentifierGameObject == null)
+            {
+                Debug.LogErrorFormat(sceneTemplateAsset.templateScene, "{0}'s template scene {1}'s has no game object tagged LevelIdentifier.",
+                    sceneTemplateAsset, sceneTemplateAsset.templateScene);
+                return;
+            }
+            
+            var levelIdentifier = levelIdentifierGameObject.GetComponent<LevelIdentifier>();
+            
             if (levelIdentifier == null)
             {
-                Debug.LogErrorFormat(sceneTemplateAsset.templateScene, "{0}'s template scene {1}'s first root {2} has no LevelIdentifier component.",
-                    sceneTemplateAsset, sceneTemplateAsset.templateScene, firstRoot);
+                Debug.LogErrorFormat(levelIdentifierGameObject, "{0} has no LevelIdentifier component.",
+                    levelIdentifierGameObject);
                 return;
             }
             
@@ -47,6 +61,19 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
                 Debug.LogErrorFormat(levelIdentifier, "{0} has no Level Data set.", levelIdentifier);
                 return;
             }
+            
+            GameObject managerRoot = GameObject.Find("_Managers");
+            // alternative:
+            // GameObject managerRoot = rootGameObjects.Find(gameObject => gameObject.name == "_Managers");
+            
+            if (managerRoot == null)
+            {
+                Debug.LogErrorFormat(sceneTemplateAsset.templateScene, "{0}'s template scene {1}'s has no game object named _Managers.",
+                    sceneTemplateAsset, sceneTemplateAsset.templateScene);
+                return;
+            }
+            
+            var inGameManager = managerRoot.GetComponentInChildren<InGameManager>();
             
             if (inGameManager == null)
             {

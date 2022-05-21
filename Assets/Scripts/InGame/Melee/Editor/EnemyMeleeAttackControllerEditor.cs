@@ -8,7 +8,7 @@ using CommonsHelper;
 [CustomEditor(typeof(EnemyMeleeAttackController))]
 public class EnemyMeleeAttackControllerEditor : Editor
 {
-    public void OnSceneGUI()
+    private void OnSceneGUI()
     {
         if (Application.isPlaying)
         {

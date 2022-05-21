@@ -31,12 +31,12 @@ public class DevMenu : MonoBehaviour
     {
         if (buttonMainMenu)
         {
-            buttonMainMenu.onClick.RemoveListener(GoToMainMenu);
+            buttonMainMenu.onClick.RemoveAllListeners();
         }
     }
 
     private void GoToMainMenu()
     {
-        SceneManager.LoadScene((int) ScenesEnum.Title);
+        InGameManager.ExitToTitleMenu();
     }
 }
