@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appName: Dragon Raid
   majorVersion: 0
-  minorVersion: 1
-  stageVersion: 5
+  minorVersion: 2
+  stageVersion: 0
   workInProgress: 0
   devBuildStrippingLevel: 2
   releaseBuildStrippingLevel: 3
