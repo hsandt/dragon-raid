@@ -17,3 +17,11 @@
     border-top-color: rgb(176, 248, 254);
     border-bottom-color: rgb(176, 248, 254);
 }
+
+.spatial-progress-bar {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    left: 50%;
+}
