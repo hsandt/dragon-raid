@@ -109,6 +109,9 @@ crashlytics-build.properties
 /[Aa]ssets/SmartLibrary.meta
 /[Aa]ssets/SmartLibrary/
 
+# Generated XSD related to paid editor assets
+/UIElementsSchema/Bewildered.SmartLibrary.UI.xsd
+
 # Samples that can be imported with a package
 # They are just here for demonstration and shouldn't be used in the project
 /[Aa]ssets/Samples.meta
