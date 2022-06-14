@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -6,6 +8,8 @@ using UnityEngine.UIElements;
 
 using UnityConstants;
 using CommonsHelper;
+using UnityEditor.Timeline;
+using UnityEngine.Timeline;
 
 public class LevelPreview : VisualElement
 {
@@ -34,9 +38,15 @@ public class LevelPreview : VisualElement
     /// Area showing the level preview
     private VisualElement m_LevelPreviewArea;
 
-    /// Rectangle representing the camera preview
-    /// Can be dragged to move the scene view across the level quickly
-    private VisualElement m_LevelPreviewRectangle;
+    /// Progress ruler at the top
+    private VisualElement m_ProgressRuler;
+
+    /// Progress ruler IMGUI container to draw precise elements
+    private IMGUIContainer m_ProgressRulerIMGUIContainer;
+
+    /// Line representing the current progress to preview
+    /// Can be dragged to move the camera preview across the level
+    private VisualElement m_PreviewProgressLine;
 
     /// Scroller used to scroll the level preview area across the whole the whole level
     private Scroller m_Scroller;
@@ -77,11 +87,18 @@ public class LevelPreview : VisualElement
     public void Init()
     {
         // Query existing elements
+
         m_LevelPreviewArea = this.Q<VisualElement>("LevelPreviewArea");
         Debug.AssertFormat(m_LevelPreviewArea != null, "[LevelEditor] No VisualElement 'LevelPreviewArea' found on Level Editor UXML");
 
-        m_LevelPreviewRectangle = this.Q<VisualElement>("LevelPreviewRectangle");
-        Debug.AssertFormat(m_LevelPreviewRectangle != null, "[LevelEditor] No VisualElement 'LevelPreviewRectangle' found on Level Editor UXML");
+        m_ProgressRuler = m_LevelPreviewArea.Q<VisualElement>("ProgressRuler");
+        Debug.AssertFormat(m_ProgressRuler != null, "[LevelEditor] No VisualElement 'ProgressRuler' found on Level Editor UXML under LevelPreviewArea");
+
+        m_ProgressRulerIMGUIContainer = m_ProgressRuler.Q<IMGUIContainer>();
+        Debug.AssertFormat(m_ProgressRulerIMGUIContainer != null, "[LevelEditor] No IMGUIContainer found on Level Editor UXML under ProgressRuler");
+
+        m_PreviewProgressLine = this.Q<VisualElement>("PreviewProgressLine");
+        Debug.AssertFormat(m_PreviewProgressLine != null, "[LevelEditor] No VisualElement 'PreviewProgressLine' found on Level Editor UXML");
 
         m_Scroller = this.Q<Scroller>("Scroller");
         Debug.AssertFormat(m_Scroller != null, "[LevelEditor] No VisualElement 'Scroller' found on Level Editor UXML");
@@ -167,6 +184,7 @@ public class LevelPreview : VisualElement
         m_LevelPreviewArea.RegisterCallback<PointerMoveEvent>(OnPreviewAreaPointerMove);
         m_LevelPreviewArea.RegisterCallback<WheelEvent>(OnPreviewAreaWheelEvent);
 
+        m_ProgressRulerIMGUIContainer.onGUIHandler += OnProgressRulerGUIHandler;
         m_Scroller.valueChanged += OnScrollerValueChanged;
     }
 
@@ -249,7 +267,7 @@ public class LevelPreview : VisualElement
             float spatialProgressToWindowWidth = m_WorldToLevelPreviewPointResolution;
 
             float previewRectangleWidth = cameraWidth * spatialProgressToWindowWidth;
-            m_LevelPreviewRectangle.style.width = previewRectangleWidth;
+            m_PreviewProgressLine.style.width = previewRectangleWidth;
 
             // A kind of reverse of RefreshPreviewRectanglePosition:
             // we stabilize camera position and cached progress members, but we recompute preview rectangle position
@@ -272,7 +290,7 @@ public class LevelPreview : VisualElement
         m_LevelPreviewArea.CapturePointer(evt.pointerId);
 
         // Highlight preview rectangle
-        m_LevelPreviewRectangle.AddToClassList("preview-rectangle--dragged");
+        m_PreviewProgressLine.AddToClassList("preview-rectangle--dragged");
 
         // Warp preview rectangle to pointer
         SetPreviewRectanglePosition(evt.localPosition);
@@ -284,7 +302,7 @@ public class LevelPreview : VisualElement
         m_LevelPreviewArea.ReleasePointer(evt.pointerId);
 
         // Stop highlighting preview rectangle
-        m_LevelPreviewRectangle.RemoveFromClassList("preview-rectangle--dragged");
+        m_PreviewProgressLine.RemoveFromClassList("preview-rectangle--dragged");
 
         // Warp preview rectangle to pointer one last time
         SetPreviewRectanglePosition(evt.localPosition);
@@ -306,6 +324,27 @@ public class LevelPreview : VisualElement
         m_WorldToLevelPreviewPointResolution = Mathf.Clamp(m_WorldToLevelPreviewPointResolution - SCROLL_ZOOM_FACTOR * evt.delta.y, 1f, 100f);
         RefreshScroller();
         RefreshPreviewRectangle();
+
+        // Retrieve enemy wave component for every activated game object on the activation track
+        foreach (var rootTrack in TimelineEditor.inspectedAsset.GetRootTracks())
+        {
+            var activationTrack = (ActivationTrack)rootTrack;
+            var targetObject = (GameObject)TimelineEditor.inspectedDirector.GetGenericBinding(activationTrack);
+            EnemyWave enemyWave = targetObject.GetComponent<EnemyWave>();
+            IEnumerable<TimelineClip> timelineClips = activationTrack.GetClips();
+            foreach (var timelineClip in timelineClips)
+            {
+                Debug.LogFormat("Wave {0}, start: {1}, estimated end: {2}", enemyWave, timelineClip.start, timelineClip.end);
+            }
+        }
+    }
+
+    private void OnProgressRulerGUIHandler()
+    {
+        GUIContent textContent = new GUIContent("1");
+        Vector2 textSize = GUI.skin.label.CalcSize(textContent);
+        GUI.Label(new Rect(new Vector2(0f, 0f), textSize), textContent);
+        GUI.DrawTexture(new Rect(new Vector2(0f, 0f), new Vector2(1f, 10f)), Texture2D.whiteTexture);
     }
 
     private void OnScrollerValueChanged(float value)
@@ -329,8 +368,8 @@ public class LevelPreview : VisualElement
         // Clamp to limits of containing area (LevelPreviewArea)
         // Note that we use contentRect for the container, but resolvedStyle for the containee which includes the
         // border for full width (e.g. 100 instead of 98, so preview rectangle is perfectly contained within its parent)
-        float previewRectangleGlobalLeft = m_PreviewRectangleGlobalCenter - m_LevelPreviewRectangle.resolvedStyle.width / 2;
-        float maxPreviewRectangleLocalX = m_LevelPreviewArea.contentRect.width - m_LevelPreviewRectangle.resolvedStyle.width;
+        float previewRectangleGlobalLeft = m_PreviewRectangleGlobalCenter - m_PreviewProgressLine.resolvedStyle.width / 2;
+        float maxPreviewRectangleLocalX = m_LevelPreviewArea.contentRect.width - m_PreviewProgressLine.resolvedStyle.width;
         float previewRectangleGlobalLeftClamped = Mathf.Clamp(previewRectangleGlobalLeft, 0 + m_Scroller.value, maxPreviewRectangleLocalX + m_Scroller.value);
         MovePreviewRectangle(previewRectangleGlobalLeftClamped);
 
@@ -341,7 +380,7 @@ public class LevelPreview : VisualElement
         MoveSceneViewToPreviewProgress(previewProgress);
 
         m_PreviewSpanLeftProgress = previewRectangleGlobalLeftClamped / m_WorldToLevelPreviewPointResolution;
-        float previewRectangleRight = previewRectangleGlobalLeftClamped + m_LevelPreviewRectangle.resolvedStyle.width;
+        float previewRectangleRight = previewRectangleGlobalLeftClamped + m_PreviewProgressLine.resolvedStyle.width;
         m_PreviewSpanRightProgress = previewRectangleRight / m_WorldToLevelPreviewPointResolution;
 
         RefreshAllEnemyWaveButtonPositions();
@@ -350,7 +389,7 @@ public class LevelPreview : VisualElement
     private void MovePreviewRectangle(float previewRectangleGlobalX)
     {
         // Scroller was set to use value scaled with window pixels, ranging from 0 to max right, so just subtract it
-        m_LevelPreviewRectangle.style.left = previewRectangleGlobalX - m_Scroller.value;
+        m_PreviewProgressLine.style.left = previewRectangleGlobalX - m_Scroller.value;
     }
 
     private void MoveSceneViewToPreviewProgress(float previewProgress)

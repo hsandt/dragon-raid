@@ -1,15 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Editor/LevelEditor/LevelPreview.uss?fileID=7433441132597879392&amp;guid=1fb202e4466bcefda945b426fced764a&amp;type=3#LevelPreview" />
-    <ui:VisualElement name="LevelPreviewArea">
-        <ui:VisualElement name="LevelPreviewRectangle" class="preview-rectangle">
-            <ui:Label text="Preview&#10;" display-tooltip-when-elided="true" name="PreviewLabel" />
+    <ui:VisualElement name="LevelPreviewArea" style="height: 58px;">
+        <ui:VisualElement name="ProgressRuler">
+            <ui:IMGUIContainer />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Scroller high-value="100" direction="Horizontal" value="42" name="Scroller" />
-    <ui:VisualElement name="EnemyWavePreviewArea" style="overflow: hidden; height: 100%;">
+    <ui:VisualElement name="EnemyWavePreviewArea" style="overflow: hidden; height: 20px;">
         <ui:VisualElement name="EnemyWaveButtons">
             <EnemyWaveButton focusable="true" />
         </ui:VisualElement>
-        <ui:VisualElement name="SpatialProgressBar" class="spatial-progress-bar" />
+        <ui:VisualElement name="PreviewProgressLine" class="spatial-progress-bar" />
     </ui:VisualElement>
 </ui:UXML>
