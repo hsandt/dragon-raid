@@ -1,4 +1,4 @@
-public enum PlayMode
+public enum SessionPlayMode
 {
     None,
     Story,

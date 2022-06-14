@@ -9,7 +9,7 @@ public class SessionManager : SingletonManager<SessionManager>
     /* State: Save metadata */
 
     /// Current play mode (None in title menu)
-    private PlayMode m_CurrentPlayMode;
+    private SessionPlayMode m_CurrentPlayMode;
     
     /// Index of save slot for this saved play mode
     private int m_SaveSlotIndex;
@@ -25,7 +25,7 @@ public class SessionManager : SingletonManager<SessionManager>
     {
         base.Init();
 
-        m_CurrentPlayMode = PlayMode.None;
+        m_CurrentPlayMode = SessionPlayMode.None;
         m_NextLevelIndex = -1;
     }
 
@@ -35,7 +35,7 @@ public class SessionManager : SingletonManager<SessionManager>
     /// so that EnterStoryMode/EnterArcadeMode was never called (it's normally called from the Title menu)
     public void EnterFallbackModeIfNone(int enteredLevelIndex)
     {
-        if (m_CurrentPlayMode == PlayMode.None)
+        if (m_CurrentPlayMode == SessionPlayMode.None)
         {
             EnterArcadeMode(-1, enteredLevelIndex);
         }
@@ -44,11 +44,11 @@ public class SessionManager : SingletonManager<SessionManager>
     public void EnterStoryMode(int saveSlotIndex, int enteredLevelIndex)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+        Debug.AssertFormat(m_CurrentPlayMode == SessionPlayMode.None,
             "[SessionManager] EnterStoryMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
             "PlayMode.Story anyway, but this is not supposed to happen.", m_CurrentPlayMode);
         #endif
-        m_CurrentPlayMode = PlayMode.Story;
+        m_CurrentPlayMode = SessionPlayMode.Story;
         m_SaveSlotIndex = saveSlotIndex;
         m_NextLevelIndex = enteredLevelIndex;
     }
@@ -56,11 +56,11 @@ public class SessionManager : SingletonManager<SessionManager>
     public void EnterArcadeMode(int saveSlotIndex, int enteredLevelIndex)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+        Debug.AssertFormat(m_CurrentPlayMode == SessionPlayMode.None,
             "[SessionManager] EnterStoryMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
             "PlayMode.Arcade anyway, but this is not supposed to happen.", m_CurrentPlayMode);
         #endif
-        m_CurrentPlayMode = PlayMode.Arcade;
+        m_CurrentPlayMode = SessionPlayMode.Arcade;
         m_SaveSlotIndex = saveSlotIndex;
         m_NextLevelIndex = enteredLevelIndex;
     }
@@ -68,22 +68,22 @@ public class SessionManager : SingletonManager<SessionManager>
     public void EnterLevelSelectMode()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.AssertFormat(m_CurrentPlayMode == PlayMode.None,
+        Debug.AssertFormat(m_CurrentPlayMode == SessionPlayMode.None,
             "[SessionManager] EnterLevelSelectMode: m_CurrentPlayMode is {0}, expected PlayMode.None. It will be set to " +
             "PlayMode.LevelSelect anyway, but this is not supposed to happen.", m_CurrentPlayMode);
         #endif
-        m_CurrentPlayMode = PlayMode.LevelSelect;
+        m_CurrentPlayMode = SessionPlayMode.LevelSelect;
     }
     
     public void ExitCurrentPlayMode()
     {
-        m_CurrentPlayMode = PlayMode.None;
+        m_CurrentPlayMode = SessionPlayMode.None;
     }
 
     public void NotifyLevelFinished(int finishedLevelIndex)
     {
         // Only set next level index in story or arcade mode (level select mode just goes back to level select menu)
-        if (m_CurrentPlayMode == PlayMode.Story || m_CurrentPlayMode == PlayMode.Arcade)
+        if (m_CurrentPlayMode == SessionPlayMode.Story || m_CurrentPlayMode == SessionPlayMode.Arcade)
         {
             // Set next level index (alternatively, increment it, assuming it was correct)
             // If we finished the last level, this index will be just after the last once, meaning "finished game"
@@ -104,7 +104,7 @@ public class SessionManager : SingletonManager<SessionManager>
         #endif
 
         // Only set next level index in story or arcade mode (level select mode just goes back to level select menu)
-        if (m_CurrentPlayMode == PlayMode.Story)
+        if (m_CurrentPlayMode == SessionPlayMode.Story)
         {
             PlayerSaveStory playerSaveStory = new PlayerSaveStory
             {
@@ -113,7 +113,7 @@ public class SessionManager : SingletonManager<SessionManager>
 
             WriteJsonToSaveFile(SavedPlayMode.Story, m_SaveSlotIndex, playerSaveStory);
         }
-        else if (m_CurrentPlayMode == PlayMode.Arcade)
+        else if (m_CurrentPlayMode == SessionPlayMode.Arcade)
         {
             PlayerSaveArcade playerSaveArcade = new PlayerSaveArcade
             {
