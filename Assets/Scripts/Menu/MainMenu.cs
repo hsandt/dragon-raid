@@ -7,22 +7,22 @@ using UnityEngine.UI;
 public class MainMenu : Menu
 {
     [Header("Assets")]
-    
+
     [Tooltip("Level Data List asset")]
     public LevelDataList levelDataList;
-    
-    
+
+
     [Header("Child references")]
-    
+
     [Tooltip("Play button")]
     public Button buttonPlay;
-    
+
     [Tooltip("Options button")]
     public Button buttonOptions;
-    
+
     [Tooltip("Exit button")]
     public Button buttonExit;
-    
+
     [Tooltip("Play menu")]
     public PlayMenu playMenu;
 
@@ -56,11 +56,11 @@ public class MainMenu : Menu
             buttonExit.onClick.RemoveAllListeners();
         }
     }
-    
+
     public override void Show()
     {
         gameObject.SetActive(true);
-        
+
         buttonPlay.Select();
     }
 
@@ -93,6 +93,10 @@ public class MainMenu : Menu
 
     private void ExitGame()
     {
+        #if UNITY_EDITOR
+        Debug.Log("[MainMenu] ExitGame");
+        #else
         Application.Quit();
+        #endif
     }
 }
