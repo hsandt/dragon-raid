@@ -233,9 +233,14 @@ public class EnemyWaveEditor : Editor
                 {
                     Vector2 formationOffset = formationOffsets[index];
 
-                    Vector2 squadUnitSpawnPosition = anchorSpawnPosition + formationOffset;
-                    DrawSpawnPositionHandle(ref squadUnitSpawnPosition, squadUnitSpawnPointColor);
-                    formationOffsets[index] = squadUnitSpawnPosition - anchorSpawnPosition;
+                    // Draw handle for formation offset, relative to anchor spawn position
+                    Matrix4x4 offsetMatrix = Matrix4x4.Translate(anchorSpawnPosition);
+                    using (new Handles.DrawingScope(offsetMatrix))
+                    {
+                        DrawSpawnPositionHandle(ref formationOffset, squadUnitSpawnPointColor);
+                    }
+
+                    formationOffsets[index] = formationOffset;
 
                     if (previewTexture != null)
                     {
