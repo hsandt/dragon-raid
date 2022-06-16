@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using CommonsDebug;
 using CommonsHelper;
 
 /// Component data for enemy wave
@@ -54,8 +55,15 @@ public class EnemyWave : MonoBehaviour
     [SerializeField, Tooltip("Array of enemy chain spawn data. Allows chaining enemies of the same type.")]
     private EnemyChainSpawnData[] enemyChainSpawnDataArray;
 
-    /// Array of enemy spawn data. All enemies will be spawned when this wave is triggered.
+    /// Array of enemy chain spawn data
     public EnemyChainSpawnData[] EnemyChainSpawnDataArray => enemyChainSpawnDataArray;
+
+    [SerializeField, Tooltip("Array of enemy squad spawn data. Allows spawning and moving enemies of the same type " +
+         "at the same time, following a moving anchor with some offset.")]
+    private EnemySquadSpawnData[] enemySquadSpawnDataArray;
+
+    /// Array of enemy squad spawn data
+    public EnemySquadSpawnData[] EnemySquadSpawnDataArray => enemySquadSpawnDataArray;
 
 
     /* Dynamic external references */
@@ -162,7 +170,7 @@ public class EnemyWave : MonoBehaviour
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
             {
-                Debug.LogErrorFormat(this, "Missing EnemyData on {0}", this);
+                Debug.LogErrorFormat(this, "Missing EnemyData on {0} in enemySpawnDataArray", this);
             }
             #endif
         }
@@ -192,9 +200,41 @@ public class EnemyWave : MonoBehaviour
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             else
             {
-                Debug.LogErrorFormat(this, "Missing EnemyData on {0}", this);
+                Debug.LogErrorFormat(this, "Missing EnemyData on {0} in enemyChainSpawnDataArray", this);
             }
             #endif
+        }
+
+        foreach (var enemySquadSpawnData in enemySquadSpawnDataArray)
+        {
+            if (enemySquadSpawnData.enemyData)
+            {
+                int spawnCount = enemySquadSpawnData.SpawnCount;
+                if (spawnCount > 0)
+                {
+                    // Track all squad units
+                    m_TrackedEnemiesCount += spawnCount;
+
+                    // TODO: spawn moving anchor
+
+                    // Spawn all squad units
+                    foreach (Vector2 formationOffset in enemySquadSpawnData.formationOffsets)
+                    {
+                        // Spawn squad unit
+                        SpawnEnemy(enemySquadSpawnData.enemyData, enemySquadSpawnData.spawnPosition + formationOffset);
+
+                        // TODO: give them behaviour
+                    }
+                }
+                else
+                {
+                    DebugUtil.LogErrorFormat(this, "Entry in enemySquadSpawnDataArray has empty formationOffsets, on {0}", this);
+                }
+            }
+            else
+            {
+                DebugUtil.LogErrorFormat(this, "Missing EnemyData on {0} in enemySquadSpawnDataArray", this);
+            }
         }
     }
 

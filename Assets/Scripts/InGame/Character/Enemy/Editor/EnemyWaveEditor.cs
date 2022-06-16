@@ -23,8 +23,11 @@ public class EnemyWaveEditor : Editor
     /// Color used for spawn point debug and enemy label for chain spawn
     private readonly Color chainSpawnPointColor = new Color(0.62f, 0.05f, 0.78f);
 
-    /// Color used for the handle that allows to batch move all spawn points (single or chained) at the same time
-    private readonly Color batchHandleColor = new Color(0.78f, 0.39f, 0.26f);
+    /// Color used for anchor spawn point debug and enemy label for squad spawn
+    private readonly Color squadAnchorSpawnPointColor = new Color(0.12f, 0.78f, 0.05f);
+
+    /// Color used for unit spawn point debug and enemy label for squad spawn
+    private readonly Color squadUnitSpawnPointColor = new Color(0.05f, 0.56f, 0.78f);
 
     /// Color used for the rectangle that represents the camera at time of event trigger
     private readonly Color triggerCameraColor = new Color(0.78f, 0.66f, 0.23f);
@@ -66,6 +69,7 @@ public class EnemyWaveEditor : Editor
         DrawSpatialProgressCameraBounds(script);
         DrawEnemySpawnHandles(script, handleSize);
         DrawChainSpawnHandles(script, handleSize);
+        DrawSquadSpawnHandles(script, handleSize);
     }
 
     private void DrawSpatialProgressCameraBounds(EnemyWave script)
@@ -99,6 +103,19 @@ public class EnemyWaveEditor : Editor
         }
     }
 
+    private static Vector2 ComputeBaseIconPosition(Vector2 spawnPosition, Texture previewTexture, float handleSize)
+    {
+        return new Vector2(spawnPosition.x - (previewTexture.width / 2f) * handleSize,
+            spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize);
+    }
+
+    private static Vector3 ComputeLabelPosition(Vector2 spawnPosition, float handleSize)
+    {
+        return new Vector3(spawnPosition.x - 24f * handleSize,
+            spawnPosition.y - 32f * handleSize,
+            0f);
+    }
+
     private void DrawEnemySpawnHandles(EnemyWave script, float handleSize)
     {
         // In order to draw the batch handle (that moves all spawn points at the same time), we must determine
@@ -111,12 +128,13 @@ public class EnemyWaveEditor : Editor
 
         foreach (EnemySpawnData enemySpawnData in script.EnemySpawnDataArray)
         {
-            DrawSpawnPositionHandle(enemySpawnData);
+            Vector2 spawnPosition = enemySpawnData.spawnPosition;
+
+            DrawSpawnPositionHandle(ref enemySpawnData.spawnPosition, spawnPointColor);
 
             // Expand bounding box to contain any (rounded) spawn point not inside it already
             // Note that we are following 2D space convention, not UI convention, so +Y is up
-            boundingBox.min = Vector2.Min(boundingBox.min, enemySpawnData.spawnPosition);
-            boundingBox.max = Vector2.Max(boundingBox.max, enemySpawnData.spawnPosition);
+            boundingBox.Expand(spawnPosition);
 
             // Draw preview texture first, so in case it's too big, the enemy name label will be on top
             if (enemySpawnData.enemyData != null)
@@ -124,20 +142,17 @@ public class EnemyWaveEditor : Editor
                 Texture previewTexture = enemySpawnData.enemyData.editorSpawnPreviewTexture;
                 if (previewTexture != null)
                 {
-                    Vector3 iconPosition =
-                        new Vector3(enemySpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize,
-                            enemySpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
+                    Vector2 iconPosition = ComputeBaseIconPosition(spawnPosition, previewTexture, handleSize);
                     Handles.Label(iconPosition, previewTexture);
                 }
             }
 
             string enemyName = enemySpawnData.enemyData ? enemySpawnData.enemyData.enemyName : "NONE";
-            HandlesUtil.Label2D(
-                new Vector3(enemySpawnData.spawnPosition.x - 24f * handleSize,
-                    enemySpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, spawnPointColor);
+            HandlesUtil.Label2D(ComputeLabelPosition(spawnPosition, handleSize), enemyName, 2f,
+                true, spawnPointColor);
         }
 
-        DrawBatchMoveHandle(handleSize, boundingBox, script.EnemySpawnDataArray);
+        DrawBatchMoveHandle(handleSize, boundingBox, script.EnemySpawnDataArray, spawnPointColor);
     }
 
     private void DrawChainSpawnHandles(EnemyWave script, float handleSize)
@@ -150,12 +165,13 @@ public class EnemyWaveEditor : Editor
 
         foreach (EnemyChainSpawnData enemyChainSpawnData in script.EnemyChainSpawnDataArray)
         {
-            DrawSpawnPositionHandle(enemyChainSpawnData);
+            Vector2 spawnPosition = enemyChainSpawnData.spawnPosition;
+
+            DrawSpawnPositionHandle(ref enemyChainSpawnData.spawnPosition, chainSpawnPointColor);
 
             // Expand bounding box to contain any (rounded) spawn point not inside it already
             // Note that we are following 2D space convention, not UI convention, so +Y is up
-            chainSpawnBoundingBox.min = Vector2.Min(chainSpawnBoundingBox.min, enemyChainSpawnData.spawnPosition);
-            chainSpawnBoundingBox.max = Vector2.Max(chainSpawnBoundingBox.max, enemyChainSpawnData.spawnPosition);
+            chainSpawnBoundingBox.Expand(spawnPosition);
 
             // Draw preview texture first, so in case it's too big, the enemy name label will be on top
             if (enemyChainSpawnData.enemyData != null)
@@ -163,14 +179,15 @@ public class EnemyWaveEditor : Editor
                 Texture previewTexture = enemyChainSpawnData.enemyData.editorSpawnPreviewTexture;
                 if (previewTexture != null)
                 {
-                    Vector3 iconsCenterPosition =
-                        new Vector3(enemyChainSpawnData.spawnPosition.x - (previewTexture.width / 2f) * handleSize,
-                            enemyChainSpawnData.spawnPosition.y - (15f + previewTexture.height / 2f) * handleSize, 0f);
+                    Vector2 baseIconPosition = ComputeBaseIconPosition(spawnPosition, previewTexture, handleSize);
+
+                    // Draw as many icons as enemies spawned, aligned horizontally and centered around
+                    // the base icon position
                     for (int i = 0; i < enemyChainSpawnData.spawnCount; i++)
                     {
                         // Mind the 2f to ensure float division
-                        Vector3 iconPosition = iconsCenterPosition + (i - (enemyChainSpawnData.spawnCount - 1) / 2f) * 15f *
-                            handleSize * Vector3.right;
+                        Vector2 iconPosition = baseIconPosition + (i - (enemyChainSpawnData.spawnCount - 1) / 2f) * 15f *
+                            handleSize * Vector2.right;
                         Handles.Label(iconPosition, previewTexture);
                     }
                 }
@@ -179,30 +196,81 @@ public class EnemyWaveEditor : Editor
             string enemyName = enemyChainSpawnData.enemyData
                 ? $"{enemyChainSpawnData.enemyData.enemyName} ({enemyChainSpawnData.spawnCount})"
                 : "NONE";
-            HandlesUtil.Label2D(
-                new Vector3(enemyChainSpawnData.spawnPosition.x - 24f * handleSize,
-                    enemyChainSpawnData.spawnPosition.y - 32f * handleSize, 0f), enemyName, 2f, true, chainSpawnPointColor);
+            HandlesUtil.Label2D(ComputeLabelPosition(spawnPosition, handleSize), enemyName, 2f,
+                true, chainSpawnPointColor);
         }
 
-        DrawBatchMoveHandle(handleSize, chainSpawnBoundingBox, script.EnemyChainSpawnDataArray);
+        DrawBatchMoveHandle(handleSize, chainSpawnBoundingBox, script.EnemyChainSpawnDataArray, chainSpawnPointColor);
     }
 
-    private void DrawSpawnPositionHandle<TSpawnData>(TSpawnData enemyChainSpawnData) where TSpawnData : EnemyBaseSpawnData
+    private void DrawSquadSpawnHandles(EnemyWave script, float handleSize)
+    {
+        Rect squadAnchorSpawnBoundingBox = new Rect
+        {
+            min = Vector2.positiveInfinity,
+            max = Vector2.negativeInfinity
+        };
+
+        foreach (EnemySquadSpawnData enemySquadSpawnData in script.EnemySquadSpawnDataArray)
+        {
+            Vector2 anchorSpawnPosition = enemySquadSpawnData.spawnPosition;
+
+            // Draw handle for anchor spawn position
+            DrawSpawnPositionHandle(ref enemySquadSpawnData.spawnPosition, squadAnchorSpawnPointColor);
+
+            // Expand bounding box to contain any (rounded) anchor spawn point not inside it already
+            // Note that we are following 2D space convention, not UI convention, so +Y is up
+            squadAnchorSpawnBoundingBox.Expand(anchorSpawnPosition);
+
+            // Draw preview texture first, so in case it's too big, the enemy name label will be on top
+            if (enemySquadSpawnData.enemyData != null)
+            {
+                Texture previewTexture = enemySquadSpawnData.enemyData.editorSpawnPreviewTexture;
+
+                // Draw handle and spawn icon for each formation offset
+                Vector2[] formationOffsets = enemySquadSpawnData.formationOffsets;
+                for (int index = 0; index < formationOffsets.Length; index++)
+                {
+                    Vector2 formationOffset = formationOffsets[index];
+
+                    Vector2 squadUnitSpawnPosition = anchorSpawnPosition + formationOffset;
+                    DrawSpawnPositionHandle(ref squadUnitSpawnPosition, squadUnitSpawnPointColor);
+                    formationOffsets[index] = squadUnitSpawnPosition - anchorSpawnPosition;
+
+                    if (previewTexture != null)
+                    {
+                        Vector2 baseIconPosition = ComputeBaseIconPosition(anchorSpawnPosition, previewTexture, handleSize);
+                        Vector2 iconPosition = baseIconPosition + formationOffset;
+                        Handles.Label(iconPosition, previewTexture);
+                    }
+                }
+            }
+
+            string enemyName = enemySquadSpawnData.enemyData
+                ? $"{enemySquadSpawnData.enemyData.enemyName} ({enemySquadSpawnData.SpawnCount})"
+                : "NONE";
+            HandlesUtil.Label2D(ComputeLabelPosition(anchorSpawnPosition, handleSize), enemyName, 2f,
+                true, squadAnchorSpawnPointColor);
+        }
+
+        DrawBatchMoveHandle(handleSize, squadAnchorSpawnBoundingBox, script.EnemySquadSpawnDataArray, squadAnchorSpawnPointColor);
+    }
+
+    private void DrawSpawnPositionHandle(ref Vector2 spawnPosition, Color color)
     {
         using (var check = new EditorGUI.ChangeCheckScope())
         {
-            HandlesUtil.DrawSlider2D(ref enemyChainSpawnData.spawnPosition, chainSpawnPointColor,
+            HandlesUtil.DrawSlider2D(ref spawnPosition, color,
                 manualSnapValue * Vector2.one, HandlesUtil.CrossedCircleHandleCap, 2f);
 
             if (check.changed)
             {
-                enemyChainSpawnData.spawnPosition =
-                    VectorUtil.RoundVector2(enemyChainSpawnData.spawnPosition, autoSnapValue);
+                spawnPosition = VectorUtil.RoundVector2(spawnPosition, autoSnapValue);
             }
         }
     }
 
-    private void DrawBatchMoveHandle<TSpawnData>(float handleSize, Rect chainSpawnBoundingBox, IEnumerable<TSpawnData> spawnDataArray) where TSpawnData : EnemyBaseSpawnData
+    private void DrawBatchMoveHandle<TSpawnData>(float handleSize, Rect chainSpawnBoundingBox, IEnumerable<TSpawnData> spawnDataArray, Color color) where TSpawnData : EnemyBaseSpawnData
     {
         // Ignore infinite bounding box (only happens when EnemySpawnDataArray is empty)
         if (!float.IsInfinity(chainSpawnBoundingBox.width) && !float.IsInfinity(chainSpawnBoundingBox.height))
@@ -215,7 +283,7 @@ public class EnemyWaveEditor : Editor
 
             using (var check = new EditorGUI.ChangeCheckScope())
             {
-                HandlesUtil.DrawSlider2D(ref batchMoveHandleCurrentPosition, batchHandleColor,
+                HandlesUtil.DrawSlider2D(ref batchMoveHandleCurrentPosition, color,
                     manualSnapValue * Vector2.one, Handles.RectangleHandleCap, 2f);
 
                 if (check.changed)
@@ -234,7 +302,7 @@ public class EnemyWaveEditor : Editor
 
             HandlesUtil.Label2D(
                 new Vector3(batchMoveHandleCurrentPosition.x - 63f * handleSize,
-                    batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, batchHandleColor);
+                    batchMoveHandleCurrentPosition.y + 52f * handleSize, 0f), "Batch move", 2f, true, color);
         }
     }
 }
