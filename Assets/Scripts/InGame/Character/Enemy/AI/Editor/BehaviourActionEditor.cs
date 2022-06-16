@@ -32,7 +32,7 @@ public class BehaviourActionEditor : Editor
     /// Helper method to call in OnSceneGUI of every child class
     /// This only exists because even if we define OnSceneGUI on this base class, it won't be called
     /// on the child classes like Awake or Start
-    protected void DrawLocalHandles()
+    public void DrawLocalHandles()
     {
         // We know that target should be a BehaviourAction, although in this case we only need it as a Component
         var script = (Component) target;

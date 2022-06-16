@@ -24,7 +24,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
     /* Cached objects */
 
     /// Dictionary of cached action editors, with action script instance ID as key
-    private readonly Dictionary<int, BehaviourActionEditor> m_CachedEditors = new Dictionary<int, BehaviourActionEditor>();
+    private readonly Dictionary<int, BehaviourActionEditor> m_CachedEditors = new();
 
 
     private void OnSceneGUI()

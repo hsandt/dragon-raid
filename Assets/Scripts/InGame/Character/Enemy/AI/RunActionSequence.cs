@@ -28,6 +28,8 @@ public class RunActionSequence : BehaviourAction
         m_BehaviourActions = new List<BehaviourAction>(transform.childCount);
 
         // Store and init every child action (even if inactive at this point)
+        // GetComponentsInChildren(includeInactive: true) would work too, we only iterate manually so we can log error
+        // on missing BehaviourAction component
         foreach (Transform child in transform)
         {
             var action = child.GetComponent<BehaviourAction>();
