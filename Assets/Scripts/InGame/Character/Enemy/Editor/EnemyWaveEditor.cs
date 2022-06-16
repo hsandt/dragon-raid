@@ -11,6 +11,8 @@ public class EnemyWaveEditor : Editor
 {
     /* Parameters */
 
+    private const float DOTTED_LINE_SCREEN_SPACE_SIZE = 5f;
+
     /// Position snapping distance. Set to 1px for pixel perfect placement.
     private const float autoSnapValue = 1f / 16f;
 
@@ -18,16 +20,17 @@ public class EnemyWaveEditor : Editor
     private const float manualSnapValue = 1f;
 
     /// Color used for spawn point debug and enemy label
-    private readonly Color spawnPointColor = new Color(0.78f, 0.21f, 0.42f);
+    private readonly Color spawnPointColor = new Color(0.78f, 0.42f, 0.38f);
 
     /// Color used for spawn point debug and enemy label for chain spawn
-    private readonly Color chainSpawnPointColor = new Color(0.62f, 0.05f, 0.78f);
+    private readonly Color chainSpawnPointColor = new Color(0.69f, 0.34f, 0.78f);
 
     /// Color used for anchor spawn point debug and enemy label for squad spawn
-    private readonly Color squadAnchorSpawnPointColor = new Color(0.12f, 0.78f, 0.05f);
+    private readonly Color squadAnchorSpawnPointColor = new Color(0.18f, 0.78f, 0.18f);
 
     /// Color used for unit spawn point debug and enemy label for squad spawn
-    private readonly Color squadUnitSpawnPointColor = new Color(0.05f, 0.56f, 0.78f);
+    private readonly Color squadUnitSpawnPointColor = new Color(0.32f, 0.66f, 0.78f);
+    
 
     /// Color used for the rectangle that represents the camera at time of event trigger
     private readonly Color triggerCameraColor = new Color(0.78f, 0.66f, 0.23f);
@@ -238,6 +241,10 @@ public class EnemyWaveEditor : Editor
                     using (new Handles.DrawingScope(offsetMatrix))
                     {
                         DrawSpawnPositionHandle(ref formationOffset, squadUnitSpawnPointColor);
+
+                        // Draw connection from anchor to unit with dotted line
+                        HandlesUtil.DrawDottedLine2D(Vector2.zero, formationOffset,
+                            DOTTED_LINE_SCREEN_SPACE_SIZE, squadUnitSpawnPointColor);
                     }
 
                     formationOffsets[index] = formationOffset;
