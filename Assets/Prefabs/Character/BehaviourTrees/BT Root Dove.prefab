@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2180562400449219649}
-  - component: {fileID: 2756991426335200223}
+  - component: {fileID: 5361770004780795840}
+  - component: {fileID: 1777975901383039443}
   m_Layer: 0
-  m_Name: MoveDiagonal
+  m_Name: MoveAlongPath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 1988948224367050544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2756991426335200223
+--- !u!114 &5361770004780795840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +42,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 663571720136014878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6764f72dcf4c378b1f8a96158fdd2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 740cbd6a8dae4ccb8b52c2cae7648fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: -52.188488
-  speed: 6.296256
+  path2DComponent: {fileID: 1777975901383039443}
+  speed: 6
+--- !u!114 &1777975901383039443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663571720136014878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367b3213f6feb3f5d9ed37067d24c729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsRelative: 1
+  m_Path:
+    m_ControlPoints:
+    - {x: 0.6817157, y: -0.027425706}
+    - {x: 0, y: 0}
+    - {x: -8.294237, y: 1.8539475}
+    - {x: -15.506912, y: 7.287526}
+    - {x: -16.47345, y: 9.314921}
+    m_Alpha: 0.5
 --- !u!1 &4159303262242916722
 GameObject:
   m_ObjectHideFlags: 0

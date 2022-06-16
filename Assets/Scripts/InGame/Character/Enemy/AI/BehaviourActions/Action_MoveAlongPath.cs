@@ -28,7 +28,7 @@ public class Action_MoveAlongPath : BehaviourAction
 
     [SerializeField, Tooltip("Motion speed (m/s)")]
     [Min(0f)]
-    private float speed = 1f;
+    private float speed = 4f;
 
 #if UNITY_EDITOR
     public float Speed { get => speed; set => speed = value; }
