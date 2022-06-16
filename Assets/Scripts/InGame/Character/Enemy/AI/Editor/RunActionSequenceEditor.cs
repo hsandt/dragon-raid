@@ -8,19 +8,6 @@ using CommonsHelper;
 [CustomEditor(typeof(RunActionSequence))]
 public class RunActionSequenceEditor : BehaviourActionEditor
 {
-    /* Constants */
-
-    /// Offset added on X to evert label to approximately center the label below the action start position
-    private static float LABEL_OFFSET_X = 100f;
-
-    /// Offset added on Y to evert label to put it below the action start position and avoid hiding handles there
-    private static float LABEL_OFFSET_Y = 20f;
-
-    /// Offset added on Y for every new label placed on an action at the same start position,
-    /// to keep the labels distinct and readable
-    private static float LABEL_STACK_OFFSET_Y = 25f;
-
-
     /* Cached objects */
 
     /// Dictionary of cached action editors, with action script instance ID as key
@@ -92,12 +79,30 @@ public class RunActionSequenceEditor : BehaviourActionEditor
 
                 if (actionEditor != null)
                 {
-                    labelText = behaviourAction.ToString();
-                    textColor = Color.white;
+                    Vector2 nextPosition;
 
-                    // Handles specific to this action
-                    actionEditor.DrawHandles(currentPosition);
-                    Vector2 nextPosition = actionEditor.ComputeEndPosition(currentPosition);
+                    // Check if we can draw handles
+                    string handlesError = actionEditor.CheckHandlesError();
+                    if (string.IsNullOrEmpty(handlesError))
+                    {
+                        // Handles specific to this action
+                        actionEditor.DrawHandles(currentPosition);
+                        nextPosition = actionEditor.ComputeEndPosition(currentPosition);
+
+                        // Valid configuration, show normal action label
+                        labelText = behaviourAction.ToString();
+                        textColor = Color.white;
+                    }
+                    else
+                    {
+                        // Handles cannot be drawn (invalid configuration)
+                        // Calling ComputeEndPosition is unsafe too, so just consider position is not changing
+                        nextPosition = startPosition;
+
+                        // Show error
+                        labelText = $"{child.name} - {handlesError}";
+                        textColor = Color.yellow;
+                    }
 
                     if (nextPosition == currentPosition)
                     {
