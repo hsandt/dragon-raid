@@ -27,6 +27,14 @@ public class BehaviourActionEditor : Editor
     protected const float LABEL_STACK_OFFSET_Y = 25f;
 
 
+    // Note: this will only apply to BehaviourAction that have no custom child editors
+    // Each custom child editor (inheriting from this class) must reimplement OnSceneGUI
+    // (just copy-paste the block below)
+    private void OnSceneGUI()
+    {
+        DrawLocalHandlesWithLabel();
+    }
+
     public override void OnInspectorGUI()
     {
         // Detect any property change
@@ -47,7 +55,7 @@ public class BehaviourActionEditor : Editor
     /// Helper method to call in OnSceneGUI of every child class
     /// This only exists because even if we define OnSceneGUI on this base class, it won't be called
     /// on the child classes like Awake or Start
-    public void DrawLocalHandles()
+    public void DrawLocalHandlesWithLabel()
     {
         // We know that target should be a BehaviourAction, although in this case we only need it as a Component
         var script = (Component) target;
@@ -87,7 +95,8 @@ public class BehaviourActionEditor : Editor
         HandlesUtil.DrawLabelWithBackground(labelRectPosition, labelText, 1f, true, textColor);
     }
 
-    /// Verifies that behaviour action component configuration is valid, so DrawHandles can be called safely
+    /// Verifies that behaviour action component configuration is valid, so DrawHandles and ComputeEndPosition
+    /// can be called safely
     /// - return null if there is no error
     /// - return an error message else
     /// Most actions don't need a specific configuration, so return null in default implementation
@@ -96,10 +105,12 @@ public class BehaviourActionEditor : Editor
 
     /// Draw editor handles for this action when starting from [startPosition]
     /// Must be called in custom Editor OnSceneGUI.
+    /// UB unless CheckHandlesError returns null
     public virtual void DrawHandles(Vector2 startPosition) {}
 
     /// Return the end position of the action when starting from [startPosition]
     /// Used to chain action handles at the correct positions.
+    /// UB unless CheckHandlesError returns null
     public virtual Vector2 ComputeEndPosition(Vector2 startPosition)
     {
         // Many actions don't move the character, so return startPosition in default implementation

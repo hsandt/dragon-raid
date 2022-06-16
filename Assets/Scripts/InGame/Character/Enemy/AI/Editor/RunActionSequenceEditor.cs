@@ -16,7 +16,7 @@ public class RunActionSequenceEditor : BehaviourActionEditor
 
     private void OnSceneGUI()
     {
-        DrawLocalHandles();
+        DrawLocalHandlesWithLabel();
     }
 
     public override void DrawHandles(Vector2 startPosition)

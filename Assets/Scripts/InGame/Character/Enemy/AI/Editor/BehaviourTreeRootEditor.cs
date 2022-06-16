@@ -32,7 +32,7 @@ public class BehaviourTreeRootEditor : Editor
         if (m_CachedRootActionEditor != null)
         {
             // Delegate Handles drawing to root action
-            m_CachedRootActionEditor.DrawLocalHandles();
+            m_CachedRootActionEditor.DrawLocalHandlesWithLabel();
         }
     }
 }

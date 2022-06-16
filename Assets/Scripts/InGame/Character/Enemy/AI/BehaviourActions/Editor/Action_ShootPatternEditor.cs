@@ -10,7 +10,7 @@ public class Action_ShootPatternEditor : BehaviourActionEditor
 {
     private void OnSceneGUI()
     {
-        DrawLocalHandles();
+        DrawLocalHandlesWithLabel();
     }
 
     public override void DrawHandles(Vector2 startPosition)
