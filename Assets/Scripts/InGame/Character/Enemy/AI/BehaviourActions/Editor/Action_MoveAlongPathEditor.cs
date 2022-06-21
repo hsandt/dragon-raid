@@ -33,7 +33,7 @@ public class Action_MoveAlongPathEditor : BehaviourActionEditor
         {
             float estimatedArcLength = script.path2DComponent.Path.EvaluateLength(100);
             EditorGUILayout.LabelField("Arc length", estimatedArcLength.ToString("0.00"));
-            float estimatedTravelDuration = estimatedArcLength / script.Speed;
+            float estimatedTravelDuration = estimatedArcLength / script.AnchorSpeed;
             EditorGUILayout.LabelField("Approximate duration", estimatedTravelDuration.ToString("0.00"));
         }
     }

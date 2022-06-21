@@ -30,7 +30,6 @@ public class EnemyWaveEditor : Editor
 
     /// Color used for unit spawn point debug and enemy label for squad spawn
     private readonly Color squadUnitSpawnPointColor = new Color(0.32f, 0.66f, 0.78f);
-    
 
     /// Color used for the rectangle that represents the camera at time of event trigger
     private readonly Color triggerCameraColor = new Color(0.78f, 0.66f, 0.23f);
