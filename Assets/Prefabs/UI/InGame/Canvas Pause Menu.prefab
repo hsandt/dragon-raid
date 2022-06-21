@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8177694308677046632}
   - {fileID: 8177694308018691452}
@@ -104,6 +105,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1357399986024872918}
   - {fileID: 9025892668435287953}
@@ -173,6 +175,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8177694307210404569}
   m_Father: {fileID: 0}
@@ -288,6 +291,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8177694307210404569}
   m_RootOrder: 0
@@ -495,11 +499,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f07d4730ba750fd6858c4fee4acae78, type: 3}
---- !u!224 &1357399986024872918 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 882538585222133722, guid: 4f07d4730ba750fd6858c4fee4acae78, type: 3}
-  m_PrefabInstance: {fileID: 2227342494630956044}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1357399986024872913 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 882538585222133725, guid: 4f07d4730ba750fd6858c4fee4acae78, type: 3}
@@ -511,6 +510,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1357399986024872918 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 882538585222133722, guid: 4f07d4730ba750fd6858c4fee4acae78, type: 3}
+  m_PrefabInstance: {fileID: 2227342494630956044}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2354809680112905001
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,3 +47,5 @@ MonoBehaviour:
   levelDataList: {fileID: 11400000, guid: 2cd249f618b67658c832c28ec89520ec, type: 2}
   inGameFlowParameters: {fileID: 11400000, guid: 2057703d19f1ad879a39949296e50ad7, type: 2}
   healthSharedParameters: {fileID: 11400000, guid: 2db97219df0cbbb8a885513e025e7cdf, type: 2}
+  m_CanvasPauseMenu: {fileID: 0}
+  m_CanvasLevel: {fileID: 0}

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootDirectionMode: 0
   angle: 0
+  bulletSpeed: 6
 --- !u!1 &1322097124661623807
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdFire: 0
   fireOnce: 0
-  fireDirections: []
+  bulletVelocities: []
 --- !u!114 &5608194585961821552
 MonoBehaviour:
   m_ObjectHideFlags: 0

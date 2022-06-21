@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,6 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 782a65a590311ba5ab663f4e9da21e7f, type: 3}
   m_PointAction: {fileID: -6744377862716187297, guid: 782a65a590311ba5ab663f4e9da21e7f, type: 3}
   m_MoveAction: {fileID: 250637261958028534, guid: 782a65a590311ba5ab663f4e9da21e7f, type: 3}

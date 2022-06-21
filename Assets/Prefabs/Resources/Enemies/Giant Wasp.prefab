@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path2DComponent: {fileID: 8142269489432822194}
-  speed: 4
+  anchorSpeed: 4
+  localOffsetFromAnchor: {x: 0, y: 0}
 --- !u!114 &8142269489432822194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path2DComponent: {fileID: 4698221568547279185}
-  speed: 4
+  anchorSpeed: 4
+  localOffsetFromAnchor: {x: 0, y: 0}
 --- !u!114 &4698221568547279185
 MonoBehaviour:
   m_ObjectHideFlags: 0

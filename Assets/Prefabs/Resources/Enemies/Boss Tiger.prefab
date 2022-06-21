@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdFire: 0
   fireOnce: 0
-  fireDirections: []
+  bulletVelocities: []
 --- !u!114 &1783589149654183042
 MonoBehaviour:
   m_ObjectHideFlags: 0
