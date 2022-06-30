@@ -15,7 +15,7 @@ MonoBehaviour:
   appName: Dragon Raid
   majorVersion: 0
   minorVersion: 2
-  stageVersion: 0
-  workInProgress: 0
+  stageVersion: 1
+  workInProgress: 1
   devBuildStrippingLevel: 2
   releaseBuildStrippingLevel: 3
