@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f6edf7219569c4ca5c598f8a320068, type: 3}
+  m_Name: Managers
+  m_EditorClassIdentifier: 
+  _root: {fileID: 0}
+  _parent: {fileID: 0}
+  _parentID:
+    _serializedGuid: 9da3c07f512fdf48999b76b9f872e60d
+  _subcollections: []
+  _subcollectionIDs: []
+  _collectionName: Managers
+  _id:
+    _serializedGuid: 611d55e43fe68342a6c9fb594860db49
+  _icon: {fileID: 0}
+  _rules:
+    _rules: []
+  _items:
+    _hashSetList:
+    - eca066e1b9095456b8e5b0eb1951b525
+    - af7e07465e0b78f1fa976f2852c7f353
+    - 92c5aa9730ed448909632cb9c64c3607
+    - a74b039e0c1f30b13b8180d6ec248004
+    - 1b54c39f890e24e61bb4b3f8d1e748f6
+    - affa5de88d142e6c0b1089b6a0b69e87
+    - 5582f483c5b843bccaca490db9b7dd5f
+    - d1e2e62754032b756800e347209f9a75
+    - 64f4af4689a931fea8a578138204e4fe
+    - 87b75c9807963175591c4b8a83eeecf7
+    - 5268869e339a4e0f09006eeba953b158
+    - be4abe21386579954b6f7d482ed340f2
+    - 0d11d0c71abefd0019196cbb7d028f4b
+    - 82a62a64c76b3338dae8faca64635d9f
+    - 4a8e7ab26c13578be95f926f1c24442a
+    - 58a3e4f3a920ef0dabfa3cdae5ce2391
+    - cfad194b44db25e4cac4ce2c6fcffbb0
+    - 925b4863a83a861899c3705c4271729c
+  _itemDisplaySize: 100
+  _viewStyle: 0
+  _useCollectionViewSettings: 0
+  _folders:
+  - _matchOption: 0
+    _folderGuid: 6e5fae159f42ff1379d6786e6700ea8e
+    _doInclude: 1
+  references:
+    version: 2
+    RefIds: []
