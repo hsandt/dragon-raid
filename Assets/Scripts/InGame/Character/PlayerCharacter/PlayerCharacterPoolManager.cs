@@ -6,7 +6,7 @@ using UnityConstants;
 using CommonsHelper;
 using CommonsPattern;
 
-/// Pool manager for Player Character (Dragon)
+/// Pool manager for Player Character
 /// The only reason to use a pool despite having a single character of this type,
 /// is to have an API ready to spawn and despawn without ever destroying the object
 /// SEO: after LocatorManager

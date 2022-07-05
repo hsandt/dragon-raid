@@ -10,16 +10,16 @@ public class SessionManager : SingletonManager<SessionManager>
 
     /// Current play mode (None in title menu)
     private SessionPlayMode m_CurrentPlayMode;
-    
+
     /// Index of save slot for this saved play mode
     private int m_SaveSlotIndex;
-    
+
     /* State: Save data */
-    
+
     /// Index of the level to load when the player loads this Save
     /// As soon as the player finishes a level, this is incremented in the current save
     private int m_NextLevelIndex;
-    
+
 
     protected override void Init()
     {
@@ -64,7 +64,7 @@ public class SessionManager : SingletonManager<SessionManager>
         m_SaveSlotIndex = saveSlotIndex;
         m_NextLevelIndex = enteredLevelIndex;
     }
-    
+
     public void EnterLevelSelectMode()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -74,7 +74,7 @@ public class SessionManager : SingletonManager<SessionManager>
         #endif
         m_CurrentPlayMode = SessionPlayMode.LevelSelect;
     }
-    
+
     public void ExitCurrentPlayMode()
     {
         m_CurrentPlayMode = SessionPlayMode.None;
@@ -88,7 +88,7 @@ public class SessionManager : SingletonManager<SessionManager>
             // Set next level index (alternatively, increment it, assuming it was correct)
             // If we finished the last level, this index will be just after the last once, meaning "finished game"
             m_NextLevelIndex = finishedLevelIndex + 1;
-            
+
             // Auto-save unless using No Save slot (index: -1)
             if (m_SaveSlotIndex >= 0)
             {
@@ -119,7 +119,7 @@ public class SessionManager : SingletonManager<SessionManager>
             {
                 nextLevelIndex = m_NextLevelIndex
             };
-            
+
             WriteJsonToSaveFile(SavedPlayMode.Arcade, m_SaveSlotIndex, playerSaveArcade);
         }
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -144,7 +144,7 @@ public class SessionManager : SingletonManager<SessionManager>
 
         return null;
     }
-    
+
     // T should be PlayerSaveStory or PlayerSaveArcade
     private static void WriteJsonToSaveFile<T>(SavedPlayMode savedPlayMode, int saveSlotIndex, T playerSave)
     {
@@ -165,7 +165,7 @@ public class SessionManager : SingletonManager<SessionManager>
                 return;
             }
         }
-        
+
         try
         {
             // Write new file, or overwrite existing file at this path
@@ -180,7 +180,7 @@ public class SessionManager : SingletonManager<SessionManager>
                 "due to exception:\n{1}", saveFilePath, e);
             return;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogFormat("[SessionManager] Saved progress in saveFilePath: {0} with Json: {1}", saveFilePath,
             playerSaveStoryJson);
@@ -193,7 +193,7 @@ public class SessionManager : SingletonManager<SessionManager>
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(saveSlotIndex >= 0, "[SessionManager] DeleteSaveFile: save slot index should be >= 0, got {0}", saveSlotIndex);
         #endif
-        
+
         string saveFilePath = GetSaveFilePath(savedPlayMode, saveSlotIndex);
 
         if (File.Exists(saveFilePath))
@@ -215,7 +215,7 @@ public class SessionManager : SingletonManager<SessionManager>
                             "because it doesn't exist.", saveFilePath);
             return;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.LogFormat("[SessionManager] Deleted save file: {0}", saveFilePath);
         #endif
@@ -223,7 +223,7 @@ public class SessionManager : SingletonManager<SessionManager>
 
     private static string GetSaveFilePath(SavedPlayMode savedPlayMode, int saveSlotIndex)
     {
-        // Ex: /home/USERNAME/.config/unity3d/komehara/Dragon Raid/saves/Arcade_01.save
+        // Ex: /home/USERNAME/.config/unity3d/My Company/My Shmup/saves/Arcade_01.save
         return Path.Combine(Application.persistentDataPath, "saves", $"{savedPlayMode}_{saveSlotIndex:00}.save");
     }
 }
