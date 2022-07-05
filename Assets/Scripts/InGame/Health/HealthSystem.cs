@@ -31,6 +31,8 @@ public class HealthSystem : ClearableBehaviour
     /// Optional death event effect
     /// A given type of entity always has the same death event effect, set once on EventTrigger_EntityDeath.Awake,
     /// this is not reset on Clear so it can still be valid after despawn and respawn.
+    /// Note that it is similar to m_DeathHandlers, but such effects are generally stored outside this game object,
+    /// as part of enemy-wave-specific events.
     private IEventEffectOnDamage m_OnDeathEventEffect;
 
 
@@ -44,7 +46,8 @@ public class HealthSystem : ClearableBehaviour
     /* Sibling components (optional) */
 
     private CharacterMaster m_CharacterMaster;
-    private PreCookSystem m_PreCookSystem;
+    private IDamageHandler[] m_DamageHandlers;
+    private IDeathHandler[] m_DeathHandlers;
 
 
     /* State */
@@ -74,7 +77,8 @@ public class HealthSystem : ClearableBehaviour
         m_Brighten = this.GetComponentOrFail<Brighten>();
 
         m_CharacterMaster = GetComponent<CharacterMaster>();
-        m_PreCookSystem = GetComponent<PreCookSystem>();
+        m_DamageHandlers = GetComponents<IDamageHandler>();
+        m_DeathHandlers = GetComponents<IDeathHandler>();
 
         m_InvincibilityTimer = new Timer(callback: m_Brighten.ResetBrightness);
 
@@ -131,14 +135,12 @@ public class HealthSystem : ClearableBehaviour
 
         if (damageInfo.damage > 0)
         {
-            // If this entity is cookable and damaged by fire, advance cook progress to prepare spawning cooked enemy
-            // (hence *pre*-cook system).
-            // We must do this before death check as death must spawn cooked enemy based on the latest cook progress
-            if (m_PreCookSystem != null && damageInfo.elementType == ElementType.Fire)
+            // Apply damage handler
+            // Do this before death check as Die may rely on some changes done by OnDamage,
+            // esp. with IDeathHandler.OnDeath calls
+            foreach (IDamageHandler damageHandler in m_DamageHandlers)
             {
-                // Note that this is the unclamped value
-                // This way, an overkill attack on an enemy with low HP will still cook a lot!
-                m_PreCookSystem.AdvanceCookProgress(damageInfo.damage);
+                damageHandler.OnDamage(damageInfo);
             }
 
             m_Health.value -= damageInfo.damage;
@@ -270,10 +272,9 @@ public class HealthSystem : ClearableBehaviour
         // Always Release after other signals as those may need members cleared in Release
         m_PooledObject.Release();
 
-        // If cookable and cooked enough, spawn cooked enemy with randomness
-        if (m_PreCookSystem != null)
+        foreach (IDeathHandler deathHandler in m_DeathHandlers)
         {
-            m_PreCookSystem.RandomSpawnCookedEnemyForCurrentProgress();
+            deathHandler.OnDeath(lastDamageInfo);
         }
     }
 
