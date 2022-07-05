@@ -7,7 +7,7 @@ using CommonsHelper;
 using CommonsPattern;
 
 /// System for Health data component: handles any changes
-public class HealthSystem : ClearableBehaviour
+public class HealthSystem : ClearableBehaviour, IProjectileImpactHandler
 {
     [Header("Parameters data")]
 
@@ -329,5 +329,13 @@ public class HealthSystem : ClearableBehaviour
     public void RegisterOnDeathEventEffect(IEventEffectOnDamage eventEffectOnDamage)
     {
         m_OnDeathEventEffect = eventEffectOnDamage;
+    }
+
+
+    /* IProjectileImpactHandler */
+
+    public bool OnProjectileImpact(DamageInfo damageInfo)
+    {
+        return TryTakeOneShotDamage(damageInfo);
     }
 }

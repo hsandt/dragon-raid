@@ -69,17 +69,19 @@ public class Projectile : MasterBehaviour, IPooledObject
         if (IsInUse() && other.gameObject.activeSelf)
         {
             // All destructible should have a rigidbody, even if they are not moving (static rigidbody).
-            // This is to allow projectile to find the parent owning the HealthSystem.
+            // This is to allow us to find the target parent owning the IProjectileImpactHandler (often HealthSystem)
+            // and Projectile component, if any.
             Rigidbody2D targetRigidbody = other.attachedRigidbody;
             if (targetRigidbody != null)
             {
-                if (targetRigidbody.GetComponent<HealthSystem>() is {} targetHealthSystem && targetHealthSystem != null)
+                if (targetRigidbody.GetComponent<IProjectileImpactHandler>() is {} targetImpactHandler)
                 {
-                    if (targetRigidbody.GetComponent<Projectile>() is { } targetProjectile && targetProjectile != null)
+                    if (targetRigidbody.GetComponent<Projectile>() is {} targetProjectile && targetProjectile != null)
                     {
                         if (m_HealthSystem != null)
                         {
-                            // Projectile with health is hitting another projectile with health:
+                            // Projectile with health is hitting another projectile that receives projectile impacts
+                            // (generally tangible):
                             // resolve dual collision at once by clearing both projectiles
                             // (we could also just call ReleaseWithImpactFeedback and let the symmetrical
                             // OnTriggerEnter2D do the same on the other side this frame)
@@ -95,24 +97,24 @@ public class Projectile : MasterBehaviour, IPooledObject
                         }
                         else
                         {
-                            // Projectile without health is hitting projectile with health (generally tangible):
+                            // Projectile without health is hitting projectile that receives projectile impacts
+                            // (generally tangible):
                             // apply normal impact
-                            Impact(targetHealthSystem);
+                            Impact(targetImpactHandler);
                         }
                     }
                     else
                     {
-                        // Projectile is hitting a non-projectile with health: apply normal Impact
-                        Impact(targetHealthSystem);
+                        // Projectile is hitting a non-projectile that receives projectile impacts
+                        // (generally an enemy):
+                        // apply normal Impact
+                        Impact(targetImpactHandler);
                     }
-                }
-                else if (targetRigidbody.GetComponent<CookedEnemy>() is {} targetCookedEnemy && targetCookedEnemy != null)
-                {
-                    Impact(targetCookedEnemy);
                 }
                 else if (targetRigidbody.gameObject.IsInLayerMask(Layers.SolidEnvironmentMask | Layers.DamagingEnvironmentMask))
                 {
-                    // We cannot damage solid/damaging environment that has no health system, but destroy projectile
+                    // We cannot damage solid/damaging environment that has no projectile impact handler,
+                    // so just destroy projectile
                     ReleaseWithImpactFeedback();
                 }
             }
@@ -204,8 +206,8 @@ public class Projectile : MasterBehaviour, IPooledObject
         }
     }
 
-    /// Impact on target health: damage it and self-destruct
-    private void Impact(HealthSystem targetHealthSystem)
+    /// Impact on target Projectile Impact Handler: damage it and self-destruct
+    private void Impact(IProjectileImpactHandler projectileImpactHandler)
     {
         // Define damage info
         DamageInfo damageInfo = new DamageInfo
@@ -216,7 +218,8 @@ public class Projectile : MasterBehaviour, IPooledObject
             // Ignore hit direction for projectiles, we could use
             // velocity but we'd need to consider relative velocity to screen/target
         };
-        bool didDamage = targetHealthSystem.TryTakeOneShotDamage(damageInfo);
+
+        bool didDamage = projectileImpactHandler.OnProjectileImpact(damageInfo);
 
         if (didDamage)
         {
@@ -226,23 +229,10 @@ public class Projectile : MasterBehaviour, IPooledObject
             // (true invincibility), but in this case we'll have to distinguish the types of invincibility
             // (with some enum member) like Smash.
 
-            // Note that we don't call Die, so side effects like On Death Event won't apply.
+            // Note that we don't call Die on this projectile's HealthSystem (if any),
+            // so side effects like On Death Event (if any) won't apply.
             // This is wanted, as Impact should just remove the projectile without further effects like spawning
             // sub-projectiles.
-            ReleaseWithImpactFeedback();
-        }
-    }
-
-    /// Impact on target Cooked Enemy: damage it and self-destruct
-    private void Impact(CookedEnemy CookedEnemy)
-    {
-        // Same as HealthSystem, so we could merge both Impact methods but we'll need to make
-        // TryTakeOneShotDamage a common interface method
-        // FOr now, we keep it separate to allow customizing visual feedback if needed.
-        bool didDamage = CookedEnemy.TryTakeOneShotDamage(projectileParameters.damage, projectileParameters.elementType);
-
-        if (didDamage)
-        {
             ReleaseWithImpactFeedback();
         }
     }

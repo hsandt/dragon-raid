@@ -7,46 +7,46 @@ using CommonsPattern;
 
 /// System for CookStatus data component
 /// It contains the behaviour for an actual CookedEnemy prefab instance
-public class CookedEnemy : MonoBehaviour, IPickUpEffect
+public class CookedEnemy : MonoBehaviour, IPickUpEffect, IProjectileImpactHandler
 {
     /* Animator hashes */
-    
+
     private static readonly int cookLevelHash = Animator.StringToHash("CookLevel");
-    
-    
+
+
     [Header("Injected parameters data")]
-    
+
     [ReadOnlyField, Tooltip("Cook Parameters Data. Should be injected by spawning code.")]
     public CookParameters cookParameters;
-    
-    
+
+
     /* Sibling components */
-    
+
     private IPooledObject m_PooledObject;
     private Animator m_Animator;
     private CookStatus m_CookStatus;
 
-    
+
     /* Cached state */
 
     /// Cook level (cached from cook progress)
     private CookLevel m_CookLevel;
-    
-    
+
+
     private void Awake()
     {
         m_PooledObject = GetComponent<IPooledObject>();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(m_PooledObject != null, gameObject,
             "[CookedEnemy] No component implementing IPooledObject found on {0}", gameObject);
         #endif
-        
+
         m_Animator = this.GetComponentOrFail<Animator>();
         m_CookStatus = this.GetComponentOrFail<CookStatus>();
     }
-    
-    
+
+
     /* Own methods */
 
     /// Initialise instance parameters
@@ -56,49 +56,49 @@ public class CookedEnemy : MonoBehaviour, IPickUpEffect
     {
         // Inject dynamic parameter
         cookParameters = dyingEnemyCookParameters;
-        
+
         // Same as PreCookSystem.Setup
         m_CookStatus.maxCookProgress = cookParameters.cookLevelThresholds[cookParameters.cookLevelThresholds.Length - 1];
-        
+
         // Transfer existing progress from dying enemy, and set cook level based on it
         m_CookStatus.cookProgress = cookProgress;
         InitCookLevel();
     }
-    
+
     private bool CanBeDamaged()
     {
         return m_PooledObject.IsInUse() && InGameManager.Instance.CanAnyEntityBeDamagedOrHealed;
     }
-    
+
     /// Apply one-shot damage and return whether it worked or not
     /// It is similar to HealthSystem.TryTakeOneShotDamage, but it only tracks cook progress
-    public bool TryTakeOneShotDamage(int value, ElementType elementType)
+    public bool TryTakeOneShotDamage(DamageInfo damageInfo)
     {
         if (!CanBeDamaged())
         {
             return false;
         }
 
-        TakeDamage(value, elementType);
+        TakeDamage(damageInfo);
 
         return true;
     }
-    
+
     /// Low-level function to deal damage, check death and update observers
     /// This is private as you should always check CanBeDamaged via the Try...Damage methods
     /// It is similar to HealthSystem.TryTakeOneShotDamage, but it only tracks cook progress
-    private void TakeDamage(int value, ElementType elementType)
+    private void TakeDamage(DamageInfo damageInfo)
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(CanBeDamaged());
         #endif
-        
-        if (value > 0)
+
+        if (damageInfo.damage > 0)
         {
             // If this entity is cookable and damaged by fire, advance cook progress
-            if (elementType == ElementType.Fire)
+            if (damageInfo.elementType == ElementType.Fire)
             {
-                AdvanceCookProgress(value);
+                AdvanceCookProgress(damageInfo.damage);
                 RefreshCookLevel();
             }
         }
@@ -131,7 +131,7 @@ public class CookedEnemy : MonoBehaviour, IPickUpEffect
         // Last threshold reached
         return CookLevel.Carbonized;
     }
-    
+
     /// Set cook level from current progress, no matter what
     private void InitCookLevel()
     {
@@ -152,12 +152,20 @@ public class CookedEnemy : MonoBehaviour, IPickUpEffect
     private void SetCookLevel(CookLevel cookLevel)
     {
         m_CookLevel = cookLevel;
-        
+
         // Update sprite
         m_Animator.SetInteger(cookLevelHash, (int) cookLevel);
     }
-    
-    
+
+
+    /* IProjectileImpactHandler */
+
+    public bool OnProjectileImpact(DamageInfo damageInfo)
+    {
+        return TryTakeOneShotDamage(damageInfo);
+    }
+
+
     /* IPickUpEffect */
 
     public void OnPick(PickUpCollector pickUpCollector)
