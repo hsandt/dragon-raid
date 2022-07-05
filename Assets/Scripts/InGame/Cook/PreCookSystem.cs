@@ -58,7 +58,7 @@ public class PreCookSystem : ClearableBehaviour, IDamageHandler, IDeathHandler
 
     /* IDeathHandler */
 
-    public void OnDeath(DamageInfo damageInfo)
+    public void OnDeath(DamageInfo lastDamageInfo)
     {
         // Spawn Cooked Enemy pickup based on current cook progress, or do nothing based on random result
         if (Random.value <= cookParameters.cookedEnemySpawnProbability)

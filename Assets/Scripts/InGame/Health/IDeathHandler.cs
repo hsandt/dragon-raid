@@ -1,4 +1,4 @@
 public interface IDeathHandler
 {
-    void OnDeath(DamageInfo damageInfo);
+    void OnDeath(DamageInfo lastDamageInfo);
 }

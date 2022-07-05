@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// Event effect: Spawn Projectiles
+/// EventEffect_SpawnProjectilesBase only exists to support both this and
+/// EventEffect_SpawnProjectilesOnDirectionalDamage, so if the latter is removed in favor of
+/// SpawnProjectilesOnDeathWithDirectionalDamage, we can flatten the hierarchy by merging this class and its base class.
 [AddComponentMenu("Game/Event Effect: Spawn Projectiles")]
 public class EventEffect_SpawnProjectiles : EventEffect_SpawnProjectilesBase, IEventEffect
 {

@@ -5,28 +5,28 @@ using UnityEngine;
 using CommonsHelper;
 
 /// Event effect: Spawn Projectiles on Directional Damage caused by non-neutral entity (may be triggered on Death)
-/// Consider using the new SpawnProjectilesOnDeathWithDirectionalDamage instead if you want to give a consistent
-/// reaction to a type of entity, rather than a one-time scripted event injected into another entity.
-/// We may remove this component at some point in development.
-[AddComponentMenu("Game/Event Effect: Spawn Projectiles on Directional Damage")]
-public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_SpawnProjectilesBase, IEventEffectOnDamage
+/// Currently copying code from EventEffect_SpawnProjectilesOnDirectionalDamage, latter may be removed at some point.
+public class SpawnProjectilesOnDeathWithDirectionalDamage : MonoBehaviour, IDeathHandler
 {
     [Header("Parameters")]
 
+    [SerializeField, Tooltip("Serialized Parameters for projectiles to spawn")]
+    protected ProjectileSpawnSerializedParameters[] spawnSerializedParameters;
+
     [Tooltip("Damage range input for linear mapping to projectile spawn speed scaling (clamped beyond this range)")]
     [SerializeField, MinMaxSlider(1f, 10f)]
-    private Vector2Int damageInputRange = new Vector2Int(1, 2);
+    private Vector2Int damageInputRange = new(1, 2);
 
     [Tooltip("Range of projectile spawn speed the damage range input maps to")]
     [SerializeField, MinMaxSlider(0f, 20f)]
-    private Vector2 spawnSpeedRange = new Vector2(4f, 8f);
+    private Vector2 spawnSpeedRange = new(4f, 8f);
 
 
-    /* IEventEffectOnDamage */
+    /* IDamageHandler */
 
-    public void Trigger(DamageInfo damageInfo)
+    public void OnDeath(DamageInfo lastDamageInfo)
     {
-        if (damageInfo.attackerFaction == Faction.None || damageInfo.hitDirection == HorizontalDirection.None)
+        if (lastDamageInfo.attackerFaction == Faction.None || lastDamageInfo.hitDirection == HorizontalDirection.None)
         {
             // Damage is done by neutral entity or not directional, do nothing
             return;
@@ -39,7 +39,7 @@ public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_Spawn
 
             // Mirror spawn relative position and velocity if hit direction is Left, as we always define
             // them for a Right hit.
-            if (damageInfo.hitDirection == HorizontalDirection.Left)
+            if (lastDamageInfo.hitDirection == HorizontalDirection.Left)
             {
                 spawnRelativePosition.x *= -1f;
                 spawnVelocity.x *= -1f;
@@ -49,7 +49,7 @@ public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_Spawn
             // Increase velocity from spawnSpeedRange min to max when damage increases from damageInputRange min to max
             // (clamped)
             float spawnSpeed = MathUtil.Remap(damageInputRange.x, damageInputRange.y,
-                spawnSpeedRange.x, spawnSpeedRange.y, damageInfo.damage);
+                spawnSpeedRange.x, spawnSpeedRange.y, lastDamageInfo.damage);
             spawnVelocity *= spawnSpeed;
 
             ProjectilePoolManager.Instance.SpawnProjectile(
@@ -59,7 +59,7 @@ public class EventEffect_SpawnProjectilesOnDirectionalDamage : EventEffect_Spawn
                 // Associate spawned projectiles to same faction as entity responsible for it
                 // (e.g. if Player Character broke a big rock in small rocks, the small rocks are considered
                 // a Player attack)
-                damageInfo.attackerFaction);
+                lastDamageInfo.attackerFaction);
         }
     }
 }
