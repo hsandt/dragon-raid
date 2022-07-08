@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-using UnityConstants;
+// using UnityConstants;
 using CommonsHelper;
 
 public class LevelPreview : VisualElement
@@ -119,20 +119,20 @@ public class LevelPreview : VisualElement
         // be outdated (e.g. using the wrong transform). This should be a rare case, so just reopen the window,
         // or make sure that the previously tagged object was destroyed, to force cache reference refresh.
 
-        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition)?.transform;
+        m_CameraStartTransform = GameObject.FindWithTag("CameraStartPosition")?.transform;
         if (m_CameraStartTransform == null)
         {
             Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");
         }
 
-        m_LevelData = GameObject.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
+        m_LevelData = GameObject.FindWithTag("LevelIdentifier")?.GetComponent<LevelIdentifier>()?.levelData;
         if (m_LevelData == null)
         {
             Debug.LogError("[LevelEditor] Could not find Game Object tagged LevelIdentifier, " +
                            "or LevelIdentifier component with Level Data is missing on it");
         }
 
-        m_SpatialEventsParent = GameObject.FindWithTag(Tags.SpatialEvents);
+        m_SpatialEventsParent = GameObject.FindWithTag("SpatialEvents");
         if (m_SpatialEventsParent == null)
         {
             Debug.LogError("[LevelEditor] Could not find Game Object tagged SpatialEvents");
