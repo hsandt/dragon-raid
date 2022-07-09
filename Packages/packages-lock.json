@@ -24,6 +24,12 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.longnguyenhuu.shmup-framework": {
+      "version": "file:Shmup Framework",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "7.0.3",
       "depth": 0,

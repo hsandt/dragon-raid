@@ -1,4 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Editor/LevelEditor/EnemyWaveButton.uss?fileID=7433441132597879392&amp;guid=103f2ac5becc438db9d973a03038f012&amp;type=3#EnemyWaveButton" />
-    <ui:Button text="Wave" display-tooltip-when-elided="true" name="Button" />
-</ui:UXML>

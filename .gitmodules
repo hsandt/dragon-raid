@@ -10,3 +10,6 @@
 [submodule "Packages/CommonsPattern"]
 	path = Packages/CommonsPattern
 	url = https://bitbucket.org/hsandt/unity-commons-pattern.git
+[submodule "Packages/Shmup Framework"]
+	path = Packages/Shmup Framework
+	url = https://bitbucket.org/hsandt/shmup-framework.git
