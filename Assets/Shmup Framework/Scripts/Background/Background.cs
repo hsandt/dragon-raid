@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CommonsHelper;
-using UnityConstants;
 
 /// Handles background parallax scrolling
 public class Background : MonoBehaviour
 {
+    [Header("Scene references")]
+
     [Tooltip("Sprite renderer of sky, useful to determine screen size and place parallax layer duplicates")]
     public SpriteRenderer skySpriteRenderer;
 
@@ -53,8 +54,14 @@ public class Background : MonoBehaviour
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(midgroundLayer != null, this, "[Background] No Midground Layer set on {0}.", this);
-        Debug.Assert(midgroundLayer.gameObject.layer == Layers.EnvironmentProp,
-            "[Background] Midground Layer is not on EnvironmentProp layer (at least its children should be).", this);
+        // We only check that midground layer is on correct layer to be light, but in fact its children should be
+        // on that layer too
+        Debug.AssertFormat(midgroundLayer.gameObject.layer == ConstantsManager.Layers.EnvironmentProp, midgroundLayer,
+            "[Background] Midground Layer {0} is expected to be on layer {1} (at least its children should be), " +
+            "but it is on layer {2}.",
+            midgroundLayer,
+            LayerMask.LayerToName(ConstantsManager.Layers.EnvironmentProp),
+            LayerMask.LayerToName(midgroundLayer.gameObject.layer));
         #endif
 
         // Precompute initial position for duplicate layer:

@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using CommonsDebug;
 using UnityEngine;
 
-using UnityConstants;
+using CommonsDebug;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -15,7 +14,7 @@ public class EnemyPoolManager : MultiPoolManager<EnemyCharacterMaster, EnemyPool
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.EnemyPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.EnemyPool)?.transform;
         }
 
         base.Init();

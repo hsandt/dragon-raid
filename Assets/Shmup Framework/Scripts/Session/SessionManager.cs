@@ -4,6 +4,8 @@ using UnityEngine;
 
 using CommonsPattern;
 
+/// Session Manager
+/// Instantiated via PersistentManagersGenerator
 public class SessionManager : SingletonManager<SessionManager>
 {
     /* State: Save metadata */

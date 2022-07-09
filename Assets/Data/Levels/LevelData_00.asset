@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelData_00
   m_EditorClassIdentifier: 
   levelIndex: 0
-  sceneEnum: 1
+  sceneIndex: 1
   bgm: {fileID: 8300000, guid: 7b1f8c3d4c4546aaa9d8875c176e15c3, type: 3}
   baseScrollingSpeed: 3
   maxScrollingProgress: 50

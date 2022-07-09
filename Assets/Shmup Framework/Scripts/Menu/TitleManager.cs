@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CommonsHelper;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 /// Title Manager

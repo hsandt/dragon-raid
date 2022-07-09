@@ -5,7 +5,6 @@ using UnityEngine;
 
 using CommonsHelper;
 using CommonsPattern;
-using UnityConstants;
 
 /// Spatial Event Manager
 /// System for Spatial Event Trigger x Event Effect
@@ -13,27 +12,27 @@ using UnityConstants;
 public class SpatialEventManager : SingletonManager<SpatialEventManager>
 {
     /* Cached scene references */
-    
+
     /// List of pairs (spatial event trigger, event effect) found in the scene
     /// This includes all enemy wave spatial events.
     private readonly List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_AllSpatialEventPairs = new List<Pair<EventTrigger_SpatialProgress, IEventEffect>>();
 
-    
+
     /* State */
 
     /// List of pairs (spatial event trigger, event effect) found in the scene
     /// and still unprocessed (not triggered yet). This includes remaining enemy wave spatial events.
     private List<Pair<EventTrigger_SpatialProgress, IEventEffect>> m_RemainingSpatialEventPairs;
 
-    
+
     protected override void Init()
     {
         // Find all Spatial Event Triggers in the scene, then find any associated effect
         // We dropped the ECS-tag-component approach and prefer a classic interface approach with IEventEffect,
         // so we can move handling code to each of the event effect classes
-        GameObject spatialEventsParent = LocatorManager.Instance.FindWithTag(Tags.SpatialEvents);
+        GameObject spatialEventsParent = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.SpatialEvents);
         var allSpatialEventTriggers = spatialEventsParent.GetComponentsInChildren<EventTrigger_SpatialProgress>();
-        
+
         foreach (var spatialEventTrigger in allSpatialEventTriggers)
         {
             var eventEffect = spatialEventTrigger.GetComponent<IEventEffect>();
@@ -64,9 +63,9 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
     {
         // Spatial progress has changed, check for any spatial event trigger condition being fulfilled
         // (we don't do this in FixedUpdate so we do no work while scrolling is paused)
-        
+
         // Do a reverse iteration so we can remove event pairs by index safely
-        
+
         // OPTIMIZATION: when we have many events (esp. waves), this will be slow at the beginning
         // where we have not removed many event pairs (O(N) for N event pairs)
         // In this case, it's better to enforce convention on level design that all event objects
@@ -106,7 +105,7 @@ public class SpatialEventManager : SingletonManager<SpatialEventManager>
                         eventEffect.Trigger();
                     }
                 }
-                
+
                 // Either we triggered the event effect, or the required spatial progress was less than
                 // the old progress, which means we were already past the event yet it wasn't removed (only possible
                 // when using CheatAdvanceScrolling). In both cases, remove the event to avoid processing it again

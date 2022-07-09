@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsDebug;
 using CommonsHelper;
 using CommonsPattern;
@@ -111,7 +110,7 @@ public class Projectile : MasterBehaviour, IPooledObject
                         Impact(targetImpactHandler);
                     }
                 }
-                else if (targetRigidbody.gameObject.IsInLayerMask(Layers.SolidEnvironmentMask | Layers.DamagingEnvironmentMask))
+                else if (targetRigidbody.gameObject.IsInLayerMask(ConstantsManager.Layers.SolidEnvironmentMask | ConstantsManager.Layers.DamagingEnvironmentMask))
                 {
                     // We cannot damage solid/damaging environment that has no projectile impact handler,
                     // so just destroy projectile
@@ -155,18 +154,18 @@ public class Projectile : MasterBehaviour, IPooledObject
         {
             if (attackerFaction == Faction.Player)
             {
-                layer = projectileParameters.isTangible ? Layers.PlayerProjectileTangible : Layers.PlayerProjectileIntangible;
+                layer = projectileParameters.isTangible ? ConstantsManager.Layers.PlayerProjectileTangible : ConstantsManager.Layers.PlayerProjectileIntangible;
             }
             else  // attackerFaction == Faction.Enemy
             {
-                layer = projectileParameters.isTangible ? Layers.EnemyProjectileTangible : Layers.EnemyProjectileIntangible;
+                layer = projectileParameters.isTangible ? ConstantsManager.Layers.EnemyProjectileTangible : ConstantsManager.Layers.EnemyProjectileIntangible;
             }
         }
         else
         {
             DebugUtil.LogErrorFormat("[Projectile] WarpAndSetup: passed attacker faction is None, cannot set layer " +
                 "properly, default to EnemyProjectileIntangible");
-            layer = Layers.EnemyProjectileIntangible;
+            layer = ConstantsManager.Layers.EnemyProjectileIntangible;
         }
 
         gameObject.layer = layer;

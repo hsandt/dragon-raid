@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityConstants;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DevMenu : MonoBehaviour
@@ -12,7 +10,7 @@ public class DevMenu : MonoBehaviour
 
     [Tooltip("Level Text")]
     public TextMeshProUGUI m_LevelTMPWidget;
-    
+
     [Tooltip("Main Menu Button")]
     public Button buttonMainMenu;
 

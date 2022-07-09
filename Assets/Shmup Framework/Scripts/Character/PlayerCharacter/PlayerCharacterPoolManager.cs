@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -16,7 +15,7 @@ public class PlayerCharacterPoolManager : PoolManager<PlayerCharacterMaster, Pla
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerCharacterPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.PlayerCharacterPool)?.transform;
         }
 
         base.Init();

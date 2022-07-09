@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-using UnityConstants;
 using CommonsHelper;
 using CommonsPattern;
 
@@ -14,39 +13,39 @@ using CommonsPattern;
 public class MainMenuManager : SingletonManager<MainMenuManager>
 {
     [Header("Assets")]
-    
+
     [Tooltip("Level Data List asset")]
     public LevelDataList levelDataList;
 
-    
+
     [Header("Scene references")]
-    
+
     [Tooltip("Canvas Title Menu")]
     public CanvasTitleMenu canvasTitleMenu;
-    
-    
+
+
     /* Cached scene references */
-    
+
     private MainMenu m_MainMenu;
-    
-    
+
+
     /* State */
 
     private readonly Stack<Menu> m_MenuStack = new Stack<Menu>();
-    
-    
+
+
     protected override void Init()
     {
         base.Init();
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.AssertFormat(levelDataList != null, this, "[MainMenuManager] Awake: Level Data List not set on {0}", this);
         #endif
-        
+
         // Retrieve Canvas Main Menu is not set
         if (canvasTitleMenu == null)
         {
-            GameObject canvasTitleMenuObject = LocatorManager.Instance.FindWithTag(Tags.CanvasTitleMenu);
+            GameObject canvasTitleMenuObject = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.CanvasTitleMenu);
             if (canvasTitleMenuObject)
             {
                 canvasTitleMenu = canvasTitleMenuObject.GetComponentOrFail<CanvasTitleMenu>();
@@ -60,11 +59,11 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
         // because SEO guarantees this class is initialized before any sub-menu, so Awake would be too early,
         // while Start allows sub-menus to call their own Awake to setup things and assert on bad things early.
         // ! This means sub-menus should *not* rely on their Start to initialize things required before their Show.
-        
+
         // Immediately hide whole main menu  until we want to show it. Don't use Hide(), which may contain an animation
         // (sub-menus will be hidden below anything, but not Title + Version)
         canvasTitleMenu.gameObject.SetActive(false);
-                
+
         // Hide all menus and remember which was the main menu (for ShowMainMenu later)
         // Of course the whole tree is hidden for now, but it will allow us not to have to hide all irrelevant sub-menus
         // later in ShowMainMenu
@@ -83,7 +82,7 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
                 // Do not call Hide() which may contain some animation, immediately deactivate instead
                 menu.gameObject.SetActive(false);
             }
-            
+
             #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Debug.AssertFormat(m_MainMenu != null, menusParent, "No Main Menu component found under {0}", menusParent);
             #endif
@@ -103,20 +102,20 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
         canvasTitleMenu.Show();
         EnterMenu(m_MainMenu);
     }
-    
+
     public void EnterMenu(Menu menu)
     {
         if (menu == null)
         {
             throw new ArgumentNullException(nameof(menu));
         }
-        
+
         // Hide current menu, if any
         if (m_MenuStack.Count > 0)
         {
             m_MenuStack.Peek().Hide();
         }
-        
+
         // Push and show next menu
         m_MenuStack.Push(menu);
         menu.Show();
@@ -138,7 +137,7 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
             UpdateTitleVisibility(previousMenu);
         }
     }
-    
+
     private void UpdateTitleVisibility(Menu lastMenu)
     {
         if (lastMenu.ShouldShowTitle())
@@ -152,7 +151,7 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
             canvasTitleMenu.HideTitle();
         }
     }
-    
+
     /// Start level with given levelIndex
     /// This is a common functionality across Story, Arcade and Level Select so we defined the method in this class
     public void StartLevel(int levelIndex)
@@ -162,7 +161,7 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
             LevelData levelData = levelDataList.levelDataArray[levelIndex];
             if (levelData != null)
             {
-                SceneManager.LoadScene((int)levelData.sceneEnum);
+                SceneManager.LoadScene(levelData.sceneIndex);
             }
             else
             {
@@ -177,12 +176,12 @@ public class MainMenuManager : SingletonManager<MainMenuManager>
                 levelDataList.levelDataArray.Length, levelIndex);
         }
     }
-    
+
     /// PlayerInput action message callback for Cancel
     private void OnCancel(InputValue value)
     {
         Debug.AssertFormat(value.isPressed, this, "value.isPressed is false. Make sure that InputActions only detect Cancel on press.");
-        
+
         if (m_MenuStack.Count > 0)
         {
             Menu menu = m_MenuStack.Peek();

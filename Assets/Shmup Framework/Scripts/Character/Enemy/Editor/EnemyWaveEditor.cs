@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsHelper;
 
 [CustomEditor(typeof(EnemyWave))]
@@ -50,7 +49,8 @@ public class EnemyWaveEditor : Editor
         // be outdated (e.g. using the wrong transform). This should be a rare case, so just reopen the window,
         // or make sure that the previously tagged object was destroyed, to force cache reference refresh.
 
-        m_CameraStartTransform = GameObject.FindWithTag(Tags.CameraStartPosition)?.transform;
+        Constants constants = ConstantsManager.GetOrCreateConstants();
+        m_CameraStartTransform = GameObject.FindWithTag(constants.Tags.CameraStartPosition)?.transform;
         if (m_CameraStartTransform == null)
         {
             Debug.LogError("[LevelEditor] Could not find Game Object tagged CameraStartPosition");

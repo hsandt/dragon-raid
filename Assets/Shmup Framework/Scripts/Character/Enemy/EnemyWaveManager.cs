@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 /// Enemy Wave Manager
@@ -16,18 +15,18 @@ using CommonsPattern;
 public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
 {
     /* Cached scene references */
-    
+
     /// List of pairs (spatial event trigger, event effect) found in the scene
     /// This includes all enemy wave events.
     private EnemyWave[] m_AllEnemyWaves;
 
-    
+
     protected override void Init()
     {
         // Find all Enemy Wave Triggers in the scene, then find any associated effect
         // We dropped the ECS-tag-component approach and prefer a classic interface approach with IEventEffect,
         // so we can move handling code to each of the event effect classes
-        GameObject enemyWavesParent = LocatorManager.Instance.FindWithTag(Tags.EnemyWaves);
+        GameObject enemyWavesParent = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.EnemyWaves);
         if (enemyWavesParent != null)
         {
             m_AllEnemyWaves = enemyWavesParent.GetComponentsInChildren<EnemyWave>();
@@ -42,7 +41,7 @@ public class EnemyWaveManager : SingletonManager<EnemyWaveManager>
             enemyWave.Setup();
         }
     }
-    
+
     public void Clear()
     {
         foreach (EnemyWave enemyWave in m_AllEnemyWaves)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using UnityConstants;
 using CommonsDebug;
 using CommonsHelper;
 using CommonsPattern;
@@ -91,12 +90,12 @@ public class InGameManager : SingletonManager<InGameManager>
         m_InGameCamera = mainCameraNativeScript.GetComponentOrFail<InGameCamera>();
 
         // Find player character spawn position
-        m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(Tags.PlayerSpawnPosition)?.transform;
+        m_PlayerSpawnTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.PlayerSpawnPosition)?.transform;
 
-        m_LevelData = LocatorManager.Instance.FindWithTag(Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
+        m_LevelData = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.LevelIdentifier)?.GetComponent<LevelIdentifier>()?.levelData;
 
-        m_CanvasPauseMenu = LocatorManager.Instance.FindWithTag(Tags.CanvasPauseMenu)?.GetComponent<CanvasPauseMenu>();
-        m_CanvasLevel = LocatorManager.Instance.FindWithTag(Tags.CanvasLevel)?.GetComponent<CanvasLevel>();
+        m_CanvasPauseMenu = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.CanvasPauseMenu)?.GetComponent<CanvasPauseMenu>();
+        m_CanvasLevel = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.CanvasLevel)?.GetComponent<CanvasLevel>();
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(levelDataList != null, "[InGameManager] No Level Data List asset set on InGame Manager", this);
@@ -390,9 +389,9 @@ public class InGameManager : SingletonManager<InGameManager>
             LevelData nextLevelData = levelDataList.levelDataArray[nextLevelIndex];
             if (nextLevelData != null)
             {
-                // convert scene enum to scene build index and load next level scene
+                // get scene build index and load next level scene
 
-                int nextLevelSceneBuildIndex = (int) nextLevelData.sceneEnum;
+                int nextLevelSceneBuildIndex = nextLevelData.sceneIndex;
 
                 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 Debug.AssertFormat(nextLevelSceneBuildIndex == nextLevelIndex + 1, nextLevelData,
@@ -418,7 +417,7 @@ public class InGameManager : SingletonManager<InGameManager>
     public static void ExitToTitleMenu()
     {
         SessionManager.Instance.ExitCurrentPlayMode();
-        SceneManager.LoadScene((int) ScenesEnum.Title);
+        SceneManager.LoadScene(ConstantsManager.Scenes.Title);
     }
 
     public void RespawnPlayerCharacterAfterDelay()

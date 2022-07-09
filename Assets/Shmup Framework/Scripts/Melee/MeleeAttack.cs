@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using CommonsDebug;
 using UnityEngine;
 
-using UnityConstants;
+using CommonsDebug;
 using CommonsHelper;
 using CommonsPattern;
-using UnityEngine.Serialization;
 
 /// System that deals damage to an opponent's Health on melee attack hit
-/// Collision layers: EnemyMeleeHitBox collides with PlayerHurtBox, PlayerMeleeHitBox colliders with EnemyHurtBox
-/// In practice, we don't rely on those collision settings and hardcode Faction => hittable layers
+/// Collision layers: EnemyMeleeHitBox collides with PlayerHurtBox, PlayerMeleeHitBox collides with EnemyHurtBox
+/// In practice, we don't rely on those collision settings and define hitMask as parameter instead.
 public class MeleeAttack : ClearableBehaviour
 {
     // Animator hashes
@@ -39,6 +37,13 @@ public class MeleeAttack : ClearableBehaviour
 
     [Header("Parameters")]
 
+    [SerializeField, Tooltip("Layer mask for entities can be hit by this melee attack. " +
+         "Generally, melee attacks from the same faction can hit the same things, but you may customize this " +
+         "per character as needed.\n" +
+         "Ex for Player melee attack: EnemyHurtBoxMask | EnemyProjectileTangibleMask | PickUpIntangibleMask | PickUpTangibleMask\n" +
+         "Ex for Enemy melee attack: PlayerCharacterHurtBoxMask | EnemyProjectileTangibleMask")]
+    private LayerMask hitMask;
+
     [SerializeField, Tooltip("Direction of the hit. It's obvious from the animation but needs to be set as code " +
          "doesn't see what the animation looks like")]
     private HorizontalDirection hitDirection;
@@ -65,26 +70,6 @@ public class MeleeAttack : ClearableBehaviour
     /// Current state (getter)
     public MeleeAttackState State => m_State;
 
-
-    private static int GetOpponentHurtBoxLayerMask(Faction attackerFaction)
-    {
-        switch (attackerFaction)
-        {
-            case Faction.Player:
-                // Player Melee Attack can destroy both enemies and tangible enemy projectiles
-                // It can also be used to catch pick-ups with some extra range
-                return Layers.EnemyHurtBoxMask | Layers.EnemyProjectileTangibleMask |
-                       Layers.PickUpIntangibleMask | Layers.PickUpTangibleMask;
-            case Faction.Enemy:
-                // Exceptionally allow "friendly-fire" on enemy projectiles to allow combo
-                // like splitting your own rock with a Melee attack.
-                // Note that we still don't allow hurting enemy bodies, so it's no true friendly-fire.
-                return Layers.PlayerCharacterHurtBoxMask | Layers.EnemyProjectileTangibleMask;
-            default:
-                Debug.LogErrorFormat("Unknown faction {0}", attackerFaction);
-                return 0;
-        }
-    }
 
     private void Awake()
     {
@@ -159,8 +144,8 @@ public class MeleeAttack : ClearableBehaviour
     public void MeleeAttackEvent_ApplyHitBoxDamage()
     {
         Faction attackerFaction = m_CharacterMaster.GetFaction();
-        int targetLayerMask = GetOpponentHurtBoxLayerMask(attackerFaction);
-        int resultsCount = Physics2D.OverlapAreaNonAlloc(meleeHitBox.worldMin, meleeHitBox.worldMax, resultColliders, targetLayerMask);
+        int resultsCount = Physics2D.OverlapAreaNonAlloc(meleeHitBox.worldMin, meleeHitBox.worldMax,
+            resultColliders, hitMask);
 
         for (int i = 0; i < resultsCount; ++i)
         {
@@ -204,8 +189,8 @@ public class MeleeAttack : ClearableBehaviour
                 else
                 {
                     Debug.LogWarningFormat(resultCollider, "[MeleeAttack] No PickUp nor HealthSystem component found on {0}, " +
-                        "yet it contained {1} which was present on targetable layer mask {2}",
-                        targetRigidbody, resultCollider, targetLayerMask);
+                        "yet it contained {1} which was present on hit layer mask {2}",
+                        targetRigidbody, resultCollider, hitMask);
                 }
                 #endif
             }

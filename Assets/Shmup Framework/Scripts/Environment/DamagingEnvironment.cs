@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using CommonsHelper;
-using CommonsPattern;
-using UnityConstants;
-
 /// System for Rigidbody2D + trigger Collider2D on Damaging Environment objects
 /// Handles dealing damage to the player character
 public class DamagingEnvironment : MonoBehaviour
@@ -14,19 +10,23 @@ public class DamagingEnvironment : MonoBehaviour
 
     [Tooltip("Projectile Parameters Data")]
     public DamagingEnvironmentParameters damagingEnvironmentParameters;
-    
+
     [Tooltip("Damaging Environment Aesthetic Parameters Data")]
     public DamagingEnvironmentAestheticParameters damagingEnvironmentAestheticParameters;
-    
-    
+
+
     private void Awake()
     {
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        int layer = gameObject.layer;
-        Debug.AssertFormat(layer == Layers.DamagingEnvironment, this,
-            "[DamagingEnvironment] Game object expected to be on DamagingEnvironment layer, but it is on layer {0}",
+        var go = gameObject;
+        int layer = go.layer;
+        Debug.AssertFormat(layer == ConstantsManager.Layers.DamagingEnvironment, this,
+            "[DamagingEnvironment] Game object {0} is expected to be on layer {1}, " +
+            "but it is on layer {2}.",
+            go,
+            LayerMask.LayerToName(ConstantsManager.Layers.DamagingEnvironment),
             LayerMask.LayerToName(layer));
-        
+
         Debug.AssertFormat(damagingEnvironmentParameters, this,
             "[DamagingEnvironment] Damaging Environment Parameters not set on damaging environment {0}", this);
         Debug.AssertFormat(damagingEnvironmentAestheticParameters, this,

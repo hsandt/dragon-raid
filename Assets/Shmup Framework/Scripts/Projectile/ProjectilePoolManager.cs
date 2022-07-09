@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 /// Projectile Pool Manager
@@ -13,7 +12,7 @@ public class ProjectilePoolManager : MultiPoolManager<Projectile, ProjectilePool
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.ProjectilePool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.ProjectilePool)?.transform;
         }
 
         base.Init();

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityConstants;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.SceneTemplate;
@@ -37,7 +36,8 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
             // but in practice, the scene has been loaded, so GameObject.Find methods just work fine without
             // having go through `scene`.
 
-            GameObject levelIdentifierGameObject = GameObject.FindWithTag(Tags.LevelIdentifier);
+            Constants constants = ConstantsManager.GetOrCreateConstants();
+            GameObject levelIdentifierGameObject = GameObject.FindWithTag(constants.Tags.LevelIdentifier);
             // alternative:
             // GameObject levelIdentifierGameObject = rootGameObjects.Find(gameObject => gameObject.tag == Tags.LevelIdentifier);
 
@@ -125,7 +125,7 @@ public class LevelSceneTemplatePipeline : ISceneTemplatePipeline
                 newLevelData.levelIndex = newLevelIndex;
                 // There may be scenes before the first level scene in editor build settings, such as the Title scene
                 // So we need to offset the scene enum to match original scene enum (level 0) + index delta since level 0
-                newLevelData.sceneEnum = templateLevelData.sceneEnum + newLevelIndex - templateLevelData.levelIndex;
+                newLevelData.sceneIndex = templateLevelData.sceneIndex + newLevelIndex - templateLevelData.levelIndex;
 
                 // Copy asset labels from original level data, as CopyAsset, like Duplicate in editor, doesn't do it
                 AssetDatabase.SetLabels(newLevelData, AssetDatabase.GetLabels(templateLevelData));

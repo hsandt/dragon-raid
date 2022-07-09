@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CommonsHelper;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 public class ScrollingManager : SingletonManager<ScrollingManager>
@@ -52,8 +51,8 @@ public class ScrollingManager : SingletonManager<ScrollingManager>
         base.Init();
 
         m_CameraRigibody2D = Camera.main.GetComponentOrFail<Rigidbody2D>();
-        m_CameraStartTransform = LocatorManager.Instance.FindWithTag(Tags.CameraStartPosition).transform;
-        m_Background = LocatorManager.Instance.FindWithTag(Tags.Background)?.GetComponent<Background>();
+        m_CameraStartTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.CameraStartPosition).transform;
+        m_Background = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.Background)?.GetComponent<Background>();
 
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
         Debug.Assert(m_Background != null, "[ScrollingManager] Could not find active Background object > Background component", this);

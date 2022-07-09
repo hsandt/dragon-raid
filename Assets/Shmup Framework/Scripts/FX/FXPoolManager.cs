@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 /// FX Pool Manager
@@ -13,7 +12,7 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.FXPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.FXPool)?.transform;
         }
 
         base.Init();
@@ -23,23 +22,23 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
     public FX SpawnFX(string resourceName, Vector2 position)
     {
         FX fx = AcquireFreeObject(resourceName);
-        
+
         if (fx != null)
         {
             fx.Warp(position);
             return fx;
         }
-        
+
         #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        Debug.LogErrorFormat("[FXPoolManager] SpawnFX: Cannot spawn FX '{0}' due to either " + 
+        Debug.LogErrorFormat("[FXPoolManager] SpawnFX: Cannot spawn FX '{0}' due to either " +
             "missing prefab or pool starvation. In case of pool starvation, consider setting " +
             "Consider setting instantiateNewObjectOnStarvation: true on FXPoolManager, or increasing its pool size.",
             resourceName);
         #endif
-        
+
         return null;
     }
-    
+
     public void PauseAllFX()
     {
         foreach (FX fx in GetObjectsInUseInAllPools())
@@ -47,7 +46,7 @@ public class FXPoolManager : MultiPoolManager<FX, FXPoolManager>
             fx.Pause();
         }
     }
-    
+
     public void ResumeAllFX()
     {
         foreach (FX fx in GetObjectsInUseInAllPools())

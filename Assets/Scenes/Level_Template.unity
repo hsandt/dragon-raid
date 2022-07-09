@@ -2758,7 +2758,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7717336172643227369, guid: eca066e1b9095456b8e5b0eb1951b525, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7717336172643227369, guid: eca066e1b9095456b8e5b0eb1951b525, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3645,7 +3645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1266096960}
   - component: {fileID: 1266096959}
-  m_Layer: 28
+  m_Layer: 26
   m_Name: MidgroundLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4012,7 +4012,7 @@ MonoBehaviour:
     parallaxSpeedFactor: 1
   - rigidbody: {fileID: 1144383245}
     parallaxSpeedFactor: 1.5
-  midgroundLayer: {fileID: 0}
+  midgroundLayer: {fileID: 1266096960}
 --- !u!4 &1442016844
 Transform:
   m_ObjectHideFlags: 0

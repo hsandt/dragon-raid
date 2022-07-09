@@ -269,6 +269,9 @@ MonoBehaviour:
   meleeHitBox: {fileID: 5291102921139454388}
   meleeAttackParameters: {fileID: 11400000, guid: 8caa317eb98e179b7919e67468650ca2, type: 2}
   meleeAttackAestheticParameters: {fileID: 11400000, guid: eb3c52968dc7bf1cbb1a5de1fad6f470, type: 2}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 8256
   hitDirection: -1
 --- !u!114 &4283696875775711549
 MonoBehaviour:

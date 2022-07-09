@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityConstants;
 using CommonsPattern;
 
 /// PickUp Pool Manager
@@ -13,7 +12,7 @@ public class PickUpPoolManager : MultiPoolManager<PickUp, PickUpPoolManager>
     {
         if (poolTransform == null)
         {
-            poolTransform = LocatorManager.Instance.FindWithTag(Tags.PickUpPool)?.transform;
+            poolTransform = LocatorManager.Instance.FindWithTag(ConstantsManager.Tags.PickUpPool)?.transform;
         }
 
         base.Init();
