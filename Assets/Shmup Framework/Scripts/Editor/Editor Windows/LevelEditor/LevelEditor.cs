@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-// using UnityConstants;
-
 public class LevelEditor : EditorWindow
 {
     /* Queried elements */
@@ -26,7 +24,7 @@ public class LevelEditor : EditorWindow
         VisualElement root = rootVisualElement;
 
         // Import UXML (it's mostly empty)
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor/LevelEditor.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Shmup Framework/Scripts/Editor/Editor Windows/LevelEditor/LevelEditor.uxml");
         visualTree.CloneTree(root);
 
         RegisterExternalCallbacks();

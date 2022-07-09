@@ -69,7 +69,7 @@ public class LevelPreview : VisualElement
     /// Parameterless constructor with minimal static asset loading to allow UxmlFactory preview in UI Toolkit Builder
     public LevelPreview()
     {
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/LevelEditor/LevelPreview.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Shmup Framework/Scripts/Editor/Editor Windows/LevelEditor/LevelPreview.uxml");
         visualTree.CloneTree(this);
     }
 

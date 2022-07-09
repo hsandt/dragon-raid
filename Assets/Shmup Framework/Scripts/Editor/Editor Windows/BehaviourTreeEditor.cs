@@ -26,7 +26,7 @@ public class BehaviourTreeEditor : EditorWindow
         VisualElement root = rootVisualElement;
 
         // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/UI/Editor/BehaviourTreeEditor.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Shmup Framework/Scripts/Editor/Editor Windows/BehaviourTreeEditor.uxml");
         visualTree.CloneTree(root);
 
         // Query existing elements
